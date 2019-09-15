@@ -38,7 +38,6 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-<<<<<<< HEAD
 		String shuffled = "";
 		ArrayList<String> list = new ArrayList<>(input.length());
 		for (int i = 0; i < input.length(); i++) {
@@ -49,18 +48,6 @@ public class Person2 {
 			shuffled += letter;
 		}
 		return shuffled;
-=======
-		String shuffled = "";
-		ArrayList<String> list = new ArrayList<>(input.length());
-		for (int i = 0; i < input.length(); i++) {
-			list.add(input.charAt(i) + "");
-		}
-		Collections.shuffle(list);
-		for (String letter: list) {
-			shuffled += letter;
-		}
-		return shuffled;
->>>>>>> a06f885380cf2b762169d32c25c97f264a765c4c
 	}
 	/**
 	 * Return a string rep of this object
