@@ -31,12 +31,6 @@ public class Person1 {
 	 */
 	private String calc(String input) {
       //Person 1 put your implementation here
-      if (input.length() > 1) {
-          String begString = input.substring(0, 2);
-          String endString = input.substring(2, input.length());
-          return endString + begString;
-      }
-	  return input;
 	}
 	
 	/**
