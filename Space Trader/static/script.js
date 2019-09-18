@@ -18,7 +18,6 @@ let view = {
     setUpEventListeners: function () {
         let buttonDiv = document.getElementById("buttonDiv");
         buttonDiv.addEventListener("click", function (event) {
-            debugger;
             if (event.target.className === "buttonTest") {
                 handlers.displayText();
             }
