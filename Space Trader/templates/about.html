@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>Created by:</h1>
+    {% for post in posts %}
+    <h3>First Name: {{post.first_name}}</h3>
+    <p>Last Name: {{post.last_name}}</p>
+    {% endfor %}
+{% endblock %}

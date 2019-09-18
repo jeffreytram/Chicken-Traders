@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="welcome">
+    <h1>Welcome!</h1>
+    <div id="buttonDiv">
+        <button class="buttonTest">Start new game</button>
+    </div>
+</div>
+<div class="initialize hidden">
+    <h1>Settings</h1>
+    <p>Enter your name</p>
+    <input type="text">
+    <p>Select a difficulty</p>
+    <button>easy</button>
+    <button>medium</button>
+    <button>hard</button>
+    <br>
+    <input type="number">
+    <input type="number">
+    <input type="number">
+    <input type="number">
+    <br>
+    <button>confirm</button>
+</div>
+{% endblock %}
