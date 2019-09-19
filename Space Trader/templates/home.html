@@ -3,23 +3,41 @@
 <div class="welcome">
     <h1>Welcome!</h1>
     <div id="buttonDiv">
-        <button class="buttonTest">Start new game</button>
+        <button class="start">Start new game</button>
     </div>
 </div>
-<div class="initialize hidden">
+<div class="settings hidden">
     <h1>Settings</h1>
     <p>Enter your name</p>
-    <input type="text">
+    <input id = "name" type="text">
     <p>Select a difficulty</p>
     <button>easy</button>
     <button>medium</button>
     <button>hard</button>
     <br>
-    <input type="number">
-    <input type="number">
-    <input type="number">
-    <input type="number">
+    <input id = "pilotSP" type="number">
+    <input id = "fighterSP" type="number">
+    <input id = "merchantSP" type="number">
+    <input id = "engineerSP" type="number">
     <br>
-    <button>confirm</button>
+    <button id = "continueButton">Continue</button>
+</div>
+<div class="confirm hidden">
+    <h1>Confirm your settings</h1>
+    <h2>Name: </h2>
+    <p id = "displayName"></p>
+    <h3>Pilot: </h3>
+    <p id = "displayPilotSP"></p>
+    <h3>Fighter: </h3>
+    <p id = "displayFighterSP"></p>
+    <h3>Merchant: </h3>
+    <p id = "displayMerchantSP"></p>
+    <h3>Engineer: </h3>
+    <p id = "displayEngineerSP"></p>
+    <button id="backButton">Back</button>
+    <button id="confirmButton">Confirm</button>
+</div>
+<div class="startgame hidden">
+    <h1>Starting Game...</h1>
 </div>
 {% endblock %}
