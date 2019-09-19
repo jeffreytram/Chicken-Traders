@@ -1,0 +1,10 @@
+9.18 [x] JT - Added welcome and settings screen
+
+9.19 [x] JT - Added confirmation and starting game screen
+9.19 [x] JT - Added difficulty and starting credits selection
+9.19 [x] JT - Added button style and highlight
+
+
+TODO:
+[]script.js check for SP allocation overflow
+[]script.js check if all values filled out by user

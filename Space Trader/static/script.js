@@ -108,12 +108,6 @@ let view = {
             }
         });
         //SETTINGS SECTION
-        let continueButton = document.getElementById("continueButton");
-        continueButton.addEventListener("click", function () {
-            handlers.displayAndHide("confirm", "settings");
-            handlers.setSettings();
-            handlers.displaySelectedSettings();
-        });
         let diffButtonDiv = document.getElementById("difficultyDiv");
         diffButtonDiv.addEventListener("click", function (event) {
             if (event.target.id === "easy") {
@@ -126,6 +120,12 @@ let view = {
                 handlers.highlightButton(event.target);
             }
         });
+        let continueButton = document.getElementById("continueButton");
+        continueButton.addEventListener("click", function () {
+            handlers.displayAndHide("confirm", "settings");
+            handlers.setSettings();
+            handlers.displaySelectedSettings();
+        });
         //CONFIRM SECTION
         let backButton = document.getElementById("backButton");
         backButton.addEventListener("click", function () {
@@ -134,6 +134,7 @@ let view = {
         let confirmButton = document.getElementById("confirmButton");
         confirmButton.addEventListener("click", function () {
             //TODO: check for SP allocation overflow
+            //TODO: check if all values filled out by user
             handlers.displayAndHide("startgame", "confirm");
         });
     }
