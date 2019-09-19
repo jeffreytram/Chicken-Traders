@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="welcome">
-    <h1>Welcome!</h1>
+    <h1>Welcome to Space Traders!</h1>
     <div id="buttonDiv">
         <button class="start">Start new game</button>
     </div>
@@ -9,31 +9,37 @@
 <div class="settings hidden">
     <h1>Settings</h1>
     <p>Enter your name</p>
-    <input id = "name" type="text">
+    <input id="name" type="text">
     <p>Select a difficulty</p>
-    <button>easy</button>
-    <button>medium</button>
-    <button>hard</button>
+    <div id="difficultyDiv">
+        <button id="easy">easy</button>
+        <button id="medium">medium</button>
+        <button id="hard">hard</button>
+    </div>
     <br>
-    <input id = "pilotSP" type="number">
-    <input id = "fighterSP" type="number">
-    <input id = "merchantSP" type="number">
-    <input id = "engineerSP" type="number">
+    <input id="pilotSP" type="number" placeholder="Pilot">
+    <input id="fighterSP" type="number" placeholder="Fighter">
+    <input id="merchantSP" type="number" placeholder="Merchant">
+    <input id="engineerSP" type="number" placeholder="Engineer">
     <br>
-    <button id = "continueButton">Continue</button>
+    <button id="continueButton">Continue</button>
 </div>
 <div class="confirm hidden">
     <h1>Confirm your settings</h1>
     <h2>Name: </h2>
-    <p id = "displayName"></p>
+    <p id="displayName"></p>
     <h3>Pilot: </h3>
-    <p id = "displayPilotSP"></p>
+    <p id="displayPilotSP"></p>
     <h3>Fighter: </h3>
-    <p id = "displayFighterSP"></p>
+    <p id="displayFighterSP"></p>
     <h3>Merchant: </h3>
-    <p id = "displayMerchantSP"></p>
+    <p id="displayMerchantSP"></p>
     <h3>Engineer: </h3>
-    <p id = "displayEngineerSP"></p>
+    <p id="displayEngineerSP"></p>
+    <h3>Difficulty:</h3>
+    <p id="difficulty"></p>
+    <h3>Starting Credits:</h3>
+    <p id="credits"></p>
     <button id="backButton">Back</button>
     <button id="confirmButton">Confirm</button>
 </div>

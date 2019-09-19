@@ -19,3 +19,13 @@ ul{
 a:link, a:visited{
     text-decoration: none;
 }
+button{
+    border-color: rgb(30, 30, 30);
+    color: #ffffff;
+    background-color: rgb(30, 30, 30);
+    padding: 1vh 2vh;
+}
+.active, button:hover {
+    color: rgb(30, 30, 30);
+    background-color: #ffffff;
+}
