@@ -7,4 +7,10 @@
 
 TODO:
 []script.js check for SP allocation overflow
+    -if greater than 16 SP, show an error message
 []script.js check if all values filled out by user
+
+[]script.js change SP allocation to up/down arrows only
+    -prevent user from adding if SP allocated >16
+    -prevent user from subtracting <0
+    -ensure user uses all SP

@@ -20,7 +20,7 @@ let settings = {
         this.merchantSP = merchantTF.value;
         this.engineerSP = engineerTF.value;
     },
-    saveDifficulty: function() {
+    saveDifficulty: function () {
         let selectedDiff = document.getElementsByClassName("active");
         this.difficulty = selectedDiff[0].textContent;
     },
@@ -38,23 +38,23 @@ let settings = {
         merchantP.innerHTML = this.merchantSP;
         engineerP.innerHTML = this.engineerSP;
     },
-    displayDifficulty: function() {
+    displayDifficulty: function () {
         let diffP = document.getElementById("difficulty");
         diffP.innerHTML = this.difficulty;
     },
-    setDifficulty: function(diff){
+    setDifficulty: function (diff) {
         this.difficulty = diff;
     },
-    setCredits: function(){
-        if(this.difficulty === "easy"){
+    setCredits: function () {
+        if (this.difficulty === "easy") {
             this.credits = 1000;
-        } else if (this.difficulty === "medium"){
+        } else if (this.difficulty === "medium") {
             this.credits = 800;
         } else {
             this.credits = 500;
         }
     },
-    displayCredits: function(){
+    displayCredits: function () {
         let creditsP = document.getElementById("credits");
         creditsP.innerHTML = this.credits;
     }
@@ -87,10 +87,10 @@ let handlers = {
         //display credits
         settings.displayCredits();
     },
-    setDifficulty: function(diff){
+    setDifficulty: function (diff) {
         settings.setDifficulty(diff);
     },
-    highlightButton: function(button){
+    highlightButton: function (button) {
         let active = document.getElementsByClassName("active");
         if (active.length > 0) {
             active[0].className = active[0].className.replace(" active", "");
