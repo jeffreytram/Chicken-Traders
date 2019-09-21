@@ -16,6 +16,10 @@ ul {
     list-style: none;
 }
 
+.settings {
+    width: 40vh;
+}
+
 .hidden {
     display: none;
 }
@@ -34,4 +38,19 @@ button {
 .active, button:hover {
     color: rgb(30, 30, 30);
     background-color: #ffffff;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container {
+    margin: 0 auto;
+    width: 15vh;
+}
+
+#warning {
+    color: red;
 }

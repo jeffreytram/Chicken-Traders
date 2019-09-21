@@ -6,33 +6,27 @@ let settings = {
     merchantSP: 0,
     engineerSP: 0,
     credits: 0,
+    remainingSP: 16,
+    everythingFilled: false,
     saveName: function () {
         let nameTF = document.getElementById("name");
         this.name = nameTF.value;
     },
-    saveSP: function () {
-        let pilotTF = document.getElementById("pilotSP");
-        let fighterTF = document.getElementById("fighterSP");
-        let merchantTF = document.getElementById("merchantSP");
-        let engineerTF = document.getElementById("engineerSP");
-        this.pilotSP = pilotTF.value;
-        this.fighterSP = fighterTF.value;
-        this.merchantSP = merchantTF.value;
-        this.engineerSP = engineerTF.value;
-    },
     saveDifficulty: function () {
         let selectedDiff = document.getElementsByClassName("active");
-        this.difficulty = selectedDiff[0].textContent;
+        if (selectedDiff.length > 0) {
+            this.difficulty = selectedDiff[0].textContent;
+        }
     },
     displayName: function () {
         let nameP = document.getElementById("displayName");
         nameP.innerHTML = this.name;
     },
     displaySP: function () {
-        let pilotP = document.getElementById("displayPilotSP");
-        let fighterP = document.getElementById("displayFighterSP");
-        let merchantP = document.getElementById("displayMerchantSP");
-        let engineerP = document.getElementById("displayEngineerSP");
+        let pilotP = document.getElementById("pilotSP");
+        let fighterP = document.getElementById("fighterSP");
+        let merchantP = document.getElementById("merchantSP");
+        let engineerP = document.getElementById("engineerSP");
         pilotP.innerHTML = this.pilotSP;
         fighterP.innerHTML = this.fighterSP;
         merchantP.innerHTML = this.merchantSP;
@@ -57,6 +51,55 @@ let settings = {
     displayCredits: function () {
         let creditsP = document.getElementById("credits");
         creditsP.innerHTML = this.credits;
+    },
+    increaseSP: function (skill) {
+        if (skill.classList.contains("pilotSP")) {
+            this.pilotSP++;
+        } else if (skill.classList.contains("fighterSP")) {
+            this.fighterSP++;
+        } else if (skill.classList.contains("merchantSP")) {
+            this.merchantSP++;
+        } else {
+            this.engineerSP++;
+        }
+        this.remainingSP--;
+    },
+    decreaseSP: function (skill) {
+        if (skill.classList.contains("pilotSP")) {
+            this.pilotSP--;
+        } else if (skill.classList.contains("fighterSP")) {
+            this.fighterSP--;
+        } else if (skill.classList.contains("merchantSP")) {
+            this.merchantSP--;
+        } else {
+            this.engineerSP--;
+        }
+        this.remainingSP++;
+    },
+    displayRemainingSP: function () {
+        let remSP = document.getElementById("remSP");
+        remSP.innerHTML = this.remainingSP;
+    },
+    confirmSP: function () {
+        let confirmPilotSP = document.getElementById("displayPilotSP");
+        let confirmFighterSP = document.getElementById("displayFighterSP");
+        let confirmMerchantSP = document.getElementById("displayMerchantSP");
+        let confirmEngineerSP = document.getElementById("displayEngineerSP");
+        confirmPilotSP.innerHTML = this.pilotSP;
+        confirmFighterSP.innerHTML = this.fighterSP;
+        confirmMerchantSP.innerHTML = this.merchantSP;
+        confirmEngineerSP.innerHTML = this.engineerSP;
+    },
+    checkEverythingFilled: function () {
+        if (this.name != "" && this.difficulty != "" && this.remainingSP === 0) {
+            this.everythingFilled = true;
+        } else {
+            this.everythingFilled = false;
+        }
+    },
+    clearWarnings: function () {
+        let warning = document.getElementById("warning");
+        warning.innerHTML = "";
     }
 }
 let handlers = {
@@ -70,8 +113,6 @@ let handlers = {
     setSettings: function () {
         //save name
         settings.saveName();
-        //save skill point allocation
-        settings.saveSP();
         //save difficulty
         settings.saveDifficulty();
         //set credits
@@ -81,7 +122,7 @@ let handlers = {
         //display name
         settings.displayName();
         //display SP
-        settings.displaySP();
+        settings.confirmSP();
         //display difficulty
         settings.displayDifficulty();
         //display credits
@@ -96,7 +137,31 @@ let handlers = {
             active[0].className = active[0].className.replace(" active", "");
         }
         button.className += " active";
+    },
+    increaseSP: function (skill) {
+        settings.increaseSP(skill);
+    },
+    decreaseSP: function (skill) {
+        settings.decreaseSP(skill);
+    },
+    updateSP: function () {
+        settings.displaySP();
+        settings.displayRemainingSP();
+    },
+    checkEverythingFilled: function () {
+        settings.clearWarnings();
+        settings.checkEverythingFilled();
+        if (settings.name === "") {
+            view.nameWarning();
+        }
+        if (settings.difficulty === "") {
+            view.difficultyWarning();
+        }
+        if (settings.remainingSP > 0) {
+            view.remainingSPWarning();
+        }
     }
+
 }
 let view = {
     setUpEventListeners: function () {
@@ -120,11 +185,34 @@ let view = {
                 handlers.highlightButton(event.target);
             }
         });
+
+        let upArrows = document.getElementsByClassName("up");
+        Array.from(upArrows).forEach(function (element) {
+            element.addEventListener("click", function (event) {
+                if (settings.remainingSP > 0) {
+                    handlers.increaseSP(event.target);
+                    handlers.updateSP();
+                }
+            });
+        });
+        let downArrows = document.getElementsByClassName("down");
+        Array.from(downArrows).forEach(function (element) {
+            element.addEventListener("click", function (event) {
+                let temp = document.getElementById(event.target.classList[2]);
+                if (temp.innerHTML > 0) {
+                    handlers.decreaseSP(event.target);
+                    handlers.updateSP();
+                }
+            });
+        })
         let continueButton = document.getElementById("continueButton");
         continueButton.addEventListener("click", function () {
-            handlers.displayAndHide("confirm", "settings");
             handlers.setSettings();
-            handlers.displaySelectedSettings();
+            handlers.checkEverythingFilled();
+            if (settings.everythingFilled) {
+                handlers.displayAndHide("confirm", "settings");
+                handlers.displaySelectedSettings();
+            }
         });
         //CONFIRM SECTION
         let backButton = document.getElementById("backButton");
@@ -133,10 +221,22 @@ let view = {
         });
         let confirmButton = document.getElementById("confirmButton");
         confirmButton.addEventListener("click", function () {
-            //TODO: check for SP allocation overflow
             //TODO: check if all values filled out by user
+            //TODO: check if all skill points used?
             handlers.displayAndHide("startgame", "confirm");
         });
+    },
+    nameWarning: function () {
+        let warning = document.getElementById("warning");
+        warning.innerHTML += "Enter a name. <br/>"
+    },
+    difficultyWarning: function () {
+        let warning = document.getElementById("warning");
+        warning.innerHTML += "Select a difficulty. <br/>"
+    },
+    remainingSPWarning: function () {
+        let warning = document.getElementById("warning");
+        warning.innerHTML += "You have " + settings.remainingSP + " remaining skill points.";
     }
 }
 view.setUpEventListeners();

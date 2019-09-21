@@ -17,12 +17,53 @@
         <button id="hard">hard</button>
     </div>
     <br>
-    <input id="pilotSP" type="number" placeholder="Pilot">
-    <input id="fighterSP" type="number" placeholder="Fighter">
-    <input id="merchantSP" type="number" placeholder="Merchant">
-    <input id="engineerSP" type="number" placeholder="Engineer">
-    <br>
+    <h3>Skill Point Allocation</h3>
+    <p>Skill Points Remaining: </p>
+    <h3 id="remSP">16</h3>
+    <div id="container">
+        <div class="flex">
+            <p>Pilot: </p>
+            <div class="flex">
+                <h4 id="pilotSP">0</h4>
+                <div>
+                    <p class="arrow up pilotSP">&#x1F781;</p>
+                    <p class="arrow down pilotSP">&#x1F783;</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <p>Fighter: </p>
+            <div class="flex">
+                <h4 id="fighterSP">0</h4>
+                <div>
+                    <p class="arrow up fighterSP">&#x1F781;</p>
+                    <p class="arrow down fighterSP">&#x1F783;</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <p>Merchant: </p>
+            <div class="flex">
+                <h4 id="merchantSP">0</h4>
+                <div>
+                    <p class="arrow up merchantSP">&#x1F781;</p>
+                    <p class="arrow down merchantSP">&#x1F783;</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <p>Engineer: </p>
+            <div class="flex">
+                <h4 id="engineerSP">0</h4>
+                <div>
+                    <p class="arrow up engineerSP">&#x1F781;</p>
+                    <p class="arrow down engineerSP">&#x1F783;</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <button id="continueButton">Continue</button>
+    <p id="warning"></p>
 </div>
 <div class="confirm hidden">
     <h1>Confirm your settings</h1>
