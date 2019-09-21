@@ -4,13 +4,10 @@
 9.19 [x] JT - Added difficulty and starting credits selection
 9.19 [x] JT - Added button style and highlight
 
+9.20 [x] JT - Change SP allocation to up/down arrows only
+9.20 [x] JT - Check for SP allocation overflow
+    -prevent >16 and <0
 
 TODO:
-[]script.js check for SP allocation overflow
-    -if greater than 16 SP, show an error message
 []script.js check if all values filled out by user
-
-[]script.js change SP allocation to up/down arrows only
-    -prevent user from adding if SP allocated >16
-    -prevent user from subtracting <0
     -ensure user uses all SP
