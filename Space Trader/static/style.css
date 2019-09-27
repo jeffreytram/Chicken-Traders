@@ -54,3 +54,7 @@ button {
 #warning {
     color: red;
 }
+
+button:hover, .arrow:hover {
+    cursor: pointer;
+}

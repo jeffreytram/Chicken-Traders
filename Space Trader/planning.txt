@@ -7,7 +7,15 @@
 9.20 [x] JT - Change SP allocation to up/down arrows only
 9.20 [x] JT - Check for SP allocation overflow
     -prevent >16 and <0
+9.20 [x] JT - Check if all values filled out by user
+    -ensure user uses all SP
+9.20 [x] JT - improved settings user interface
+9.20 [x] JT - added pointer cursor on hover
+
+9.27 [x] JT - Game and Region class and TechLevel enum creation
 
 TODO:
-[]script.js check if all values filled out by user
-    -ensure user uses all SP
+Universe class creation
+Player class creation
+Implementing class methods
+Making an enum
