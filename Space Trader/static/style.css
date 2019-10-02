@@ -1,21 +1,60 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: "Segoe UI";
     text-align: center;
 }
-body{
+
+body {
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-ul{
+
+ul {
     list-style: none;
 }
-.hidden{
+
+.settings {
+    width: 40vh;
+}
+
+.hidden {
     display: none;
 }
-a:link, a:visited{
+
+a:link, a:visited {
     text-decoration: none;
+}
+
+button {
+    border-color: rgb(30, 30, 30);
+    color: #ffffff;
+    background-color: rgb(30, 30, 30);
+    padding: 1vh 2vh;
+}
+
+.active, button:hover {
+    color: rgb(30, 30, 30);
+    background-color: #ffffff;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container {
+    margin: 0 auto;
+    width: 15vh;
+}
+
+#warning {
+    color: red;
+}
+
+button:hover, .arrow:hover {
+    cursor: pointer;
 }
