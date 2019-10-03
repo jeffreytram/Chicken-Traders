@@ -1,9 +1,57 @@
-import Random
+import random
+import enum
+
+class TechLevel(enum.Enum):
+    PREAG = 1
+    AGRICULTURE = 2
+    MEDIEVAL = 3
+    RENAISSANCE = 4
+    INDUSTRIAL = 5
+    MODERN = 6
+    FUTURISTIC = 7
+#END Enum
+
+class Coordinates():
+    def __init__(self):
+        self.x = random.randint(-200, 201)
+        self.y = random.randint(-200, 201)
+    #END init
+
+    def reGenX(self):
+        self.x = random.randint(-200, 201)
+    #END reGenX
+
+    def reGenY(self):
+        self.y = random.randint(-200, 201)
+    #END reGenY
+
+    def compareAndRegen(self, other):
+        regenerated = false
+        if abs(self.x - other.x) <= 5:
+            self.x.reGenX
+            regenerated = true
+        elif abs(self.y - other.y) <= 5:
+            self.y.reGenY
+            regenerated = true
+        #END if and elif
+        return regenerated
+    #END compareAndRegen
+
+    def setCoordinates(self, newX, newY):
+        self.x = newX
+        self.y = newY
+    #END setCoordinates
+
+class Region():
+    def __init__(self, techlevel, name):
+        self.coordinates = Coordinates()
+        self.techLevel = techLevel
+        self.name = name
+#END Region
 
 class Universe():
     isUniverse = None;
     regionList = []
-    techLevel = TechLevel()
     
     def __new__(cls):
         
@@ -38,54 +86,3 @@ class Universe():
                 #END while
             #END if and else
         #END while
-
-class Region():
-    def __init__(self, techlevel, name):
-        self.coordinates = Coordinates()
-        self.techLevel = techLevel
-        self.name = name
-#END Region
-
-class Coordinates():
-    def __init__(self):
-        self.x = random.randint(-200, 201)
-        self.y = random.randint(-200, 201)
-    #END init
-
-    def reGenX(self):
-        self.x = random.randint(-200, 201)
-    #END reGenX
-
-    def reGenY(self):
-        self.y = random.randint(-200, 201)
-    #END reGenY
-
-    def compareAndRegen(self, other):
-        regenerated = false
-        if abs(self.x - other.x) <= 5:
-            self.x.reGenX
-            regenerated = true
-        elif abs(self.y - other.y) <= 5:
-            self.y.reGenY
-            regenerated = true
-        #END if and elif
-        return regenerated
-    #END compareAndRegen
-
-    def setCoordinates(self, newX, newY):
-        self.x = newX
-        self.y = newY
-    #END setCoordinates
-
-
-import enum
-
-class TechLevel(enum.Enum):
-    PRE-AG = 1
-    AGRICULTURE = 2
-    MEDIEVAL = 3
-    RENAISSANCE = 4
-    INDUSTRIAL = 5
-    MODERN = 6
-    FUTURISTIC = 7
-#END Enum
