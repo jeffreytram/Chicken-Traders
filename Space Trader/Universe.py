@@ -56,7 +56,6 @@ class Region():
 
 class Universe():
     isUniverse = None;
-    regionList = []
     names = ['a','b','c','d','e','f','g','h','i','j']
 
     def __new__(cls):
@@ -71,26 +70,27 @@ class Universe():
     #END __new__
 
     def __init__(self):
+        self.regionList = []
         #names = ['a','b','c','d','e','f','g','h','i','j']
         while len(Universe.names) > 0:
             randName = random.randint(0, len(Universe.names) - 1)
             newRegion = Region(TechLevel
                 (random.randint(1, 7)).name, Universe.names[randName])
             Universe.names.pop(randName)
-            if len(Universe.regionList) == 0:
-                Universe.regionList.append(newRegion)
+            if len(self.regionList) == 0:
+                self.regionList.append(newRegion)
             else:
                 keepComparing = True
                 while keepComparing:
                     keepComparing = False
-                    for reg in Universe.regionList:
+                    for reg in self.regionList:
                         if newRegion.compareAndRegen(reg):
                             keepComparing = True
                             break
                         #END if
                     #END for
                     if not keepComparing:
-                        Universe.regionList.append(newRegion)
+                        self.regionList.append(newRegion)
                     #END if
                 #END while
             #END if and else

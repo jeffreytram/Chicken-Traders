@@ -1,13 +1,17 @@
 class Player():
-    def __init__(self, name, pilot, fighter, merchant, engineer, currRegion, credit):
+    def __init__(self, name, skillPoints, credit, currRegion):
         self.name = name
-        self.pilot = pilot
-        self.fighter = fighter
-        self.merchant = merchant
-        self.engineer = engineer
-        self.currRegion = currRegion
+        self.pilot = skillPoints[0]
+        self.fighter = skillPoints[1]
+        self.merchant = skillPoints[2]
+        self.engineer = skillPoints[3]
         self.credit = credit
+        self.currRegion = currRegion
+    #END __init__
 
+    #Temporary travel method
+    def travel(self, regionTo):
+        self.currRegion = regionTo
 
     def getName(self):
         return self.name
@@ -42,4 +46,11 @@ class Player():
     def setFighter(self, fighter):
         self.fighter = fighter
 
-    
+    def setMerchant(self, merchant):
+        self.merchant = merchant
+
+    def setEngineer(self, engineer):
+        self.engineer = engineer
+
+    def setCredit(self, credit):
+        self.credit = credit
