@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
-from forms import SettingForm, ConfirmForm
+from flask import Flask, render_template, url_for, redirect, request, flash, session
+from forms import SettingForm, ConfirmForm, SPForm
 from config import Config
 from Universe import Universe, Region
 from Player import Player
@@ -30,34 +30,50 @@ def home():
 def settings():
     settingform = SettingForm()
     if settingform.validate_on_submit():
-        p_name = settingform.name.data
-        p_diff = settingform.diff.data
-        p_sp1 = settingform.sp1.data
-        p_sp2 = settingform.sp2.data
-        p_sp3 = settingform.sp3.data
-        p_sp4 = settingform.sp4.data
-        #TODO: how to determine region and credits?
-        #TODO: how to pass player created to confirm page?
-        region1 = Region(1, 'Bob\'s Farm')
-        skillpoints = [p_sp1, p_sp2, p_sp3, p_sp4]
-        player = Player(p_name, skillpoints, region1 , 800)
-        return redirect('/confirm')
+        if settingform.diff.data == 'easy':
+            credits = 1000
+            sp = 16
+            print('easy')
+        if settingform.diff.data == 'med':
+            credits = 800
+            sp = 14
+            print('med')
+        if settingform.diff.data == 'hard':
+            credits = 500
+            sp = 12
+            print('hard')
+        return redirect(url_for('skillpoints', name=settingform.name.data, diff=settingform.diff.data, sp=sp, credits=credits))
     return render_template('settings.html', form=settingform)
+
+@app.route('/skillpoints?name=<name>&diff=<diff>&sp=<sp>&credits=<credits>', methods=['GET', 'POST'])
+def skillpoints(name, diff, sp, credits):
+    spForm = SPForm()
+    def validTotal(spArray):
+        total = 0
+        for spElement in spArray:
+            total = total + spElement
+        if total > int(sp):
+            flash('Can only allocate ' +str(sp)+' skill points')
+            return False
+        return True
+    if spForm.validate_on_submit() and validTotal([spForm.sp1.data, spForm.sp2.data, spForm.sp3.data, spForm.sp4.data]):
+        sp1 = spForm.sp1.data
+        sp2 = spForm.sp2.data
+        sp3 = spForm.sp3.data
+        sp4 = spForm.sp4.data
+        return redirect(url_for('confirm', name=name, diff=diff, sp=sp, sp1=sp1, sp2=sp2, sp3=sp3, sp4=sp4, credits=credits))
+    return render_template('skillpoints.html', form=spForm, sp=sp)
 
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html', title='About', posts=posts)
 
-@app.route('/confirm', methods=['GET'])
-def confirm():
+@app.route('/confirm?name=<name>&diff=<diff>&sp=<sp>&sp1=<sp1>&sp2=<sp2>&sp3=<sp3>&sp4=<sp4>&credits=<credits>', methods=['GET'])
+def confirm(name, diff, sp, sp1,sp2,sp3,sp4,credits):
     confirmform = ConfirmForm()
-    region1 = Region(1, 'Bob\'s Farm')
-    skillpoints = [1,1,1,1]
-    player = Player('test', skillpoints, region1 , 800)
     if confirmform.validate_on_submit():
-        #TODO: create player
         return redirect('/start')
-    return render_template('confirm.html', title='Confirm Settings', player=player)
+    return render_template('confirm.html', title='Confirm Settings', name=name, diff=diff, sp1=sp1, sp2=sp2, sp3=sp3, sp4=sp4, credits=credits)
 
 
 testUniverse = Universe()

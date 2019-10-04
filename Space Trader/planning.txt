@@ -15,14 +15,16 @@
 9.27 [x] JT - Game and Region class and TechLevel enum creation
 
 10.3 [x] JT - Rework UI using Python Flask WTForms
+10.3 [x] JT - Now passes data from page to page
 
 Notes from 10.3.19
 -type pip install flask-wtf in command line to install forms extension
 
 TODO:
-limit total skill point input to 16
-change skill point limit and credits based on difficulty selected
+determine starting region
+back buttons
+display current region
+-how to add id's to button based on region name
 
-how to determine region and credits?
-how to pass player created to confirm page?
-create player at settings or confirm page?
+improve how skillpoint limit warning displayed
+improve way data passed to different pages

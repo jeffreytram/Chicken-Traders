@@ -15,52 +15,9 @@
             {{form.diff.label}}<br>
             {{form.diff}}<br>
         </p>
-        <h3>Skill Points: 16</h3>
-        <p>
-            {{form.sp1.label}}<br>
-            {{form.sp1(size=32)}} <br>
-            {% for error in form.sp1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{form.sp2.label}}<br>
-            {{form.sp2(size=32)}} <br>
-            {% for error in form.sp2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{form.sp3.label}}<br>
-            {{form.sp3(size=32)}} <br>
-            {% for error in form.sp3.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{form.sp4.label}}<br>
-            {{form.sp4(size=32)}} <br>
-            {% for error in form.sp4.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
         <p>
             {{form.submit()}}
         </p>
-        <!--DEBUGGING ISSUES WITH FORM
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% if form.errors %}
-        {{ form.errors }}
-        {% endif %}
-        -->
     </form>
 </div>
 {% endblock %}
