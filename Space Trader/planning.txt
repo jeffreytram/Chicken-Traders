@@ -14,8 +14,15 @@
 
 9.27 [x] JT - Game and Region class and TechLevel enum creation
 
+10.3 [x] JT - Rework UI using Python Flask WTForms
+
+Notes from 10.3.19
+-type pip install flask-wtf in command line to install forms extension
+
 TODO:
-Universe class creation
-Player class creation
-Implementing class methods
-Making an enum
+limit total skill point input to 16
+change skill point limit and credits based on difficulty selected
+
+how to determine region and credits?
+how to pass player created to confirm page?
+create player at settings or confirm page?

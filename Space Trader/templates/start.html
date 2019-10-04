@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <button>Universe</button>
+    <div>
+        {% for region in universe.regionList %}
+            <h4>Region: {{region.name}} X: {{region.coordinates.x}} Y: {{region.coordinates.y}} Tech Level {{region.techLevel}}</h4>
+        {% endfor %}
+    </div>
+{% endblock %}
