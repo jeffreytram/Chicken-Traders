@@ -15,7 +15,6 @@ let player = {
         } else {
             regionList[0].className += " hidden";
         }
-
     }
 }
 let handlers = {
