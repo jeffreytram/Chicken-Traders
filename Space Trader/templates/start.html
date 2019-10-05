@@ -1,11 +1,14 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <button id="travel">Travel</button>
-    <div class = "regionButtons hidden">
-        {% for region in universe.regionList %}
-            <button class ="region {{ loop.index }}">Region: {{region.name}} X: {{region.coordinates.x}} Y: {{region.coordinates.y}} Tech Level {{region.techLevel}}</button>
-        {% endfor %}
-    </div>
-    <h2 id="currRegion">Region: {{universe.regionList[randRegionIndex].name}} X: {{universe.regionList[randRegionIndex].coordinates.X}} Y: {{universe.regionList[randRegionIndex].coordinates.y}} Tech Level {{universe.regionList[randRegionIndex].techLevel}}
-    </h2>
+<button id="travel">Travel</button>
+<div class="regionButtons hidden">
+    {% for region in universe.regionList %}
+    <button class="region {{ loop.index }}">Region: {{region.name}} X: {{region.coordinates.x}} Y:
+        {{region.coordinates.y}} Tech Level {{region.techLevel}}</button>
+    {% endfor %}
+</div>
+<h2 id="currRegion">Region: {{universe.regionList[randRegionIndex].name}} X:
+    {{universe.regionList[randRegionIndex].coordinates.X}} Y: {{universe.regionList[randRegionIndex].coordinates.y}}
+    Tech Level {{universe.regionList[randRegionIndex].techLevel}}
+</h2>
 {% endblock %}

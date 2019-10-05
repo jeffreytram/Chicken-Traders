@@ -1,4 +1,4 @@
-class Player():
+class Player:
     def __init__(self, name, skillPoints, credit, currRegion):
         self.name = name
         self.pilot = skillPoints[0]
@@ -7,9 +7,10 @@ class Player():
         self.engineer = skillPoints[3]
         self.credit = credit
         self.currRegion = currRegion
-    #END __init__
 
-    #Temporary travel method
+    # END __init__
+
+    # Temporary travel method
     def travel(self, regionTo):
         self.currRegion = regionTo
 

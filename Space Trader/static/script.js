@@ -7,15 +7,15 @@ let player = {
         let headerElement = document.getElementById("currRegion");
         headerElement.innerHTML = region.innerText;
     },
-    displayRegionList: function() {
+    displayRegionList: function () {
         let hiddenRegionList = document.getElementsByClassName(" hidden");
         let regionList = document.getElementsByClassName("regionButtons");
         if (hiddenRegionList.length > 0) {
             hiddenRegionList[0].className = hiddenRegionList[0].className.replace(" hidden", "");
-        } else{
+        } else {
             regionList[0].className += " hidden";
         }
-        
+
     }
 }
 let handlers = {
@@ -26,12 +26,12 @@ let handlers = {
         }
         button.className += " active";
     },
-    travel: function(region) {
+    travel: function (region) {
         console.log(region);
         player.travel(region);
         player.displayCurrRegion(region);
     },
-    displayRegionList: function() {
+    displayRegionList: function () {
         player.displayRegionList();
     }
 }

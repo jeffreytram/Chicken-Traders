@@ -1,5 +1,6 @@
 from Game import Game
-skillPoints = [4,4,4,4]
+
+skillPoints = [4, 4, 4, 4]
 game = Game("Hard")
 game.startGame("Ricardo", skillPoints, 100)
 for reg in game.universe.regionList:

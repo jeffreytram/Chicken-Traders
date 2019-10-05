@@ -1,6 +1,7 @@
 import random
 import enum
 
+
 class TechLevel(enum.Enum):
     PREAG = 1
     AGRICULTURE = 2
@@ -9,21 +10,27 @@ class TechLevel(enum.Enum):
     INDUSTRIAL = 5
     MODERN = 6
     FUTURISTIC = 7
-#END Enum
 
-class Coordinates():
+
+# END Enum
+
+
+class Coordinates:
     def __init__(self):
         self.x = random.randint(-200, 201)
         self.y = random.randint(-200, 201)
-    #END init
+
+    # END init
 
     def reGenX(self):
         self.x = random.randint(-200, 201)
-    #END reGenX
+
+    # END reGenX
 
     def reGenY(self):
         self.y = random.randint(-200, 201)
-    #END reGenY
+
+    # END reGenY
 
     def compareAndReCreate(self, other):
         regenerated = False
@@ -33,49 +40,59 @@ class Coordinates():
         if abs(self.y - other.y) <= 5:
             self.reGenY
             regenerated = True
-        #END if and elif
+        # END if and elif
         return regenerated
-    #END compareAndReCreate
+
+    # END compareAndReCreate
 
     def setCoordinates(self, newX, newY):
         self.x = newX
         self.y = newY
-    #END setCoordinates
 
-class Region():
+    # END setCoordinates
+
+
+class Region:
     def __init__(self, techLevel, name):
         self.coordinates = Coordinates()
         self.techLevel = techLevel
         self.name = name
-    #END __init__
+
+    # END __init__
 
     def compareAndRegen(self, other):
         self.coordinates.compareAndReCreate(other.coordinates)
-    #END compareAndRegen
-#END Region
 
-class Universe():
+    # END compareAndRegen
+
+
+# END Region
+
+
+class Universe:
     isUniverse = None
-    names = ['a','b','c','d','e','f','g','h','i','j']
+    names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 
     def __new__(cls):
-        
+
         if not cls.isUniverse:
-        #THEN
+            # THEN
             cls.isUniverse = super(Universe, cls).__new__(cls)
         else:
             print("only one")
-        #END IF
+        # END IF
         return cls.isUniverse
-    #END __new__
+
+    # END __new__
 
     def __init__(self):
         self.regionList = []
-        #names = ['a','b','c','d','e','f','g','h','i','j']
+        # names = ['a','b','c','d','e','f','g','h','i','j']
         while len(Universe.names) > 0:
             randName = random.randint(0, len(Universe.names) - 1)
-            newRegion = Region(TechLevel
-                (random.randint(1, 7)).name, Universe.names[randName])
+            newRegion = Region(
+                TechLevel(random.randint(1, 7)).name, Universe.names[randName]
+            )
             Universe.names.pop(randName)
             if len(self.regionList) == 0:
                 self.regionList.append(newRegion)
@@ -87,11 +104,12 @@ class Universe():
                         if newRegion.compareAndRegen(reg):
                             keepComparing = True
                             break
-                        #END if
-                    #END for
+                        # END if
+                    # END for
                     if not keepComparing:
                         self.regionList.append(newRegion)
-                    #END if
-                #END while
-            #END if and else
-        #END while
+                    # END if
+                # END while
+            # END if and else
+        # END while
+
