@@ -13,9 +13,9 @@ class Player:
     # END __init__
 
     # Temporary travel method
-    def travel(self, regionTo):
+    def travel(self, region_to):
         """Moves players current region to another."""
-        self.currRegion = regionTo
+        self.curr_region = region_to
 
     def get_name(self):
         """Return name"""
@@ -23,7 +23,7 @@ class Player:
 
     def get_curr_region(self):
         """Returns the current region"""
-        return self.currRegion
+        return self.curr_region
 
     def get_credit(self):
         """Returns the players credit"""
