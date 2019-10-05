@@ -17,14 +17,24 @@
 10.3 [x] JT - Rework UI using Python Flask WTForms
 10.3 [x] JT - Now passes data from page to page
 
+10.4 [x] JT - Added back buttons to form
+10.4 [x] JT - Added travel functionality, removed unused JS code
 Notes from 10.3.19
 -type pip install flask-wtf in command line to install forms extension
 
 TODO:
+transfering data from page to page
+-dictionary
+-going back, arguments in link
+validator dependent on multiple forms
+-how to pass sp limit to form?
+
+
 determine starting region
-back buttons
 display current region
 -how to add id's to button based on region name
 
 improve how skillpoint limit warning displayed
 improve way data passed to different pages
+improve back button?
+-skillpoints -> settings doesnt save previous choices

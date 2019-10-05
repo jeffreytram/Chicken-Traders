@@ -16,8 +16,21 @@
     <p>{{diff}}</p>
     <h3>Starting Credits:</h3>
     <p>{{credits}}</p>
-    <button id="backButton">Back</button>
-    <button id="confirmButton" onclick="location.href = 'start'">Confirm</button>
+    <button onclick="location.href = '{{request.referrer}}'">Back</button>
+    {{form.submit()}}
+    <!--DEBUGGING ISSUES WITH FORM-->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul id="warning">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% if form.errors %}
+    {{ form.errors }}
+    {% endif %}
 </div>
 <div class="startgame hidden">
     <h1>Starting Game...</h1>

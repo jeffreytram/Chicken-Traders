@@ -23,12 +23,25 @@ class SettingForm(FlaskForm):
     submit = SubmitField('Continue')
 
 class SPForm(FlaskForm):
-    sp1 = IntegerField('SP1', validators=[DataRequired(), NumberRange(min=0, max = 16)])
-    sp2 = IntegerField('SP2', validators=[DataRequired(), NumberRange(min=0, max = 16)])
-    sp3 = IntegerField('SP3', validators=[DataRequired(), NumberRange(min=0, max = 16)])
-    sp4 = IntegerField('SP4', validators=[DataRequired(), NumberRange(min=0, max = 16)])
+
+    #spLimit = 0
+    #def __init__(self, spLimit, *args, **kwargs):
+    #   super(SPForm, self).__init__(*args, **kwargs)
+    #   self.spLimit = spLimit
+
+    sp1 = IntegerField('SP1', validators=[DataRequired(), NumberRange(min=0)])
+    sp2 = IntegerField('SP2', validators=[DataRequired(), NumberRange(min=0)])
+    sp3 = IntegerField('SP3', validators=[DataRequired(), NumberRange(min=0)])
+    sp4 = IntegerField('SP4', validators=[DataRequired(), NumberRange(min=0)])
     submit = SubmitField('Continue')
 
+    #def validate(self):
+    #   if not super(SPForm, self).validate():
+    #        return False
+    #    if (self.sp1.data + self.sp2.data + self.sp3.data + self.sp4.data) <= self.spLimit:
+    #        return True
+    #    self.sp1.errors.append("Total skillpoints cannot be over " +spLimit+".")
+    #    return False
 
 class ConfirmForm(FlaskForm):
     submit = SubmitField("Confirm")

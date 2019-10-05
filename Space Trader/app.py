@@ -3,6 +3,7 @@ from forms import SettingForm, ConfirmForm, SPForm
 from config import Config
 from Universe import Universe, Region
 from Player import Player
+import random
 app = Flask(__name__)
 app.config.from_object(Config)
 
@@ -53,9 +54,10 @@ def skillpoints(name, diff, sp, credits):
         for spElement in spArray:
             total = total + spElement
         if total > int(sp):
-            flash('Can only allocate ' +str(sp)+' skill points')
+            flash('You can only allocate ' +str(sp)+' skill points.')
             return False
         return True
+    #TODO: remove validTotal once we get form variable pass in working
     if spForm.validate_on_submit() and validTotal([spForm.sp1.data, spForm.sp2.data, spForm.sp3.data, spForm.sp4.data]):
         sp1 = spForm.sp1.data
         sp2 = spForm.sp2.data
@@ -68,18 +70,21 @@ def skillpoints(name, diff, sp, credits):
 def about():
     return render_template('about.html', title='About', posts=posts)
 
+testUniverse = Universe()
 @app.route('/confirm?name=<name>&diff=<diff>&sp=<sp>&sp1=<sp1>&sp2=<sp2>&sp3=<sp3>&sp4=<sp4>&credits=<credits>', methods=['GET'])
 def confirm(name, diff, sp, sp1,sp2,sp3,sp4,credits):
     confirmform = ConfirmForm()
-    if confirmform.validate_on_submit():
-        return redirect('/start')
-    return render_template('confirm.html', title='Confirm Settings', name=name, diff=diff, sp1=sp1, sp2=sp2, sp3=sp3, sp4=sp4, credits=credits)
+    if confirmform.is_submitted:
+        randRegion = random.randint(0,9)
+        pSkillPoints = [sp1,sp2,sp3,sp4]
+        player = Player(name,pSkillPoints, credits, testUniverse.regionList[randRegion])
+        return redirect(url_for('start', startingRegion=randRegion))
+    return render_template('confirm.html', title='Confirm Settings', form=confirmform, name=name, diff=diff, sp1=sp1, sp2=sp2, sp3=sp3, sp4=sp4, credits=credits)
 
-
-testUniverse = Universe()
-@app.route('/start', methods=['GET','POST'])
-def start():
-    return render_template('start.html', universe=testUniverse)
+@app.route('/start?startingRegion=<startingRegion>', methods=['GET','POST'])
+def start(startingRegion):
+    
+    return render_template('start.html', universe=testUniverse, randRegionIndex=int(startingRegion))
 
 
 if __name__ == '__main__':

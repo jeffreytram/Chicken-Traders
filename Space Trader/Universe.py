@@ -55,7 +55,7 @@ class Region():
 #END Region
 
 class Universe():
-    isUniverse = None;
+    isUniverse = None
     names = ['a','b','c','d','e','f','g','h','i','j']
 
     def __new__(cls):
