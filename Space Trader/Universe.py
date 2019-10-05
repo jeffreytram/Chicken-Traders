@@ -1,8 +1,10 @@
+"""This module contains the classes needed to create the universe and the universe class."""
+
 import random
 import enum
 
-
 class TechLevel(enum.Enum):
+    """This is the enum where the techlevel is distributed from"""
     PREAG = 1
     AGRICULTURE = 2
     MEDIEVAL = 3
@@ -10,106 +12,99 @@ class TechLevel(enum.Enum):
     INDUSTRIAL = 5
     MODERN = 6
     FUTURISTIC = 7
+#END Enum
 
-
-# END Enum
-
-
-class Coordinates:
+class Coordinates():
+    """This is the coordinate class with the methods to
+    regenerate and recreate the coordinates when the regions are created"""
     def __init__(self):
-        self.x = random.randint(-200, 201)
-        self.y = random.randint(-200, 201)
+        self.x_position = random.randint(-200, 200)
+        self.y_position = random.randint(-200, 200)
+    #END init
 
-    # END init
+    def recreate_x(self):
+        """Recreates the x coordinate."""
+        self.x_position = random.randint(-200, 200)
+    #END reGenX
 
-    def reGenX(self):
-        self.x = random.randint(-200, 201)
+    def recreate_y(self):
+        """Recreates the y coordinate."""
+        self.y_position = random.randint(-200, 200)
+    #END reGenY
 
-    # END reGenX
-
-    def reGenY(self):
-        self.y = random.randint(-200, 201)
-
-    # END reGenY
-
-    def compareAndReCreate(self, other):
+    def compare_and_recreate(self, other):
+        """This method compares the coordinates to another
+        and reacreates them based on the requirements."""
         regenerated = False
-        if abs(self.x - other.x) <= 5:
-            self.reGenX
+        if abs(self.x_position - other.x_position) <= 5:
+            self.recreate_x
             regenerated = True
-        if abs(self.y - other.y) <= 5:
-            self.reGenY
+        if abs(self.y_position - other.y_position) <= 5:
+            self.recreate_y
             regenerated = True
-        # END if and elif
+        #END if and elif
         return regenerated
+    #END compareAndReCreate
 
-    # END compareAndReCreate
+    def set_coordinates(self, new_x, new_y):
+        """Resets the coordinates."""
+        self.x_position = new_x
+        self.y_position = new_y
+    #END setCoordinates
 
-    def setCoordinates(self, newX, newY):
-        self.x = newX
-        self.y = newY
-
-    # END setCoordinates
-
-
-class Region:
-    def __init__(self, techLevel, name):
+class Region():
+    """This is the region class."""
+    def __init__(self, tech_level, name):
         self.coordinates = Coordinates()
-        self.techLevel = techLevel
+        self.tech_level = tech_level
         self.name = name
+    #END __init__
 
-    # END __init__
+    def compare_and_regen(self, other):
+        """This method calls the coordinate compare
+        function so the region class can use it easily."""
+        self.coordinates.compare_and_recreate(other.coordinates)
+    #END compareAndRegen
+#END Region
 
-    def compareAndRegen(self, other):
-        self.coordinates.compareAndReCreate(other.coordinates)
-
-    # END compareAndRegen
-
-
-# END Region
-
-
-class Universe:
+class Universe():
+    """This is the universe class when created it creates all the regions"""
     isUniverse = None
-    names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+    names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 
     def __new__(cls):
-
         if not cls.isUniverse:
-            # THEN
+        #THEN
             cls.isUniverse = super(Universe, cls).__new__(cls)
         else:
             print("only one")
-        # END IF
+        #END IF
         return cls.isUniverse
-
-    # END __new__
+    #END __new__
 
     def __init__(self):
         self.regionList = []
-        # names = ['a','b','c','d','e','f','g','h','i','j']
+        #names = ['a','b','c','d','e','f','g','h','i','j']
         while len(Universe.names) > 0:
-            randName = random.randint(0, len(Universe.names) - 1)
-            newRegion = Region(
-                TechLevel(random.randint(1, 7)).name, Universe.names[randName]
-            )
-            Universe.names.pop(randName)
+            rand_name = random.randint(0, len(Universe.names) - 1)
+            new_region = Region(TechLevel
+                                (random.randint(1, 7)).name, Universe.names[rand_name])
+            Universe.names.pop(rand_name)
             if len(self.regionList) == 0:
-                self.regionList.append(newRegion)
+                self.regionList.append(new_region)
             else:
-                keepComparing = True
-                while keepComparing:
-                    keepComparing = False
+                keep_comparing = True
+                while keep_comparing:
+                    keep_comparing = False
                     for reg in self.regionList:
-                        if newRegion.compareAndRegen(reg):
-                            keepComparing = True
+                        if new_region.compare_and_regen(reg):
+                            keep_comparing = True
                             break
-                        # END if
-                    # END for
-                    if not keepComparing:
-                        self.regionList.append(newRegion)
-                    # END if
-                # END while
-            # END if and else
-        # END while
-
+                        #END if
+                    #END for
+                    if not keep_comparing:
+                        self.regionList.append(new_region)
+                    #END if
+                #END while
+            #END if and else
+        #END while
