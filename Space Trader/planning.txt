@@ -19,6 +19,8 @@
 
 10.4 [x] JT - Added back buttons to form
 10.4 [x] JT - Added travel functionality, removed unused JS code
+10.4 [x] JT - Region list visibility now toggleable
+
 Notes from 10.3.19
 -type pip install flask-wtf in command line to install forms extension
 

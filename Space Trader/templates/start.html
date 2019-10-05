@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <button>Universe</button>
-    <div id = "regionButtons">
+    <button id="travel">Travel</button>
+    <div class = "regionButtons hidden">
         {% for region in universe.regionList %}
             <button class ="region {{ loop.index }}">Region: {{region.name}} X: {{region.coordinates.x}} Y: {{region.coordinates.y}} Tech Level {{region.techLevel}}</button>
         {% endfor %}
