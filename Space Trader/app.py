@@ -35,6 +35,7 @@ def settings():
     settingform = SettingForm()
     if settingform.validate_on_submit():
         dictionary["pDiff"] = settingform.diff.data
+        dictionary["pName"] = settingform.name.data
         if settingform.diff.data == "easy":
             dictionary["pCredits"] = 1000
             dictionary["pSPLimit"] = 16
