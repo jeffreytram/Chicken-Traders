@@ -25,6 +25,14 @@ let handlers = {
         }
         button.className += " active";
     },
+    highlightTravel: function (button) {
+        let active = document.getElementsByClassName("active2");
+        if (active.length > 0) {
+            active[0].className = active[0].className.replace(" active2", "");
+        } else {
+            button.className += " active2";
+        }
+    },
     travel: function (region) {
         console.log(region);
         player.travel(region);
@@ -38,12 +46,15 @@ let view = {
     setUpEventListeners: function () {
         let regionButtonDiv = document.getElementsByClassName("regionButtons")
         regionButtonDiv[0].addEventListener("click", function (event) {
-            handlers.travel(event.target);
+            if (event.target.classList.contains("region")) {
+                handlers.travel(event.target);
+                handlers.highlightButton(event.target);
+            }
         });
         let travelButton = document.getElementById("travel");
         travelButton.addEventListener("click", function (event) {
-            console.log("click");
             handlers.displayRegionList();
+            handlers.highlightTravel(event.target);
         });
     }
 }

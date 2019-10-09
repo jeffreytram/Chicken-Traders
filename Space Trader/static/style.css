@@ -28,14 +28,14 @@ a:link, a:visited {
     text-decoration: none;
 }
 
-button {
+button, .button {
     border-color: rgb(30, 30, 30);
     color: #ffffff;
     background-color: rgb(30, 30, 30);
     padding: 1vh 2vh;
 }
 
-.active, button:hover {
+.active, .active2, button:hover, .button:hover {
     color: rgb(30, 30, 30);
     background-color: #ffffff;
 }
@@ -55,6 +55,6 @@ button {
     color: red;
 }
 
-button:hover, .arrow:hover {
+button:hover, .button:hover, .arrow:hover {
     cursor: pointer;
 }
