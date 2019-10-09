@@ -3,7 +3,7 @@
 
 <form method="post">
     {{ form.hidden_tag() }}
-    <h3>Skill Points: {{sp}}</h3>
+    <h3>Total Skill Points: {{sp}}</h3>
     <p>
         {{form.sp1.label}}<br>
         {{form.sp1(size=32)}} <br>
@@ -33,10 +33,9 @@
         {% endfor %}
     </p>
     <p>
-        <button onclick="location.href = 'settings'">Back</button>
-        {{form.submit()}}
+        {{form.submit(class="button")}}
     </p>
-    <!--DEBUGGING ISSUES WITH FORM-->
+    <!--DEBUGGING ISSUES WITH FORM
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul id="warning">
@@ -49,6 +48,8 @@
     {% if form.errors %}
     {{ form.errors }}
     {% endif %}
+    -->
 </form>
+    <button onclick="location.href = '/settings'">Back</button>
 </div>
 {% endblock %}

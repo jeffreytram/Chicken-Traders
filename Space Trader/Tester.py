@@ -1,9 +1,9 @@
-from Game import Game
+from game import Game
 
-skillPoints = [4, 4, 4, 4]
+skill_points = [4, 4, 4, 4]
 game = Game("Hard")
-game.startGame("Ricardo", skillPoints, 100)
-for reg in game.universe.regionList:
+game.start_game("Ricardo", skill_points, 100)
+for reg in game.universe.region_list:
     print(reg.name)
     print(reg.coordinates.x_position)
     print(reg.coordinates.y_position)
@@ -15,7 +15,7 @@ print(game.player.fighter)
 print(game.player.merchant)
 print(game.player.engineer)
 print(game.player.credit)
-print(game.player.currRegion.name)
-print(game.player.currRegion.coordinates.x_position)
-print(game.player.currRegion.coordinates.y_position)
-print(game.player.currRegion.tech_level)
+print(game.player.curr_region.name)
+print(game.player.curr_region.coordinates.x_position)
+print(game.player.curr_region.coordinates.y_position)
+print(game.player.curr_region.tech_level)

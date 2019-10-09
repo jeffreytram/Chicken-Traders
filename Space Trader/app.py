@@ -1,14 +1,12 @@
-from flask import Flask, render_template, url_for, redirect, request, flash, session
+from flask import Flask, render_template, url_for, redirect
 from forms import SettingForm, ConfirmForm, SPForm
-from config import Config
-from Universe import Universe, Region
-from Player import Player
-import random
+from game import Game
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config['SECRET_KEY'] = 'ayy'
 
 dictionary = {
+    "game": None,
     "pName": "",
     "pDiff": "",
     "pCredits": 0,
@@ -37,6 +35,7 @@ def settings():
     settingform = SettingForm()
     if settingform.validate_on_submit():
         dictionary["pDiff"] = settingform.diff.data
+        dictionary["pName"] = settingform.name.data
         if settingform.diff.data == "easy":
             dictionary["pCredits"] = 1000
             dictionary["pSPLimit"] = 16
@@ -52,64 +51,44 @@ def settings():
 
 @app.route("/skillpoints", methods=["GET", "POST"])
 def skillpoints():
-    spForm = SPForm()
-
-    def validTotal(spArray):
-        total = 0
-        for spElement in spArray:
-            total = total + spElement
-        if total > int(dictionary["pSPLimit"]):
-            flash(
-                "You can only allocate "
-                + str(dictionary["pSPLimit"])
-                + " skill points."
-            )
-            return False
-        return True
-
-    # TODO: remove validTotal once we get form variable pass in working
-    if spForm.validate_on_submit() and validTotal(
-        [spForm.sp1.data, spForm.sp2.data, spForm.sp3.data, spForm.sp4.data]
-    ):
-        dictionary["sp1"] = spForm.sp1.data
-        dictionary["sp2"] = spForm.sp2.data
-        dictionary["sp3"] = spForm.sp3.data
-        dictionary["sp4"] = spForm.sp4.data
-        print("test???")
+    sp_form = SPForm(dictionary["pSPLimit"])
+    if sp_form.validate_on_submit():
+        dictionary["sp1"] = sp_form.sp1.data
+        dictionary["sp2"] = sp_form.sp2.data
+        dictionary["sp3"] = sp_form.sp3.data
+        dictionary["sp4"] = sp_form.sp4.data
         return redirect(url_for("confirm"))
-    return render_template("skillpoints.html", form=spForm, sp=dictionary["pSPLimit"])
+    return render_template("skillpoints.html", form=sp_form, sp=dictionary["pSPLimit"])
 
 
 @app.route("/about", methods=["GET"])
 def about():
     return render_template("about.html", title="About", posts=posts)
 
-
-testUniverse = Universe()
-
-
-@app.route("/confirm", methods=["GET"])
+@app.route("/confirm", methods=["GET", "POST"])
 def confirm():
-    #confirmform = ConfirmForm()
-    #if confirmform.is_submitted:
-    #    randRegion = random.randint(0, 9)
-    #    dictionary["currRegion"] = randRegion
-    #    player = Player(
-    #       dictionary["pName"],
-    #       [
-    #       dictionary["sp1"],
-    #        dictionary["sp2"],
-    #        dictionary["sp3"],
-    #       dictionary["sp4"],
-    #        ],
-    #        dictionary["pCredits"],
-    #        testUniverse.regionList[randRegion],
-    #    )
-    #    return redirect(url_for("start"))
+    confirmform = ConfirmForm()
+    if confirmform.validate_on_submit():
+        space_trader = Game(dictionary["pDiff"])
+
+        dictionary["game"] = space_trader
+
+        space_trader.start_game(
+            dictionary["pName"],
+            [
+                dictionary["sp1"],
+                dictionary["sp2"],
+                dictionary["sp3"],
+                dictionary["sp4"],
+            ],
+            dictionary["pCredits"]
+        )
+        dictionary["currRegion"] = space_trader.player.curr_region
+        return redirect(url_for("start"))
     return render_template(
         "confirm.html",
         title="Confirm Settings",
-        #form=confirmform,
+        form=confirmform,
         name=dictionary["pName"],
         sp1=dictionary["sp1"],
         sp2=dictionary["sp2"],
@@ -122,10 +101,8 @@ def confirm():
 
 @app.route("/start", methods=["GET", "POST"])
 def start():
-    randRegion = random.randint(0, 9)
-    dictionary["currRegion"] = randRegion
     return render_template(
-        "start.html", universe=testUniverse, randRegionIndex=dictionary["currRegion"]
+        "start.html", universe=dictionary["game"].universe, currRegion=dictionary["currRegion"]
     )
 
 

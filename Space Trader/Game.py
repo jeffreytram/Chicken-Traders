@@ -1,6 +1,6 @@
-from Universe import *
-from Player import Player
 import random
+from universe import Universe
+from player import Player
 
 
 class Game:
@@ -10,16 +10,11 @@ class Game:
         self.universe = None
         self.player = None
 
-    def startGame(self, name, skillPoints, credit):
+    def start_game(self, name, skill_points, credit):
         self.universe = Universe()
+        rand_int = random.randint(0, len(self.universe.region_list) - 1)
         self.player = Player(
-            name,
-            skillPoints,
-            credit,
-            self.universe.regionList[
-                random.randint(0, len(self.universe.regionList)) - 1
-            ],
+            name, skill_points, credit, self.universe.region_list[rand_int]
         )
 
     # END startGame
-

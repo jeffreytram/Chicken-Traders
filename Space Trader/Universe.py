@@ -3,8 +3,10 @@
 import random
 import enum
 
+
 class TechLevel(enum.Enum):
     """This is the enum where the techlevel is distributed from"""
+
     PREAG = 1
     AGRICULTURE = 2
     MEDIEVAL = 3
@@ -12,25 +14,32 @@ class TechLevel(enum.Enum):
     INDUSTRIAL = 5
     MODERN = 6
     FUTURISTIC = 7
-#END Enum
 
-class Coordinates():
+
+# END Enum
+
+
+class Coordinates:
     """This is the coordinate class with the methods to
     regenerate and recreate the coordinates when the regions are created"""
+
     def __init__(self):
         self.x_position = random.randint(-200, 200)
         self.y_position = random.randint(-200, 200)
-    #END init
+
+    # END init
 
     def recreate_x(self):
         """Recreates the x coordinate."""
         self.x_position = random.randint(-200, 200)
-    #END reGenX
+
+    # END reGenX
 
     def recreate_y(self):
         """Recreates the y coordinate."""
         self.y_position = random.randint(-200, 200)
-    #END reGenY
+
+    # END reGenY
 
     def compare_and_recreate(self, other):
         """This method compares the coordinates to another
@@ -42,69 +51,81 @@ class Coordinates():
         if abs(self.y_position - other.y_position) <= 5:
             self.recreate_y
             regenerated = True
-        #END if and elif
+        # END if and elif
         return regenerated
-    #END compareAndReCreate
+
+    # END compareAndReCreate
 
     def set_coordinates(self, new_x, new_y):
         """Resets the coordinates."""
         self.x_position = new_x
         self.y_position = new_y
-    #END setCoordinates
 
-class Region():
+    # END setCoordinates
+
+
+class Region:
     """This is the region class."""
+
     def __init__(self, tech_level, name):
         self.coordinates = Coordinates()
         self.tech_level = tech_level
         self.name = name
-    #END __init__
+
+    # END __init__
 
     def compare_and_regen(self, other):
         """This method calls the coordinate compare
         function so the region class can use it easily."""
         self.coordinates.compare_and_recreate(other.coordinates)
-    #END compareAndRegen
-#END Region
 
-class Universe():
+    # END compareAndRegen
+
+
+# END Region
+
+
+class Universe:
     """This is the universe class when created it creates all the regions"""
+
     isUniverse = None
-    names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+    names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 
     def __new__(cls):
         if not cls.isUniverse:
-        #THEN
+            # THEN
             cls.isUniverse = super(Universe, cls).__new__(cls)
         else:
             print("only one")
-        #END IF
+        # END IF
         return cls.isUniverse
-    #END __new__
+
+    # END __new__
 
     def __init__(self):
-        self.regionList = []
-        #names = ['a','b','c','d','e','f','g','h','i','j']
+        self.region_list = []
+        # names = ['a','b','c','d','e','f','g','h','i','j']
         while len(Universe.names) > 0:
             rand_name = random.randint(0, len(Universe.names) - 1)
-            new_region = Region(TechLevel
-                                (random.randint(1, 7)).name, Universe.names[rand_name])
+            new_region = Region(
+                TechLevel(random.randint(1, 7)).name, Universe.names[rand_name]
+            )
             Universe.names.pop(rand_name)
-            if len(self.regionList) == 0:
-                self.regionList.append(new_region)
+            if len(self.region_list) == 0:
+                self.region_list.append(new_region)
             else:
                 keep_comparing = True
                 while keep_comparing:
                     keep_comparing = False
-                    for reg in self.regionList:
+                    for reg in self.region_list:
                         if new_region.compare_and_regen(reg):
                             keep_comparing = True
                             break
-                        #END if
-                    #END for
+                        # END if
+                    # END for
                     if not keep_comparing:
-                        self.regionList.append(new_region)
-                    #END if
-                #END while
-            #END if and else
-        #END while
+                        self.region_list.append(new_region)
+                    # END if
+                # END while
+            # END if and else
+        # END while
