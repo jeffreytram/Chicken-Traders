@@ -93,8 +93,6 @@ class Universe:
         if not isinstance(cls.instance, cls):
             # THEN
             cls.instance = super(Universe, cls).__new__(cls)
-        else:
-            print("only one")
         # END IF
         return cls.instance
 
