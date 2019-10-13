@@ -88,29 +88,27 @@ class Region:
 class Universe:
     """This is the universe class when created it creates all the regions"""
 
-    isUniverse = None
-    names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
-
+    instance = None
     def __new__(cls):
-        if not cls.isUniverse:
+        if not isinstance(cls.instance, cls):
             # THEN
-            cls.isUniverse = super(Universe, cls).__new__(cls)
+            cls.instance = super(Universe, cls).__new__(cls)
         else:
             print("only one")
         # END IF
-        return cls.isUniverse
+        return cls.instance
 
     # END __new__
 
     def __init__(self):
         self.region_list = []
-        # names = ['a','b','c','d','e','f','g','h','i','j']
-        while len(Universe.names) > 0:
-            rand_name = random.randint(0, len(Universe.names) - 1)
+        self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+        while len(self.names) > 0:
+            rand_name = random.randint(0, len(self.names) - 1)
             new_region = Region(
-                TechLevel(random.randint(1, 7)).name, Universe.names[rand_name]
+                TechLevel(random.randint(1, 7)).name, self.names[rand_name]
             )
-            Universe.names.pop(rand_name)
+            self.names.pop(rand_name)
             if len(self.region_list) == 0:
                 self.region_list.append(new_region)
             else:
