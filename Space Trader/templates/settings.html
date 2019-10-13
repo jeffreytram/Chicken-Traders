@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="settings">
+<div class="settingsContainer">
     <h1>Settings</h1>
     <form method="post">
         {{ form.hidden_tag() }}
@@ -15,11 +15,12 @@
             {{form.diff.label}}<br>
             {{form.diff}}<br>
         </p>
-        
         <p>
             {{form.submit(class="button")}}
         </p>
     </form>
-    <button onclick="location.href = '/home'">Back</button>
+    <div>
+        <button onclick="location.href = '/home'">Back</button>
+    </div>
 </div>
 {% endblock %}

@@ -24,9 +24,21 @@
 
 10.9 [x] JT - Improved skillpoint limit warning, fixed back button bugs, formatting
 
+10.13 [x] JT - added map display
+
+TODO:
+Questions:
+leaflet js - map bounds
+leaflet js - inverse coordinates, unproject/project
+leaflet js - clicking marker centers to diff position (bottom right)
+
+improve current region map highlight, marker button name
+
+[] ui planning
+[] map thing with leaflet
+
 Running the Application
 1. make sure flask-wtf is installed
 -type pip install flask-wtf in command line to install forms extension
 2. type python app.py in command line in the CD of the app.py file
 
-TODO:

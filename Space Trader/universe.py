@@ -46,10 +46,10 @@ class Coordinates:
         and reacreates them based on the requirements."""
         regenerated = False
         if abs(self.x_position - other.x_position) <= 5:
-            self.recreate_x
+            self.recreate_x()
             regenerated = True
         if abs(self.y_position - other.y_position) <= 5:
-            self.recreate_y
+            self.recreate_y()
             regenerated = True
         # END if and elif
         return regenerated

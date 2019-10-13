@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "Space Trader"
+		}
+    ],
+    "settings": {
+        "workbench.colorCustomizations": {
+            "activityBar.background": "#3f2160",
+            "activityBar.foreground": "#e7e7e7",
+            "activityBar.inactiveForeground": "#e7e7e799",
+            "activityBarBadge.background": "#8e5d31",
+            "activityBarBadge.foreground": "#e7e7e7",
+            "titleBar.activeBackground": "#26143a",
+            "titleBar.inactiveBackground": "#26143a99",
+            "titleBar.activeForeground": "#e7e7e7",
+            "titleBar.inactiveForeground": "#e7e7e799",
+            "statusBar.background": "#26143a",
+            "statusBarItem.hoverBackground": "#3f2160",
+            "statusBar.foreground": "#e7e7e7"
+        },
+        "peacock.color": "#26143a"
+    }
+}

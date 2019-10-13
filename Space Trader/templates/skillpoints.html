@@ -1,55 +1,58 @@
 {% extends 'layout.html' %}
 {% block content %}
-
-<form method="post">
-    {{ form.hidden_tag() }}
-    <h3>Total Skill Points: {{sp}}</h3>
-    <p>
-        {{form.sp1.label}}<br>
-        {{form.sp1(size=32)}} <br>
-        {% for error in form.sp1.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{form.sp2.label}}<br>
-        {{form.sp2(size=32)}} <br>
-        {% for error in form.sp2.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{form.sp3.label}}<br>
-        {{form.sp3(size=32)}} <br>
-        {% for error in form.sp3.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{form.sp4.label}}<br>
-        {{form.sp4(size=32)}} <br>
-        {% for error in form.sp4.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{form.submit(class="button")}}
-    </p>
-    <!--DEBUGGING ISSUES WITH FORM
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul id="warning">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    {% if form.errors %}
-    {{ form.errors }}
-    {% endif %}
-    -->
-</form>
-    <button onclick="location.href = '/settings'">Back</button>
+<div class="spContainer">
+    <h1>Skill Points</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <h3>Total Skill Points: {{sp}}</h3>
+        <p>
+            {{form.sp1.label}}<br>
+            {{form.sp1(size=32)}} <br>
+            {% for error in form.sp1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.sp2.label}}<br>
+            {{form.sp2(size=32)}} <br>
+            {% for error in form.sp2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.sp3.label}}<br>
+            {{form.sp3(size=32)}} <br>
+            {% for error in form.sp3.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.sp4.label}}<br>
+            {{form.sp4(size=32)}} <br>
+            {% for error in form.sp4.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.submit(class="button")}}
+        </p>
+        <!--DEBUGGING ISSUES WITH FORM
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul id="warning">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% if form.errors %}
+        {{ form.errors }}
+        {% endif %}
+        -->
+    </form>
+    <div>
+        <button onclick="location.href = '/settings'">Back</button>
+    </div>
 </div>
 {% endblock %}

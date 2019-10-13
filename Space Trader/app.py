@@ -17,11 +17,6 @@ dictionary = {
     "sp4": 0,
     "currRegion": "",
 }
-posts = [
-    {"first_name": "Jeffrey", "last_name": "Tram"},
-    {"first_name": "Bradford", "last_name": "Peterson"},
-    {"first_name": "Robert", "last_name": "Giuffreda"},
-]
 
 
 @app.route("/", methods=["GET"])
@@ -59,11 +54,6 @@ def skillpoints():
         dictionary["sp4"] = sp_form.sp4.data
         return redirect(url_for("confirm"))
     return render_template("skillpoints.html", form=sp_form, sp=dictionary["pSPLimit"])
-
-
-@app.route("/about", methods=["GET"])
-def about():
-    return render_template("about.html", title="About", posts=posts)
 
 @app.route("/confirm", methods=["GET", "POST"])
 def confirm():
