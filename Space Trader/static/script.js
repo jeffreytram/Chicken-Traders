@@ -42,7 +42,7 @@ let view = {
         let menu = document.getElementById("menu");
         menu.addEventListener("click", function (event) {
             if (event.target.id == "travel") {
-                let buttonDiv = document.getElementsByClassName("regionButtons");
+                let buttonDiv = document.getElementsByClassName("travelMenu");
                 handlers.display(buttonDiv[0]);
                 handlers.highlightMenuButton(event.target);
             }

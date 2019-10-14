@@ -68,11 +68,75 @@ button:hover, .button:hover, .arrow:hover {
     display: flex;
     justify-content: space-between;
 }
+
 .hidden {
     display: none;
 }
+
+/* travel menu style */
+
 #mapid {
-    height: 754px;
-    width: 1129px;
+    height: 378px;
+    width: 672px;
+    1920, 1080
+}
+
+.regionButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+.region {
+    height: 10%;
+}
+
+.buttonAndMapContainer {
+    display: flex;
+    justify-content: center;
+}
+
+/* Market menu style */
+
+.marketMenuContainer {
+    display: flex;
+    flex-direction: column;
     margin: auto;
+    border: 5px solid rgb(30, 30, 30);
+    width: 70%;
+}
+
+.marketContainer, .bottomContainer {
+    display: flex;
+    width: 100%;
+}
+
+.itemCategories {
+    border: 2px solid rgb(30, 30, 30);
+    width: 20%;
+}
+
+.items {
+    border: 2px solid rgb(30, 30, 30);;
+    width: 80%;
+}
+
+.items>ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.items>ul>li {
+    width: 19.7%;
+    border: 1px solid rgb(30, 30, 30);
+    text-align: left;
+}
+/* Bottom container css*/
+.buyInfo {
+    border: 2px solid rgb(30, 30, 30);
+    width: 20%;
+}
+.itemDescription {
+    border: 2px solid rgb(30, 30, 30);
+    width: 80%;
 }

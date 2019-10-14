@@ -15,30 +15,74 @@
 </div>
 
 <!--Travel menu - Region buttons and map-->
-<div class="menu regionButtons hidden">
-    {% for region in universe.region_list %}
-    {% if region == currRegion %}
-    <button class="region {{ loop.index }} active">Region: {{region.name}}</button>
-    {% else %}
-    <button class="region {{ loop.index }}">Region: {{region.name}}</button>
-    {% endif %}
-    {% endfor %}
+<div class="menu travelMenu hidden">
     <h2 id="currRegion">Region: {{currRegion.name}}
         ({{currRegion.coordinates.x_position}},
         {{currRegion.coordinates.y_position}})
         Tech Level: {{currRegion.tech_level}}
     </h2>
-    <div class="" id="mapid"></div>
+    <div class="buttonAndMapContainer">
+        <div class="regionButtons">
+            {% for region in universe.region_list %}
+            {% if region == currRegion %}
+            <button class="region {{ loop.index }} active">Region: {{region.name}}</button>
+            {% else %}
+            <button class="region {{ loop.index }}">Region: {{region.name}}</button>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div id="mapid"></div>
+    </div>
 </div>
 <div class="menu marketMenu hidden">
-    <p>hello, this is market.</p>
+    <h2>Market</h2>
+    <div class="marketMenuContainer">
+        <div class="marketContainer">
+            <div class="itemCategories">
+                <ul>
+                    <li>Food</li>
+                    <li>Medicine</li>
+                    <li>Weapons</li>
+                    <li>Resources</li>
+                    <li>Technology</li>
+                </ul>
+            </div>
+            <div class="items">
+                <ul>
+                    <li><img src="../static/item-images/apple-icon.png">Apple</li>
+                    <li><img src="../static/item-images/apple-icon.png">Chicken</li>
+                    <li><img src="../static/item-images/apple-icon.png">Chicken Egg</li>
+                    <li><img src="../static/item-images/apple-icon.png">Orange</li>
+                    <li><img src="../static/item-images/apple-icon.png">Band-Aid</li>
+                    <li><img src="../static/item-images/apple-icon.png">First-Aid Kit</li>
+                    <li><img src="../static/item-images/apple-icon.png">Wood</li>
+                    <li><img src="../static/item-images/apple-icon.png">Wooden Spoon</li>
+                    <li><img src="../static/item-images/apple-icon.png">Shampoo Bottle</li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottomContainer">
+            <div class="buyInfo">
+                <p>Purchase x item for y amount?</p>
+                <button>Purchase</button>
+            </div>
+            <div class="itemDescription">
+                <p>This is a sample description of what some of the items would have when the item is selected in the
+                    panel
+                    above me. Here is some more sample text to continue to take up space so that it looks like there is
+                    more
+                    text.</p>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!--Generating the map-->
 <script type="text/javascript">
-    var w = 1129,
-        h = 754,
-        url = 'https://cdn.pixabay.com/photo/2019/09/15/14/22/coast-4478424_1280.jpg';
+    var w = 672,
+        h = 378,
+        url = '../static/map.png';
     var map = L.map('mapid', {
         minZoom: 1,
         maxZoom: 4,
@@ -51,6 +95,7 @@
     //var marker = L.marker([-100, 100]).addTo(map);
     let jsRegionList = [];
 
+    // creating markers on map
     {% for region in universe.region_list %}
     var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}]).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level}}<br><button class='region {{ loop.index }}'>GO</button>").on('click', function () {
         console.log(marker{{ loop.index }}.getLatLng());
@@ -58,6 +103,7 @@
     jsRegionList.push(["{{region.name}}", {{ region.coordinates.x_position }}, {{ region.coordinates.y_position }}, "{{region.tech_level}}"]);
     {% endfor %}
 
+    // event listerner for internal map region buttons
     let mapDiv = document.getElementById('mapid');
     mapDiv.addEventListener("click", function (event) {
         if (event.target.classList.contains("region")) {
@@ -68,7 +114,7 @@
             handlers.highlightButton(clickedButton[0]);
         }
     });
-
+    // event listener for external region buttons
     let regionButtonDiv = document.getElementsByClassName("regionButtons")
     regionButtonDiv[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("region")) {

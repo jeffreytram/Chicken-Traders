@@ -28,10 +28,11 @@
 
 TODO:
 Questions:
-leaflet js - map bounds
-leaflet js - inverse coordinates, unproject/project
-leaflet js - clicking marker centers to diff position (bottom right)
-leaflet js - using custom image for imageoverlay
+leaflet js
+-map bounds
+-inverse coordinates, unproject/project
+-clicking marker centers to diff position (bottom right)
+-responsive map?
 
 improve current region map highlight, marker button name
 
