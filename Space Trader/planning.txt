@@ -31,6 +31,7 @@ Questions:
 leaflet js - map bounds
 leaflet js - inverse coordinates, unproject/project
 leaflet js - clicking marker centers to diff position (bottom right)
+leaflet js - using custom image for imageoverlay
 
 improve current region map highlight, marker button name
 
@@ -41,4 +42,8 @@ Running the Application
 1. make sure flask-wtf is installed
 -type pip install flask-wtf in command line to install forms extension
 2. type python app.py in command line in the CD of the app.py file
+
+Adding .gitignore
+-type "git rm -r --cached ./__pycache__" without quotes
+-last part is the directory for the __pycache__ folder
 

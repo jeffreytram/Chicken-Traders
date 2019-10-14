@@ -1,7 +1,21 @@
 {% extends 'layout.html' %}
 {% block content %}
-<button id="travel">Travel</button>
-<div class="regionButtons hidden">
+<div id="menu">
+    <button id="ship">Ship</button>
+    <button id="travel">Travel</button>
+    <button id="market">Market</button>
+</div>
+
+<!--Ship menu-->
+<div class="menu shipMenu hidden">
+    <h3>Type:</h3>
+    <h3>Cargo Space:</h3>
+    <h3>Fuel Capacity:</h3>
+    <h3>Health:</h3>
+</div>
+
+<!--Travel menu - Region buttons and map-->
+<div class="menu regionButtons hidden">
     {% for region in universe.region_list %}
     {% if region == currRegion %}
     <button class="region {{ loop.index }} active">Region: {{region.name}}</button>
@@ -9,13 +23,18 @@
     <button class="region {{ loop.index }}">Region: {{region.name}}</button>
     {% endif %}
     {% endfor %}
-    <h2 id="currRegion">Region: {{currRegion.name}} X:
-        {{currRegion.coordinates.x_position}} Y:
-        {{currRegion.coordinates.y_position}}
+    <h2 id="currRegion">Region: {{currRegion.name}}
+        ({{currRegion.coordinates.x_position}},
+        {{currRegion.coordinates.y_position}})
         Tech Level: {{currRegion.tech_level}}
     </h2>
     <div class="" id="mapid"></div>
 </div>
+<div class="menu marketMenu hidden">
+    <p>hello, this is market.</p>
+</div>
+
+<!--Generating the map-->
 <script type="text/javascript">
     var w = 1129,
         h = 754,
@@ -31,12 +50,14 @@
 
     //var marker = L.marker([-100, 100]).addTo(map);
     let jsRegionList = [];
+
     {% for region in universe.region_list %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position/2 }}, {{ region.coordinates.y_position/2 }}]).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level}}<br><button class='region {{ loop.index }}'>GO</button>").on('click', function () {
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}]).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level}}<br><button class='region {{ loop.index }}'>GO</button>").on('click', function () {
         console.log(marker{{ loop.index }}.getLatLng());
-            });
+    });
     jsRegionList.push(["{{region.name}}", {{ region.coordinates.x_position }}, {{ region.coordinates.y_position }}, "{{region.tech_level}}"]);
     {% endfor %}
+
     let mapDiv = document.getElementById('mapid');
     mapDiv.addEventListener("click", function (event) {
         if (event.target.classList.contains("region")) {
@@ -47,6 +68,7 @@
             handlers.highlightButton(clickedButton[0]);
         }
     });
+
     let regionButtonDiv = document.getElementsByClassName("regionButtons")
     regionButtonDiv[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("region")) {
@@ -57,12 +79,14 @@
             handlers.highlightButton(clickedButton[0]);
         }
     });
-    // calculate the edges of the image, in coordinate space
+    //test markers
     var markerZero = L.marker([0, 0]).addTo(map).bindPopup("test-center");
     var markertest1 = L.marker([5, 0]).addTo(map).bindPopup("test-pos-x");
     var markertest2 = L.marker([-5, 0]).addTo(map).bindPopup("test-neg-x");
     var markertest3 = L.marker([0, 5]).addTo(map).bindPopup("test-pos-y");
     var markertest4 = L.marker([0, -5]).addTo(map).bindPopup("test-neg-y");
+
+    //bounds for image
     var southWest = map.unproject([-w * 2, -h * 2], map.getMaxZoom() - 1);
     var northEast = map.unproject([w * 2, h * 2], map.getMaxZoom() - 1);
     var bounds = new L.LatLngBounds(southWest, northEast);
