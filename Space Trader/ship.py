@@ -31,12 +31,12 @@ class Ship:
 # 3 ship types, subclasses of ship
 class A_Ship(Ship):
     def __init__(self):
-        super().__init__("A", 1000, 1000, 1000)
+        super().__init__("A", 1000, 1000, 100)
 
 class B_Ship(Ship):
     def __init__(self):
-        super().__init__("B", 750, 750, 750)
+        super().__init__("B", 750, 750, 75)
 
 class C_Ship(Ship):
     def __init__(self):
-        super().__init__("C", 500, 500, 500)
+        super().__init__("C", 500, 500, 50)

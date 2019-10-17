@@ -2,6 +2,7 @@
 
 import random
 import enum
+import math
 
 
 class TechLevel(enum.Enum):
@@ -80,6 +81,16 @@ class Region:
         self.coordinates.compare_and_recreate(other.coordinates)
 
     # END compareAndRegen
+
+    def distance(self, new_region, old_region):
+        """Gets the distance between 2 regions"""
+        x1 = old_region.coordinates.x_position
+        y1 = old_region.coordinates.y_position
+        x2 = new_region.coordinates.x_position
+        y2 = new_region.coordinates.y_position
+        return math.sqrt(((x2 - x1)**2) + ((y2 - y1)**2))
+
+
 
 
 # END Region
