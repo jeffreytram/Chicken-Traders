@@ -1,12 +1,13 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from forms import SettingForm, ConfirmForm, SPForm
 from game import Game
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ayy'
+app.config["SECRET_KEY"] = "ayy"
 
 dictionary = {
     "game": None,
+    "player": "",
     "pName": "",
     "pDiff": "",
     "pCredits": 0,
@@ -55,6 +56,7 @@ def skillpoints():
         return redirect(url_for("confirm"))
     return render_template("skillpoints.html", form=sp_form, sp=dictionary["pSPLimit"])
 
+
 @app.route("/confirm", methods=["GET", "POST"])
 def confirm():
     confirmform = ConfirmForm()
@@ -71,7 +73,7 @@ def confirm():
                 dictionary["sp3"],
                 dictionary["sp4"],
             ],
-            dictionary["pCredits"]
+            dictionary["pCredits"],
         )
         dictionary["currRegion"] = space_trader.player.curr_region
         return redirect(url_for("start"))
@@ -91,8 +93,16 @@ def confirm():
 
 @app.route("/start", methods=["GET", "POST"])
 def start():
+    if request.method == "POST":
+        index = request.form["currIndex"]
+        dictionary["currRegion"] = dictionary["game"].universe.region_list[int(index)-1]
+        print(dictionary["currRegion"].name)
+        return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level
     return render_template(
-        "start.html", universe=dictionary["game"].universe, currRegion=dictionary["currRegion"]
+        "start.html",
+        game=dictionary["game"],
+        universe=dictionary["game"].universe,
+        currRegion=dictionary["currRegion"],
     )
 
 

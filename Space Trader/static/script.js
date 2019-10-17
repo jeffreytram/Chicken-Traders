@@ -1,10 +1,4 @@
 let player = {
-    currentRegion: "Home",
-    displayCurrRegionMap: function (region) {
-        let headerElement = document.getElementById("currRegion");
-        headerElement.innerHTML = "Region: " + region[0] + " (" + region[1] + ", " + region[2] + ") Tech Level: " + region[3];
-        this.currentRegion = region[0];
-    },
     display: function (screen) {
         let activeMenu = document.getElementsByClassName("menuActive");
         if (activeMenu.length > 0) {
@@ -29,9 +23,6 @@ let handlers = {
             active[0].className = active[0].className.replace(" active2", "");
         }
         button.className += " active2";
-    },
-    travelMap: function (region) {
-        player.displayCurrRegionMap(region);
     },
     display: function (screen) {
         player.display(screen);

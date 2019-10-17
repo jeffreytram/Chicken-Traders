@@ -26,8 +26,9 @@
 
 10.13 [x] JT - added map display
 
+10.17 [x] JT - Current region display redone with XMLHttpRequest
+
 TODO:
-Questions:
 leaflet js
 -map bounds
 -inverse coordinates, unproject/project
