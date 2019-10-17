@@ -82,10 +82,10 @@ class Region:
 
     # END compareAndRegen
 
-    def distance(self, new_region, old_region):
+    def distance(self, new_region):
         """Gets the distance between 2 regions"""
-        x1 = old_region.coordinates.x_position
-        y1 = old_region.coordinates.y_position
+        x1 = self.coordinates.x_position
+        y1 = self.coordinates.y_position
         x2 = new_region.coordinates.x_position
         y2 = new_region.coordinates.y_position
         return math.sqrt(((x2 - x1)**2) + ((y2 - y1)**2))

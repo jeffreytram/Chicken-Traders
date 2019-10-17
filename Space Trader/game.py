@@ -21,30 +21,27 @@ class Game:
         self.ship = C_Ship()
     # END startGame
 
+    @property
     def fuelCostConstant(self):
         if self.diff == "easy":
-            fuelCost = 0.2
-        if self.diff == "medium":
-            fuelCost = 0.35
-        if self.diff == "hard":
-            fuelCost = 0.5
-        return fuelCost
-    
+            return 0.2
+        elif self.diff == "medium":
+            return 0.35
+        elif self.diff == "hard":
+            return 0.5
+        else:
+            return -1
+
     def travelSequence(self, new_region):
-        hasTraveled = False
-        while not hasTraveled:
-            distance = new_region.distance(new_region, self)
-            fuelCost = self.fuelCostConstant() * distance
-            fuelAmount = self.ship.get_fuel_capacity()
-            if fuelCost <= fuelAmount:
-                self.player.travel(new_region)
-                self.ship.set_fuel_capacity(fuelAmount - fuelCost)
-                hasTraveled = True
-                #"Traveled to new region succesfully"
-            else:
-                hasTraveled = False
-                break
-                #"Insufficient fuel. Try again?
-                #Cancel button? Add break
-            #END if
-        #END while
+        traveled = False
+        distance = self.player.curr_region.distance(new_region)
+        fuel_cost = self.fuelCostConstant * distance * (1 - (self.player.pilot/75))
+        fuel_amount = self.player.ship.fuel_level
+        if fuel_cost <= fuel_amount:
+            self.player.curr_region = new_region
+            self.player.ship.fuel_level = fuel_amount - fuel_cost
+            traveled = True
+            return traveled
+            #"Traveled to new region succesfully"
+        return hasTraveled
+        #END if

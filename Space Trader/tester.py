@@ -1,7 +1,11 @@
 from game import Game
 
 skill_points = [4, 4, 4, 4]
-game = Game("Hard")
+game = Game("hard")
+
+print(game.fuelCostConstant)
+print()
+print()
 game.start_game("Raymond", skill_points, 200)
 for reg in game.universe.region_list:
     print(reg.name)
