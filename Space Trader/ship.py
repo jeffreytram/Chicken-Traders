@@ -5,9 +5,17 @@ class Ship:
         self.fuel_capacity = fuel_capacity
         self.max_health = max_health
         self.fuel_level = fuel_capacity
-        self.cargo_space = 0;
+        self.cargo = []; 
+        #Cargo is a list of lists with inner list of 
+        #format [item, quantity]
         self.health_level = max_health
 
+    @property
+    def cargo_space(self):
+        size_sum = 0
+        for merchendise in cargo:
+            size_sum += merchendise[0].size * merchendise[1]
+        return self.max_cargo_space - size_sum
 
     # @property
     # def cargo_space(self):

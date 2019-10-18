@@ -10,7 +10,6 @@ class Game:
         self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
         self.universe = None
         self.player = None
-        self.ship = None
 
     def start_game(self, name, skill_points, credit):
         self.universe = Universe()
@@ -18,11 +17,10 @@ class Game:
         self.player = Player(
             name, skill_points, credit, self.universe.region_list[rand_int]
         )
-        self.ship = C_Ship()
     # END startGame
 
     @property
-    def fuelCostConstant(self):
+    def fuel_cost_constant(self):
         if self.diff == "easy":
             return 0.2
         elif self.diff == "medium":
@@ -35,11 +33,11 @@ class Game:
     def travelSequence(self, new_region):
         traveled = False
         distance = self.player.curr_region.distance(new_region)
-        fuel_cost = self.fuelCostConstant * distance * (1 - (self.player.pilot/75))
+        fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
         fuel_amount = self.player.ship.fuel_level
         if fuel_cost <= fuel_amount:
             self.player.curr_region = new_region
-            self.player.ship.fuel_level = fuel_amount - fuel_cost
+            self.player.ship.fuel_level = int(fuel_amount - fuel_cost)
             traveled = True
             return traveled
             #"Traveled to new region succesfully"
