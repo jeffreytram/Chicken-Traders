@@ -14,7 +14,7 @@ class Ship:
     def cargo_space(self):
         size_sum = 0
         for merchendise in cargo:
-            size_sum += merchendise[0].size * merchendise[1]
+            size_sum += merchendise.size * merchendise.amount
         return self.max_cargo_space - size_sum
 
     # @property
