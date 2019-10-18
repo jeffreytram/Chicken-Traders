@@ -7,7 +7,7 @@
     <h2 id="currRegion">Region: {{currRegion.name}}
         ({{currRegion.coordinates.x_position}},
         {{currRegion.coordinates.y_position}})
-        Tech Level: {{currRegion.tech_level}}
+        Tech Level: {{currRegion.tech_level.name}}
     </h2>
 </div>
 
@@ -114,7 +114,7 @@
     // dimensions and url of the image
     // creating markers on map
     {% for region in universe.region_list %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>").on('click', function () {
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>").on('click', function () {
 
     });
     {% endfor %}

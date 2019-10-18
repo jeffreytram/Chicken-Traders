@@ -3,6 +3,7 @@
 import random
 import enum
 import math
+from item import *
 
 
 class TechLevel(enum.Enum):
@@ -18,7 +19,6 @@ class TechLevel(enum.Enum):
 
 
 # END Enum
-
 
 class Coordinates:
     """This is the coordinate class with the methods to
@@ -72,6 +72,17 @@ class Region:
         self.coordinates = Coordinates()
         self.tech_level = tech_level
         self.name = name
+        self.market = []
+        #possible
+        poss_items = Item.__subclasses__()
+        while len(self.market) < 8:
+        	rand_index = random.randint(0, len(poss_items) - 1)
+        	if poss_items[rand_index].debut_cap[0] > tech_level.value:
+        		poss_items.pop(rand_index)
+        	else:
+        		self.market.append(poss_items[rand_index](random.randint(10, 20)))
+        		poss_items.pop(rand_index)
+        #END for
 
     # END __init__
 
@@ -82,10 +93,10 @@ class Region:
 
     # END compareAndRegen
 
-    def distance(self, new_region, old_region):
+    def distance(self, new_region):
         """Gets the distance between 2 regions"""
-        x1 = old_region.coordinates.x_position
-        y1 = old_region.coordinates.y_position
+        x1 = self.coordinates.x_position
+        y1 = self.coordinates.y_position
         x2 = new_region.coordinates.x_position
         y2 = new_region.coordinates.y_position
         return math.sqrt(((x2 - x1)**2) + ((y2 - y1)**2))
@@ -115,7 +126,7 @@ class Universe:
         while len(self.names) > 0:
             rand_name = random.randint(0, len(self.names) - 1)
             new_region = Region(
-                TechLevel(random.randint(1, 7)).name, self.names[rand_name]
+                TechLevel(random.randint(1, 7)), self.names[rand_name]
             )
             self.names.pop(rand_name)
             if len(self.region_list) == 0:

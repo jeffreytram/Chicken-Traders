@@ -97,7 +97,7 @@ def start():
         index = request.form["currIndex"]
         dictionary["currRegion"] = dictionary["game"].universe.region_list[int(index)-1]
         print(dictionary["currRegion"].name)
-        return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level
+        return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name
     return render_template(
         "start.html",
         game=dictionary["game"],

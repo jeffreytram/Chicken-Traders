@@ -1,3 +1,4 @@
+from ship import Ship, A_Ship, B_Ship, C_Ship
 """This is the module with the player class"""
 class Player:
     def __init__(self, name, skill_points, credit, curr_region):
@@ -8,41 +9,9 @@ class Player:
         self.engineer = skill_points[3]
         self.credit = credit
         self.curr_region = curr_region
+        self.ship = C_Ship()
 
     # END __init__
-
-    # Temporary travel method
-    def travel(self, region_to):
-        """Moves players current region to another."""
-        self.curr_region = region_to
-
-    def get_name(self):
-        """Return name"""
-        return self.name
-
-    def get_curr_region(self):
-        """Returns the current region"""
-        return self.curr_region
-
-    def get_credit(self):
-        """Returns the players credit"""
-        return self.credit
-
-    def get_pilot(self):
-        """Returns the pilot skill points"""
-        return self.pilot
-
-    def get_fighter(self):
-        """Returns the fighter skill points."""
-        return self.fighter
-
-    def get_merchant(self):
-        """Returns the merchant skillpoints"""
-        return self.merchant
-
-    def get_engineer(self):
-        """Returns the engineer skill points"""
-        return self.engineer
 
     def set_name(self, name):
         """Sets the player name"""
