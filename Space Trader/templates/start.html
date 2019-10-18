@@ -26,8 +26,8 @@
             <div class="regionButtons">
                 {% for region in universe.region_list %}
                 {% if region == currRegion %}
-                <button type="button" onclick="travel('{{loop.index}}');"
-                    class="region {{ loop.index }} active">Region: {{region.name}}</button>
+                <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }} active">Region:
+                    {{region.name}}</button>
                 {% else %}
                 <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }}">Region:
                     {{region.name}}</button>
@@ -52,23 +52,19 @@
                 </ul>
             </div>
             <div class="items">
-                <ul>
-                    <li><img src="../static/item-images/apple-icon.png">Apple</li>
-                    <li><img src="../static/item-images/apple-icon.png">Chicken</li>
-                    <li><img src="../static/item-images/apple-icon.png">Chicken Egg</li>
-                    <li><img src="../static/item-images/apple-icon.png">Orange</li>
-                    <li><img src="../static/item-images/apple-icon.png">Band-Aid</li>
-                    <li><img src="../static/item-images/apple-icon.png">First-Aid Kit</li>
-                    <li><img src="../static/item-images/apple-icon.png">Wood</li>
-                    <li><img src="../static/item-images/apple-icon.png">Wooden Spoon</li>
-                    <li><img src="../static/item-images/apple-icon.png">Shampoo Bottle</li>
+                <ul id="itemUl">
+                    {% for item in currRegion.market %}
+                    <li class="item {{loop.index}}"><img src="../static/item-images/apple-icon.png">{{item.name}}
+                        {{item.base_price}}</li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="bottomContainer">
             <div class="buyInfo">
-                <p>Purchase x item for y amount?</p>
-                <button>Purchase</button>
+                <p id="purchaseStatement">Purchase x item for y amount?</p>
+                <!--TODO: add functionality to button-->
+                <button type="button" onclick="">Purchase</button>
             </div>
             <div class="itemDescription">
                 <p>This is a sample description of what some of the items would have when the item is selected in the
@@ -85,7 +81,7 @@
 <script type="text/javascript">
     function travel(index) {
         var req = new XMLHttpRequest();
-        var result = document.getElementById('currRegion');
+        var result = document.getElementById("currRegion");
         //only need this section if we're displaying
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -97,6 +93,24 @@
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("currIndex=" + index);
     }
+    function selectItem(index) {
+        var req = new XMLHttpRequest();
+        var result = document.getElementsByClassName("itemDescription");
+        //only need this section if we're displaying
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                result[0].innerHTML = this.responseText;
+            }
+        }
+        //this part sends the data over
+        req.open('POST', '/start', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("selectedIndex=" + index);
+    }
+    function purchase() {
+        //TODO: connect purchase to back end
+    }
+
 
     var w = 672,
         h = 378,
@@ -128,10 +142,9 @@
             handlers.highlightButton(clickedButton[0]);
         }
     });
-    //test post request
 
     // event listener for external region buttons
-    let regionButtonDiv = document.getElementsByClassName("regionButtons")
+    let regionButtonDiv = document.getElementsByClassName("regionButtons");
     regionButtonDiv[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("region")) {
             let clickedIndex = event.target.classList[1] - 1;
@@ -139,6 +152,16 @@
             handlers.highlightButton(clickedButton[0]);
         }
     });
+
+    // event listener for item selection
+    let itemUl = document.getElementById("itemUl");
+    itemUl.addEventListener("click", function (event) {
+        console.log(event.target);
+        if (event.target.classList.contains("item")) {
+            selectItem(event.target.classList[1]);
+        }
+    });
+
     //test markers
     var markerZero = L.marker([0, 0]).addTo(map).bindPopup("test-center");
     var markertest1 = L.marker([5, 0]).addTo(map).bindPopup("test-pos-x");

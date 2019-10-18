@@ -28,17 +28,20 @@
 
 10.17 [x] JT - Current region display redone with XMLHttpRequest
 
+
 TODO:
+[] purchase connected to backend
+[] select item and display description
+
+
+Questions:
 leaflet js
 -map bounds
 -inverse coordinates, unproject/project
 -clicking marker centers to diff position (bottom right)
 -responsive map?
 
-improve current region map highlight, marker button name
 
-[] ui planning
-[] map thing with leaflet
 
 Running the Application
 1. make sure flask-wtf is installed
