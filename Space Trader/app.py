@@ -94,13 +94,16 @@ def confirm():
 @app.route("/start", methods=["GET", "POST"])
 def start():
     if request.method == "POST":
-        if ("currIndex" in request.form):
+        if "currIndex" in request.form:
             index = request.form["currIndex"]
             dictionary["currRegion"] = dictionary["game"].universe.region_list[int(index)-1]
-            return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name
-        if("selectedIndex" in request.form):
-            selectedIndex = request.form["selectedIndex"]
-            return dictionary["currRegion"].market[int(selectedIndex) - 1].description
+            return "Region: " + dictionary["currRegion"].name \
+            + " (" + str(dictionary["currRegion"].coordinates.x_position) \
+            + ", " + str(dictionary["currRegion"].coordinates.y_position) \
+            + ") Tech Level: " + dictionary["currRegion"].tech_level.name
+        if "selectedIndex" in request.form:
+            selected_index = request.form["selectedIndex"]
+            return dictionary["currRegion"].market[int(selected_index) - 1].description
     return render_template(
         "start.html",
         game=dictionary["game"],

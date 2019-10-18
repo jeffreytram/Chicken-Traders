@@ -3,7 +3,7 @@
 import random
 import enum
 import math
-from item import *
+from item import Item
 
 
 class TechLevel(enum.Enum):
@@ -76,12 +76,12 @@ class Region:
         #possible
         poss_items = Item.__subclasses__()
         while len(self.market) < 8:
-        	rand_index = random.randint(0, len(poss_items) - 1)
-        	if poss_items[rand_index].debut_cap[0] > tech_level.value:
-        		poss_items.pop(rand_index)
-        	else:
-        		self.market.append(poss_items[rand_index](random.randint(10, 20)))
-        		poss_items.pop(rand_index)
+            rand_index = random.randint(0, len(poss_items) - 1)
+            if poss_items[rand_index].debut_cap[0] > tech_level.value:
+                poss_items.pop(rand_index)
+            else:
+                self.market.append(poss_items[rand_index](random.randint(10, 20)))
+                poss_items.pop(rand_index)
         #END for
 
     # END __init__
@@ -89,19 +89,17 @@ class Region:
     def compare_and_regen(self, other):
         """This method calls the coordinate compare
         function so the region class can use it easily."""
-        self.coordinates.compare_and_recreate(other.coordinates)
+        return self.coordinates.compare_and_recreate(other.coordinates)
 
     # END compareAndRegen
 
     def distance(self, new_region):
         """Gets the distance between 2 regions"""
-        x1 = self.coordinates.x_position
-        y1 = self.coordinates.y_position
-        x2 = new_region.coordinates.x_position
-        y2 = new_region.coordinates.y_position
-        return math.sqrt(((x2 - x1)**2) + ((y2 - y1)**2))
-
-
+        x_1 = self.coordinates.x_position
+        y_1 = self.coordinates.y_position
+        x_2 = new_region.coordinates.x_position
+        y_2 = new_region.coordinates.y_position
+        return math.sqrt(((x_2 - x_1)**2) + ((y_2 - y_1)**2))
 
 
 # END Region
@@ -124,26 +122,30 @@ class Universe:
         self.region_list = []
         self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
         while len(self.names) > 0:
-            rand_name = random.randint(0, len(self.names) - 1)
-            new_region = Region(
-                TechLevel(random.randint(1, 7)), self.names[rand_name]
-            )
-            self.names.pop(rand_name)
+            new_region = self.create_region()
             if len(self.region_list) == 0:
                 self.region_list.append(new_region)
             else:
-                keep_comparing = True
-                while keep_comparing:
-                    keep_comparing = False
-                    for reg in self.region_list:
-                        if new_region.compare_and_regen(reg):
-                            keep_comparing = True
-                            break
-                        # END if
-                    # END for
-                    if not keep_comparing:
-                        self.region_list.append(new_region)
-                    # END if
-                # END while
-            # END if and else
-        # END while
+                self.reg_coord_check(new_region)
+
+    def create_region(self):
+        name_index = random.randint(0, len(self.names) - 1)
+        new_region = Region(
+            TechLevel(random.randint(1, 7)), self.names[name_index]
+        )
+        self.names.pop(name_index)
+        return new_region
+
+    def reg_coord_check(self, new_region):
+        keep_comparing = True
+        while keep_comparing:
+            for reg in self.region_list:
+                if new_region.compare_and_regen(reg):
+                    break
+                #END if
+            #END for
+            keep_comparing = False
+            if not keep_comparing:
+                self.region_list.append(new_region)
+            #END if
+        #END while
