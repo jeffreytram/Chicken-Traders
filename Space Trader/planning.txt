@@ -28,10 +28,14 @@
 
 10.17 [x] JT - Current region display redone with XMLHttpRequest
 
+10.18 [x] JT - Connected market to backend
 
 TODO:
+[] display amount of credits
 [] purchase connected to backend
 [] select item and display description
+[] dictionary not updating until reload (rerendered)
+- updating dictionary values does not update already rendered variables
 
 
 Questions:

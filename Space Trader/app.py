@@ -17,6 +17,7 @@ dictionary = {
     "sp3": 0,
     "sp4": 0,
     "currRegion": "",
+    "selectedItem": ""
 }
 
 
@@ -100,12 +101,20 @@ def start():
             return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name
         if("selectedIndex" in request.form):
             selectedIndex = request.form["selectedIndex"]
-            return dictionary["currRegion"].market[int(selectedIndex) - 1].description
+            dictionary["selectedItem"] = dictionary["currRegion"].market[int(selectedIndex) - 1]
+            return dictionary["selectedItem"].description
+        if("statementIndex" in request.form):
+            return "Purchase " + dictionary["selectedItem"].name + " for " + str(dictionary["selectedItem"].base_price) + "?"
+        if("buyIndex" in request.form):
+            '''TODO: buy method, return new credit'''
+
+            return dictionary["game"].player.credit
     return render_template(
         "start.html",
         game=dictionary["game"],
         universe=dictionary["game"].universe,
         currRegion=dictionary["currRegion"],
+        selectedItem =dictionary["selectedItem"]
     )
 
 
