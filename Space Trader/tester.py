@@ -4,35 +4,49 @@ from universe import TechLevel
 from item import Item
 from player import Player
 
-def universe_create():
-    skill_points = [4, 4, 4, 4]
-    game = Game("hard")
-    print(game.diff)
-    print(game.fuel_cost_constant)
+skill_points = [4, 4, 4, 4]
+game = Game("hard")
+print(game.diff)
+print(game.fuel_cost_constant)
+print()
+print()
+game.start_game("Raymond", skill_points, 200)
+for reg in game.universe.region_list:
+    print(reg.name)
+    print(reg.coordinates.x_position)
+    print(reg.coordinates.y_position)
+    print(reg.tech_level.name)
+    print(reg.tech_level.value)
     print()
-    print()
-    game.start_game("Raymond", skill_points, 200)
-    for reg in game.universe.region_list:
-        print(reg.name)
-        print(reg.coordinates.x_position)
-        print(reg.coordinates.y_position)
-        print(reg.tech_level.name)
-        print(reg.tech_level.value)
-        for stuff in reg.market:
-            print(stuff.name)
-            print(stuff.amount)
-        print()
-    print()
-    print()
-    return game
 
-def travel_test(game):
-    print(game.player.curr_region.name)
-    game.travel_sequence(game.universe.region_list[1])
-    print(game.player.curr_region.name)
-    print(game.player.ship.fuel_level)
+    for stuff in reg.market:
+        print(stuff.name)
+        print(stuff.amount)
     print()
     print()
+print()
+print()
+
+print(game.player.curr_region.name)
+game.travel_sequence(game.universe.region_list[1])
+print(game.player.curr_region.name)
+print(game.player.ship.fuel_level)
+print()
+print()
+
+print(game.player.credit)
+print(game.player.curr_region.market[0])
+print(game.player.curr_region.market[0].amount)
+print(game.player.trade_buy(game.player.curr_region.market[0], 5))
+print(game.player.credit)
+print(game.player.curr_region.market[0])
+print(game.player.curr_region.market[0].amount)s
+print(game.player.ship.cargo[0])
+
+
+
+
+
 
 # game = universe_create()
 # travel_test(game)
