@@ -97,18 +97,26 @@ def start():
     if request.method == "POST":
         if "currIndex" in request.form:
             index = request.form["currIndex"]
-            dictionary["currRegion"] = dictionary["game"].universe.region_list[int(index)-1]
-            return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name
+            travelToRegion = dictionary["game"].universe.region_list[int(index)-1]
+            if (dictionary["game"].travel_sequence(travelToRegion)):
+                dictionary["currRegion"] = travelToRegion
+                return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name
+            else:
+                return "Not enough fuel!"
         if("selectedIndex" in request.form):
             selectedIndex = request.form["selectedIndex"]
             dictionary["selectedItem"] = dictionary["currRegion"].market[int(selectedIndex) - 1]
             return dictionary["selectedItem"].description
+        
         if("statementIndex" in request.form):
             return "Purchase " + dictionary["selectedItem"].name + " for " + str(dictionary["selectedItem"].base_price) + "?"
+        
         if("buyIndex" in request.form):
-            '''TODO: buy method, return new credit'''
-
-            return dictionary["game"].player.credit
+            dictionary["game"].player.trade_buy(dictionary["selectedItem"], dictionary["selectedItem"].base_price)
+            return "Credits " + str(dictionary["game"].player.credit)
+        
+        if("displayFuel" in request.form):
+            return "Current Fuel Level: " + str(dictionary["game"].player.ship.fuel_level)
     return render_template(
         "start.html",
         game=dictionary["game"],
