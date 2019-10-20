@@ -95,7 +95,7 @@ def confirm():
 @app.route("/start", methods=["GET", "POST"])
 def start():
     if request.method == "POST":
-        if ("currIndex" in request.form):
+        if "currIndex" in request.form:
             index = request.form["currIndex"]
             dictionary["currRegion"] = dictionary["game"].universe.region_list[int(index)-1]
             return "Region: " + dictionary["currRegion"].name + " (" + str(dictionary["currRegion"].coordinates.x_position) + ", " + str(dictionary["currRegion"].coordinates.y_position) + ") Tech Level: " + dictionary["currRegion"].tech_level.name

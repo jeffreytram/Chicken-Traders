@@ -1,13 +1,11 @@
 import random
 from universe import Universe
 from player import Player
-from ship import Ship, A_Ship, B_Ship, C_Ship
 
 
 class Game:
     def __init__(self, diff):
         self.diff = diff
-        self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
         self.universe = None
         self.player = None
 
@@ -30,7 +28,7 @@ class Game:
         else:
             return -1
 
-    def travelSequence(self, new_region):
+    def travel_sequence(self, new_region):
         traveled = False
         distance = self.player.curr_region.distance(new_region)
         fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
@@ -41,5 +39,5 @@ class Game:
             traveled = True
             return traveled
             #"Traveled to new region succesfully"
-        return hasTraveled
+        return traveled
         #END if

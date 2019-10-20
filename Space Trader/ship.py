@@ -1,57 +1,50 @@
 class Ship:
-    def __init__(self, ship_type, max_cargo_space, fuel_capacity, max_health):
+    def __init__(self, ship_type, max_cargo, max_fuel, max_health):
         self.ship_type = ship_type
-        self.max_cargo_space = max_cargo_space
-        self.fuel_capacity = fuel_capacity
+        self.max_cargo = max_cargo
+        self.max_fuel = max_fuel
         self.max_health = max_health
-        self.fuel_level = fuel_capacity
-        self.cargo = []; 
-        #Cargo is a list of lists with inner list of 
-        #format [item, quantity]
+        self.cargo = []
+        self.fuel_level = max_fuel
         self.health_level = max_health
 
     @property
     def cargo_space(self):
         size_sum = 0
-        for merchendise in cargo:
+        for merchendise in self.cargo:
             size_sum += merchendise.size * merchendise.amount
-        return self.max_cargo_space - size_sum
+        return self.max_cargo - size_sum
 
-    # @property
-    # def cargo_space(self):
-    #     return self.__cargo_space
-    
-    # @property
-    # def fuel_level(self):
-    #     return self._fuel_level
-    
-    # @property
-    # def health_level(self):
-    #     return self._health_level
-    
-    # @property
-    # def ship_type(self):
-    #     return self._ship_type
+    @property
+    def cargo_size(self):
+        size_sum = 0
+        for merch in self.cargo:
+            size_sum += merch.size * merch.amount
+        return size_sum
 
-    def set_cargo_space(self, cargo_space):
-        self.cargo_space = cargo_space
+    @property
+    def health_display(self):
+        return str(self.health_level) + "/" + str(self.max_health)
 
-    def set_fuel_capacity(self, fuel_capacity):
-        self.fuel_level = fuel_level
+    def set_max_cargo(self, max_cargo):
+        self.max_cargo = max_cargo
 
-    def set_health(self, health_level):
-        self.health_level = health_level
+    def set_max_fuel(self, max_fuel):
+        self.max_fuel = max_fuel
+
+    def set_max_health(self, max_health):
+        self.max_health = max_health
 
 
 # 3 ship types, subclasses of ship
-class A_Ship(Ship):
+class AShip(Ship):
     def __init__(self):
         super().__init__("C", 1000, 1000, 100)
 
-class B_Ship(Ship):
+class BShip(Ship):
     def __init__(self):
         super().__init__("B", 750, 750, 75)
 
-class C_Ship(Ship):
+class CShip(Ship):
     def __init__(self):
         super().__init__("C", 500, 500, 50)
