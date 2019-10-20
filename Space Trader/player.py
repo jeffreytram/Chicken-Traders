@@ -1,7 +1,7 @@
 """This is the module with the player class"""
-from ship import CShip
+from ship import Ship, AShip, BShip, CShip
 class Player:
-    def __init__(self, name, skill_points, credit, curr_region):
+    def __init__(self, name, skill_points, credit, curr_region, ship):
         self.name = name
         self.pilot = skill_points[0]
         self.fighter = skill_points[1]
@@ -36,3 +36,6 @@ class Player:
     def set_credit(self, credit):
         """Sets the players skill points"""
         self.credit = credit
+
+    def set_ship(self, ship):
+        self.ship = ship
