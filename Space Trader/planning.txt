@@ -1,0 +1,58 @@
+9.18 [x] JT - Added welcome and settings screen
+
+9.19 [x] JT - Added confirmation and starting game screen
+9.19 [x] JT - Added difficulty and starting credits selection
+9.19 [x] JT - Added button style and highlight
+
+9.20 [x] JT - Change SP allocation to up/down arrows only
+9.20 [x] JT - Check for SP allocation overflow
+    -prevent >16 and <0
+9.20 [x] JT - Check if all values filled out by user
+    -ensure user uses all SP
+9.20 [x] JT - improved settings user interface
+9.20 [x] JT - added pointer cursor on hover
+
+9.27 [x] JT - Game and Region class and TechLevel enum creation
+
+10.3 [x] JT - Rework UI using Python Flask WTForms
+10.3 [x] JT - Now passes data from page to page
+
+10.4 [x] JT - Added back buttons to form
+10.4 [x] JT - Added travel functionality, removed unused JS code
+10.4 [x] JT - Region list visibility now toggleable
+10.4 [x] JT - Now storing data in dictionary
+
+10.9 [x] JT - Improved skillpoint limit warning, fixed back button bugs, formatting
+
+10.13 [x] JT - added map display
+
+10.17 [x] JT - Current region display redone with XMLHttpRequest
+
+10.18 [x] JT - Connected market to backend
+
+TODO:
+[] display amount of credits
+[] purchase connected to backend
+[] select item and display description
+[] dictionary not updating until reload (rerendered)
+- updating dictionary values does not update already rendered variables
+
+
+Questions:
+leaflet js
+-map bounds
+-inverse coordinates, unproject/project
+-clicking marker centers to diff position (bottom right)
+-responsive map?
+
+
+
+Running the Application
+1. make sure flask-wtf is installed
+-type pip install flask-wtf in command line to install forms extension
+2. type python app.py in command line in the CD of the app.py file
+
+Adding .gitignore
+-type "git rm -r --cached ./__pycache__" without quotes
+-last part is the directory for the __pycache__ folder
+
