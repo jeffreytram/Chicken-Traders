@@ -1,9 +1,7 @@
 """This is the module with the player class"""
-import utility
-from ship import CShip
-import copy
+from ship import Ship, AShip, BShip, CShip
 class Player:
-    def __init__(self, name, skill_points, credit, curr_region):
+    def __init__(self, name, skill_points, credit, curr_region, ship):
         self.name = name
         self.pilot = skill_points[0]
         self.fighter = skill_points[1]
@@ -14,22 +12,6 @@ class Player:
         self.ship = CShip()
 
     # END __init__
-
-    def trade_buy(self, item, amount):
-        buy_price = utility.bprice_calc(self.merchant, item)
-        if item.amount < amount:
-            return "Too many items"
-        elif self.ship.cargo_space < (item.size * amount):
-            return "Your ship does not have enough space"
-        elif self.credit < (buy_price * amount):
-            return "Not enough cash"
-        else:
-            self.credit -= (buy_price * amount)
-            bought = copy.deepcopy(item)
-            bought.amount = amount
-            item.amount -= amount
-            self.ship.cargo.append(bought)
-            return "Success"
 
     def set_name(self, name):
         """Sets the player name"""

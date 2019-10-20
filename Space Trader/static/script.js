@@ -1,22 +1,11 @@
 let player = {
-    currentRegion: "Home",
-    travel: function (region) {
-        this.currentRegion = region.className;
-    },
-    displayCurrRegion: function (region) {
-        let headerElement = document.getElementById("currRegion");
-        headerElement.innerHTML = region.innerText;
-    },
-    displayCurrRegionMap: function (region) {
-        let headerElement = document.getElementById("currRegion");
-        headerElement.innerHTML = "Region: " + region[0] + " X:" + region[1] + "Y: " + region[2] + " Tech Level: " + region[3];
-    },
-    displayRegionList: function () {
-        let regionList = document.getElementsByClassName("regionButtons");
-        if (regionList[0].classList.contains("hidden")) {
-            regionList[0].className = regionList[0].className.replace(" hidden", "");
-        } else {
-            regionList[0].className += " hidden";
+    display: function (screen) {
+        let activeMenu = document.getElementsByClassName("menuActive");
+        if (activeMenu.length > 0) {
+            activeMenu[0].className = activeMenu[0].className.replace(" menuActive", " hidden");
+        }
+        if (screen.classList.contains("hidden")) {
+            screen.className = screen.className.replace(" hidden", " menuActive");
         }
     }
 }
@@ -28,31 +17,36 @@ let handlers = {
         }
         button.className += " active";
     },
-    highlightTravel: function (button) {
+    highlightMenuButton: function (button) {
         let active = document.getElementsByClassName("active2");
         if (active.length > 0) {
             active[0].className = active[0].className.replace(" active2", "");
-        } else {
-            button.className += " active2";
         }
+        button.className += " active2";
     },
-    travel: function (region) {
-        player.travel(region);
-        player.displayCurrRegion(region);
-    },
-    travelMap: function(region) {
-        player.displayCurrRegionMap(region);
-    },
-    displayRegionList: function () {
-        player.displayRegionList();
+    display: function (screen) {
+        player.display(screen);
     }
 }
 let view = {
     setUpEventListeners: function () {
-        let travelButton = document.getElementById("travel");
-        travelButton.addEventListener("click", function (event) {
-            handlers.displayRegionList();
-            handlers.highlightTravel(event.target);
+        let menu = document.getElementById("menu");
+        menu.addEventListener("click", function (event) {
+            if (event.target.id == "travel") {
+                let buttonDiv = document.getElementsByClassName("travelMenu");
+                handlers.display(buttonDiv[0]);
+                handlers.highlightMenuButton(event.target);
+            }
+            if (event.target.id == "ship") {
+                let shipDiv = document.getElementsByClassName("shipMenu");
+                handlers.display(shipDiv[0]);
+                handlers.highlightMenuButton(event.target);
+            }
+            if (event.target.id == "market") {
+                let marketDiv = document.getElementsByClassName("marketMenu");
+                handlers.display(marketDiv[0]);
+                handlers.highlightMenuButton(event.target);
+            }
         });
     }
 }
