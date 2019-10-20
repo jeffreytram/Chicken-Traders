@@ -30,10 +30,13 @@
 
 10.18 [x] JT - Connected market to backend
 
+10.20 [x] JT - Added ability to display selected item description and purchase statement
+10.20 [x] JT - Travel now updates fuel, purchasing items now subtracts credits
+
 TODO:
-[] display amount of credits
-[] purchase connected to backend
-[] select item and display description
+[] display buy price instead of base price in market
+[] display items in cargo
+
 [] dictionary not updating until reload (rerendered)
 - updating dictionary values does not update already rendered variables
 
