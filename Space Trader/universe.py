@@ -75,7 +75,7 @@ class Region:
         self.market = []
         #possible
         poss_items = Item.__subclasses__()
-        while len(self.market) < 8:
+        while len(self.market) < 10:
             rand_index = random.randint(0, len(poss_items) - 1)
             if poss_items[rand_index].debut > tech_level.value:
                 poss_items.pop(rand_index)

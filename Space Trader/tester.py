@@ -49,6 +49,10 @@ print(game.player.credit)
 print(game.player.curr_region.market[0])
 print(game.player.curr_region.market[0].amount)
 print(game.player.ship.cargo[0])
+print(game.player.trade_buy(game.player.curr_region.market[0], 5))
+print(game.player.ship.cargo[0])
+print(game.player.trade_buy(game.player.curr_region.market[1], 5))
+print(game.player.ship.cargo[1])
 
 
 

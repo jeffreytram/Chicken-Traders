@@ -15,7 +15,7 @@ class Computer(Item):
     category = "Rescources"
     debut = 6
     size = 1
-    base_price = 300
+    base_price = 100
     description = "It's a Computer!"
     b_price = 0
     s_price = 0
@@ -70,7 +70,7 @@ class Gun(Item):
     name = "Gun"
     category = "Weapon"
     debut = 1
-    size = 1
+    size = 5
     base_price = 5
     description = "This is gun. BOOM! BOOM!"
     b_price = 0
@@ -84,9 +84,9 @@ class BiggerGun(Item):
     name = "Bigger Gun"
     category = "Weapon"
     debut = 1
-    size = 1
+    size = 10
     base_price = 5
-    description = "now with bigger \"BOOM! BOOM!\"'s"
+    description = "now with bigger \"BOOM! BOOM!\"'s."
     b_price = 0
     s_price = 0
 
@@ -98,9 +98,9 @@ class FartInAJar(Item):
     name = "Fart in a jar"
     category = "Weapon"
     debut = 1
-    size = 1
+    size = 2
     base_price = 5
-    description = "mmmm.... fresh air"
+    description = "mmmm.... fresh air."
     b_price = 0
     s_price = 0
 
@@ -112,25 +112,58 @@ class Friendship(Item):
     name = "Friendship"
     category = "Misc"
     debut = 1
-    size = 1
-    base_price = 5
-    description = "eeeeeeeeeeeeee friendship"
+    size = 3
+    base_price = 15
+    description = "eeeeeeeeeeeeee friendship: Solidified."
     b_price = 0
     s_price = 0
 
     def __str__(self):
         return super(Friendship, self).__str__()
 
-class Russia(Item):
+class PocketRussia(Item):
     """Framework for Russia"""
-    name = "Russia"
+    name = "PocketRussia"
     category = "Country"
     debut = 1
     size = 1
-    base_price = 5
-    description = "remember to share young comrade"
+    base_price = 20
+    description = "Smaller Russia that fits in your pocket. Remember to share."
     b_price = 0
     s_price = 0
 
     def __str__(self):
         return super(Russia, self).__str__()
+
+class InvincibilityStar(Item):
+    name = "Invincibility Star"
+    category = "Weapon"
+    debut = 1
+    size = 3
+    base_price = 200
+    description = "Use it to Evicerate any bandits that dare to challenge you and steal all the loot."
+    b_price = 0
+    s_price = 0
+
+    def __str__(self):
+        return super(InvincibilityStar, self).__str__()
+
+class AlienChicken(Item):
+    name = "Alien Chicken"
+    category = "Animal"
+    debut = 2
+    size = 3
+    base_price = 40
+    description = "A chicken from another planet."
+    b_price = 0
+    s_price = 0
+
+class AssortedAlienAnimalFurs(Item):
+    name = "Assorted Alien Animal Furs"
+    category = "Animal"
+    debut = 1
+    size = 3
+    base_price = 60
+    description = "Assorted furs."
+    b_price = 0
+    s_price = 0

@@ -24,6 +24,11 @@ class Player:
             return "Not enough cash"
         else:
             self.credit -= (item.b_price * amount)
+            for cargo in self.ship.cargo:
+            	if cargo.name == item.name:
+            		cargo.amount += amount
+            		item.amount -= amount
+            		return "Success"
             bought = copy.deepcopy(item)
             bought.amount = amount
             item.amount -= amount
@@ -34,6 +39,10 @@ class Player:
     def trade_sell(self, cargo_item_index, amount):
     	if self.ship.cargo[cargo_item_index].amount < amount:
     		return "You dont have that many"
+    	elif self.ship.cargo[cargo_item_index].amount == amount:
+    		self.credit += self.ship.cargo[cargo_item_index].s_price * amount
+    		self.ship.cargo.pop(cargo_item_index)
+    		return "Trade sucessful"
     	else:
     		self.credit += self.ship.cargo[cargo_item_index].s_price * amount
     		self.ship.cargo[cargo_item_index].amount -= amount
