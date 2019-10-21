@@ -16,15 +16,14 @@ class Player:
     # END __init__
 
     def trade_buy(self, item, amount):
-        buy_price = utility.bprice_calc(self.merchant, item)
         if item.amount < amount:
             return "Too many items"
         elif self.ship.cargo_space < (item.size * amount):
             return "Your ship does not have enough space"
-        elif self.credit < (buy_price * amount):
+        elif self.credit < (item.b_price * amount):
             return "Not enough cash"
         else:
-            self.credit -= (buy_price * amount)
+            self.credit -= (item.b_price * amount)
             bought = copy.deepcopy(item)
             bought.amount = amount
             item.amount -= amount

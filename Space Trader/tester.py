@@ -28,8 +28,14 @@ print()
 print()
 
 print(game.player.curr_region.name)
+print(game.player.curr_region.tech_level)
+print(game.player.curr_region.market[0])
+print(game.player.curr_region.market[0].b_price)
 game.travel_sequence(game.universe.region_list[1])
 print(game.player.curr_region.name)
+print(game.player.curr_region.tech_level)
+print(game.player.curr_region.market[0])
+print(game.player.curr_region.market[0].b_price)
 print(game.player.ship.fuel_level)
 print()
 print()
@@ -37,11 +43,13 @@ print()
 print(game.player.credit)
 print(game.player.curr_region.market[0])
 print(game.player.curr_region.market[0].amount)
+print(game.player.curr_region.market[0].b_price)
 print(game.player.trade_buy(game.player.curr_region.market[0], 5))
 print(game.player.credit)
 print(game.player.curr_region.market[0])
-print(game.player.curr_region.market[0].amount)s
+print(game.player.curr_region.market[0].amount)
 print(game.player.ship.cargo[0])
+
 
 
 

@@ -1,6 +1,8 @@
 import random
+import utility
 from universe import Universe
 from player import Player
+
 
 
 class Game:
@@ -15,6 +17,8 @@ class Game:
         self.player = Player(
             name, skill_points, credit, self.universe.region_list[rand_int]
         )
+        utility.bprice_calc(self.player, self.player.curr_region)
+        utility.sprice_calc(self.player, self.player.curr_region)
     # END startGame
 
     @property
@@ -34,6 +38,8 @@ class Game:
         fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
         fuel_amount = self.player.ship.fuel_level
         if fuel_cost <= fuel_amount:
+            utility.bprice_calc(self.player, new_region)
+            utility.sprice_calc(self.player, new_region)
             self.player.curr_region = new_region
             self.player.ship.fuel_level = int(fuel_amount - fuel_cost)
             traveled = True
