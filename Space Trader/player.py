@@ -30,6 +30,15 @@ class Player:
             self.ship.cargo.append(bought)
             return "Success"
 
+        #Index in cargo
+    def trade_sell(self, cargo_item_index, amount):
+    	if self.ship.cargo[cargo_item_index].amount < amount:
+    		return "You dont have that many"
+    	else:
+    		self.credit += self.ship.cargo[cargo_item_index].s_price * amount
+    		self.ship.cargo[cargo_item_index].amount -= amount
+    		return "Trade sucessful"
+
     def set_name(self, name):
         """Sets the player name"""
         self.name = name
