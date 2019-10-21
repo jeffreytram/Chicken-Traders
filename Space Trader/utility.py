@@ -14,8 +14,8 @@ def bprice_calc(player, region):
 def sprice_calc(player, region):
     for item in region.market:
         tech_factor = (1 - ((region.tech_level.value - item.debut)/14))
-        item.s_price = int(tech_factor * item.base_price * (1 + player.merchant/75))
+        item.s_price = int(0.7 * (tech_factor * item.base_price * (1 + player.merchant/75)))
     if len(player.ship.cargo) != 0 or player.ship.cargo_size > 0:
         for item in player.ship.cargo:
-            tech_factor = (1 - ((region.tech_level.value - item.debut)/14))
+            tech_factor = int(0.7 * (1 - ((region.tech_level.value - item.debut)/14))
             item.s_price = int(tech_factor * item.base_price * (1 + player.merchant/75))
