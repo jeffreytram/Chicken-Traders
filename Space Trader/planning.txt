@@ -36,6 +36,7 @@
 TODO:
 [] display buy price instead of base price in market
 [] display items in cargo
+[] display fuel cost
 
 [] dictionary not updating until reload (rerendered)
 - updating dictionary values does not update already rendered variables

@@ -3,9 +3,9 @@
 <h4 id="creditDisplay">Credits: {{game.player.credit}}</h4>
 <h4 id="fuelDisplay">Current Fuel Level: {{game.player.ship.fuel_level}}</h4>
 <div id="menu">
-    <button id="ship">Ship</button>
-    <button id="travel">Travel</button>
-    <button id="market">Market</button>
+    <button id="ship" onclick="location.href = 'ship'">Ship</button>
+    <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
+    <button id="market" onclick="location.href = 'market'">Market</button>
     <h2 id="currRegion">Region: {{currRegion.name}}
         ({{currRegion.coordinates.x_position}},
         {{currRegion.coordinates.y_position}})
@@ -13,19 +13,6 @@
     </h2>
 </div>
 
-<!--Ship menu-->
-<div class="menu shipMenu">
-    <h3>Type: {{game.player.ship.ship_type}}</h3>
-    <h3>Cargo Space: {{game.player.ship.max_cargo}}</h3>
-    <h3>Fuel Capacity: {{game.player.ship.max_fuel}}</h3>
-    <h3>Health: {{game.player.ship.max_health}}</h3>
-    <h3>Cargo: </h3>
-    <ul>
-        {% for item in game.player.ship.cargo %}
-        <li>{{item.name}}</li>
-        {% endfor %}
-    </ul>
-</div>
 
 <!--Travel menu - Region buttons and map-->
 <div class="menu travelMenu">
@@ -48,41 +35,6 @@
         <div id="mapid"></div>
     </div>
 </div>
-<div class="menu marketMenu">
-    <h2>Market</h2>
-    <div class="marketMenuContainer">
-        <div class="marketContainer">
-            <div class="itemCategories">
-                <ul>
-                    <li>Food</li>
-                    <li>Medicine</li>
-                    <li>Weapons</li>
-                    <li>Resources</li>
-                    <li>Technology</li>
-                </ul>
-            </div>
-            <div class="items">
-                <ul id="itemUl">
-                    {% for item in currRegion.market %}
-                    <li class="item {{loop.index}}"><img src="../static/item-images/apple-icon.png">{{item.name}}
-                        {{item.base_price}}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div class="bottomContainer">
-            <div class="buyInfo">
-                <p id="purchaseStatement"></p>
-                <!--TODO: add functionality to button-->
-                <button type="button" onclick="purchase()">Purchase</button>
-            </div>
-            <div class="itemDescription">
-            </div>
-        </div>
-
-    </div>
-</div>
-<!--Generating the map-->
 <script type="text/javascript">
     function travelAndUpdateFuel(index) {
         travel(index);
@@ -102,7 +54,7 @@
             }
         }
         //this part sends the data over
-        req.open('POST', '/start', true);
+        req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("currIndex=" + index);
     }
@@ -116,59 +68,10 @@
             }
         };
         //this part sends the data over
-        req.open('POST', '/start', true);
+        req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("displayFuel=");
     }
-    function selectItem(index) {
-        showDescription(index);
-        showPurchaseStatement(index);
-    }
-    function showDescription(index) {
-        var req = new XMLHttpRequest();
-        var result = document.getElementsByClassName("itemDescription");
-        var purchaseStatement = document.getElementById("purchaseStatement");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                result[0].innerHTML = this.responseText;
-                purchaseStatement.innerHTML = "Purchase {{selectedItem.name}}?";
-            }
-        };
-        //this part sends the data over
-        req.open('POST', '/start', true);
-        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("selectedIndex=" + index);
-    }
-    function showPurchaseStatement(index) {
-        var req = new XMLHttpRequest();
-        var purchaseStatement = document.getElementById("purchaseStatement");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                purchaseStatement.innerHTML = this.responseText;
-            }
-        };
-        //this part sends the data over
-        req.open('POST', '/start', true);
-        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("statementIndex=" + index);
-    }
-    function purchase() {
-        var req = new XMLHttpRequest();
-        var creditDisplay = document.getElementById("creditDisplay");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                creditDisplay.innerHTML = this.responseText;
-            }
-        };
-        //this part sends the data over
-        req.open('POST', '/start', true);
-        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("buyIndex=");
-    }
-
     var w = 672,
         h = 378,
         url = '../static/map2.png'
@@ -190,15 +93,6 @@
     });
     {% endfor %}
 
-    // event listener for item selection
-    let itemUl = document.getElementById("itemUl");
-    itemUl.addEventListener("click", function (event) {
-        console.log(event.target);
-        if (event.target.classList.contains("item")) {
-            selectItem(event.target.classList[1]);
-        }
-    });
-
     /*test markers
     var markerZero = L.marker([0, 0]).addTo(map).bindPopup("test-center");
     var markertest1 = L.marker([5, 0]).addTo(map).bindPopup("test-pos-x");
@@ -213,7 +107,6 @@
     var bounds = new L.LatLngBounds(southWest, northEast);
     L.imageOverlay(url, bounds).addTo(map);
     map.setMaxBounds(bounds);
-
-
 </script>
+
 {% endblock %}

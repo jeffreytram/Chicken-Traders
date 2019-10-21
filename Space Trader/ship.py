@@ -1,5 +1,6 @@
 class Ship:
-    def __init__(self, ship_type, max_cargo, max_fuel, max_health):
+    def __init__(self, name, ship_type, max_cargo, max_fuel, max_health):
+        self.name = name
         self.ship_type = ship_type
         self.max_cargo = max_cargo
         self.max_fuel = max_fuel
@@ -39,12 +40,12 @@ class Ship:
 # 3 ship types, subclasses of ship
 class AShip(Ship):
     def __init__(self):
-        super().__init__("C", 1000, 1000, 100)
+        super().__init__("Ok Ship","A", 1000, 1000, 100)
 
 class BShip(Ship):
     def __init__(self):
-        super().__init__("B", 750, 750, 75)
+        super().__init__("Meh Ship","B", 750, 750, 75)
 
 class CShip(Ship):
     def __init__(self):
-        super().__init__("C", 500, 500, 50)
+        super().__init__("Yucky Ship","C", 500, 500, 50)

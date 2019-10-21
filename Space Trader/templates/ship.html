@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h4 id="creditDisplay">Credits: {{game.player.credit}}</h4>
+<h4 id="fuelDisplay">Current Fuel Level: {{game.player.ship.fuel_level}}</h4>
+<div id="menu">
+    <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
+    <button id="travel" onclick="location.href = 'travel'">Travel</button>
+    <button id="market" onclick="location.href = 'market'">Market</button>
+    <h2 id="currRegion">Region: {{currRegion.name}}
+        ({{currRegion.coordinates.x_position}},
+        {{currRegion.coordinates.y_position}})
+        Tech Level: {{currRegion.tech_level.name}}
+    </h2>
+</div>
+
+<!--Ship menu-->
+<div class="menu shipMenu">
+    <h3>Ship Name: {{game.player.ship.name}}</h3>
+    <h3>Type: {{game.player.ship.ship_type}}</h3>
+    <h3>Cargo Space: {{game.player.ship.max_cargo}}</h3>
+    <h3>Fuel Capacity: {{game.player.ship.max_fuel}}</h3>
+    <h3>Health: {{game.player.ship.max_health}}</h3>
+    <h3>Cargo: </h3>
+    <ul>
+        {% for item in game.player.ship.cargo %}
+        <li>{{item.amount}}x {{item.name}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

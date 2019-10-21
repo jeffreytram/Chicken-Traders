@@ -22,7 +22,7 @@ button, .button {
     padding: 1vh 2vh;
 }
 
-.active, .active2, button:hover, .button:hover {
+.active, button:hover, .button:hover {
     color: rgb(30, 30, 30);
     background-color: #ffffff;
 }
