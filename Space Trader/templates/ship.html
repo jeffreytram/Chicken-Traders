@@ -2,6 +2,7 @@
 {% block content %}
 <h4 id="creditDisplay">Credits: {{game.player.credit}}</h4>
 <h4 id="fuelDisplay">Current Fuel Level: {{game.player.ship.fuel_level}}</h4>
+<h4 id="fuelDisplay">Current Health Level: {{game.player.ship.health_level}}</h4>
 <div id="menu">
     <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
@@ -23,7 +24,7 @@
     <h3>Cargo: </h3>
     <ul>
         {% for item in game.player.ship.cargo %}
-        <li>{{item.amount}}x {{item.name}}</li>
+        <li><img src="../static/item-images/item_{{item.name}}.png">{{item.amount}}x {{item.name}}</li>
         {% endfor %}
     </ul>
 </div>

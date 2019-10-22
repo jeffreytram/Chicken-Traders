@@ -32,10 +32,12 @@
 
 10.20 [x] JT - Added ability to display selected item description and purchase statement
 10.20 [x] JT - Travel now updates fuel, purchasing items now subtracts credits
+10.20 [x] JT - Separated menu tabs into separate html files, added buy/sell and inventroy functionality
+
+10.21 [x] JT - added item images
 
 TODO:
-[] display buy price instead of base price in market
-[] display items in cargo
+[] live update buy and sell inventory
 [] display fuel cost
 
 [] dictionary not updating until reload (rerendered)

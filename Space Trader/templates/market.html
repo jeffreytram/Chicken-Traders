@@ -2,6 +2,7 @@
 {% block content %}
 <h4 id="creditDisplay">Credits: {{game.player.credit}}</h4>
 <h4 id="fuelDisplay">Current Fuel Level: {{game.player.ship.fuel_level}}</h4>
+<h4 id="fuelDisplay">Current Health Level: {{game.player.ship.health_level}}</h4>
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
@@ -28,7 +29,8 @@
             <div class="items">
                 <ul id="itemUl">
                     {% for item in currRegion.market %}
-                    <li class="item {{loop.index}}"><img src="../static/item-images/apple-icon.png">{{item.name}}
+                    <li class="item {{loop.index}}"><img
+                            src="../static/item-images/item_{{item.name}}.png">{{item.name}}
                         {{item.b_price}}</li>
                     {% endfor %}
                 </ul>
@@ -49,8 +51,9 @@
 <h4>Player Inventory:</h4>
 <ul id="playerInv">
     {% for item in game.player.ship.cargo %}
-    <li id="itemInv{{loop.index}}">{{item.amount}}x {{item.name}} <button
-            class="sellButton {{loop.index}}">Sell for {{item.s_price}}</button></li>
+    <li id="itemInv{{loop.index}}"><img src="../static/item-images/item_{{item.name}}.png">{{item.amount}}x
+        {{item.name}} <button class="sellButton {{loop.index}}">Sell for
+            {{item.s_price}}</button></li>
     {% endfor %}
 </ul>
 <script type="text/javascript">
@@ -110,6 +113,7 @@
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 creditDisplay.innerHTML = this.responseText;
+                //TODO: live update sell
             }
         };
         //this part sends the data over
