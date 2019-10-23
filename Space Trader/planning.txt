@@ -36,8 +36,11 @@
 
 10.21 [x] JT - added item images
 
+10.22 [x] JT - Market now reloads on purchase/sell
+10.22 [x] JT - Added category filter
+10.22 [x] JT - formatting, improving naming consistency
+
 TODO:
-[] live update buy and sell inventory
 [] display fuel cost
 
 [] dictionary not updating until reload (rerendered)

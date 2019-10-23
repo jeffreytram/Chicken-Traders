@@ -17,10 +17,14 @@
     <h2>Market</h2>
     <div class="marketMenuContainer">
         <div class="marketContainer">
-            <div class="itemCategories">
-                <ul>
+            <div id="itemCategories">
+                <ul id="itemCategoriesUl">
+                    <li class=" activeCategory">All</li>
+                    <li>Animal</li>
+                    <li>Country</li>
                     <li>Food</li>
                     <li>Medicine</li>
+                    <li>Misc.</li>
                     <li>Weapons</li>
                     <li>Resources</li>
                     <li>Technology</li>
@@ -29,7 +33,7 @@
             <div class="items">
                 <ul id="itemUl">
                     {% for item in currRegion.market %}
-                    <li class="item {{loop.index}}"><img
+                    <li class="item {{loop.index}} {{item.category}}"><img
                             src="../static/item-images/item_{{item.name}}.png">{{item.name}}
                         {{item.b_price}}</li>
                     {% endfor %}
@@ -38,11 +42,12 @@
         </div>
         <div class="bottomContainer">
             <div class="buyInfo">
-                <p id="purchaseStatement"></p>
+                <p id="purchaseStatement">Choose an item to purchase</p>
                 <!--TODO: add functionality to button-->
                 <button type="button" onclick="purchase()">Purchase</button>
             </div>
             <div class="itemDescription">
+                {{selectedItem.description}}
             </div>
         </div>
 
@@ -94,32 +99,20 @@
     function purchase() {
         var req = new XMLHttpRequest();
         var creditDisplay = document.getElementById("creditDisplay");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                creditDisplay.innerHTML = this.responseText;
-                //TODO: live update inventory when buying?
-            }
-        };
         //this part sends the data over
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("buyIndex=");
+        window.location.reload();
     }
     function sellItem(index) {
         var req = new XMLHttpRequest();
         var creditDisplay = document.getElementById("creditDisplay");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                creditDisplay.innerHTML = this.responseText;
-                //TODO: live update sell
-            }
-        };
         //this part sends the data over
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("sellIndex=" + index);
+        window.location.reload();
     }
 
     // event listener for item selection
@@ -138,6 +131,36 @@
         if (event.target.classList.contains("sellButton")) {
             sellItem(event.target.classList[1]);
         }
-    }) 
-</script>
+    })
+
+    //event listerner for categories
+    let itemCatUl = document.getElementById("itemCategoriesUl");
+    itemCatUl.addEventListener("click", function (event) {
+        //bold selected category
+        let activeCategory = document.getElementsByClassName("activeCategory");
+        if (activeCategory.length > 0) {
+            activeCategory[0].className = activeCategory[0].className.replace(" activeCategory", "");
+        }
+        event.target.className += " activeCategory";
+        let category = event.target.innerHTML;
+        itemUl = document.getElementById("itemUl");
+        shownItem = document.getElementsByClassName("item");
+        for (let i = 0; i < shownItem.length; i++) {
+            item = shownItem[i];
+            if (category === "All") {
+                item.className = item.className.replace(" hidden", "");
+            } else if (item.classList.contains(category)) {
+                //item to show, remove hidden if it has
+                if(item.classList.contains("hidden")) {
+                    item.className = item.className.replace(" hidden", "");
+                }
+            } else {
+                //item to hide, add hidden if doesnt have
+                if(!item.classList.contains("hidden")) {
+                    item.className += " hidden";
+                }
+            }
+        }
+    })
+        </script>
 {% endblock %}

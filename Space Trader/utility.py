@@ -1,5 +1,4 @@
 """Module with utility functions for the game"""
-import random
 
 def fuel_calc(fuel_cost_constant, distance, pilot):
     """Returns the fuel cost for the distance"""

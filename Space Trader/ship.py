@@ -40,12 +40,14 @@ class Ship:
 # 3 ship types, subclasses of ship
 class AShip(Ship):
     def __init__(self):
-        super().__init__("Ok Ship","A", 1000, 1000, 100)
+        super().__init__("Ok Ship", "A", 1000, 1000, 100)
+
 
 class BShip(Ship):
     def __init__(self):
-        super().__init__("Meh Ship","B", 750, 750, 75)
+        super().__init__("Meh Ship", "B", 750, 750, 75)
+
 
 class CShip(Ship):
     def __init__(self):
-        super().__init__("Yucky Ship","C", 500, 500, 50)
+        super().__init__("Yucky Ship", "C", 500, 500, 50)

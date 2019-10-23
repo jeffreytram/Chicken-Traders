@@ -110,7 +110,7 @@ button:hover, .button:hover, .arrow:hover {
     width: 100%;
 }
 
-.itemCategories {
+#itemCategories {
     border: 2px solid rgb(30, 30, 30);
     width: 20%;
 }
@@ -147,3 +147,10 @@ img {
     border: 2px solid rgb(30, 30, 30);
     width: 80%;
 }
+
+/* category css */
+.activeCategory {
+    font-weight: bold;
+    border: 2px solid rgb(30, 30, 30);
+}
+

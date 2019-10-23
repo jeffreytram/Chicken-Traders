@@ -1,8 +1,4 @@
-import random
 from game import Game
-from universe import TechLevel
-from item import Item
-from player import Player
 
 skill_points = [4, 4, 4, 4]
 game = Game("hard")

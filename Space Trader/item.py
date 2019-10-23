@@ -8,11 +8,13 @@ class Item:
     def __str__(self):
         return self.__class__.__name__ + ": " + str(self.amount)
 
-#Make more items
+
+# Make more items
 class Computer(Item):
     """Framework for computer"""
+
     name = "Computer"
-    category = "Rescources"
+    category = "Technology"
     debut = 6
     size = 1
     base_price = 100
@@ -23,10 +25,12 @@ class Computer(Item):
     def __str__(self):
         return super(Computer, self).__str__()
 
+
 class StrangeTalisman(Item):
     """Framework for Strange Talisman"""
+
     name = "Strange Talisman"
-    category = "Misc"
+    category = "Misc."
     debut = 1
     size = 1
     base_price = 5
@@ -37,10 +41,12 @@ class StrangeTalisman(Item):
     def __str__(self):
         return super(StrangeTalisman, self).__str__()
 
+
 class Banana(Item):
     """Framework for Banana"""
+
     name = "Banana"
-    category = "Misc"
+    category = "Food"
     debut = 1
     size = 1
     base_price = 5
@@ -51,8 +57,10 @@ class Banana(Item):
     def __str__(self):
         return super(Banana, self).__str__()
 
+
 class Apple(Item):
     """Framework for Apple"""
+
     name = "Apple"
     category = "Food"
     debut = 1
@@ -65,10 +73,12 @@ class Apple(Item):
     def __str__(self):
         return super(Apple, self).__str__()
 
+
 class Gun(Item):
     """Framework for Gun"""
+
     name = "Gun"
-    category = "Weapon"
+    category = "Weapons"
     debut = 1
     size = 5
     base_price = 5
@@ -79,24 +89,28 @@ class Gun(Item):
     def __str__(self):
         return super(Gun, self).__str__()
 
+
 class BiggerGun(Item):
     """Framework for Bigger Gun"""
+
     name = "Bigger Gun"
-    category = "Weapon"
+    category = "Weapons"
     debut = 1
     size = 10
     base_price = 5
-    description = "now with bigger \"BOOM! BOOM!\"'s."
+    description = 'now with bigger "BOOM! BOOM!"\'s.'
     b_price = 0
     s_price = 0
 
     def __str__(self):
         return super(BiggerGun, self).__str__()
 
+
 class FartInAJar(Item):
     """Framework for Fart in a jar"""
+
     name = "Fart in a jar"
-    category = "Weapon"
+    category = "Weapons"
     debut = 1
     size = 2
     base_price = 5
@@ -107,10 +121,12 @@ class FartInAJar(Item):
     def __str__(self):
         return super(FartInAJar, self).__str__()
 
+
 class Friendship(Item):
     """Framework for Friendship"""
+
     name = "Friendship"
-    category = "Misc"
+    category = "Misc."
     debut = 1
     size = 3
     base_price = 15
@@ -121,8 +137,10 @@ class Friendship(Item):
     def __str__(self):
         return super(Friendship, self).__str__()
 
+
 class PocketRussia(Item):
     """Framework for Russia"""
+
     name = "PocketRussia"
     category = "Country"
     debut = 1
@@ -135,9 +153,10 @@ class PocketRussia(Item):
     def __str__(self):
         return super(Russia, self).__str__()
 
+
 class InvincibilityStar(Item):
     name = "Invincibility Star"
-    category = "Weapon"
+    category = "Weapons"
     debut = 1
     size = 3
     base_price = 200
@@ -148,6 +167,7 @@ class InvincibilityStar(Item):
     def __str__(self):
         return super(InvincibilityStar, self).__str__()
 
+
 class AlienChicken(Item):
     name = "Alien Chicken"
     category = "Animal"
@@ -157,6 +177,7 @@ class AlienChicken(Item):
     description = "A chicken from another planet."
     b_price = 0
     s_price = 0
+
 
 class AssortedAlienAnimalFurs(Item):
     name = "Assorted Alien Animal Furs"

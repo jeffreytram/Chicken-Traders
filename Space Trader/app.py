@@ -208,6 +208,8 @@ def market():
             invIndex = int(request.form["sellIndex"]) - 1
             dictionary["game"].player.trade_sell(invIndex, 1)
             return "Credits: " + str(dictionary["game"].player.credit)
+    
+    dictionary["selectedItem"] = ""
     return render_template(
         "market.html", game=dictionary["game"], currRegion=dictionary["currRegion"], selectedItem=dictionary["selectedItem"]
     )

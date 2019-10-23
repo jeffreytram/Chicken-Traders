@@ -1,7 +1,9 @@
 """This is the module with the player class"""
-import utility
-from ship import CShip
 import copy
+from ship import CShip
+
+
+
 class Player:
     def __init__(self, name, skill_points, credit, curr_region):
         self.name = name
@@ -23,30 +25,31 @@ class Player:
         elif self.credit < (item.b_price * amount):
             return "Not enough cash"
         else:
-            self.credit -= (item.b_price * amount)
+            self.credit -= item.b_price * amount
             for cargo in self.ship.cargo:
-            	if cargo.name == item.name:
-            		cargo.amount += amount
-            		item.amount -= amount
-            		return "Success"
+                if cargo.name == item.name:
+                    cargo.amount += amount
+                    item.amount -= amount
+                    return "Success"
             bought = copy.deepcopy(item)
             bought.amount = amount
             item.amount -= amount
             self.ship.cargo.append(bought)
             return "Success"
 
-        #Index in cargo
+        # Index in cargo
+
     def trade_sell(self, cargo_item_index, amount):
-    	if self.ship.cargo[cargo_item_index].amount < amount:
-    		return "You dont have that many"
-    	elif self.ship.cargo[cargo_item_index].amount == amount:
-    		self.credit += self.ship.cargo[cargo_item_index].s_price * amount
-    		self.ship.cargo.pop(cargo_item_index)
-    		return "Trade sucessful"
-    	else:
-    		self.credit += self.ship.cargo[cargo_item_index].s_price * amount
-    		self.ship.cargo[cargo_item_index].amount -= amount
-    		return "Trade sucessful"
+        if self.ship.cargo[cargo_item_index].amount < amount:
+            return "You dont have that many"
+        elif self.ship.cargo[cargo_item_index].amount == amount:
+            self.credit += self.ship.cargo[cargo_item_index].s_price * amount
+            self.ship.cargo.pop(cargo_item_index)
+            return "Trade sucessful"
+        else:
+            self.credit += self.ship.cargo[cargo_item_index].s_price * amount
+            self.ship.cargo[cargo_item_index].amount -= amount
+            return "Trade sucessful"
 
     def set_name(self, name):
         """Sets the player name"""
