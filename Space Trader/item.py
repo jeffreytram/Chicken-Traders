@@ -23,7 +23,7 @@ class Computer(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Computer, self).__str__()
+        return super(Computer, self).__str__() + "."
 
 
 class StrangeTalisman(Item):
@@ -39,7 +39,7 @@ class StrangeTalisman(Item):
     s_price = 0
 
     def __str__(self):
-        return super(StrangeTalisman, self).__str__()
+        return super(StrangeTalisman, self).__str__() + "."
 
 
 class Banana(Item):
@@ -55,7 +55,7 @@ class Banana(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Banana, self).__str__()
+        return super(Banana, self).__str__() + "."
 
 
 class Apple(Item):
@@ -71,7 +71,7 @@ class Apple(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Apple, self).__str__()
+        return super(Apple, self).__str__() + "."
 
 
 class Gun(Item):
@@ -87,7 +87,7 @@ class Gun(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Gun, self).__str__()
+        return super(Gun, self).__str__() + "."
 
 
 class BiggerGun(Item):
@@ -103,7 +103,7 @@ class BiggerGun(Item):
     s_price = 0
 
     def __str__(self):
-        return super(BiggerGun, self).__str__()
+        return super(BiggerGun, self).__str__() + "."
 
 
 class FartInAJar(Item):
@@ -119,7 +119,7 @@ class FartInAJar(Item):
     s_price = 0
 
     def __str__(self):
-        return super(FartInAJar, self).__str__()
+        return super(FartInAJar, self).__str__() + "."
 
 
 class Friendship(Item):
@@ -135,7 +135,7 @@ class Friendship(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Friendship, self).__str__()
+        return super(Friendship, self).__str__() + "."
 
 
 class PocketRussia(Item):
@@ -151,7 +151,7 @@ class PocketRussia(Item):
     s_price = 0
 
     def __str__(self):
-        return super(Russia, self).__str__()
+        return super(PocketRussia, self).__str__() + "."
 
 
 class InvincibilityStar(Item):
@@ -160,12 +160,13 @@ class InvincibilityStar(Item):
     debut = 1
     size = 3
     base_price = 200
-    description = "Use it to Evicerate any bandits that dare to challenge you and steal all the loot."
+    description = "Use it to Evicerate any bandits that " \
+    + "dare to challenge you and steal all the loot."
     b_price = 0
     s_price = 0
 
     def __str__(self):
-        return super(InvincibilityStar, self).__str__()
+        return super(InvincibilityStar, self).__str__() + "."
 
 
 class AlienChicken(Item):
@@ -178,6 +179,9 @@ class AlienChicken(Item):
     b_price = 0
     s_price = 0
 
+    def __str__(self):
+        return super(AlienChicken, self).__str__() + "."
+
 
 class AssortedAlienAnimalFurs(Item):
     name = "Assorted Alien Animal Furs"
@@ -188,3 +192,6 @@ class AssortedAlienAnimalFurs(Item):
     description = "Assorted furs."
     b_price = 0
     s_price = 0
+
+    def __str__(self):
+        return super(AssortedAlienAnimalFurs, self).__str__() + "."

@@ -43,9 +43,11 @@ class AShip(Ship):
         super().__init__("Ok Ship", "A", 1000, 1000, 100)
 
 
+
 class BShip(Ship):
     def __init__(self):
         super().__init__("Meh Ship", "B", 750, 750, 75)
+
 
 
 class CShip(Ship):
