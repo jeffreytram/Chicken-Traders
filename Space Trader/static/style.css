@@ -69,16 +69,11 @@ button:hover, .button:hover, .arrow:hover {
     justify-content: space-between;
 }
 
-.hidden {
-    display: none;
-}
-
 /* travel menu style */
 
 #mapid {
     height: 378px;
     width: 672px;
-    1920, 1080
 }
 
 .regionButtons {
@@ -97,60 +92,124 @@ button:hover, .button:hover, .arrow:hover {
 
 /* Market menu style */
 
-.marketMenuContainer {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    border: 5px solid rgb(30, 30, 30);
-    width: 70%;
-}
-
-.marketContainer, .bottomContainer {
-    display: flex;
-    width: 100%;
-}
-
-#itemCategories {
-    border: 2px solid rgb(30, 30, 30);
-    width: 20%;
-}
-
-.items {
-    border: 4px solid rgb(30, 30, 30);
-    width: 80%;
-}
-
-.items>ul {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.items>ul>li {
-    width: 19.7%;
-    border: 2px solid rgb(30, 30, 30);
-    text-align: left;
-    z-index: 1;
-}
-img {
-    z-index: 0;
-}
-
-/* Bottom container css*/
-
-.buyInfo {
-    border: 2px solid rgb(30, 30, 30);
-    width: 20%;
-}
-
-.itemDescription {
-    border: 2px solid rgb(30, 30, 30);
-    width: 80%;
-}
-
-/* category css */
 .activeCategory {
     font-weight: bold;
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+
+.market-container {
+    width: 80%;
+    margin: auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template: repeat(9, auto) / minmax(auto, 200px) repeat(5, auto);
+    border: 8px solid rgb(30, 30, 30);
+}
+
+.grid-container .category {
+    grid-column: 1/2;
+    grid-row: 1/-2;
+    border-right: 5px solid rgb(30, 30, 30);
+}
+
+.grid-container .shop>#itemUl {
+    grid-column: 2/-1;
+    grid-row: 1/-2;
+    display: grid;
+    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+}
+
+.grid-container .buy {
+    grid-column: 1/2;
+    grid-row: -2/-1;
+    border-right: 5px solid rgb(30, 30, 30);
+    border-top: 5px solid rgb(30, 30, 30);
+}
+
+.grid-container .description {
+    grid-column: 2/-1;
+    grid-row: -2/-1;
+    border-top: 5px solid rgb(30, 30, 30);
+}
+
+.shop-item {
     border: 2px solid rgb(30, 30, 30);
 }
 
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-left {
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.item-right {
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
+/* market player inv css */
+.inv-grid {
+    width: 60%;
+    margin: auto;
+}
+
+#playerInv {
+    display: grid;
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
+}
+
+.inv-item {
+    border: 1px solid rgb(30, 30, 30);
+}
+
+.inv-item:nth-child(4n + 3) {
+    grid-column: 3/6;
+}
+
+#cargoInv {
+    display: grid;
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
+}
+.cargo-item {
+    border: 1px solid rgb(30, 30, 30);
+}
+
+.cargo-item:nth-child(3n + 3) {
+    grid-column: 3/6;
+}
+
+.tableHeader {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    font-weight: bold;
+}
+
+/* More test grid css */
+
+.test-container {
+    display: grid;
+    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(3, minmax(auto, 1fr));
+}
+
+.test-item {
+    border: 1px solid rgb(30, 30, 30);
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+@media (min-width:850px) {
+    .grid-container .shop>#itemUl {
+        grid-template: repeat(3, minmax(auto, 1fr)) / repeat(4, minmax(auto, 1fr));
+    }
+}

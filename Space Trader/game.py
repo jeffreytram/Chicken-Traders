@@ -25,7 +25,7 @@ class Game:
     def fuel_cost_constant(self):
         if self.diff == "easy":
             return 0.2
-        elif self.diff == "medium":
+        elif self.diff == "med":
             return 0.35
         elif self.diff == "hard":
             return 0.5
