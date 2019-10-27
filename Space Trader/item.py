@@ -160,8 +160,8 @@ class InvincibilityStar(Item):
     debut = 1
     size = 3
     base_price = 200
-    description = ("Use it to Evicerate any bandits that dare to challenge " +
-                   "you and steal all the loot.")
+    description = "Use it to Evicerate any bandits that " \
+    + "dare to challenge you and steal all the loot."
     b_price = 0
     s_price = 0
 

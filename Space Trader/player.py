@@ -3,7 +3,6 @@ import copy
 from ship import CShip
 
 
-
 class Player:
     def __init__(self, name, skill_points, credit, curr_region):
         self.name = name
