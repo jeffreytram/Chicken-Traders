@@ -40,16 +40,26 @@
 10.22 [x] JT - Added category filter
 10.22 [x] JT - formatting, improving naming consistency
 
+10.24 [x] JT - removed uneeded files
+
+10.25 [x] JT - Market reformatted with grid
+10.25 [x] JT - Selected item no longer cleared after each purchase
+10.25 [x] JT - Inventory reformatted with grid
+ 
+10.26 [x] JT - Added encounter page
+
 TODO:
 [] display fuel cost
+[] current capacity/cargo
+[] buying/selling multiple items
+[] display item size
+[] display error message for not enough credits, not enough space
 
-[] dictionary not updating until reload (rerendered)
-- updating dictionary values does not update already rendered variables
+[] buy/reload resets category
 
 
 Questions:
 leaflet js
--map bounds
 -inverse coordinates, unproject/project
 -clicking marker centers to diff position (bottom right)
 -responsive map?

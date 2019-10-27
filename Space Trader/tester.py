@@ -51,11 +51,6 @@ print(game.player.trade_buy(game.player.curr_region.market[1], 5))
 print(game.player.ship.cargo[1])
 
 
-
-
-
-
-
 # game = universe_create()
 # travel_test(game)
 
@@ -71,25 +66,22 @@ print(game.player.ship.cargo[1])
 # print(items[0][0].amount)
 
 
-
-"""
-print()
-print()
-game2 = Game("Easy")
-game2.start_game("Ricardo", skill_points, 100)
-for reg in game2.universe.region_list:
-    print(reg.name)
-    print(reg.coordinates.x_position)
-    print(reg.coordinates.y_position)
-    print(reg.tech_level)
-print()
-print()
-for reg in game.universe.region_list:
-    print(reg.name)
-    print(reg.coordinates.x_position)
-    print(reg.coordinates.y_position)
-    print(reg.tech_level)
-"""
+# print()
+# print()
+# game2 = Game("Easy")
+# game2.start_game("Ricardo", skill_points, 100)
+# for reg in game2.universe.region_list:
+#    print(reg.name)
+#    print(reg.coordinates.x_position)
+#    print(reg.coordinates.y_position)
+#    print(reg.tech_level)
+# print()
+# print()
+# for reg in game.universe.region_list:
+#    print(reg.name)
+#    print(reg.coordinates.x_position)
+#    print(reg.coordinates.y_position)
+#    print(reg.tech_level)
 
 # print(game.player.name)
 # print(game.player.pilot)

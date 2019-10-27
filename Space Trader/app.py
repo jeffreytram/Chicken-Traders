@@ -7,17 +7,17 @@ app.config["SECRET_KEY"] = "ayy"
 
 dictionary = {
     "game": None,
-    "player": "",
-    "pName": "",
-    "pDiff": "",
+    "player": None,
+    "pName": None,
+    "pDiff": None,
     "pCredits": 0,
     "pSPLimit": 0,
     "sp1": 0,
     "sp2": 0,
     "sp3": 0,
     "sp4": 0,
-    "currRegion": "",
-    "selectedItem": "",
+    "currRegion": None,
+    "selectedItem": None,
 }
 
 
@@ -92,75 +92,22 @@ def confirm():
     )
 
 
-@app.route("/start", methods=["GET", "POST"])
-def start():
-    if request.method == "POST":
-        if "currIndex" in request.form:
-            index = request.form["currIndex"]
-            travelToRegion = dictionary["game"].universe.region_list[int(index) - 1]
-            if dictionary["game"].travel_sequence(travelToRegion):
-                dictionary["currRegion"] = travelToRegion
-                return (
-                    "Region: "
-                    + dictionary["currRegion"].name
-                    + " ("
-                    + str(dictionary["currRegion"].coordinates.x_position)
-                    + ", "
-                    + str(dictionary["currRegion"].coordinates.y_position)
-                    + ") Tech Level: "
-                    + dictionary["currRegion"].tech_level.name
-                )
-            else:
-                return "Not enough fuel!"
-        if "selectedIndex" in request.form:
-            selectedIndex = request.form["selectedIndex"]
-            dictionary["selectedItem"] = dictionary["currRegion"].market[
-                int(selectedIndex) - 1
-            ]
-            return dictionary["selectedItem"].description
-
-        if "statementIndex" in request.form:
-            return (
-                "Purchase "
-                + dictionary["selectedItem"].name
-                + " for "
-                + str(dictionary["selectedItem"].base_price)
-                + "?"
-            )
-
-        if "buyIndex" in request.form:
-            dictionary["game"].player.trade_buy(
-                dictionary["selectedItem"], dictionary["selectedItem"].base_price
-            )
-            return "Credits " + str(dictionary["game"].player.credit)
-
-        if "displayFuel" in request.form:
-            return "Current Fuel Level: " + str(
-                dictionary["game"].player.ship.fuel_level
-            )
-    return render_template(
-        "start.html",
-        game=dictionary["game"],
-        universe=dictionary["game"].universe,
-        currRegion=dictionary["currRegion"],
-        selectedItem=dictionary["selectedItem"],
-    )
-
-
 @app.route("/ship", methods=["GET", "POST"])
 def ship():
     return render_template(
         "ship.html", game=dictionary["game"], currRegion=dictionary["currRegion"]
     )
 
+
 @app.route("/travel", methods=["GET", "POST"])
 def travel():
     if request.method == "POST":
         if "currIndex" in request.form:
             index = request.form["currIndex"]
-            travelToRegion = dictionary["game"].universe.region_list[int(index) - 1]
-            if dictionary["game"].travel_sequence(travelToRegion):
-                dictionary["currRegion"] = travelToRegion
+            travel_region = dictionary["game"].universe.region_list[int(index) - 1]
+            if dictionary["game"].travel_sequence(travel_region):
+                dictionary["selectedItem"] = None
+                dictionary["currRegion"] = travel_region
                 return (
                     "Region: "
                     + dictionary["currRegion"].name
@@ -178,17 +125,19 @@ def travel():
                 dictionary["game"].player.ship.fuel_level
             )
     return render_template(
-        "travel.html", game=dictionary["game"], currRegion=dictionary["currRegion"], universe=dictionary["game"].universe,
+        "travel.html",
+        game=dictionary["game"],
+        currRegion=dictionary["currRegion"],
+        universe=dictionary["game"].universe,
     )
+
 
 @app.route("/market", methods=["GET", "POST"])
 def market():
     if request.method == "POST":
         if "selectedIndex" in request.form:
-            selectedIndex = request.form["selectedIndex"]
-            dictionary["selectedItem"] = dictionary["currRegion"].market[
-                int(selectedIndex) - 1
-            ]
+            selected_index = int(request.form["selectedIndex"]) - 1
+            dictionary["selectedItem"] = dictionary["currRegion"].market[selected_index]
             return dictionary["selectedItem"].description
 
         if "statementIndex" in request.form:
@@ -200,19 +149,40 @@ def market():
                 + "?"
             )
         if "buyIndex" in request.form:
-            dictionary["game"].player.trade_buy(
-                dictionary["selectedItem"], 1
-            )
+            dictionary["game"].player.trade_buy(dictionary["selectedItem"], 1)
             return "Credits: " + str(dictionary["game"].player.credit)
         if "sellIndex" in request.form:
-            invIndex = int(request.form["sellIndex"]) - 1
-            dictionary["game"].player.trade_sell(invIndex, 1)
+            inv_index = int(request.form["sellIndex"]) - 1
+            dictionary["game"].player.trade_sell(inv_index, 1)
             return "Credits: " + str(dictionary["game"].player.credit)
-    
-    dictionary["selectedItem"] = ""
+
     return render_template(
-        "market.html", game=dictionary["game"], currRegion=dictionary["currRegion"], selectedItem=dictionary["selectedItem"]
+        "market.html",
+        game=dictionary["game"],
+        currRegion=dictionary["currRegion"],
+        selectedItem=dictionary["selectedItem"],
     )
+
+
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    return render_template(
+        "test.html",
+        game=dictionary["game"],
+        currRegion=dictionary["currRegion"],
+        universe=dictionary["game"].universe,
+    )
+
+@app.route("/encounter", methods=["GET", "POST"])
+def encounter():
+    return render_template(
+        "encounter.html",
+        npc="bandit",
+        game=dictionary["game"],
+        currRegion=dictionary["currRegion"],
+        universe=dictionary["game"].universe,
+    )
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=80, debug=True)

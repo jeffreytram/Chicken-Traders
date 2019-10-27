@@ -16,7 +16,7 @@ class Computer(Item):
     name = "Computer"
     category = "Technology"
     debut = 6
-    size = 1
+    size = 10
     base_price = 100
     description = "It's a Computer!"
     b_price = 0
@@ -32,7 +32,7 @@ class StrangeTalisman(Item):
     name = "Strange Talisman"
     category = "Misc."
     debut = 1
-    size = 1
+    size = 4
     base_price = 5
     description = "A strange talisman from a wandering civilization. It feels warm."
     b_price = 0

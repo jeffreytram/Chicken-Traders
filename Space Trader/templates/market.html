@@ -7,6 +7,7 @@
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
     <button id="market" class="active" onclick="location.href = 'market'">Market</button>
+    <button id="test" onclick="location.href = 'test'">Test</button>
     <h2 id="currRegion">Region: {{currRegion.name}}
         ({{currRegion.coordinates.x_position}},
         {{currRegion.coordinates.y_position}})
@@ -15,9 +16,9 @@
 </div>
 <div class="menu marketMenu">
     <h2>Market</h2>
-    <div class="marketMenuContainer">
-        <div class="marketContainer">
-            <div id="itemCategories">
+    <div class="market-container">
+        <div class="grid-container">
+            <div class="grid-item category">
                 <ul id="itemCategoriesUl">
                     <li class=" activeCategory">All</li>
                     <li>Animal</li>
@@ -30,37 +31,62 @@
                     <li>Technology</li>
                 </ul>
             </div>
-            <div class="items">
+            <div class="grid-item shop">
                 <ul id="itemUl">
                     {% for item in currRegion.market %}
-                    <li class="item {{loop.index}} {{item.category}}"><img
-                            src="../static/item-images/item_{{item.name}}.png">{{item.name}}
-                        {{item.b_price}}</li>
+                    <li class="item {{loop.index}} {{item.category}} shop-item">
+                        <div class="item-left">
+                            <img src="../static/item-images/item_{{item.name}}.png">{{item.name}}
+                        </div>
+                        <div class="item-right">
+                            {{item.b_price}}
+                        </div>
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
-        </div>
-        <div class="bottomContainer">
-            <div class="buyInfo">
+            <div class="grid-item buy">
+                {% if selectedItem %}
+                <p id="purchaseStatement">Purchase {{selectedItem.name}} for {{selectedItem.b_price}}?</p>
+                {% else %}
                 <p id="purchaseStatement">Choose an item to purchase</p>
-                <!--TODO: add functionality to button-->
+                {% endif %}
                 <button type="button" onclick="purchase()">Purchase</button>
             </div>
-            <div class="itemDescription">
+            <div class="grid-item description">
                 {{selectedItem.description}}
             </div>
         </div>
-
     </div>
 </div>
 <h4>Player Inventory:</h4>
-<ul id="playerInv">
+<div class="inv-grid">
+    <div class="inv-item inv-image tableHeader">
+        Item
+    </div>
+    <div class="inv-item inv-quantity tableHeader">
+        Quantity
+    </div>
+    <div class="inv-item inv-name tableHeader">
+        Item Name
+    </div>
+    <div class="inv-item inv-name tableHeader">
+        Sell Price
+    </div>
     {% for item in game.player.ship.cargo %}
-    <li id="itemInv{{loop.index}}"><img src="../static/item-images/item_{{item.name}}.png">{{item.amount}}x
-        {{item.name}} <button class="sellButton {{loop.index}}">Sell for
-            {{item.s_price}}</button></li>
+    <div class="inv-item inv-image">
+        <img src="../static/item-images/item_{{item.name}}.png">
+    </div>
+    <div class="inv-item inv-quantity">
+        {{item.amount}}x
+    </div>
+    <div class="inv-item inv-name">
+        {{item.name}}
+    </div>
+    <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
+        {{item.s_price}}</button>
     {% endfor %}
-</ul>
+</div>
 <script type="text/javascript">
     function selectItem(index) {
         showDescription(index);
@@ -68,7 +94,7 @@
     }
     function showDescription(index) {
         var req = new XMLHttpRequest();
-        var result = document.getElementsByClassName("itemDescription");
+        var result = document.getElementsByClassName("description");
         var purchaseStatement = document.getElementById("purchaseStatement");
         //only need this section if we're displaying
         req.onreadystatechange = function () {
@@ -125,8 +151,8 @@
     });
 
     //event listerner for item sell
-    let playerInvUl = document.getElementById("playerInv");
-    playerInvUl.addEventListener("click", function (event) {
+    let invGridUl = document.getElementsByClassName("inv-grid");
+    invGridUl[0].addEventListener("click", function (event) {
         console.log(event.target);
         if (event.target.classList.contains("sellButton")) {
             sellItem(event.target.classList[1]);
@@ -143,24 +169,24 @@
         }
         event.target.className += " activeCategory";
         let category = event.target.innerHTML;
-        itemUl = document.getElementById("itemUl");
-        shownItem = document.getElementsByClassName("item");
+        let itemUl = document.getElementById("itemUl");
+        let shownItem = document.getElementsByClassName("item");
         for (let i = 0; i < shownItem.length; i++) {
             item = shownItem[i];
             if (category === "All") {
                 item.className = item.className.replace(" hidden", "");
             } else if (item.classList.contains(category)) {
                 //item to show, remove hidden if it has
-                if(item.classList.contains("hidden")) {
+                if (item.classList.contains("hidden")) {
                     item.className = item.className.replace(" hidden", "");
                 }
             } else {
                 //item to hide, add hidden if doesnt have
-                if(!item.classList.contains("hidden")) {
+                if (!item.classList.contains("hidden")) {
                     item.className += " hidden";
                 }
             }
         }
     })
-        </script>
+</script>
 {% endblock %}
