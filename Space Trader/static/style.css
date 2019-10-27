@@ -69,7 +69,35 @@ button:hover, .button:hover, .arrow:hover {
     justify-content: space-between;
 }
 
-/* travel menu style */
+/* SHIP menu style */
+.ship-grid {
+    width: 50%;
+    margin: auto;
+    display: grid;
+    grid-template: repeat(5, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+}
+.ship-stat {
+    border: 1px solid rgb(30, 30, 30);
+}
+.ship-stat:nth-child(2) {
+    grid-row: 2/5;
+}
+.cargo-grid {
+    width: 50%;
+    margin: auto;
+    display: grid;
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
+}
+
+.cargo-item {
+    border: 1px solid rgb(30, 30, 30);
+}
+
+.cargo-item:nth-child(3n + 1) {
+    grid-column: 1/4;
+}
+
+/* TRAVEL menu style */
 
 #mapid {
     height: 378px;
@@ -82,7 +110,9 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .region {
-    height: 10%;
+    height: 37.8px;
+    width: auto;
+    white-space: nowrap;
 }
 
 .buttonAndMapContainer {
@@ -162,7 +192,7 @@ button:hover, .button:hover, .arrow:hover {
 /* market player inv css */
 
 .inv-grid {
-    width: 60%;
+    width: 50%;
     margin: auto;
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
@@ -172,22 +202,8 @@ button:hover, .button:hover, .arrow:hover {
     border: 1px solid rgb(30, 30, 30);
 }
 
-.inv-item:nth-child(4n + 3) {
-    grid-column: 3/6;
-}
-.cargo-grid {
-    width: 60%;
-    margin: auto;
-    display: grid;
-    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
-}
-
-.cargo-item {
-    border: 1px solid rgb(30, 30, 30);
-}
-
-.cargo-item:nth-child(3n + 3) {
-    grid-column: 3/6;
+.inv-item:nth-child(4n + 1) {
+    grid-column: 1/4;
 }
 
 .tableHeader {

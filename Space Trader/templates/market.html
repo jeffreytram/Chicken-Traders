@@ -67,21 +67,21 @@
     <div class="inv-item inv-quantity tableHeader">
         Quantity
     </div>
-    <div class="inv-item inv-name tableHeader">
-        Item Name
+    <div class="inv-item inv-weight tableHeader">
+        Weight Per
     </div>
-    <div class="inv-item inv-name tableHeader">
+    <div class="inv-item inv-sell tableHeader">
         Sell Price
     </div>
     {% for item in game.player.ship.cargo %}
-    <div class="inv-item inv-image">
-        <img src="../static/item-images/item_{{item.name}}.png">
+    <div class="inv-item inv-name">
+        <img src="../static/item-images/item_{{item.name}}.png">{{item.name}}
     </div>
     <div class="inv-item inv-quantity">
         {{item.amount}}x
     </div>
-    <div class="inv-item inv-name">
-        {{item.name}}
+    <div class="inv-item inv-weight">
+        {{item.size}} lb
     </div>
     <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
         {{item.s_price}}</button>

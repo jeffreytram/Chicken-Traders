@@ -41,6 +41,7 @@
     function travelAndUpdateFuel(index) {
         travel(index);
         displayFuel();
+        window.location.reload();
     }
     function travel(index) {
         var req = new XMLHttpRequest();
@@ -76,23 +77,28 @@
     }
     var w = 672,
         h = 378,
-        url = '../static/map2.png'
+        url = '../static/map3.png'
     var map = L.map('mapid', {
         minZoom: 1,
         maxZoom: 4,
-        center: [w, -h],
-        zoom: 1,
+        center: [{{currRegion.coordinates.x_position / 3}}, {{currRegion.coordinates.y_position / 3}}],
+        zoom: 2,
         crs: L.CRS.Simple
     });
-    var barnIcon = L.icon({
+    var barnIcon1 = L.icon({
+        iconUrl: '../static/barn1.png'
+    });
+    var barnIcon2 = L.icon({
         iconUrl: '../static/barn2.png'
     });
     // dimensions and url of the image
     // creating markers on map
     {% for region in universe.region_list %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>").on('click', function () {
-
-    });
+        {% if region == currRegion %}
+        var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+        {% else %}
+        var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+        {% endif %}
     {% endfor %}
 
     /*test markers
@@ -104,8 +110,8 @@
     */
 
     //bounds for image
-    var southWest = map.unproject([-w * 2, -h * 2], map.getMaxZoom() - 1);
-    var northEast = map.unproject([w * 2, h * 2], map.getMaxZoom() - 1);
+    var southWest = map.unproject([-672 * 2, -378 * 2], map.getMaxZoom() - 1);
+    var northEast = map.unproject([672 * 2, 378 * 2], map.getMaxZoom() - 1);
     var bounds = new L.LatLngBounds(southWest, northEast);
     L.imageOverlay(url, bounds).addTo(map);
     map.setMaxBounds(bounds);
