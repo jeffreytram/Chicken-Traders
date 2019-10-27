@@ -23,29 +23,27 @@
     <h3>Fuel Capacity: {{game.player.ship.max_fuel}}</h3>
     <h3>Health: {{game.player.ship.max_health}}</h3>
     <h3>Cargo: </h3>
-    <div class="inv-grid">
-        <ul id="cargoInv">
-            <div class="cargo-item inv-image tableHeader">
-                Item
-            </div>
-            <div class="cargo-item inv-quantity tableHeader">
-                Quantity
-            </div>
-            <div class="cargo-item inv-name tableHeader">
-                Item Name
-            </div>
-            {% for item in game.player.ship.cargo %}
-            <div class="cargo-item inv-image">
-                <img src="../static/item-images/item_{{item.name}}.png">
-            </div>
-            <div class="cargo-item inv-quantity">
-                {{item.amount}}x
-            </div>
-            <div class="cargo-item inv-name">
-                {{item.name}}
-            </div>
-            {% endfor %}
-        </ul>
+    <div class="cargo-grid">
+        <div class="cargo-item inv-image tableHeader">
+            Item
+        </div>
+        <div class="cargo-item inv-quantity tableHeader">
+            Quantity
+        </div>
+        <div class="cargo-item inv-name tableHeader">
+            Item Name
+        </div>
+        {% for item in game.player.ship.cargo %}
+        <div class="cargo-item inv-image">
+            <img src="../static/item-images/item_{{item.name}}.png">
+        </div>
+        <div class="cargo-item inv-quantity">
+            {{item.amount}}x
+        </div>
+        <div class="cargo-item inv-name">
+            {{item.name}}
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

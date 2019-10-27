@@ -61,33 +61,31 @@
 </div>
 <h4>Player Inventory:</h4>
 <div class="inv-grid">
-    <ul id="playerInv">
-        <div class="inv-item inv-image tableHeader">
-            Item
-        </div>
-        <div class="inv-item inv-quantity tableHeader">
-            Quantity
-        </div>
-        <div class="inv-item inv-name tableHeader">
-            Item Name
-        </div>
-        <div class="inv-item inv-name tableHeader">
-            Sell Price
-        </div>
-        {% for item in game.player.ship.cargo %}
-        <div class="inv-item inv-image">
-            <img src="../static/item-images/item_{{item.name}}.png">
-        </div>
-        <div class="inv-item inv-quantity">
-            {{item.amount}}x
-        </div>
-        <div class="inv-item inv-name">
-            {{item.name}}
-        </div>
-        <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
-            {{item.s_price}}</button>
-        {% endfor %}
-    </ul>
+    <div class="inv-item inv-image tableHeader">
+        Item
+    </div>
+    <div class="inv-item inv-quantity tableHeader">
+        Quantity
+    </div>
+    <div class="inv-item inv-name tableHeader">
+        Item Name
+    </div>
+    <div class="inv-item inv-name tableHeader">
+        Sell Price
+    </div>
+    {% for item in game.player.ship.cargo %}
+    <div class="inv-item inv-image">
+        <img src="../static/item-images/item_{{item.name}}.png">
+    </div>
+    <div class="inv-item inv-quantity">
+        {{item.amount}}x
+    </div>
+    <div class="inv-item inv-name">
+        {{item.name}}
+    </div>
+    <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
+        {{item.s_price}}</button>
+    {% endfor %}
 </div>
 <script type="text/javascript">
     function selectItem(index) {
@@ -153,8 +151,8 @@
     });
 
     //event listerner for item sell
-    let playerInvUl = document.getElementById("playerInv");
-    playerInvUl.addEventListener("click", function (event) {
+    let invGridUl = document.getElementsByClassName("inv-grid");
+    invGridUl[0].addEventListener("click", function (event) {
         console.log(event.target);
         if (event.target.classList.contains("sellButton")) {
             sellItem(event.target.classList[1]);

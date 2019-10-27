@@ -158,13 +158,12 @@ button:hover, .button:hover, .arrow:hover {
 .hidden {
     display: none;
 }
+
 /* market player inv css */
+
 .inv-grid {
     width: 60%;
     margin: auto;
-}
-
-#playerInv {
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
 }
@@ -176,11 +175,13 @@ button:hover, .button:hover, .arrow:hover {
 .inv-item:nth-child(4n + 3) {
     grid-column: 3/6;
 }
-
-#cargoInv {
+.cargo-grid {
+    width: 60%;
+    margin: auto;
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
 }
+
 .cargo-item {
     border: 1px solid rgb(30, 30, 30);
 }
@@ -193,6 +194,19 @@ button:hover, .button:hover, .arrow:hover {
     background-color: rgb(30, 30, 30);
     color: white;
     font-weight: bold;
+}
+
+/* encounter css */
+
+.encounter-grid {
+    width: 50%;
+    margin: auto;
+    display: grid;
+    grid-template: repeat(2, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+}
+
+.choice {
+    border: 1px solid rgb(30, 30, 30);
 }
 
 /* More test grid css */

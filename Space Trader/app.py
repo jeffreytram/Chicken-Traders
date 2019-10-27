@@ -137,9 +137,7 @@ def market():
     if request.method == "POST":
         if "selectedIndex" in request.form:
             selected_index = int(request.form["selectedIndex"]) - 1
-            dictionary["selectedItem"] = dictionary["currRegion"].market[
-                selected_index
-            ]
+            dictionary["selectedItem"] = dictionary["currRegion"].market[selected_index]
             return dictionary["selectedItem"].description
 
         if "statementIndex" in request.form:
@@ -165,10 +163,21 @@ def market():
         selectedItem=dictionary["selectedItem"],
     )
 
+
 @app.route("/test", methods=["GET", "POST"])
 def test():
     return render_template(
         "test.html",
+        game=dictionary["game"],
+        currRegion=dictionary["currRegion"],
+        universe=dictionary["game"].universe,
+    )
+
+@app.route("/encounter", methods=["GET", "POST"])
+def encounter():
+    return render_template(
+        "encounter.html",
+        npc="bandit",
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         universe=dictionary["game"].universe,
