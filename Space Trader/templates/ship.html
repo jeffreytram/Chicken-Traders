@@ -8,20 +8,31 @@
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
     <button id="market" onclick="location.href = 'market'">Market</button>
     <button id="test" onclick="location.href = 'test'">Test</button>
-    <h2 id="currRegion">Region: {{currRegion.name}}
-        ({{currRegion.coordinates.x_position}},
-        {{currRegion.coordinates.y_position}})
-        Tech Level: {{currRegion.tech_level.name}}
-    </h2>
+    <h2 id="currRegion">Ship Stats</h2>
 </div>
 
 <!--Ship menu-->
 <div class="menu shipMenu">
-    <h3>Ship Name: {{game.player.ship.name}}</h3>
-    <h3>Type: {{game.player.ship.ship_type}}</h3>
-    <h3>Cargo Space: {{game.player.ship.max_cargo}}</h3>
-    <h3>Fuel Capacity: {{game.player.ship.max_fuel}}</h3>
-    <h3>Health: {{game.player.ship.max_health}}</h3>
+    <div class="ship-grid">
+        <div class="ship-stat">
+            <p><strong>{{game.player.ship.name}}</strong></p>
+        </div>
+        <div class="ship-stat ship-image">
+            <img height="100" src="../static/chicken.png">
+        </div>
+        <div class="ship-stat">
+            <p>Type: <strong>{{game.player.ship.ship_type}}</strong></p>
+        </div>
+        <div class="ship-stat">
+            <p>Cargo Space Capacity: <strong>{{game.player.ship.max_cargo}} lb</strong></p>
+        </div>
+        <div class="ship-stat">
+            <p>Fuel Capacity: <strong>{{game.player.ship.max_fuel}} lb</strong></p>
+        </div>
+        <div class="ship-stat">
+            <p>Health: <strong>{{game.player.ship.max_health}}</strong></p>
+        </div>
+    </div>
     <h3>Cargo: </h3>
     <div class="cargo-grid">
         <div class="cargo-item inv-image tableHeader">
@@ -30,18 +41,18 @@
         <div class="cargo-item inv-quantity tableHeader">
             Quantity
         </div>
-        <div class="cargo-item inv-name tableHeader">
-            Item Name
+        <div class="cargo-item inv-weight tableHeader">
+            Weight Per
         </div>
         {% for item in game.player.ship.cargo %}
         <div class="cargo-item inv-image">
-            <img src="../static/item-images/item_{{item.name}}.png">
+            <img src="../static/item-images/item_{{item.name}}.png"> {{item.name}}
         </div>
         <div class="cargo-item inv-quantity">
             {{item.amount}}x
         </div>
-        <div class="cargo-item inv-name">
-            {{item.name}}
+        <div class="cargo-item inv-weight">
+            {{item.size}} lb
         </div>
         {% endfor %}
     </div>

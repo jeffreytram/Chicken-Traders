@@ -48,12 +48,19 @@
  
 10.26 [x] JT - Added encounter page
 
+10.27 [x] JT - Map now centers to current region
+10.27 [x] JT - Inv/cargo table slightly restructured
+- added weight, combined image and name
+10.27 [x] JT - Improved ship stat page layout
+
 TODO:
 [] display fuel cost
+- add a fuel cost from curr region var to each region, updates on travel
 [] current capacity/cargo
+- current cargo weight variable in ship
 [] buying/selling multiple items
-[] display item size
 [] display error message for not enough credits, not enough space
+[] ship art
 
 [] buy/reload resets category
 

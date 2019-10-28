@@ -3,6 +3,7 @@
 import random
 import enum
 import math
+import utility
 from item import Item
 
 
@@ -46,10 +47,10 @@ class Coordinates:
         """This method compares the coordinates to another
         and reacreates them based on the requirements."""
         regenerated = False
-        if abs(self.x_position - other.x_position) <= 5:
+        if abs(self.x_position - other.x_position) <= 10:
             self.recreate_x()
             regenerated = True
-        if abs(self.y_position - other.y_position) <= 5:
+        if abs(self.y_position - other.y_position) <= 10:
             self.recreate_y()
             regenerated = True
         # END if and elif
