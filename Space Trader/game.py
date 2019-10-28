@@ -32,12 +32,23 @@ class Game:
         else:
             return -1
 
+    @property
+    def enounter_factor(self):
+    	if self.diff == "easy":
+    		return 1
+    	elif self.diff == "med":
+    		return 1.5
+    	elif self.diff == "hard":
+    		return 2
+    	else:
+    		return -1
+
     def travel_sequence(self, new_region):
         traveled = False
         distance = self.player.curr_region.distance(new_region)
         fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
         fuel_amount = self.player.ship.fuel_level
-        if fuel_cost <= fuel_amount:
+        if fuel_cost < fuel_amount:
             utility.bprice_calc(self.player, new_region)
             utility.sprice_calc(self.player, new_region)
             self.player.curr_region = new_region
