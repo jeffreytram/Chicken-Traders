@@ -2,6 +2,7 @@ import random
 import utility
 from universe import Universe
 from player import Player
+from bandit import Rascal, Thug, Mafia
 
 
 
@@ -47,3 +48,24 @@ class Game:
             #"Traveled to new region succesfully"
         return traveled
         #END if
+
+
+    """Bandit NPC methods"""
+    def payBandit(self, bandit):
+        #Try to pay bandit's demand (determined in constructor)
+        if (self.player.credits >= bandit.demand):
+            #successful payment
+            self.player.credits = self.player.credits - bandit.demand
+        else:
+            if (self.player.ship.cargo.size != 0):
+                #give up all inventory. Doesn't have to transfer to the bandit
+                self.player.ship.cargo = []
+            else:
+                #Get damaged
+                damage = bandit.fighterLevel * 10
+                if (self.player.ship.health_level >= damage):
+                    self.player.ship.health_level = self.player.ship.health_level - damage
+                else:
+                    self.player.ship.health_level = 0
+    
+
