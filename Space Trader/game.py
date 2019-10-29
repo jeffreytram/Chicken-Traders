@@ -62,7 +62,7 @@ class Game:
                 self.player.ship.cargo = []
             else:
                 #Get damaged
-                damage = bandit.fighterLevel * 10
+                damage = bandit.fighterLevel * 100
                 if (self.player.ship.health_level >= damage):
                     self.player.ship.health_level = self.player.ship.health_level - damage
                 else:
