@@ -75,17 +75,19 @@ class Region:
         self.name = name
         self.market = []
         #possible
+        self.init_market()
+
+        #END for
+
+    def init_market(self):
         poss_items = Item.__subclasses__()
         while len(self.market) < 10:
             rand_index = random.randint(0, len(poss_items) - 1)
-            if poss_items[rand_index].debut > tech_level.value:
+            if poss_items[rand_index].debut > self.tech_level.value:
                 poss_items.pop(rand_index)
             else:
                 self.market.append(poss_items[rand_index](random.randint(10, 20)))
                 poss_items.pop(rand_index)
-        #END for
-
-    # END __init__
 
     def compare_and_regen(self, other):
         """This method calls the coordinate compare
@@ -121,7 +123,7 @@ class Universe:
 
     def __init__(self):
         self.region_list = []
-        self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+        self.names = ["Bargo", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
         while len(self.names) > 0:
             new_region = self.create_region()
             if len(self.region_list) == 0:
