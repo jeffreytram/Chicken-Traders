@@ -33,22 +33,24 @@ class Game:
         else:
             return -1
 
-    def travel_sequence(self, new_region):
-        traveled = False
-        distance = self.player.curr_region.distance(new_region)
-        fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
-        fuel_amount = self.player.ship.fuel_level
-        if fuel_cost <= fuel_amount:
-            utility.bprice_calc(self.player, new_region)
-            utility.sprice_calc(self.player, new_region)
-            self.player.curr_region = new_region
-            self.player.ship.fuel_level = int(fuel_amount - fuel_cost)
-            traveled = True
-            return traveled
-            #"Traveled to new region succesfully"
-        return traveled
-        #END if
+    @property
+    def enounter_factor(self):
+        if self.diff == "easy":
+            return 1
+        elif self.diff == "med":
+            return 1.5
+        elif self.diff == "hard":
+            return 2
+        else:
+            return -1
 
+    #so it still works in the meantime
+    def travel_sequence(self, new_region):
+        if utility.travel_check(self, new_region):
+            utility.travel(self.player, new_region)
+            return True
+            #"Traveled to new region succesfully"
+        return False
 
     """Bandit NPC methods"""
     def payBandit(self, bandit):
@@ -67,5 +69,3 @@ class Game:
                     self.player.ship.health_level = self.player.ship.health_level - damage
                 else:
                     self.player.ship.health_level = 0
-    
-

@@ -19,13 +19,3 @@ class Thug(Bandit):
 class Mafia(Bandit):
     def __init__(self):
         super().__init__("Cluck Boss", AShip(), 30, 4, 4)
-
-
-        
-
-
-        
-        
-
-
-    

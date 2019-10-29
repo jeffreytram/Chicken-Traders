@@ -1,4 +1,6 @@
 """Module with utility functions for the game"""
+import random
+from item import Item
 
 
 def fuel_calc(fuel_cost_constant, distance, pilot):
@@ -24,3 +26,123 @@ def sprice_calc(player, region):
             item.s_price = int(
                 0.7 * tech_factor * item.base_price * (1 + player.merchant / 75)
             )
+
+#Encounter methods.
+
+#Lowers ship fuel level as all options end up with the fuel being spent
+def travel_check(game, region):
+    distance = game.player.curr_region.distance(region)
+    fuel_cost = game.fuel_cost_constant * distance * (1 - (game.player.pilot/75))
+    fuel_amount = game.player.ship.fuel_level
+    if fuel_amount >= fuel_cost:
+        game.player.ship.fuel_level = int(fuel_amount - fuel_cost)
+        return True
+    else:
+        return False
+
+def travel(player, region):
+    bprice_calc(player, region)
+    sprice_calc(player, region)
+    player.curr_region = region
+
+def police_check(diff_modifier, player):
+    check_int = random.randint(0, int(100 / diff_modifier))
+    if check_int <= 8 and len(player.ship) > 0:
+        return True
+    else:
+        return False
+
+#returns index(s) for popping from cargo later
+def police_item(player):
+    return random.randint(0, len(player.ship.cargo) - 1)
+
+def gen_police(player):
+    return {
+    "npc": "Police",
+    "item": police_item(player)
+    }
+
+def surrender(player, poli):
+    player.ship.cargo.pop(poli["item"])
+
+def flee_poli(player, poli):
+    if skill_check(player.pilot):
+        return True
+    else:
+        surrender(player, poli)
+        player.ship.health_level -= 15
+        player.credit -= 70
+
+def fight_poli(player):
+    pass
+
+def bandit_check(diff_modifier):
+    check_int = random.randint(0, int(100 / diff_modifier))
+    if check_int <= 8:
+        return True
+    else:
+        return False
+
+def gen_bandit():
+    return {
+    "npc": "Bandit",
+    "demand": random.randint(75, 150)
+    }
+
+def pay_bandit(player, bandit):
+    if player.credit >= bandit["demand"]:
+        player.credit -= bandit["demand"]
+    elif len(player.ship.cargo) > 0:
+        player.ship.cargo.clear()
+    else:
+        player.ship.health_level -= 15
+
+def flee_bandit(player):
+    if skill_check(player.pilot):
+        return True
+    else:
+        player.credit = 0
+        player.ship.health_level -= 20
+        return False
+
+def fight_bandit(player):
+    pass
+
+def trader_check():
+    check_int = random.randint(0, 50)
+    if rand_int <= 7:
+        return True
+    else:
+        return False
+
+def gen_trader():
+    return {
+    "npc": "Trader",
+    "item": utility.trader_item()
+    }
+
+def trader_item():
+    return rand_element(Item.__subclasses__())(random.randint(3, 6))
+
+def rob_trader_pass(player, trader):
+    pass
+
+def rob_trader_fail(player):
+    player.ship.health_level -= 10
+
+def negotiate(player):
+    pass
+
+#Ignore does nothing
+
+#Just use previous buy method for buying items.
+
+def skill_check(skill):
+    check_int = random.randint(0, (100 - 3 * skill))
+    if check_int <= 20:
+        return True
+    else:
+        return False
+
+def rand_element(list):
+    return list[random.randint(0, len(list) - 1)]
