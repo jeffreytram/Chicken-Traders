@@ -71,7 +71,7 @@
         Weight Per
     </div>
     <div class="inv-item inv-sell tableHeader">
-        Sell Price
+        Sell Price Per
     </div>
     {% for item in game.player.ship.cargo %}
     <div class="inv-item inv-name">
@@ -100,7 +100,6 @@
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 result[0].innerHTML = this.responseText;
-                purchaseStatement.innerHTML = "Purchase {{selectedItem.name}}?";
             }
         };
         //this part sends the data over

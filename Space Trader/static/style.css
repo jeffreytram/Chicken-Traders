@@ -47,11 +47,10 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .welcomeContainer, .settingsContainer, .spContainer {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 50vh;
+    align-items: center;
 }
 
 .confirmContainer {
@@ -69,19 +68,31 @@ button:hover, .button:hover, .arrow:hover {
     justify-content: space-between;
 }
 
+/* home page css */
+
+.title {
+    margin: auto;
+    width: 80%;
+    height: auto;
+}
+
 /* SHIP menu style */
+
 .ship-grid {
     width: 50%;
     margin: auto;
     display: grid;
     grid-template: repeat(5, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
 }
+
 .ship-stat {
     border: 1px solid rgb(30, 30, 30);
 }
+
 .ship-stat:nth-child(2) {
     grid-row: 2/5;
 }
+
 .cargo-grid {
     width: 50%;
     margin: auto;
@@ -91,6 +102,8 @@ button:hover, .button:hover, .arrow:hover {
 
 .cargo-item {
     border: 1px solid rgb(30, 30, 30);
+    display: flex;
+    align-items: center;
 }
 
 .cargo-item:nth-child(3n + 1) {
@@ -200,6 +213,8 @@ button:hover, .button:hover, .arrow:hover {
 
 .inv-item {
     border: 1px solid rgb(30, 30, 30);
+    display: flex;
+    align-items: center;
 }
 
 .inv-item:nth-child(4n + 1) {
@@ -241,5 +256,10 @@ button:hover, .button:hover, .arrow:hover {
 @media (min-width:850px) {
     .grid-container .shop>#itemUl {
         grid-template: repeat(3, minmax(auto, 1fr)) / repeat(4, minmax(auto, 1fr));
+    }
+
+    /* home page css */
+    .title {
+        width: 50%;
     }
 }
