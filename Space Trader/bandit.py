@@ -1,4 +1,3 @@
-from game import Game
 from ship import Ship, AShip, BShip, CShip
 class Bandit:
     def __init__(self, name, ship, demand, pilotLevel, fighterLevel):
