@@ -2,9 +2,7 @@ import random
 import utility
 from universe import Universe
 from player import Player
-from bandit import Rascal, Thug, Mafia
-
-
+from bandit import Bandit
 
 class Game:
     def __init__(self, diff):
@@ -66,15 +64,7 @@ class Game:
                 utility.damage(self.player, bandit)
     
     def fleeBandit(self, bandit):
-        banditPL = bandit.pilot
-        playerPL = self.player.pilot
-
-        """flee chance is determined by default pilot levels, as well as
-        some random chance (pilot level + or - 1)"""
-        banditRand = random.randint(banditPL - 1, banditPL + 1)
-        playerRand = random.randint(playerPL - 1, playerPL + 1)
-
-        if (playerRand >= banditRand):
+        if (self.player.pilot >= bandit.pilot):
             #travel back, lose fuel
             #WILL ADD AFTER RAND ENCOUNTER IMPLEMENTATION
             self.player.ship.fuel_level = -1 #temporary
@@ -85,10 +75,7 @@ class Game:
             utility.damage(self.player, bandit)
 
     def fightBandit(self, bandit):
-        banditRand = random.randint(bandit.fighter - 1, bandit.fighter + 1)
-        playerRand = random.randint(self.player.fighter - 1, self.player.fighter + 1)
-
-        if (playerRand >= banditRand):
+        if (self.player.fighter >= bandit.fighter):
             #continue to travel ADD AFTER RAND ENCOUNTER
             #get money (based off the bandit's demand, is less for higher difficulty)
             self.player.credits = self.player.credits + (100 - bandit.demand)
