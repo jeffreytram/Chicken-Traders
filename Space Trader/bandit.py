@@ -1,7 +1,7 @@
 from ship import Ship, AShip, BShip, CShip
 import random
 class Bandit:
-    def __init__(self, name, demand, pilot, fighter):
+    def __init__(self):
         #Bandit doesn't need a ship, they don't need to have inventory or fuel
         rand = random.randint(1,3)
         if (rand == 1):
