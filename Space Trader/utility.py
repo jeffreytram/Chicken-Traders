@@ -24,3 +24,10 @@ def sprice_calc(player, region):
             item.s_price = int(
                 0.7 * tech_factor * item.base_price * (1 + player.merchant / 75)
             )
+
+def damage(player, bandit):
+    damage = bandit.fighterLevel * 100
+    if (player.ship.health_level >= damage):
+        player.ship.health_level = player.ship.health_level - damage
+    else:
+        player.ship.health_level = 0

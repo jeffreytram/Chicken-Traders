@@ -39,6 +39,7 @@ class Game:
         fuel_cost = self.fuel_cost_constant * distance * (1 - (self.player.pilot/75))
         fuel_amount = self.player.ship.fuel_level
         if fuel_cost <= fuel_amount:
+            #put random encounter here?
             utility.bprice_calc(self.player, new_region)
             utility.sprice_calc(self.player, new_region)
             self.player.curr_region = new_region
@@ -62,10 +63,48 @@ class Game:
                 self.player.ship.cargo = []
             else:
                 #Get damaged
-                damage = bandit.fighterLevel * 100
-                if (self.player.ship.health_level >= damage):
-                    self.player.ship.health_level = self.player.ship.health_level - damage
-                else:
-                    self.player.ship.health_level = 0
+                utility.damage(self.player, bandit)
     
+    def fleeBandit(self, bandit):
+        banditPL = bandit.pilot
+        playerPL = self.player.pilot
+
+        """flee chance is determined by default pilot levels, as well as
+        some random chance (pilot level + or - 1)"""
+        banditRand = random.randint(banditPL - 1, banditPL + 1)
+        playerRand = random.randint(playerPL - 1, playerPL + 1)
+
+        if (playerRand >= banditRand):
+            #travel back, lose fuel
+            #WILL ADD AFTER RAND ENCOUNTER IMPLEMENTATION
+            self.player.ship.fuel_level = -1 #temporary
+        else:
+            #lose all credits
+            self.player.credit = 0
+            #get damaged
+            utility.damage(self.player, bandit)
+
+    def fightBandit(self, bandit):
+        banditRand = random.randint(bandit.fighter - 1, bandit.fighter + 1)
+        playerRand = random.randint(self.player.fighter - 1, self.player.fighter + 1)
+
+        if (playerRand >= banditRand):
+            #continue to travel ADD AFTER RAND ENCOUNTER
+            #get money (based off the bandit's demand, is less for higher difficulty)
+            self.player.credits = self.player.credits + (100 - bandit.demand)
+        else:
+            self.player.credit = 0
+            #get damaged
+            utility.damage(self.player, bandit)
+            
+
+
+            
+            
+            
+
+
+
+
+
 
