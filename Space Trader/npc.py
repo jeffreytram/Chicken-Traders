@@ -1,6 +1,13 @@
 from ship import Ship, AShip, BShip, CShip
 import random
-class Bandit:
+class NPC:
+    def __init__(self, name, demand, pilot, fighter):
+        self.name = name
+        self.demand = demand
+        self.pilot = pilot
+        self.fighter = fighter
+
+class Bandit(NPC):
     def __init__(self):
         #Bandit doesn't need a ship, they don't need to have inventory or fuel
         rand = random.randint(1,3)
