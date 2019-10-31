@@ -44,6 +44,7 @@ def travel(player, region):
     sprice_calc(player, region)
     player.curr_region = region
 
+
 def police_check(diff_modifier, player):
     check_int = random.randint(0, int(100 / diff_modifier))
     if check_int <= 8 and len(player.ship.cargo) > 0:
@@ -51,15 +52,15 @@ def police_check(diff_modifier, player):
     else:
         return False
 
-#returns index(s) for popping from cargo later
-def police_item(player):
-    return random.randint(0, len(player.ship.cargo) - 1)
-
 def gen_police(player):
     return {
     "npc": "Police",
     "item": police_item(player)
     }
+
+#returns index(s) for popping from cargo later
+def police_item(player):
+    return random.randint(0, len(player.ship.cargo) - 1)
 
 def surrender(player, poli):
     player.ship.cargo.pop(poli["item"])
