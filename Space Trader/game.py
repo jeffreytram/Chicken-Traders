@@ -2,9 +2,7 @@ import random
 import utility
 from universe import Universe
 from player import Player
-from bandit import Rascal, Thug, Mafia
-
-
+from npc import Bandit, Trader
 
 class Game:
     def __init__(self, diff):
@@ -49,10 +47,7 @@ class Game:
         if utility.travel_check(self, new_region):
             utility.travel(self.player, new_region)
             return True
-            #"Traveled to new region succesfully"
-        return False
 
-    """Bandit NPC methods"""
     def payBandit(self, bandit):
         #Try to pay bandit's demand (determined in constructor)
         if (self.player.credits >= bandit.demand):
@@ -64,8 +59,25 @@ class Game:
                 self.player.ship.cargo = []
             else:
                 #Get damaged
-                damage = bandit.fighterLevel * 100
-                if (self.player.ship.health_level >= damage):
-                    self.player.ship.health_level = self.player.ship.health_level - damage
-                else:
-                    self.player.ship.health_level = 0
+                utility.damage(self.player, bandit)
+    
+    def fleeBandit(self, bandit):
+        if (self.player.pilot >= bandit.pilot):
+            #travel back, lose fuel
+            #WILL ADD AFTER RAND ENCOUNTER IMPLEMENTATION
+            self.player.ship.fuel_level = -1 #temporary
+        else:
+            #lose all credits
+            self.player.credit = 0
+            #get damaged
+            utility.damage(self.player, bandit)
+
+    def fightBandit(self, bandit):
+        if (self.player.fighter >= bandit.fighter):
+            #continue to travel ADD AFTER RAND ENCOUNTER
+            #get money (based off the bandit's demand, is less for higher difficulty)
+            self.player.credits = self.player.credits + (100 - bandit.demand)
+        else:
+            self.player.credit = 0
+            #get damaged
+            utility.damage(self.player, bandit)

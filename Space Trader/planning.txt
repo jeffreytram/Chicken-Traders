@@ -53,7 +53,11 @@
 - added weight, combined image and name
 10.27 [x] JT - Improved ship stat page layout
 
-10.29 [x] RG - Added encounter methods. Currently in utility.
+10.28 [x] JT - Added title art
+10.28 [x] JT - Fixed purchase statement display bug
+- clicking item sometimes doesnt correctly update purchase statement only on pythonanywhere
+- occurs on local host too but only flickers
+- doesnt occur for description
 
 TODO:
 [] display fuel cost
@@ -63,15 +67,14 @@ TODO:
 [] buying/selling multiple items
 [] display error message for not enough credits, not enough space
 [] ship art
+[] improve set up screens
+[] add animations
+[] display for different screen sizes
 
 [] buy/reload resets category
 
-[] Move enounter methods to appropriate modules
-[] Change buy and sell prices to instance variables
-[] Update market prices when skills upgraded
-[] Fight police, Fight bandit, Rob and negotiate Trader need implementation
 
-
+BUGS:
 
 Questions:
 leaflet js

@@ -2,7 +2,6 @@
 import random
 from item import Item
 
-
 def fuel_calc(fuel_cost_constant, distance, pilot):
     """Returns the fuel cost for the distance"""
     return fuel_cost_constant * distance * (1 - (pilot / 75))
@@ -146,3 +145,10 @@ def skill_check(skill):
 
 def rand_element(list):
     return list[random.randint(0, len(list) - 1)]
+
+def damage(player, npc):
+    damage = npc.fighterLevel * 100
+    if (player.ship.health_level >= damage):
+        player.ship.health_level = player.ship.health_level - damage
+    else:
+        player.ship.health_level = 0
