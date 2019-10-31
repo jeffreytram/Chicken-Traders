@@ -46,7 +46,7 @@ def travel(player, region):
 
 def police_check(diff_modifier, player):
     check_int = random.randint(0, int(100 / diff_modifier))
-    if check_int <= 8 and len(player.ship) > 0:
+    if check_int <= 8 and len(player.ship.cargo) > 0:
         return True
     else:
         return False
@@ -71,9 +71,15 @@ def flee_poli(player, poli):
         surrender(player, poli)
         player.ship.health_level -= 15
         player.credit -= 70
+        return False
 
-def fight_poli(player):
-    pass
+def fight_poli(player, poli):
+    if (skill_check(player.fighter)):
+        return True
+    else:
+        surrender(poli["item"])
+        return False
+
 
 def bandit_check(diff_modifier):
     check_int = random.randint(0, int(100 / diff_modifier))
@@ -104,8 +110,15 @@ def flee_bandit(player):
         player.ship.health_level -= 20
         return False
 
-def fight_bandit(player):
-    pass
+def fight_bandit(player, bandit):
+    if skill_check(player.fighter):
+        player.credit += int(bandit["demand"] * (5 / 4))
+        return True
+    else:
+        player.credit = 0
+        player.ship.health_level -= 20
+        return False
+
 
 def trader_check():
     check_int = random.randint(0, 50)
@@ -123,14 +136,22 @@ def gen_trader():
 def trader_item():
     return rand_element(Item.__subclasses__())(random.randint(3, 6))
 
-def rob_trader_pass(player, trader):
-    pass
+def rob_trader(player, trader):
+    if (skill_check(player.fighter)):
+        trader["item"].amount = random.rantint(1, trader["item"].amount)
+        player.cargo.append(trader["item"])
+        return True
+    else:
+        player.ship.health_level -= 10
+        return False
 
-def rob_trader_fail(player):
-    player.ship.health_level -= 10
-
-def negotiate(player):
-    pass
+def negotiate(player, trader):
+    if (skill_check(player.merchant)):
+        trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
+        return True
+    else:
+        trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
+        return False
 
 #Ignore does nothing
 
