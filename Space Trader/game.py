@@ -2,7 +2,7 @@ import random
 import utility
 from universe import Universe
 from player import Player
-from bandit import Bandit
+from npc import Bandit, Trader
 
 class Game:
     def __init__(self, diff):
@@ -83,6 +83,8 @@ class Game:
             self.player.credit = 0
             #get damaged
             utility.damage(self.player, bandit)
+
+        
             
 
 

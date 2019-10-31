@@ -1,10 +1,10 @@
-from bandit import Bandit
+from npc import Trader
 class BanditTest:
-    test = Bandit()
-    print (test.name)
-    print("Demand:")
-    print (test.demand)
-    print("Fighter:")
-    print (test.fighter)
-    print("Pilot:")
-    print (test.pilot)
+    test = Trader()
+    print(test.name)
+    print(test.fighter)
+    print(test.merchant)
+    print(test.items[0])
+    print(test.items[1])
+    print(test.items[2])
+    print(test.items)
