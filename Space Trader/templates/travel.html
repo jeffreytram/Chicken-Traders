@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h4 id="creditDisplay">Credits: {{game.player.credit}}</h4>
-<h4 id="fuelDisplay">Current Fuel Level: {{game.player.ship.fuel_level}}</h4>
-<h4 id="fuelDisplay">Current Health Level: {{game.player.ship.health_level}}</h4>
+<p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
+<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
+<p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
@@ -13,6 +13,9 @@
         {{currRegion.coordinates.y_position}})
         Tech Level: {{currRegion.tech_level.name}}
     </h2>
+    {% if fuel_error %}
+    <h3 class="error">Not enough fuel!</h3>
+    {% endif %}
 </div>
 
 
@@ -40,7 +43,6 @@
 <script type="text/javascript">
     function travelAndUpdateFuel(index) {
         travel(index);
-        displayFuel();
         window.location.reload();
     }
     function travel(index) {
@@ -49,10 +51,11 @@
         //only need this section if we're displaying
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                result.innerHTML = this.responseText;
-                if (this.responseText !== "Not enough fuel!") {
+                if (this.responseText !== "-1") {
+                    result.innerHTML = this.responseText;
                     let clickedButton = document.getElementsByClassName(index);
                     handlers.highlightButton(clickedButton[0]);
+                } else {
                 }
             }
         }
@@ -60,20 +63,6 @@
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("currIndex=" + index);
-    }
-    function displayFuel() {
-        var req = new XMLHttpRequest();
-        var creditDisplay = document.getElementById("fuelDisplay");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                creditDisplay.innerHTML = this.responseText;
-            }
-        };
-        //this part sends the data over
-        req.open('POST', '/travel', true);
-        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("displayFuel=");
     }
     var w = 672,
         h = 378,

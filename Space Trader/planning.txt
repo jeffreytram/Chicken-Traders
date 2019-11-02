@@ -59,13 +59,17 @@
 - occurs on local host too but only flickers
 - doesnt occur for description
 
+11.02 [x] JT - added error message for not enough fuel, credits, or space
+11.02 [x] JT - removed uneeded code
+11.02 [x] JT - minor changes to UI
+- rounded corners, opacity, bolded important info
+
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel
 [] current capacity/cargo
 - current cargo weight variable in ship
 [] buying/selling multiple items
-[] display error message for not enough credits, not enough space
 [] ship art
 [] improve set up screens
 [] add animations
@@ -75,6 +79,7 @@ TODO:
 
 
 BUGS:
+clicking div category highlights entire div
 
 Questions:
 leaflet js

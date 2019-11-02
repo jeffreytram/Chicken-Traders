@@ -18,6 +18,8 @@ dictionary = {
     "sp4": 0,
     "currRegion": None,
     "selectedItem": None,
+    "fuel_error": None,
+    "market_error": None
 }
 
 
@@ -106,6 +108,7 @@ def travel():
             index = request.form["currIndex"]
             travel_region = dictionary["game"].universe.region_list[int(index) - 1]
             if dictionary["game"].travel_sequence(travel_region):
+                dictionary["fuel_error"] = None
                 dictionary["selectedItem"] = None
                 dictionary["currRegion"] = travel_region
                 return (
@@ -119,13 +122,11 @@ def travel():
                     + dictionary["currRegion"].tech_level.name
                 )
             else:
-                return "Not enough fuel!"
-        if "displayFuel" in request.form:
-            return "Current Fuel Level: " + str(
-                dictionary["game"].player.ship.fuel_level
-            )
+                dictionary["fuel_error"] = True
+                return "-1"
     return render_template(
         "travel.html",
+        fuel_error=dictionary["fuel_error"],
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         universe=dictionary["game"].universe,
@@ -142,15 +143,18 @@ def market():
 
         if "statementIndex" in request.form:
             return (
-                "Purchase "
+                "Purchase <strong>"
                 + dictionary["selectedItem"].name
-                + " for "
+                + "</strong> for <strong>"
                 + str(dictionary["selectedItem"].b_price)
-                + "?"
+                + "</strong>?"
             )
         if "buyIndex" in request.form:
-            dictionary["game"].player.trade_buy(dictionary["selectedItem"], 1)
-            return "Credits: " + str(dictionary["game"].player.credit)
+            status = dictionary["game"].player.trade_buy(dictionary["selectedItem"], 1)
+            if status != "Success":
+                dictionary["market_error"] = status
+            else:
+                dictionary["market_error"] = None
         if "sellIndex" in request.form:
             inv_index = int(request.form["sellIndex"]) - 1
             dictionary["game"].player.trade_sell(inv_index, 1)
@@ -158,6 +162,7 @@ def market():
 
     return render_template(
         "market.html",
+        market_error=dictionary["market_error"],
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         selectedItem=dictionary["selectedItem"],

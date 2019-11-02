@@ -20,6 +20,8 @@ button, .button {
     color: #ffffff;
     background-color: rgb(30, 30, 30);
     padding: 1vh 2vh;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 .active, button:hover, .button:hover {
@@ -38,7 +40,7 @@ button, .button {
     width: 15vh;
 }
 
-#warning {
+.error {
     color: red;
 }
 
@@ -82,15 +84,32 @@ button:hover, .button:hover, .arrow:hover {
     width: 50%;
     margin: auto;
     display: grid;
-    grid-template: repeat(5, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    border: 1px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
 }
 
 .ship-stat {
-    border: 1px solid rgb(30, 30, 30);
+    border: 1px solid rgba(30, 30, 30, .5);
 }
+
+/* rounding corners */
 
 .ship-stat:nth-child(2) {
     grid-row: 2/5;
+    border-bottom-left-radius: 15px;
+}
+
+.ship-stat:nth-child(1) {
+    border-top-left-radius: 15px;
+}
+
+.ship-stat:nth-child(3) {
+    border-top-right-radius: 15px;
+}
+
+.ship-stat:nth-child(6) {
+    border-bottom-right-radius: 15px;
 }
 
 .cargo-grid {
@@ -101,7 +120,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .cargo-item {
-    border: 1px solid rgb(30, 30, 30);
+    border: 1px solid rgba(30, 30, 30, .5);
     display: flex;
     align-items: center;
 }
@@ -126,6 +145,7 @@ button:hover, .button:hover, .arrow:hover {
     height: 37.8px;
     width: auto;
     white-space: nowrap;
+    border-radius: 0;
 }
 
 .buttonAndMapContainer {
@@ -149,13 +169,14 @@ button:hover, .button:hover, .arrow:hover {
 .grid-container {
     display: grid;
     grid-template: repeat(9, auto) / minmax(auto, 200px) repeat(5, auto);
-    border: 8px solid rgb(30, 30, 30);
+    border: 8px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
 }
 
 .grid-container .category {
     grid-column: 1/2;
     grid-row: 1/-2;
-    border-right: 5px solid rgb(30, 30, 30);
+    border-right: 5px solid rgba(30, 30, 30, .5);
 }
 
 .grid-container .shop>#itemUl {
@@ -168,18 +189,19 @@ button:hover, .button:hover, .arrow:hover {
 .grid-container .buy {
     grid-column: 1/2;
     grid-row: -2/-1;
-    border-right: 5px solid rgb(30, 30, 30);
-    border-top: 5px solid rgb(30, 30, 30);
+    border-right: 5px solid rgba(30, 30, 30, .5);
+    border-top: 5px solid rgba(30, 30, 30, .5);
 }
 
 .grid-container .description {
     grid-column: 2/-1;
     grid-row: -2/-1;
-    border-top: 5px solid rgb(30, 30, 30);
+    border-top: 5px solid rgba(30, 30, 30, .5);
 }
 
 .shop-item {
-    border: 2px solid rgb(30, 30, 30);
+    border: 2px solid rgba(30, 30, 30, .5);
+    padding: 0 5px 0 5px;
 }
 
 .item {
@@ -202,6 +224,10 @@ button:hover, .button:hover, .arrow:hover {
     display: none;
 }
 
+.sellButton {
+    border-radius: 0;
+}
+
 /* market player inv css */
 
 .inv-grid {
@@ -212,7 +238,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .inv-item {
-    border: 1px solid rgb(30, 30, 30);
+    border: 1px solid rgba(30, 30, 30, .5);
     display: flex;
     align-items: center;
 }
@@ -237,7 +263,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .choice {
-    border: 1px solid rgb(30, 30, 30);
+    border: 1px solid rgba(30, 30, 30, .5);
 }
 
 /* More test grid css */
@@ -248,7 +274,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .test-item {
-    border: 1px solid rgb(30, 30, 30);
+    border: 1px solid rgba(30, 30, 30, .5);
     grid-column: 2/3;
     grid-row: 2/3;
 }
@@ -257,7 +283,6 @@ button:hover, .button:hover, .arrow:hover {
     .grid-container .shop>#itemUl {
         grid-template: repeat(3, minmax(auto, 1fr)) / repeat(4, minmax(auto, 1fr));
     }
-
     /* home page css */
     .title {
         width: 50%;
