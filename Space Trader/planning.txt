@@ -67,8 +67,9 @@
 11.02 [x] JT - added random encounters
 11.02 [x] JT - added cheats to help test features and mechanics
 
+11.03 [x] JT - added random encounter functionality
+
 TODO:
-[] implement npc encounter options
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel
 [] current capacity/cargo

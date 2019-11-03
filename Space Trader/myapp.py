@@ -138,7 +138,13 @@ def travel():
         if "addHealth" in request.form:
             dictionary["game"].player.ship.health_level += 100
         if "force" in request.form:
-            dictionary["npc"] = request.form["force"]
+            force_npc = request.form["force"]
+            if force_npc == "bandit":
+                dictionary["npc"] = utility.gen_bandit()
+            if force_npc == "trader":
+                dictionary["npc"] = utility.gen_trader()
+            if force_npc == "police":
+                dictionary["npc"] = utility.gen_police(dictionary["game"].player)
     return render_template(
         "travel.html",
         fuel_error=dictionary["fuel_error"],
@@ -196,13 +202,41 @@ def test():
 
 @app.route("/encounter", methods=["GET", "POST"])
 def encounter():
-    if dictionary["npc"] == "bandit":
-        gen_npc = utility.gen_bandit()
-    elif dictionary["npc"] == "police":
-        gen_npc = utility.gen_police(dictionary["game"].player)
-    elif dictionary["npc"] == "trader":
-        gen_npc = utility.gen_trader()
-    dictionary["npc"] = None
+    if not dictionary["npc"]:
+        return redirect(url_for("travel"))
+    gen_npc = dictionary["npc"]
+    if request.method == "POST":
+        # bandit choices
+        if "pay_bandit" in request.form:
+            utility.pay_bandit(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
+        if "fight_bandit" in request.form:
+            utility.fight_bandit(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
+        if "flee_bandit" in request.form:
+            utility.flee_bandit(dictionary["game"].player)
+            dictionary["npc"] = None
+        # trader choices
+        if "buy_trader" in request.form:
+            dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1)
+            dictionary["npc"] = None
+        if "ignore_trader" in request.form:
+            dictionary["npc"] = None
+        if "rob_trader" in request.form:
+            utility.rob_trader(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
+        if "negotiate_trader" in request.form:
+            utility.negotiate_trader(dictionary["game"].player, dictionary["npc"])
+        # police choices
+        if "forfeit_police" in request.form:
+            utility.forfeit_police(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
+        if "flee_police" in request.form:
+            utility.flee_police(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
+        if "fight_police" in request.form:
+            utility.fight_police(dictionary["game"].player, dictionary["npc"])
+            dictionary["npc"] = None
     return render_template(
         "encounter.html",
         npc=gen_npc,

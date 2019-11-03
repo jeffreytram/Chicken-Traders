@@ -51,11 +51,11 @@ def travel(player, region):
 def encounter_check(diff_modifier, player):
     check_int = random.randint(0, 200)
     if check_int <= 10 * diff_modifier:
-        return "trader"
+        return gen_trader()
     elif check_int <= 20 * diff_modifier:
-        return "bandit"
+        return gen_bandit()
     elif check_int <= 30 * diff_modifier and len(player.ship.cargo) > 0:
-        return "police"
+        return gen_police(player)
     else:
         return None
 
@@ -70,25 +70,25 @@ def police_item(player):
     return player.ship.cargo[random.randint(0, len(player.ship.cargo) - 1)]
 
 
-def surrender(player, poli):
-    player.ship.cargo.pop(poli["item"])
+def forfeit_police(player, police):
+    player.ship.cargo.remove(police["item"])
 
 
-def flee_poli(player, poli):
+def flee_police(player, police):
     if skill_check(player.pilot):
         return True
     else:
-        surrender(player, poli)
+        forfeit_police(player, police)
         player.ship.health_level -= 15
         player.credit -= 70
         return False
 
 
-def fight_poli(player, poli):
+def fight_police(player, police):
     if skill_check(player.fighter):
         return True
     else:
-        surrender(player, poli)
+        forfeit_police(player, police)
         return False
 
 
@@ -139,20 +139,22 @@ def gen_trader():
 
 def trader_item():
     trader_item = rand_element(Item.__subclasses__())(random.randint(3, 6))
-    trader_item.b_price = int(0.7 * base_price)
+    trader_item.b_price = int(0.7 * trader_item.base_price)
+    trader_item.s_price = int(0.6 * trader_item.base_price)
     return trader_item
+
 
 def rob_trader(player, trader):
     if skill_check(player.fighter):
         trader["item"].amount = random.randint(1, trader["item"].amount)
-        player.cargo.append(trader["item"])
+        player.ship.cargo.append(trader["item"])
         return True
     else:
         player.ship.health_level -= 10
         return False
 
 
-def negotiate(player, trader):
+def negotiate_trader(player, trader):
     if skill_check(player.merchant):
         trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
         return True

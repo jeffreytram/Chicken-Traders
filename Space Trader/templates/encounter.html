@@ -1,39 +1,103 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h2>{{npc.name}}</h2>
-{% if npc.name == "Bandit" %}
-<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc.demand}}</strong>
-    credits!</p>
-{% elif npc.name == "Trader" %}
-<p><strong>{{game.player.name}}</strong>! I'll see ya a <strong>{{npc.item.name}}</strong> for
-    <strong>{{npc.item.b_price}}</strong>!</p>
-{% elif npc.name == "Police" %}
-<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <strong>{{npc.item.name}}</strong>!</p>
+<h2>{{npc["name"]}}</h2>
+{% if npc["name"] == "Bandit" %}
+<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}} credits</strong>!
+</p>
+{% elif npc["name"] == "Trader" %}
+<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong> for
+    <strong>{{npc["item"].b_price}} credits</strong>!</p>
+{% elif npc["name"] == "Police" %}
+<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong>!</p>
 {% endif %}
 <img height="200" width="auto" src="../static/{{npc.name}}.png">
 <p>What will YOU do!?</p>
 <div class="encounter-grid">
-    {% if npc.name == "Bandit" %}
-    <button class="choice bandit pay" onclick="payFee()">Pay fee</button>
-    <button class="choice bandit flee" onclick="location.href = 'travel'">Flee</button>
-    <button class="choice bandit fight">Fight</button>
-    {% elif npc.name == "Trader" %}
-    <button class="choice trader buy">Buy item</button>
-    <button class="choice trader ignore" onclick="location.href = 'travel'">Ignore</button>
-    <button class="choice trader rob">Rob</button>
-    <button class="choice trader negotiate">Negotiate</button>
-    {% elif npc.name == "Police" %}
-    <button class="choice police forfeit">Forfeit stolen items and pay fine</button>
-    <button class="choice police flee" onclick="location.href = 'travel'">Flee</button>
-    <button class="choice police fight">Fight</button>
+    {% if npc["name"] == "Bandit" %}
+    <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
+    <button class="choice bandit flee" onclick="fleeBandit()">Flee</button>
+    <button class="choice bandit fight" onclick="fightBandit()">Fight</button>
+    {% elif npc["name"] == "Trader" %}
+    <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
+    <button class="choice trader ignore" onclick="ignoreTrader()">Ignore</button>
+    <button class="choice trader rob" onclick="robTrader()">Rob</button>
+    <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate</button>
+    {% elif npc["name"] == "Police" %}
+    <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
+    <button class="choice police flee" onclick="fleePolice()">Flee</button>
+    <button class="choice police fight" onclick="fightPolice()">Fight</button>
     {% endif %}
 </div>
 <script type="text/javascript">
-    function payFee() {
+    function payBandit() {
         var req = new XMLHttpRequest();
-        req.open('POST', '/travel', true);
+        req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("payFee=");
+        req.send("pay_bandit=");
+        window.location.reload();
+    }
+    function fightBandit() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("fight_bandit=");
+        window.location.reload();
+    }
+    function fleeBandit() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("flee_bandit=");
+        window.location.reload();
+    }
+    function buyTrader() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("buy_trader=");
+        window.location.reload();
+    }
+    function ignoreTrader() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("ignore_trader=");
+        window.location.reload();
+    }
+    function robTrader() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("rob_trader=");
+        window.location.reload();
+    }
+    function negotiateTrader() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("negotiate_trader=");
+        window.location.reload();
+    }
+    function forfeitPolice() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("forfeit_police=");
+        window.location.reload();
+    }
+    function fleePolice() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("flee_police=");
+        window.location.reload();
+    }
+    function fightPolice() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("fight_police=");
+        window.location.reload();
     }
 </script>
 {% endblock %}
