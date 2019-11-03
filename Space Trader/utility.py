@@ -138,8 +138,9 @@ def gen_trader():
 
 
 def trader_item():
-    return rand_element(Item.__subclasses__())(random.randint(3, 6))
-
+    trader_item = rand_element(Item.__subclasses__())(random.randint(3, 6))
+    trader_item.b_price = int(0.7 * base_price)
+    return trader_item
 
 def rob_trader(player, trader):
     if skill_check(player.fighter):
