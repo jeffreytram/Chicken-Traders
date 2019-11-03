@@ -1,69 +1,39 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h2>{{npc}}</h2>
-<p>AH <strong>{{game.player.name}}</strong>!!! I will let you go if you give me some money!</p>
-<img height="200" width="auto" src="../static/{{npc}}.png">
+<h2>{{npc.name}}</h2>
+{% if npc.name == "Bandit" %}
+<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc.demand}}</strong>
+    credits!</p>
+{% elif npc.name == "Trader" %}
+<p><strong>{{game.player.name}}</strong>! I'll see ya a <strong>{{npc.item.name}}</strong> for
+    <strong>{{npc.item.b_price}}</strong>!</p>
+{% elif npc.name == "Police" %}
+<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <strong>{{npc.item.name}}</strong>!</p>
+{% endif %}
+<img height="200" width="auto" src="../static/{{npc.name}}.png">
 <p>What will YOU do!?</p>
 <div class="encounter-grid">
-    {% if npc == "bandit" %}
-    <button class="choice bandit pay">Pay fee</button>
-    <button class="choice bandit flee">Flee</button>
+    {% if npc.name == "Bandit" %}
+    <button class="choice bandit pay" onclick="payFee()">Pay fee</button>
+    <button class="choice bandit flee" onclick="location.href = 'travel'">Flee</button>
     <button class="choice bandit fight">Fight</button>
-    {% elif npc == "trader" %}
+    {% elif npc.name == "Trader" %}
     <button class="choice trader buy">Buy item</button>
-    <button class="choice trader ignore">Ignore</button>
+    <button class="choice trader ignore" onclick="location.href = 'travel'">Ignore</button>
     <button class="choice trader rob">Rob</button>
     <button class="choice trader negotiate">Negotiate</button>
-    {% elif npc == "police" %}
+    {% elif npc.name == "Police" %}
     <button class="choice police forfeit">Forfeit stolen items and pay fine</button>
-    <button class="choice police flee">Flee</button>
+    <button class="choice police flee" onclick="location.href = 'travel'">Flee</button>
     <button class="choice police fight">Fight</button>
     {% endif %}
 </div>
 <script type="text/javascript">
-    //event listerner for encounter choices
-    let encounterGridUl = document.getElementsByClassName("encounter-grid");
-    encounterGridUl[0].addEventListener("click", function (event) {
-        console.log(event.target);
-        if (event.target.classList.contains("bandit")) {
-            console.log("bandito");
-            if (event.target.classList.contains("pay")) {
-                console.log("pay");
-            }
-            if (event.target.classList.contains("flee")) {
-                console.log("flee");
-            }
-            if (event.target.classList.contains("fight")) {
-                console.log("fight");
-            }
-        }
-        if (event.target.classList.contains("trader")) {
-            console.log("trader");
-            if (event.target.classList.contains("buy")) {
-                console.log("buy");
-            }
-            if (event.target.classList.contains("ignore")) {
-                console.log("ignore");
-            }
-            if (event.target.classList.contains("rob")) {
-                console.log("rob");
-            }
-            if (event.target.classList.contains("negotiate")) {
-                console.log("negotiate");
-            }
-        }
-        if (event.target.classList.contains("police")) {
-            console.log("police");
-            if (event.target.classList.contains("forfeit")) {
-                console.log("forfeit");
-            }
-            if (event.target.classList.contains("flee")) {
-                console.log("flee");
-            }
-            if (event.target.classList.contains("fight")) {
-                console.log("fight");
-            }
-        }
-    })
+    function payFee() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/travel', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("payFee=");
+    }
 </script>
 {% endblock %}

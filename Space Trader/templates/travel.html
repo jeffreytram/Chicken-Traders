@@ -18,7 +18,6 @@
     {% endif %}
 </div>
 
-
 <!--Travel menu - Region buttons and map-->
 <div class="menu travelMenu">
     <div class="buttonAndMapContainer">
@@ -40,7 +39,43 @@
         <div id="mapid"></div>
     </div>
 </div>
+<button onclick="addFuel()">add fuel</button>
+<button onclick="addCredits()">add credits</button>
+<button onclick="addHealth()">add health</button>
+<button onclick="force('bandit')">force bandit</button>
+<button onclick="force('trader')">force trader</button>
+<button onclick="force('police')">force police</button>
+
 <script type="text/javascript">
+    //testing functions, remove after test
+    function force(npc) {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/travel', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("force="+npc);
+        window.location.reload();
+    }
+    function addFuel() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/travel', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("addFuel=");
+        window.location.reload();
+    }
+    function addCredits() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/travel', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("addCredits=");
+        window.location.reload();
+    }
+    function addHealth() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/travel', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("addHealth=");
+        window.location.reload();
+    }
     function travelAndUpdateFuel(index) {
         travel(index);
         window.location.reload();
@@ -55,7 +90,6 @@
                     result.innerHTML = this.responseText;
                     let clickedButton = document.getElementsByClassName(index);
                     handlers.highlightButton(clickedButton[0]);
-                } else {
                 }
             }
         }

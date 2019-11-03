@@ -1,3 +1,4 @@
+import utility
 from flask import Flask, render_template, url_for, redirect, request
 from forms import SettingForm, ConfirmForm, SPForm
 from game import Game
@@ -19,7 +20,8 @@ dictionary = {
     "currRegion": None,
     "selectedItem": None,
     "fuel_error": None,
-    "market_error": None
+    "market_error": None,
+    "npc": None,
 }
 
 
@@ -103,6 +105,8 @@ def ship():
 
 @app.route("/travel", methods=["GET", "POST"])
 def travel():
+    if dictionary["npc"]:
+        return redirect(url_for("encounter"))
     if request.method == "POST":
         if "currIndex" in request.form:
             index = request.form["currIndex"]
@@ -111,6 +115,9 @@ def travel():
                 dictionary["fuel_error"] = None
                 dictionary["selectedItem"] = None
                 dictionary["currRegion"] = travel_region
+                dictionary["npc"] = utility.encounter_check(
+                    dictionary["game"].encounter_factor, dictionary["game"].player
+                )
                 return (
                     "Region: "
                     + dictionary["currRegion"].name
@@ -124,6 +131,14 @@ def travel():
             else:
                 dictionary["fuel_error"] = True
                 return "-1"
+        if "addFuel" in request.form:
+            dictionary["game"].player.ship.fuel_level += 100
+        if "addCredits" in request.form:
+            dictionary["game"].player.credit += 100
+        if "addHealth" in request.form:
+            dictionary["game"].player.ship.health_level += 100
+        if "force" in request.form:
+            dictionary["npc"] = request.form["force"]
     return render_template(
         "travel.html",
         fuel_error=dictionary["fuel_error"],
@@ -178,11 +193,19 @@ def test():
         universe=dictionary["game"].universe,
     )
 
+
 @app.route("/encounter", methods=["GET", "POST"])
 def encounter():
+    if dictionary["npc"] == "bandit":
+        gen_npc = utility.gen_bandit()
+    elif dictionary["npc"] == "police":
+        gen_npc = utility.gen_police(dictionary["game"].player)
+    elif dictionary["npc"] == "trader":
+        gen_npc = utility.gen_trader()
+    dictionary["npc"] = None
     return render_template(
         "encounter.html",
-        npc="bandit",
+        npc=gen_npc,
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         universe=dictionary["game"].universe,
