@@ -2,13 +2,16 @@
 {% block content %}
 <h2>{{npc["name"]}}</h2>
 {% if npc["name"] == "Bandit" %}
-<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}} credits</strong>!
+<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
+        credits</strong>!
 </p>
 {% elif npc["name"] == "Trader" %}
-<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong> for
+<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img
+        src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong> for
     <strong>{{npc["item"].b_price}} credits</strong>!</p>
 {% elif npc["name"] == "Police" %}
-<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong>!</p>
+<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img
+        src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong>!</p>
 {% endif %}
 <img height="200" width="auto" src="../static/{{npc.name}}.png">
 <p>What will YOU do!?</p>

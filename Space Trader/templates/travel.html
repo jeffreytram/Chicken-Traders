@@ -39,6 +39,7 @@
         <div id="mapid"></div>
     </div>
 </div>
+<h2>Testing Tools</h2>
 <button onclick="addFuel()">add fuel</button>
 <button onclick="addCredits()">add credits</button>
 <button onclick="addHealth()">add health</button>
@@ -52,7 +53,7 @@
         var req = new XMLHttpRequest();
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("force="+npc);
+        req.send("force=" + npc);
         window.location.reload();
     }
     function addFuel() {
@@ -104,8 +105,8 @@
     var map = L.map('mapid', {
         minZoom: 1,
         maxZoom: 4,
-        center: [{{currRegion.coordinates.x_position / 3}}, {{currRegion.coordinates.y_position / 3}}],
-        zoom: 2,
+        center: [{{ currRegion.coordinates.x_position / 3 }}, {{ currRegion.coordinates.y_position / 3 }}],
+    zoom: 2,
         crs: L.CRS.Simple
     });
     var barnIcon1 = L.icon({
@@ -117,11 +118,11 @@
     // dimensions and url of the image
     // creating markers on map
     {% for region in universe.region_list %}
-        {% if region == currRegion %}
-        var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
-        {% else %}
-        var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
-        {% endif %}
+    {% if region == currRegion %}
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    {% else %}
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    {% endif %}
     {% endfor %}
 
     /*test markers

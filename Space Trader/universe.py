@@ -21,6 +21,7 @@ class TechLevel(enum.Enum):
 
 # END Enum
 
+
 class Coordinates:
     """This is the coordinate class with the methods to
     regenerate and recreate the coordinates when the regions are created"""
@@ -74,10 +75,10 @@ class Region:
         self.tech_level = tech_level
         self.name = name
         self.market = []
-        #possible
+        # possible
         self.init_market()
 
-        #END for
+        # END for
 
     def init_market(self):
         poss_items = Item.__subclasses__()
@@ -102,7 +103,7 @@ class Region:
         y_1 = self.coordinates.y_position
         x_2 = new_region.coordinates.x_position
         y_2 = new_region.coordinates.y_position
-        return math.sqrt(((x_2 - x_1)**2) + ((y_2 - y_1)**2))
+        return math.sqrt(((x_2 - x_1) ** 2) + ((y_2 - y_1) ** 2))
 
 
 # END Region
@@ -112,6 +113,7 @@ class Universe:
     """This is the universe class when created it creates all the regions"""
 
     instance = None
+
     def __new__(cls):
         if not isinstance(cls.instance, cls):
             # THEN
@@ -133,9 +135,7 @@ class Universe:
 
     def create_region(self):
         name_index = random.randint(0, len(self.names) - 1)
-        new_region = Region(
-            TechLevel(random.randint(1, 7)), self.names[name_index]
-        )
+        new_region = Region(TechLevel(random.randint(1, 7)), self.names[name_index])
         self.names.pop(name_index)
         return new_region
 
@@ -145,10 +145,10 @@ class Universe:
             for reg in self.region_list:
                 if new_region.compare_and_regen(reg):
                     break
-                #END if
-            #END for
+                # END if
+            # END for
             keep_comparing = False
             if not keep_comparing:
                 self.region_list.append(new_region)
-            #END if
-        #END while
+            # END if
+        # END while
