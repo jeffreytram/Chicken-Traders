@@ -16,6 +16,17 @@ class Player:
 
     # END __init__
 
+    @property
+    def credit(self):
+        return self._credit
+
+    @credit.setter
+    def credit(self, credit):
+        if credit < 0:
+            self._credit = 0
+        else:
+            self._credit = credit
+
     def trade_buy(self, item, amount):
         if item.amount < amount:
             return "Too many items"
