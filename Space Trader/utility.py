@@ -147,7 +147,12 @@ def trader_item():
 def rob_trader(player, trader):
     if skill_check(player.fighter):
         trader["item"].amount = random.randint(1, trader["item"].amount)
-        player.ship.cargo.append(trader["item"])
+        for cargo in player.ship.cargo:
+            if cargo.name == item.name:
+                cargo.amount += amount
+                item.amount -= amount
+            else:
+                player.ship.cargo.append(trader["item"])
         return True
     else:
         player.ship.health_level -= 10

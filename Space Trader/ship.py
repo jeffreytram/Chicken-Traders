@@ -1,4 +1,4 @@
-class Ship:
+class Ship(object):
     def __init__(self, name, ship_type, max_cargo, max_fuel, max_health):
         self.name = name
         self.ship_type = ship_type
@@ -8,6 +8,18 @@ class Ship:
         self.cargo = []
         self.fuel_level = max_fuel
         self.health_level = max_health
+
+    @property
+    def health_level(self):
+        return self._health_level
+    
+
+    @health_level.setter
+    def health_level(self, value):
+        if value < 0:
+            self._health_level = 0
+        else:
+            self._health_level = value
 
     @property
     def cargo_space(self):
@@ -36,6 +48,8 @@ class Ship:
     def set_max_health(self, max_health):
         self.max_health = max_health
 
+    def add_item(self, item):
+        pass
 
 # 3 ship types, subclasses of ship
 class AShip(Ship):
