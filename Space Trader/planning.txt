@@ -69,6 +69,14 @@
 
 11.03 [x] JT - added random encounter functionality
 
+11.04 [x] JT - file name case changes and formatting improvments
+
+11.05 [x] JT - Bug fixes
+- fixed trader rob
+11.05 [x] JT - Game balancing
+- modified success when checking skill
+11.05 [x] JT - Added more documentation
+
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel

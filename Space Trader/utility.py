@@ -1,5 +1,6 @@
 """Module with utility functions for the game"""
 import random
+import math
 from item import Item
 
 
@@ -50,6 +51,7 @@ def travel(player, region):
 
 def encounter_check(diff_modifier, player):
     check_int = random.randint(0, 200)
+    # total encounter chance =  15% * diff
     if check_int <= 10 * diff_modifier:
         return gen_trader()
     elif check_int <= 20 * diff_modifier:
@@ -60,24 +62,27 @@ def encounter_check(diff_modifier, player):
         return None
 
 
-# ---POLICE options---
+# creates a police dict
 def gen_police(player):
     return {"name": "Police", "item": police_item(player)}
 
 
-# returns index(s) for popping from cargo later
+# returns a random item the player has
 def police_item(player):
     return player.ship.cargo[random.randint(0, len(player.ship.cargo) - 1)]
 
-
+# removes the item from the player
 def forfeit_police(player, police):
     player.ship.cargo.remove(police["item"])
 
 
 def flee_police(player, police):
     if skill_check(player.pilot):
+        # successful flee attempt
         return True
     else:
+        # fail flee attempt
+        # forfeit item, lose 15 health, lose 70 credits
         forfeit_police(player, police)
         player.ship.health_level -= 15
         player.credit -= 70
@@ -86,13 +91,16 @@ def flee_police(player, police):
 
 def fight_police(player, police):
     if skill_check(player.fighter):
+        # successful fight attempt
         return True
     else:
+        # fail fight attempt
+        # forefeit item
         forfeit_police(player, police)
         return False
 
 
-# ---BANDIT options---
+# creates a bandit dict
 def gen_bandit():
     return {"name": "Bandit", "demand": random.randint(75, 150)}
 
@@ -112,8 +120,10 @@ def pay_bandit(player, bandit):
 
 def flee_bandit(player):
     if skill_check(player.pilot):
+        # successful flee atempt
         return True
     else:
+        # fail flee attempt
         # lose all credits and get damaged
         player.credit = 0
         player.ship.health_level -= 20
@@ -122,21 +132,23 @@ def flee_bandit(player):
 
 def fight_bandit(player, bandit):
     if skill_check(player.fighter):
-        # get bandits money
+        # successful fight attempt
+        # take the bandits credits
         player.credit += int(bandit["demand"] * (5 / 4))
         return True
     else:
+        # fail fight attempt
         # lose all credits and get damaged
         player.credit = 0
         player.ship.health_level -= 20
         return False
 
 
-# ---TRADER options---
+# create a trader dict
 def gen_trader():
     return {"name": "Trader", "item": trader_item()}
 
-
+# returns a random item
 def trader_item():
     trader_item = rand_element(Item.__subclasses__())(random.randint(3, 6))
     trader_item.b_price = int(0.7 * trader_item.base_price)
@@ -146,24 +158,31 @@ def trader_item():
 
 def rob_trader(player, trader):
     if skill_check(player.fighter):
-        trader["item"].amount = random.randint(1, trader["item"].amount)
+        # successful robbery
+        num_stolen = random.randint(1, trader["item"].amount)
         for cargo in player.ship.cargo:
-            if cargo.name == item.name:
-                cargo.amount += amount
-                item.amount -= amount
-            else:
-                player.ship.cargo.append(trader["item"])
+            if cargo.name == trader["item"].name:
+                cargo.amount += num_stolen
+                trader["item"].amount -= num_stolen
+                return True
+        player.ship.cargo.append(trader["item"])
         return True
     else:
+        # failed robbery attempt
+        # player's ship loses 10 health
         player.ship.health_level -= 10
         return False
 
 
 def negotiate_trader(player, trader):
     if skill_check(player.merchant):
+        # successful negotiation attempt
+        # item's price 33% off
         trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
         return True
     else:
+        # failed negotation attempt
+        # increase item's price by 150%
         trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
         return False
 
@@ -172,8 +191,10 @@ def negotiate_trader(player, trader):
 
 
 def skill_check(skill):
-    check_int = random.randint(0, (100 - 3 * skill))
-    if check_int <= 20:
+    check_int = random.randint(0, 100)
+    # success chance - 15% to 60%
+    threshold = math.sqrt(skill) * 10
+    if check_int <= threshold:
         return True
     else:
         return False
