@@ -18,7 +18,7 @@
 <div class="encounter-grid">
     {% if npc["name"] == "Bandit" %}
     <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
-    <button class="choice bandit flee" onclick="fleeBandit()">Flee</button>
+    <button class="choice bandit flee" onclick="fleeBandit()">Flee to previous region</button>
     <button class="choice bandit fight" onclick="fightBandit()">Fight</button>
     {% elif npc["name"] == "Trader" %}
     <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
@@ -27,7 +27,7 @@
     <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate</button>
     {% elif npc["name"] == "Police" %}
     <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
-    <button class="choice police flee" onclick="fleePolice()">Flee</button>
+    <button class="choice police flee" onclick="fleePolice()">Flee to previous region</button>
     <button class="choice police fight" onclick="fightPolice()">Fight</button>
     {% endif %}
 </div>

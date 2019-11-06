@@ -29,7 +29,7 @@ class Player:
 
     def trade_buy(self, item, amount):
         if item.amount < amount:
-            return "Too many items"
+            return "Out of stock"
         elif self.ship.cargo_space < (item.size * amount):
             return "Your ship does not have enough space"
         elif self.credit < (item.b_price * amount):

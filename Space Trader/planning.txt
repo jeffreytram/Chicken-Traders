@@ -80,7 +80,7 @@
 11.06 [x] JT - NPC option function slightly modified
 - can only negotiate with trader once
 - successfully fleeing bandit returns to previous region
-11.06 [x] JT - Renamed project, fixed trader negotiation bug
+11.06 [x] JT - Renamed project, fixed trader negotiation bug, other minor changes
 
 TODO:
 [] display fuel cost

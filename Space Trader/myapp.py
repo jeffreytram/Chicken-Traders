@@ -241,6 +241,7 @@ def encounter():
         if "flee_police" in request.form:
             utility.flee_police(dictionary["game"].player, dictionary["npc"])
             dictionary["npc"] = None
+            dictionary["currRegion"] = dictionary["prev_region"]
         if "fight_police" in request.form:
             utility.fight_police(dictionary["game"].player, dictionary["npc"])
             dictionary["npc"] = None

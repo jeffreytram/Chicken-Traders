@@ -203,6 +203,7 @@ def skill_check(skill):
     # else:
     #     return False
 
+
 def damage(player, npc):
     h_damage = npc.fighterLevel * 100
     if player.ship.health_level >= h_damage:
