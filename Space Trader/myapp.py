@@ -83,6 +83,7 @@ def confirm():
             dictionary["pCredits"],
         )
         dictionary["currRegion"] = space_trader.player.curr_region
+        dictionary["prev_region"] = dictionary["currRegion"]
         return redirect(url_for("travel"))
     return render_template(
         "confirm.html",
