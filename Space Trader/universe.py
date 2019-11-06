@@ -3,7 +3,6 @@
 import random
 import enum
 import math
-import utility
 from item import Item
 
 

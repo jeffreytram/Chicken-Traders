@@ -152,10 +152,11 @@ def gen_trader():
 
 # returns a random item
 def trader_item():
-    trader_item = rand_element(Item.__subclasses__())(random.randint(3, 6))
-    trader_item.b_price = int(0.7 * trader_item.base_price)
-    trader_item.s_price = int(0.6 * trader_item.base_price)
-    return trader_item
+    item = random.choice(Item.__subclasses__())(random.randint(3, 6))
+    # item = rand_element(Item.__subclasses__())(random.randint(3, 6))
+    item.b_price = int(0.7 * item.base_price)
+    item.s_price = int(0.6 * item.base_price)
+    return item
 
 
 def rob_trader(player, trader):
@@ -196,19 +197,15 @@ def skill_check(skill):
     check_int = random.randint(0, 100)
     # success chance - 15% to 60%
     threshold = math.sqrt(skill) * 15
-    if check_int <= threshold:
-        return True
-    else:
-        return False
-
-
-def rand_element(list):
-    return list[random.randint(0, len(list) - 1)]
-
+    return check_int <= threshold
+    # if check_int <= threshold:
+    #     return True
+    # else:
+    #     return False
 
 def damage(player, npc):
-    damage = npc.fighterLevel * 100
-    if player.ship.health_level >= damage:
-        player.ship.health_level -= damage
+    h_damage = npc.fighterLevel * 100
+    if player.ship.health_level >= h_damage:
+        player.ship.health_level -= h_damage
     else:
         player.ship.health_level = 0

@@ -2,7 +2,7 @@ import random
 import utility
 from universe import Universe
 from player import Player
-from npc import Bandit, Trader
+#from npc import Bandit, Trader
 
 
 class Game:
@@ -49,3 +49,5 @@ class Game:
         if utility.travel_check(self, new_region):
             utility.travel(self.player, new_region)
             return True
+        else:
+            return False

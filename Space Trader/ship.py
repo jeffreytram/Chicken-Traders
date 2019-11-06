@@ -1,4 +1,4 @@
-class Ship(object):
+class Ship:
     def __init__(self, name, ship_type, max_cargo, max_fuel, max_health):
         self.name = name
         self.ship_type = ship_type

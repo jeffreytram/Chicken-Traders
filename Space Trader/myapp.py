@@ -1,6 +1,6 @@
-import utility
 from flask import Flask, render_template, url_for, redirect, request
 from forms import SettingForm, ConfirmForm, SPForm
+import utility
 from game import Game
 
 app = Flask(__name__)
