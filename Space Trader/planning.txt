@@ -77,6 +77,10 @@
 - modified success when checking skill
 11.05 [x] JT - Added more documentation
 
+11.06 [x] JT - NPC option function slightly modified
+- can only negotiate with trader once
+- successfully fleeing bandit returns to previous region
+
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel

@@ -18,10 +18,12 @@ dictionary = {
     "sp3": 0,
     "sp4": 0,
     "currRegion": None,
+    "prev_region": None,
     "selectedItem": None,
     "fuel_error": None,
     "market_error": None,
     "npc": None,
+    "negotiated": False,
 }
 
 
@@ -114,6 +116,7 @@ def travel():
             if dictionary["game"].travel_sequence(travel_region):
                 dictionary["fuel_error"] = None
                 dictionary["selectedItem"] = None
+                dictionary["prev_region"] = dictionary["currRegion"]
                 dictionary["currRegion"] = travel_region
                 dictionary["npc"] = utility.encounter_check(
                     dictionary["game"].encounter_factor, dictionary["game"].player
@@ -214,7 +217,8 @@ def encounter():
             utility.fight_bandit(dictionary["game"].player, dictionary["npc"])
             dictionary["npc"] = None
         if "flee_bandit" in request.form:
-            utility.flee_bandit(dictionary["game"].player)
+            if utility.flee_bandit(dictionary["game"].player):
+                dictionary["currRegion"] = dictionary["prev_region"]
             dictionary["npc"] = None
         # trader choices
         if "buy_trader" in request.form:
@@ -226,7 +230,9 @@ def encounter():
             utility.rob_trader(dictionary["game"].player, dictionary["npc"])
             dictionary["npc"] = None
         if "negotiate_trader" in request.form:
-            utility.negotiate_trader(dictionary["game"].player, dictionary["npc"])
+            if not dictionary["negotiated"]:
+                dictionary["negotiated"] = True
+                utility.negotiate_trader(dictionary["game"].player, dictionary["npc"])
         # police choices
         if "forfeit_police" in request.form:
             utility.forfeit_police(dictionary["game"].player, dictionary["npc"])

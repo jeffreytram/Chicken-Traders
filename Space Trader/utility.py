@@ -71,6 +71,7 @@ def gen_police(player):
 def police_item(player):
     return player.ship.cargo[random.randint(0, len(player.ship.cargo) - 1)]
 
+
 # removes the item from the player
 def forfeit_police(player, police):
     player.ship.cargo.remove(police["item"])
@@ -148,6 +149,7 @@ def fight_bandit(player, bandit):
 def gen_trader():
     return {"name": "Trader", "item": trader_item()}
 
+
 # returns a random item
 def trader_item():
     trader_item = rand_element(Item.__subclasses__())(random.randint(3, 6))
@@ -193,7 +195,7 @@ def negotiate_trader(player, trader):
 def skill_check(skill):
     check_int = random.randint(0, 100)
     # success chance - 15% to 60%
-    threshold = math.sqrt(skill) * 10
+    threshold = math.sqrt(skill) * 15
     if check_int <= threshold:
         return True
     else:

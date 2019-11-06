@@ -12,7 +12,6 @@ class Ship(object):
     @property
     def health_level(self):
         return self._health_level
-    
 
     @health_level.setter
     def health_level(self, value):
@@ -50,6 +49,7 @@ class Ship(object):
 
     def add_item(self, item):
         pass
+
 
 # 3 ship types, subclasses of ship
 class AShip(Ship):
