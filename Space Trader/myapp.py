@@ -226,6 +226,7 @@ def encounter():
             dictionary["npc"] = None
         if "ignore_trader" in request.form:
             dictionary["npc"] = None
+            dictionary["negotiated"] = False
         if "rob_trader" in request.form:
             utility.rob_trader(dictionary["game"].player, dictionary["npc"])
             dictionary["npc"] = None
