@@ -111,12 +111,15 @@ def pay_bandit(player, bandit):
     if player.credit >= bandit["demand"]:
         # successful payment
         player.credit -= bandit["demand"]
+        return True
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
         player.ship.cargo.clear()
+        return False
     else:
         # Get damaged
         player.ship.health_level -= 15
+        return False
 
 
 def flee_bandit(player):

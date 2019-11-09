@@ -82,6 +82,15 @@
 - successfully fleeing bandit returns to previous region
 11.06 [x] JT - Renamed project, fixed trader negotiation bug, other minor changes
 
+11.08 [x] JT - Added textbox to encounter
+- clarified success/fail
+- disabled buttons once option choosen
+- added special case for negotiate
+11.08 [x] JT - CSS improvement for different screen sizes
+
+-[] add special condition for not having enough money to buy item
+
+
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel

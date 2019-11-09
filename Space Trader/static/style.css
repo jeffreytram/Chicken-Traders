@@ -81,7 +81,7 @@ button:hover, .button:hover, .arrow:hover {
 /* SHIP menu style */
 
 .ship-grid {
-    width: 50%;
+    width: 90%;
     margin: auto;
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
@@ -113,7 +113,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .cargo-grid {
-    width: 50%;
+    width: 90%;
     margin: auto;
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
@@ -162,7 +162,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .market-container {
-    width: 80%;
+    width: 90%;
     margin: auto;
 }
 
@@ -183,7 +183,7 @@ button:hover, .button:hover, .arrow:hover {
     grid-column: 2/-1;
     grid-row: 1/-2;
     display: grid;
-    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(1, minmax(auto, 1fr));
 }
 
 .grid-container .buy {
@@ -231,7 +231,7 @@ button:hover, .button:hover, .arrow:hover {
 /* market player inv css */
 
 .inv-grid {
-    width: 50%;
+    width: 90%;
     margin: auto;
     display: grid;
     grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
@@ -279,12 +279,35 @@ button:hover, .button:hover, .arrow:hover {
     grid-row: 2/3;
 }
 
+#text {
+    border: 2px solid rgba(30, 30, 30);
+    width: 80%;
+    margin: auto;
+}
+
+@media (min-width:530px) {
+    .grid-container .shop>#itemUl {
+        grid-template: repeat(3, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    }
+}
+
 @media (min-width:850px) {
     .grid-container .shop>#itemUl {
         grid-template: repeat(3, minmax(auto, 1fr)) / repeat(4, minmax(auto, 1fr));
     }
     /* home page css */
     .title {
+        width: 50%;
+    }
+    /* market player inv css */
+    .inv-grid, .cargo-grid, .ship-grid {
+        width: 70%;
+    }
+}
+
+@media (min-width:1200px) {
+    /* market player inv css */
+    .inv-grid, .cargo-grid, .ship-grid {
         width: 50%;
     }
 }

@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
+<p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
+<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
+<p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
 <h2>{{npc["name"]}}</h2>
 {% if npc["name"] == "Bandit" %}
 <p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
@@ -31,7 +34,23 @@
     <button class="choice police fight" onclick="fightPolice()">Fight</button>
     {% endif %}
 </div>
+{% if text and second_test %}
+<p id="text">{{text}} Click anywhere to continue.</p>
+{% elif text %}
+<p id="text">{{text}}</p>
+{% endif %}
+
 <script type="text/javascript">
+    {% if text and second_test %}
+    document.addEventListener("click", function (event) {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("return_travel=");
+        window.location.reload();
+    });
+    {% endif %}
+
     function payBandit() {
         var req = new XMLHttpRequest();
         req.open('POST', '/encounter', true);
