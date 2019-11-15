@@ -1,11 +1,16 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI";
-    text-align: center;
 }
 
-body {}
+html, body {
+    font-family: "Segoe UI";
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 ul {
     list-style: none;
@@ -22,6 +27,11 @@ button, .button {
     padding: 1vh 2vh;
     border-radius: 10px;
     font-weight: bold;
+}
+
+input {
+    border-radius: 10px;
+    padding: 2px 10px;
 }
 
 .active, button:hover, .button:hover {
@@ -48,14 +58,14 @@ button:hover, .button:hover, .arrow:hover {
     cursor: pointer;
 }
 
-.welcomeContainer, .settingsContainer, .spContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
+    display: grid;
+    height: 75%;
+    width: 100%;
     align-items: center;
 }
 
-.confirmContainer {
+.confirmSPContainer {
     width: 30%;
     margin: auto;
     display: flex;
@@ -70,13 +80,108 @@ button:hover, .button:hover, .arrow:hover {
     justify-content: space-between;
 }
 
+/* rounding corners */
+
+/* top left corner */
+
+.ship-stat:nth-child(1), .cargo-item:nth-child(1), .inv-item:nth-child(1) {
+    border-top-left-radius: 15px;
+}
+
+/* top right corner */
+
+.ship-stat:nth-child(3), .cargo-item:nth-child(3), .inv-item:nth-child(4) {
+    border-top-right-radius: 15px;
+}
+
+/* bottom left corner */
+
+.ship-stat:nth-child(2), .cargo-item:nth-last-child(3), .inv-item:nth-last-child(4) {
+    border-bottom-left-radius: 15px;
+}
+
+/* bottom right corner */
+
+.ship-stat:nth-child(6), .cargo-item:nth-last-child(1), .inv-item:nth-last-child(1) {
+    border-bottom-right-radius: 15px;
+}
+
 /* home page css */
 
-.title {
-    margin: auto;
-    width: 80%;
-    height: auto;
+#title {
+    font-stretch: expanded;
+    font-size: 55px;
 }
+
+#logo {
+    width: 25%;
+}
+
+.start {
+    padding: 10px 20px;
+    margin: 40px;
+}
+
+/* settings style*/
+
+.settings-grid {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    border: 1px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
+    text-align: left;
+}
+
+.setting-img {
+    grid-row: 1/5;
+    grid-column: 1/2;
+    margin: auto;
+}
+
+.setting-option:nth-child(2), .setting-option:nth-child(3), .setting-option:nth-child(4) {
+    grid-column: 2/3;
+}
+
+.setting-option:nth-child(3) {
+    grid-row: 2/5;
+}
+
+/* Skillpoints style*/
+
+.sp-grid {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    border: 1px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
+    text-align: left;
+}
+
+.spForm {
+    grid-row: 2/5;
+}
+.spForm > p {
+    display: flex;
+    width: 175px;
+    justify-content: space-between;
+}
+.spForm>p>input {
+    text-align: center;
+    width: 40px;
+}
+
+.sp-img {
+    grid-row: 1/5;
+    grid-column: 1/2;
+    margin: auto;
+}
+.back {
+    grid-column: 2/3;
+}
+
 
 /* SHIP menu style */
 
@@ -97,19 +202,6 @@ button:hover, .button:hover, .arrow:hover {
 
 .ship-stat:nth-child(2) {
     grid-row: 2/5;
-    border-bottom-left-radius: 15px;
-}
-
-.ship-stat:nth-child(1) {
-    border-top-left-radius: 15px;
-}
-
-.ship-stat:nth-child(3) {
-    border-top-right-radius: 15px;
-}
-
-.ship-stat:nth-child(6) {
-    border-bottom-right-radius: 15px;
 }
 
 .cargo-grid {
@@ -256,7 +348,7 @@ button:hover, .button:hover, .arrow:hover {
 /* encounter css */
 
 .encounter-grid {
-    width: 50%;
+    width: 90%;
     margin: auto;
     display: grid;
     grid-template: repeat(2, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
@@ -300,14 +392,20 @@ button:hover, .button:hover, .arrow:hover {
         width: 50%;
     }
     /* market player inv css */
-    .inv-grid, .cargo-grid, .ship-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
         width: 70%;
+    }
+    #logo {
+        width: 15%;
     }
 }
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .inv-grid, .cargo-grid, .ship-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
         width: 50%;
+    }
+    #logo {
+        width: 10%;
     }
 }
