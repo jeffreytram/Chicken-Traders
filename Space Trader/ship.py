@@ -38,6 +38,12 @@ class Ship:
     def health_display(self):
         return str(self.health_level) + "/" + str(self.max_health)
 
+    def refuel(self, fuel):
+        if self.fuel_level + fuel > self.max_fuel:
+            self.fuel_level = self.max_fuel
+        else:
+            self.fuel_level += fuel
+
     def set_max_cargo(self, max_cargo):
         self.max_cargo = max_cargo
 

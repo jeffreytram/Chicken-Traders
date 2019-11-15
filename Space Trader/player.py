@@ -4,6 +4,7 @@ from ship import CShip
 
 
 class Player:
+    fuel_cost = 3
     def __init__(self, name, skill_points, credit, curr_region):
         self.name = name
         self.pilot = skill_points[0]
@@ -26,6 +27,13 @@ class Player:
             self._credit = 0
         else:
             self._credit = credit
+
+    def purchase_fuel(self, fuel):
+        if (self.credit < (fuel * self.fuel_cost)):
+            return "Not enough cash"
+        else:
+            self.ship.refuel(fuel)
+            return "Success"
 
     def trade_buy(self, item, amount):
         if item.amount < amount:
