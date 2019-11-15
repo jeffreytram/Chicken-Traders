@@ -1,26 +1,30 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="settingsContainer">
-    <h1>Settings</h1>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{form.name.label}}<br>
-            {{form.name(size=32)}}<br>
-            {% for error in form.name.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{form.diff.label}}<br>
-            {{form.diff}}<br>
-        </p>
-        <p>
-            {{form.submit(class="button")}}
-        </p>
-    </form>
-    <div>
-        <button onclick="location.href = '/home'">Back</button>
+    <div class="settings-grid">
+        <img class="setting-img" width="100%" src="../static/chicken.png">
+        <h1 class="setting-option">Settings</h1>
+        <form class="setting-option" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{form.name.label}}<br>
+                {{form.name(size=32)}}<br>
+                {% for error in form.name.errors %}
+                <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <br>
+            <p>
+                {{form.diff.label}}<br>
+                {{form.diff}}<br>
+            </p>
+            <p>
+                {{form.submit(class="button")}}
+            </p>
+        </form>
+        <div class="setting-option">
+            <button onclick="location.href = '/home'">Back</button>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,42 +1,46 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="spContainer">
-    <h1>Skill Points</h1>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <h3>Total Skill Points: {{sp}}</h3>
-        <p>
-            {{form.sp1.label}}<br>
-            {{form.sp1(size=32)}} <br>
+    <div class="sp-grid">
+        <img class="sp-img" width="100%" src="../static/chicken.png">
+        <div class="sp-heading">
+            <h1>Skill Points</h1>
+            <h3>Total Skill Points: {{sp}}</h3>
+        </div>
+        <form class="spForm" method="post">
+            {{ form.hidden_tag() }}
+            <br>
+            <p>
+                {{form.sp1.label}}
+                {{form.sp1(size=32)}}
+            </p>
             {% for error in form.sp1.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{form.sp2.label}}<br>
-            {{form.sp2(size=32)}} <br>
+            <p>
+                {{form.sp2.label}}
+                {{form.sp2(size=32)}}
+            </p>
             {% for error in form.sp2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{form.sp3.label}}<br>
-            {{form.sp3(size=32)}} <br>
+            <p>
+                {{form.sp3.label}}
+                {{form.sp3(size=32)}}
+            </p>
             {% for error in form.sp3.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{form.sp4.label}}<br>
-            {{form.sp4(size=32)}} <br>
+            <p>
+                {{form.sp4.label}}
+                {{form.sp4(size=32)}}
+            </p>
             {% for error in form.sp4.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
+            <br><br><br>
             {{form.submit(class="button")}}
-        </p>
-        <!--DEBUGGING ISSUES WITH FORM
+            <!--DEBUGGING ISSUES WITH FORM
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul id="warning">
@@ -50,9 +54,11 @@
         {{ form.errors }}
         {% endif %}
         -->
-    </form>
-    <div>
-        <button onclick="location.href = '/settings'">Back</button>
+        </form>
+        <div class="back">
+            <button onclick="location.href = '/settings'">Back</button>
+        </div>
     </div>
+
 </div>
 {% endblock %}

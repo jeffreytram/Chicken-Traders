@@ -32,7 +32,7 @@
 
 10.20 [x] JT - Added ability to display selected item description and purchase statement
 10.20 [x] JT - Travel now updates fuel, purchasing items now subtracts credits
-10.20 [x] JT - Separated menu tabs into separate html files, added buy/sell and inventroy functionality
+10.20 [x] JT - Separated menu tabs into separate html files, added buy/sell and inventory functionality
 
 10.21 [x] JT - added item images
 
@@ -88,7 +88,14 @@
 - added special case for negotiate
 11.08 [x] JT - CSS improvement for different screen sizes
 
+11.11 [x] JT - CSS improvements
+- cargo and inventory now with rounded corners
+
+11.14 [x] JT - Home, Settings, and Skillpoints page redesign
+11.14 [x] JT - Preparing win/lose screens
+
 -[] add special condition for not having enough money to buy item
+-[] fix form errors shifting button down
 
 
 TODO:

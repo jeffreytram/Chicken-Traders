@@ -26,7 +26,8 @@ dictionary = {
     "negotiated": False,
     "choice_result": None,
     "second_test": True,
-    "disabled" : False
+    "disabled" : False,
+    "end_game": None
 }
 
 
@@ -199,8 +200,10 @@ def market():
 
 @app.route("/test", methods=["GET", "POST"])
 def test():
+    dictionary["end_game"] = "WIN"
     return render_template(
         "test.html",
+        end_game = dictionary["end_game"],
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         universe=dictionary["game"].universe,
@@ -222,7 +225,7 @@ def encounter():
             # bandit choices
             if "pay_bandit" in request.form:
                 if utility.pay_bandit(dictionary["game"].player, dictionary["npc"]):
-                    dictionary["choice_result"] = "You paid the bandit."
+                    dictionary["choice_result"] = "You paid the bandit " + str(dictionary["npc"]["demand"]) + " credits."
                 else:
                     dictionary[
                         "choice_result"
@@ -250,7 +253,7 @@ def encounter():
                 dictionary["second_test"] = True
                 dictionary["negotiated"] = False
                 dictionary["choice_result"] = (
-                    "You bought a " + dictionary["npc"]["item"].name
+                    "You bought a " + dictionary["npc"]["item"].name + "."
                 )
             if "ignore_trader" in request.form:
                 dictionary["second_test"] = True
