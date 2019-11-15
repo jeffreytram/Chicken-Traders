@@ -8,6 +8,8 @@ def fuel_calc(fuel_cost_constant, distance, pilot):
     """Returns the fuel cost for the distance"""
     return fuel_cost_constant * distance * (1 - (pilot / 75))
 
+def repair_cost(repair, engineer):
+    return (repair * 7) * (engineer / 50)
 
 def bprice_calc(player, region):
     for item in region.market:

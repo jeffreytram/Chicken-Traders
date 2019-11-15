@@ -1,5 +1,6 @@
 """This is the module with the player class"""
 import copy
+import utility
 from ship import CShip
 
 
@@ -28,8 +29,18 @@ class Player:
         else:
             self._credit = credit
 
+
+    def buy_repairs(self, repairs):
+        if self.credit < (utility.repair_cost(repairs, self.engineer)):
+            return "Not enough Money!"
+        elif self.ship.health_level + repairs > self.ship.max_health:
+            return "You're buying more than you can use??"
+        else:
+            return "Success"
+
+
     def purchase_fuel(self, fuel):
-        if (self.credit < (fuel * self.fuel_cost)):
+        if self.credit < (fuel * self.fuel_cost):
             return "Not enough cash"
         else:
             self.ship.refuel(fuel)
@@ -68,30 +79,3 @@ class Player:
             self.credit += self.ship.cargo[cargo_item_index].s_price * amount
             self.ship.cargo[cargo_item_index].amount -= amount
             return "Trade sucessful"
-
-    def set_name(self, name):
-        """Sets the player name"""
-        self.name = name
-
-    def set_pilot(self, pilot):
-        """Sets the pilot skill points"""
-        self.pilot = pilot
-
-    def set_fighter(self, fighter):
-        """Sets the fighter skill points"""
-        self.fighter = fighter
-
-    def set_merchant(self, merchant):
-        """Sets the merchant skill points"""
-        self.merchant = merchant
-
-    def set_engineer(self, engineer):
-        """Sets the engineer skill points"""
-        self.engineer = engineer
-
-    def set_credit(self, credit):
-        """Sets the players skill points"""
-        self.credit = credit
-
-    def set_ship(self, ship):
-        self.ship = ship

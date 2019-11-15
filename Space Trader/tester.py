@@ -27,6 +27,10 @@ game.player.ship.fuel_level = 0
 print(game.player.purchase_fuel(20))
 print(game.player.ship.fuel_level)
 
+game.player.ship.health_level = 0
+print(game.player.buy_repairs(20))
+print(game.player.ship.fuel_level)
+
 
 # game = universe_create()
 # travel_test(game)
