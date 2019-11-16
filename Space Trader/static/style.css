@@ -174,40 +174,66 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 /* Skillpoints style*/
+
 .h1-headings {
     font-size: 25px;
 }
+
 .h3-headings {
     font-size: 15px;
+}
+
+.sp-grid, .sp-input>input {
+    font-size: calc(9px + 1vw);
 }
 
 .sp-grid {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    grid-template: repeat(5, minmax(auto, 75px)) / 40% minmax(75px, 1fr);
     border: 1px solid rgba(30, 30, 30, .5);
     border-radius: 15px;
     text-align: left;
+}
+
+.sp-option {
+    grid-column: 2/4;
 }
 
 .spForm {
     grid-row: 2/5;
 }
 
-.spForm > p {
-    display: flex;
-    width: calc(100px + 10vw);
-    justify-content: space-between;
-}
-
-.spForm>p>input {
-    text-align: center;
-    width: 40px;
-}
-
 .back {
     grid-column: 2/3;
+}
+
+.sp-input-grid {
+    margin: auto;
+    display: grid;
+    grid-template: repeat(4, minmax(auto, 45px)) / calc(25px + 10vw) 50px minmax(70px, 150px);
+    border-radius: 15px;
+    text-align: left;
+}
+
+.sp-input>input {
+    width: 20px;
+    text-align: center;
+}
+
+/* game UI */
+
+.player-info-grid {
+    width: 90%;
+    display: grid;
+    grid-template: repeat(1, minmax(auto, 1fr)) / repeat(3, minmax(auto, 1fr));
+    border: 1px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
+    margin: 20px auto;
+}
+
+.player-info {
 }
 
 /* SHIP menu style */
@@ -244,7 +270,7 @@ button:hover, .button:hover, .arrow:hover {
     align-items: center;
 }
 
-.cargo-item:nth-child(3n + 1) {
+.cargo-item:nth-child(3n+1) {
     grid-column: 1/4;
 }
 
@@ -362,7 +388,7 @@ button:hover, .button:hover, .arrow:hover {
     align-items: center;
 }
 
-.inv-item:nth-child(4n + 1) {
+.inv-item:nth-child(4n+1) {
     grid-column: 1/4;
 }
 
@@ -401,13 +427,21 @@ button:hover, .button:hover, .arrow:hover {
 
 #text {
     border: 2px solid rgba(30, 30, 30);
-    width: 80%;
-    margin: auto;
+    border-radius: 15px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
 }
 
 @media (min-width:530px) {
     .grid-container .shop>#itemUl {
         grid-template: repeat(3, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    }
+    .sp-grid {
+        grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    }
+    .sp-grid, .sp-input>input {
+        font-size: 15px;
     }
 }
 
@@ -420,7 +454,7 @@ button:hover, .button:hover, .arrow:hover {
         width: 50%;
     }
     /* market player inv css */
-    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
         width: 70%;
     }
     #logo {
@@ -436,7 +470,7 @@ button:hover, .button:hover, .arrow:hover {
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
         width: 50%;
     }
     #logo {

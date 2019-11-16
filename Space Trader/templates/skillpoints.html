@@ -6,42 +6,57 @@
             <div class="imgDiv">
                 <img class="chicken" src="../static/chicken.png">
             </div>
-            <div class="sp-heading">
+            <div class="sp-option sp-heading">
                 <h1 class="h1-headings">Skill Points</h1>
                 <h3 class="h3-headings">Total Skill Points: {{sp}}</h3>
             </div>
-            <form class="spForm" method="post">
+            <form class="sp-option spForm" method="post">
                 {{ form.hidden_tag() }}
-                <p>
+                <div class="sp-input-grid">
                     {{form.sp1.label}}
-                    {{form.sp1(size=32)}}
-                </p>
-                {% for error in form.sp1.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                <p>
+                    <div class="sp-input">
+                        {{form.sp1(size=32)}}
+                    </div>
+                    <div>
+                        {% for error in form.sp1.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
                     {{form.sp2.label}}
-                    {{form.sp2(size=32)}}
-                </p>
-                {% for error in form.sp2.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                <p>
+                    <div class="sp-input">
+                        {{form.sp2(size=32)}}
+                    </div>
+                    <div>
+                        {% for error in form.sp2.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
                     {{form.sp3.label}}
-                    {{form.sp3(size=32)}}
-                </p>
-                {% for error in form.sp3.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                <p>
+                    <div class="sp-input">
+                        {{form.sp3(size=32)}}
+                    </div>
+                    <div>
+                        {% for error in form.sp3.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
                     {{form.sp4.label}}
-                    {{form.sp4(size=32)}}
-                </p>
-                {% for error in form.sp4.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                <br><br><br><br>
-                {{form.submit(class="button")}}
+                    <div class="sp-input">
+                        {{form.sp4(size=32)}}
+                    </div>
+                    <div>
+                        {% for error in form.sp4.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    {{form.submit(class="button")}}
+                </div>
+
                 <!--DEBUGGING ISSUES WITH FORM
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -60,19 +75,20 @@
             <div class="back">
                 <button onclick="location.href = '/settings'">Back</button>
             </div>
+
         </div>
     </div>
 </div>
 <script type="text/javascript">
     let stroke = document.getElementsByClassName("bg-image");
     {% if diff == "easy" %}
-        stroke[0].style.backgroundImage = 'url("../static/stroke-green.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-green.png")';
     {% endif %}
     {% if diff == "med" %}
-        stroke[0].style.backgroundImage = 'url("../static/stroke-orange.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-orange.png")';
     {% endif %}
     {% if diff == "hard" %}
-        stroke[0].style.backgroundImage = 'url("../static/stroke-red.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-red.png")';
     {% endif %}
 </script>
 {% endblock %}

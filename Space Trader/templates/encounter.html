@@ -1,8 +1,18 @@
 {% extends 'layout.html' %}
 {% block content %}
-<p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
-<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
-<p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
+<div class="player-info-grid">
+    <div class="player-info">
+        <img src="../static/item-images/icon_credits.png"><strong>{{game.player.credit}}</strong>
+    </div>
+    <div class="player-info">
+        <img src="../static/item-images/icon_fuel.png"><strong>{{game.player.ship.fuel_level}} /
+            {{game.player.ship.max_fuel}}</strong>
+    </div>
+    <div class="player-info">
+        <img src="../static/item-images/icon_health.png"><strong>{{game.player.ship.health_level}} /
+            {{game.player.ship.max_health}}</strong>
+    </div>
+</div>
 <h2>{{npc["name"]}}</h2>
 {% if npc["name"] == "Bandit" %}
 <p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
@@ -35,9 +45,16 @@
     {% endif %}
 </div>
 {% if text and second_test %}
-<p id="text">{{text}} Click anywhere to continue.</p>
+<div id="text">
+    {{text}}
+    <p>
+        Click anywhere to continue...
+    </p>
+</div>
 {% elif text %}
-<p id="text">{{text}}</p>
+<div id="text">
+    {{text}}
+</div>
 {% endif %}
 
 <script type="text/javascript">
