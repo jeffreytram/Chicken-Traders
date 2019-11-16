@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
-<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
+<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}  / {{game.player.ship.max_fuel}}</strong></p>
 <p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>

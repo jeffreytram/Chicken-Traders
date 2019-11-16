@@ -65,7 +65,7 @@ def skillpoints():
         dictionary["sp3"] = sp_form.sp3.data
         dictionary["sp4"] = sp_form.sp4.data
         return redirect(url_for("confirm"))
-    return render_template("skillpoints.html", form=sp_form, sp=dictionary["pSPLimit"])
+    return render_template("skillpoints.html", diff=dictionary["pDiff"], form=sp_form, sp=dictionary["pSPLimit"])
 
 
 @app.route("/confirm", methods=["GET", "POST"])
@@ -187,8 +187,10 @@ def market():
         if "sellIndex" in request.form:
             inv_index = int(request.form["sellIndex"]) - 1
             dictionary["game"].player.trade_sell(inv_index, 1)
-            return "Credits: " + str(dictionary["game"].player.credit)
-
+        if "addFuel" in request.form:
+            dictionary["game"].player.purchase_fuel(50)
+        if "addHealth" in request.form:
+            dictionary["game"].player.buy_repairs(50)
     return render_template(
         "market.html",
         market_error=dictionary["market_error"],

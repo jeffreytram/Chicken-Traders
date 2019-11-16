@@ -94,6 +94,13 @@
 11.14 [x] JT - Home, Settings, and Skillpoints page redesign
 11.14 [x] JT - Preparing win/lose screens
 
+11.15 [x] JT - Added stroke bg to Settings and Skillpoints page
+11.15 [x] JT - Slight UI changes to Confirm page
+11.15 [x] JT - Adjusted market category width
+11.15 [x] JT - Added padding to table heading
+11.15 [x] JT - Now displays current capcity
+11.15 [x] JT - Added refuel and repair buttons
+
 -[] add special condition for not having enough money to buy item
 -[] fix form errors shifting button down
 

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
-<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
+<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}  / {{game.player.ship.max_fuel}}</strong></p>
 <p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
@@ -63,7 +63,9 @@
         </div>
     </div>
 </div>
-<h4>Player Inventory:</h4>
+<button onclick="addFuel()">buy 50 fuel</button>
+<button onclick="addHealth()">repair 50 health</button>
+<h4>Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
 <div class="inv-grid">
     <div class="inv-item inv-image tableHeader">
         Item
@@ -92,6 +94,20 @@
     {% endfor %}
 </div>
 <script type="text/javascript">
+    function addHealth() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/market', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("addHealth=");
+        window.location.reload();
+    }
+    function addFuel() {
+        var req = new XMLHttpRequest();
+        req.open('POST', '/market', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("addFuel=");
+        window.location.reload();
+    }
     function selectItem(index) {
         showDescription(index);
         showPurchaseStatement(index);

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
-<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
+<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}} / {{game.player.ship.max_fuel}}</strong></p>
 <p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
 <div id="menu">
     <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
@@ -33,7 +33,7 @@
             Health: <strong>{{game.player.ship.max_health}}</strong>
         </div>
     </div>
-    <h3>Cargo: </h3>
+    <h3>Cargo: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h3>
     <div class="cargo-grid">
         <div class="cargo-item inv-image tableHeader">
             Item
