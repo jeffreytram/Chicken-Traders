@@ -82,13 +82,13 @@
 <script type="text/javascript">
     let stroke = document.getElementsByClassName("bg-image");
     {% if diff == "easy" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-green.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-green.svg")';
     {% endif %}
     {% if diff == "med" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-orange.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-orange.svg")';
     {% endif %}
     {% if diff == "hard" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-red.png")';
+    stroke[0].style.backgroundImage = 'url("../static/stroke-red.svg")';
     {% endif %}
 </script>
 {% endblock %}

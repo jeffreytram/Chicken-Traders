@@ -136,6 +136,7 @@
 - Redesigned player info UI top bar 
 - reformated planning.txt
 - UI improvements in encounter textbox
+- replaced png icons with svg
 
 -[] add special condition for not having enough money to buy item
 

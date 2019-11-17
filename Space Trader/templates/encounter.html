@@ -2,14 +2,14 @@
 {% block content %}
 <div class="player-info-grid">
     <div class="player-info">
-        <img src="../static/item-images/icon_credits.png"><strong>{{game.player.credit}}</strong>
+        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
     </div>
     <div class="player-info">
-        <img src="../static/item-images/icon_fuel.png"><strong>{{game.player.ship.fuel_level}} /
+        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
             {{game.player.ship.max_fuel}}</strong>
     </div>
     <div class="player-info">
-        <img src="../static/item-images/icon_health.png"><strong>{{game.player.ship.health_level}} /
+        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
             {{game.player.ship.max_health}}</strong>
     </div>
 </div>
@@ -19,12 +19,12 @@
         credits</strong>!
 </p>
 {% elif npc["name"] == "Trader" %}
-<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img
-        src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong> for
+<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
+        src="../static/item-images/item-icon_{{npc.item.name}}.svg"><strong>{{npc["item"].name}}</strong> for
     <strong>{{npc["item"].b_price}} credits</strong>!</p>
 {% elif npc["name"] == "Police" %}
-<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img
-        src="../static/item-images/item_{{npc.item.name}}.png"><strong>{{npc["item"].name}}</strong>!</p>
+<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
+        src="../static/item-images/item-icon_{{npc.item.name}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
 {% endif %}
 <img height="200" width="auto" src="../static/{{npc.name}}.png">
 <p>What will YOU do!?</p>

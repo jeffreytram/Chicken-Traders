@@ -125,7 +125,7 @@ button:hover, .button:hover, .arrow:hover {
 
 .bg-image {
     height: 100%;
-    background-image: url("stroke-green.png");
+    background-image: url("stroke-green.svg");
     background-repeat: no-repeat;
     background-position-x: calc(-200px + 30vw);
 }
@@ -353,6 +353,10 @@ button:hover, .button:hover, .arrow:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.item-icon {
+    height: 32px;
 }
 
 .item-left {
