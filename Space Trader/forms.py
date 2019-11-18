@@ -20,10 +20,10 @@ class SPForm(FlaskForm):
         super(SPForm, self).__init__(*args, **kwargs)
         self.sp_limit = sp_limit
 
-    sp1 = IntegerField("Pilot", validators=[DataRequired(), NumberRange(min=0)])
-    sp2 = IntegerField("Fighter", validators=[DataRequired(), NumberRange(min=0)])
-    sp3 = IntegerField("Merchant", validators=[DataRequired(), NumberRange(min=0)])
-    sp4 = IntegerField("Engineer", validators=[DataRequired(), NumberRange(min=0)])
+    sp1 = IntegerField("Pilot", validators=[DataRequired(), NumberRange(min=1)])
+    sp2 = IntegerField("Fighter", validators=[DataRequired(), NumberRange(min=1)])
+    sp3 = IntegerField("Merchant", validators=[DataRequired(), NumberRange(min=1)])
+    sp4 = IntegerField("Engineer", validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField("Continue")
 
     def validate(self):

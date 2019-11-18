@@ -1,8 +1,21 @@
 {% extends 'layout.html' %}
 {% block content %}
-<p id="creditDisplay">Credits: <strong>{{game.player.credit}}</strong></p>
-<p id="fuelDisplay">Current Fuel Level: <strong>{{game.player.ship.fuel_level}}</strong></p>
-<p id="fuelDisplay">Current Health Level: <strong>{{game.player.ship.health_level}}</strong></p>
+<!-- top bar UI -->
+<div class="player-info-grid">
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    </div>
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
+            {{game.player.ship.max_fuel}}</strong>
+    </div>
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
+            {{game.player.ship.max_health}}</strong>
+    </div>
+</div>
+
+<!-- nav bar -->
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>

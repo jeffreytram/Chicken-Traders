@@ -1,30 +1,51 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="settingsContainer">
-    <div class="settings-grid">
-        <img class="setting-img" width="100%" src="../static/chicken.png">
-        <h1 class="setting-option">Settings</h1>
-        <form class="setting-option" method="post">
-            {{ form.hidden_tag() }}
-            <p>
-                {{form.name.label}}<br>
-                {{form.name(size=32)}}<br>
-                {% for error in form.name.errors %}
-                <span class="error">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <br>
-            <p>
-                {{form.diff.label}}<br>
-                {{form.diff}}<br>
-            </p>
-            <p>
+<div class="bg-image">
+    <div class="settingsContainer">
+        <div class="settings-grid">
+            <div class="imgDiv">
+                <img class="chicken" src="../static/chicken.png">
+            </div>
+            <h1 class="h1-headings setting-option">Settings</h1>
+            <form class="setting-option form" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{form.name.label}}<br>
+                    {{form.name(size=32)}}<br>
+                    {% for error in form.name.errors %}
+                    <span class="error">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <br>
+                <p>
+                    {{form.diff.label}}<br>
+                    {{form.diff}}<br>
+                </p>
                 {{form.submit(class="button")}}
-            </p>
-        </form>
-        <div class="setting-option">
-            <button onclick="location.href = '/home'">Back</button>
+            </form>
+            <div class="setting-option">
+                <button onclick="location.href = '/home'">Back</button>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    let diffUl = document.getElementById("diff");
+    let radioButtons = diffUl.getElementsByTagName("input");
+    let stroke = document.getElementsByClassName("bg-image");
+    Array.from(radioButtons).forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            //switch to different image based on selected diff
+            if (event.target.value == "easy") {
+                stroke[0].style.backgroundImage = 'url("../static/stroke-green.svg")';
+            }
+            if (event.target.value == "med") {
+                stroke[0].style.backgroundImage = 'url("../static/stroke-orange.svg")';
+            }
+            if (event.target.value == "hard") {
+                stroke[0].style.backgroundImage = 'url("../static/stroke-red.svg")';
+            }
+        });
+    });
+</script>
 {% endblock %}

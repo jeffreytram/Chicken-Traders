@@ -15,6 +15,7 @@ class Player:
         self.credit = credit
         self.curr_region = curr_region
         self.ship = CShip()
+        self.karma = 0
 
     # END __init__
 

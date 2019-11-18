@@ -56,6 +56,7 @@ input {
 
 button:hover, .button:hover, .arrow:hover {
     cursor: pointer;
+    animation: .6s infinite normal start-wiggle
 }
 
 .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
@@ -66,7 +67,7 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .confirmSPContainer {
-    width: 30%;
+    width: 250px;
     margin: auto;
     display: flex;
     flex-flow: row wrap;
@@ -74,8 +75,8 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .setting {
-    width: 40%;
-    flex-basis: 40%;
+    width: 110px;
+    flex-basis: 110px;
     display: flex;
     justify-content: space-between;
 }
@@ -109,20 +110,67 @@ button:hover, .button:hover, .arrow:hover {
 /* home page css */
 
 #title {
-    font-stretch: expanded;
     font-size: 55px;
+    animation: 3s normal title-fade-in;
+}
+
+@keyframes title-fade-in {
+    from {
+        opacity: 0;
+        letter-spacing: 10px;
+    }
+    to {
+        opacity: 1;
+        letter-spacing: normal;
+    }
 }
 
 #logo {
-    width: 25%;
+    height: 15vw;
+}
+
+svg {
+    height: 10vw;
 }
 
 .start {
     padding: 10px 20px;
     margin: 40px;
+    animation: .6s infinite normal start-wiggle
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(.9);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(.9);
+    }
+}
+
+@keyframes start-wiggle {
+    0% {
+        transform: rotate(-2deg)
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(-2deg)
+    }
 }
 
 /* settings style*/
+
+.bg-image {
+    height: 100%;
+    background-image: url("stroke-green.svg");
+    background-repeat: no-repeat;
+    background-position-x: calc(-200px + 30vw);
+}
 
 .settings-grid {
     width: 90%;
@@ -134,54 +182,98 @@ button:hover, .button:hover, .arrow:hover {
     text-align: left;
 }
 
-.setting-img {
-    grid-row: 1/5;
-    grid-column: 1/2;
-    margin: auto;
+.setting-option>p>input {
+    width: 30vw;
 }
 
-.setting-option:nth-child(2), .setting-option:nth-child(3), .setting-option:nth-child(4) {
+.imgDiv, .sp-img {
+    justify-self: center;
+    align-self: center;
+    grid-row: 1/6;
+    grid-column: 1/2;
+}
+
+.chicken {
+    height: calc(150px + 10vw);
+    position: relative;
+    z-index: 2;
+}
+
+.stroke {
+    width: calc(200px + 5vw);
+    position: absolute;
+    top: 60px;
+    left: calc(-100px + 30vw);
+    z-index: 1;
+}
+
+.setting-option {
     grid-column: 2/3;
 }
 
-.setting-option:nth-child(3) {
+.form {
     grid-row: 2/5;
 }
 
 /* Skillpoints style*/
 
+.h1-headings {
+    font-size: 25px;
+}
+
+.h3-headings {
+    font-size: 15px;
+}
+
+.sp-grid, .sp-input>input {
+    font-size: calc(9px + 1vw);
+}
+
 .sp-grid {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    grid-template: repeat(5, minmax(auto, 75px)) / 40% minmax(75px, 1fr);
     border: 1px solid rgba(30, 30, 30, .5);
     border-radius: 15px;
     text-align: left;
 }
 
+.sp-option {
+    grid-column: 2/4;
+}
+
 .spForm {
     grid-row: 2/5;
 }
-.spForm > p {
-    display: flex;
-    width: 175px;
-    justify-content: space-between;
-}
-.spForm>p>input {
-    text-align: center;
-    width: 40px;
-}
 
-.sp-img {
-    grid-row: 1/5;
-    grid-column: 1/2;
-    margin: auto;
-}
 .back {
     grid-column: 2/3;
 }
 
+.sp-input-grid {
+    margin: auto;
+    display: grid;
+    grid-template: repeat(4, minmax(auto, 45px)) / calc(25px + 10vw) 50px minmax(70px, 150px);
+    border-radius: 15px;
+    text-align: left;
+}
+
+.sp-input>input {
+    width: 20px;
+    text-align: center;
+}
+
+/* game UI */
+
+.player-info-grid {
+    width: 90%;
+    display: grid;
+    grid-template: repeat(1, minmax(auto, 1fr)) / repeat(3, minmax(auto, 1fr));
+    border: 1px solid rgba(30, 30, 30, .5);
+    border-radius: 15px;
+    margin: 20px auto;
+}
 
 /* SHIP menu style */
 
@@ -208,7 +300,8 @@ button:hover, .button:hover, .arrow:hover {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
+    grid-template: repeat(4, auto) / repeat(3, minmax(50px, auto)) repeat(2, 50px);
+    text-align: left;
 }
 
 .cargo-item {
@@ -217,7 +310,7 @@ button:hover, .button:hover, .arrow:hover {
     align-items: center;
 }
 
-.cargo-item:nth-child(3n + 1) {
+.cargo-item:nth-child(3n+1) {
     grid-column: 1/4;
 }
 
@@ -239,6 +332,9 @@ button:hover, .button:hover, .arrow:hover {
     white-space: nowrap;
     border-radius: 0;
 }
+.region:hover {
+    animation: none;
+}
 
 .buttonAndMapContainer {
     display: flex;
@@ -253,14 +349,11 @@ button:hover, .button:hover, .arrow:hover {
     color: white;
 }
 
-.market-container {
+.grid-container {
     width: 90%;
     margin: auto;
-}
-
-.grid-container {
     display: grid;
-    grid-template: repeat(9, auto) / minmax(auto, 200px) repeat(5, auto);
+    grid-template: repeat(9, auto) / minmax(auto, calc(75px + 5vw)) repeat(5, auto);
     border: 8px solid rgba(30, 30, 30, .5);
     border-radius: 15px;
 }
@@ -272,10 +365,12 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .grid-container .shop>#itemUl {
-    grid-column: 2/-1;
-    grid-row: 1/-2;
     display: grid;
     grid-template: repeat(3, minmax(auto, 1fr)) / repeat(1, minmax(auto, 1fr));
+}
+.shop {
+    grid-column: 2/-1;
+    grid-row: 1/-2;
 }
 
 .grid-container .buy {
@@ -300,6 +395,11 @@ button:hover, .button:hover, .arrow:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
+}
+
+.item-icon {
+    height: 32px;
 }
 
 .item-left {
@@ -319,6 +419,9 @@ button:hover, .button:hover, .arrow:hover {
 .sellButton {
     border-radius: 0;
 }
+.sellButton:hover {
+    animation: none;
+}
 
 /* market player inv css */
 
@@ -326,7 +429,8 @@ button:hover, .button:hover, .arrow:hover {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 40px)) minmax(50px, 125px);
+    text-align: left;
 }
 
 .inv-item {
@@ -335,7 +439,7 @@ button:hover, .button:hover, .arrow:hover {
     align-items: center;
 }
 
-.inv-item:nth-child(4n + 1) {
+.inv-item:nth-child(4n+1) {
     grid-column: 1/4;
 }
 
@@ -343,6 +447,7 @@ button:hover, .button:hover, .arrow:hover {
     background-color: rgb(30, 30, 30);
     color: white;
     font-weight: bold;
+    padding: 4px 10px;
 }
 
 /* encounter css */
@@ -358,28 +463,27 @@ button:hover, .button:hover, .arrow:hover {
     border: 1px solid rgba(30, 30, 30, .5);
 }
 
-/* More test grid css */
-
-.test-container {
-    display: grid;
-    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(3, minmax(auto, 1fr));
-}
-
-.test-item {
-    border: 1px solid rgba(30, 30, 30, .5);
-    grid-column: 2/3;
-    grid-row: 2/3;
-}
-
 #text {
     border: 2px solid rgba(30, 30, 30);
-    width: 80%;
-    margin: auto;
+    border-radius: 15px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+#click-continue {
+    animation: 6s infinite normal bounce
 }
 
 @media (min-width:530px) {
     .grid-container .shop>#itemUl {
         grid-template: repeat(3, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+    }
+    .sp-grid {
+        grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
+    }
+    .sp-grid, .sp-input>input {
+        font-size: 15px;
     }
 }
 
@@ -392,20 +496,32 @@ button:hover, .button:hover, .arrow:hover {
         width: 50%;
     }
     /* market player inv css */
-    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
         width: 70%;
     }
     #logo {
-        width: 15%;
+        height: 10vw;
+    }
+    .stroke {
+        left: calc(-70px + 30vw);
+    }
+    .setting-option>p>input {
+        width: 20vw;
     }
 }
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid {
+    .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
         width: 50%;
     }
     #logo {
-        width: 10%;
+        height: 7vw;
+    }
+    .stroke {
+        left: calc(30vw);
+    }
+    .setting-option>p>input {
+        width: 15vw;
     }
 }

@@ -1,125 +1,163 @@
-9.18 [x] JT - Added welcome and settings screen
+9.18 - JT 
+- Added welcome and settings screen
 
-9.19 [x] JT - Added confirmation and starting game screen
-9.19 [x] JT - Added difficulty and starting credits selection
-9.19 [x] JT - Added button style and highlight
+9.19 - JT 
+- Added confirmation and starting game screen
+- Added difficulty and starting credits selection
+- Added button style and highlight
 
-9.20 [x] JT - Change SP allocation to up/down arrows only
-9.20 [x] JT - Check for SP allocation overflow
-    -prevent >16 and <0
-9.20 [x] JT - Check if all values filled out by user
-    -ensure user uses all SP
-9.20 [x] JT - improved settings user interface
-9.20 [x] JT - added pointer cursor on hover
+9.20 - JT 
+- Change SP allocation to up/down arrows only
+- Check for SP allocation overflow
+    - prevent >16 and <0
+- Check if all values filled out by user
+    - ensure user uses all SP
+- improved settings user interface
+- added pointer cursor on hover
 
-9.27 [x] JT - Game and Region class and TechLevel enum creation
+9.27 - JT 
+- Game and Region class and TechLevel enum creation
 
-10.3 [x] JT - Rework UI using Python Flask WTForms
-10.3 [x] JT - Now passes data from page to page
+10.3 - JT 
+- Rework UI using Python Flask WTForms
+- Now passes data from page to page
 
-10.4 [x] JT - Added back buttons to form
-10.4 [x] JT - Added travel functionality, removed unused JS code
-10.4 [x] JT - Region list visibility now toggleable
-10.4 [x] JT - Now storing data in dictionary
+10.4 - JT 
+- Added back buttons to form
+- Added travel functionality, removed unused JS code
+- Region list visibility now toggleable
+- Now storing data in dictionary
 
-10.9 [x] JT - Improved skillpoint limit warning, fixed back button bugs, formatting
+10.9 - JT 
+- Improved skillpoint limit warning, fixed back button bugs, formatting
 
-10.13 [x] JT - added map display
+10.13 - JT 
+- added map display
 
-10.17 [x] JT - Current region display redone with XMLHttpRequest
+10.17 - JT 
+- Current region display redone with XMLHttpRequest
 
-10.18 [x] JT - Connected market to backend
+10.18 - JT 
+- Connected market to backend
 
-10.20 [x] JT - Added ability to display selected item description and purchase statement
-10.20 [x] JT - Travel now updates fuel, purchasing items now subtracts credits
-10.20 [x] JT - Separated menu tabs into separate html files, added buy/sell and inventory functionality
+10.20 [x] JT 
+- Added ability to display selected item description and purchase statement
+- Travel now updates fuel, purchasing items now subtracts credits
+- Separated menu tabs into separate html files, added buy/sell and inventory functionality
 
-10.21 [x] JT - added item images
+10.21 - JT 
+- added item images
 
-10.22 [x] JT - Market now reloads on purchase/sell
-10.22 [x] JT - Added category filter
-10.22 [x] JT - formatting, improving naming consistency
+10.22 - JT 
+- Market now reloads on purchase/sell
+- Added category filter
+- formatting, improving naming consistency
 
-10.24 [x] JT - removed uneeded files
+10.24 - JT
+- removed uneeded files
 
-10.25 [x] JT - Market reformatted with grid
-10.25 [x] JT - Selected item no longer cleared after each purchase
-10.25 [x] JT - Inventory reformatted with grid
+10.25 - JT - Market reformatted with grid
+- Selected item no longer cleared after each purchase
+- Inventory reformatted with grid
  
-10.26 [x] JT - Added encounter page
+10.26 - JT 
+- Added encounter page
 
-10.27 [x] JT - Map now centers to current region
-10.27 [x] JT - Inv/cargo table slightly restructured
+10.27 - JT 
+- Map now centers to current region
+- Inv/cargo table slightly restructured
 - added weight, combined image and name
-10.27 [x] JT - Improved ship stat page layout
+- Improved ship stat page layout
 
-10.28 [x] JT - Added title art
-10.28 [x] JT - Fixed purchase statement display bug
-- clicking item sometimes doesnt correctly update purchase statement only on pythonanywhere
-- occurs on local host too but only flickers
-- doesnt occur for description
+10.28 - JT
+- Added title art
+- Fixed purchase statement display bug
+    - Bug documentation:
+    - clicking item sometimes doesnt correctly update purchase statement only on pythonanywhere
+    - occurs on local host too but only flickers
+    - doesnt occur for description
 
-11.02 [x] JT - added error message for not enough fuel, credits, or space
-11.02 [x] JT - removed uneeded code
-11.02 [x] JT - minor changes to UI
-- rounded corners, opacity, bolded important info
+11.02 - JT
+- added error message for not enough fuel, credits, or space
+- removed uneeded code
+- minor changes to UI
+    - rounded corners, opacity, bolded important info
 
-11.02 [x] JT - added random encounters
-11.02 [x] JT - added cheats to help test features and mechanics
+11.02 - JT
+- added random encounters
+- added cheats to help test features and mechanics
 
-11.03 [x] JT - added random encounter functionality
+11.03 - JT 
+- added random encounter functionality
 
-11.04 [x] JT - file name case changes and formatting improvments
+11.04 - JT 
+- file name case changes and formatting improvments
 
-11.05 [x] JT - Bug fixes
-- fixed trader rob
-11.05 [x] JT - Game balancing
-- modified success when checking skill
-11.05 [x] JT - Added more documentation
+11.05 [x] JT 
+- Bug fixes
+    - fixed trader rob
+- Game balancing
+    - modified success when checking skill
+- Added more documentation
 
-11.06 [x] JT - NPC option function slightly modified
+11.06 [x] JT 
+- NPC option function slightly modified
 - can only negotiate with trader once
 - successfully fleeing bandit returns to previous region
-11.06 [x] JT - Renamed project, fixed trader negotiation bug, other minor changes
+- Renamed project, fixed trader negotiation bug, other minor changes
 
-11.08 [x] JT - Added textbox to encounter
+11.08 - JT 
+- Added textbox to encounter
 - clarified success/fail
 - disabled buttons once option choosen
 - added special case for negotiate
-11.08 [x] JT - CSS improvement for different screen sizes
+- CSS improvement for different screen sizes
 
-11.11 [x] JT - CSS improvements
+11.11 - JT 
+- CSS improvements
 - cargo and inventory now with rounded corners
 
-11.14 [x] JT - Home, Settings, and Skillpoints page redesign
-11.14 [x] JT - Preparing win/lose screens
+11.14 - JT 
+- Home, Settings, and Skillpoints page redesign
+- Preparing win/lose screens
+
+11.15 - JT
+- Added stroke bg to Settings and Skillpoints page
+- Slight UI changes to Confirm page
+- Adjusted market category width
+- Added padding to table heading
+- Now displays current capcity
+- Added refuel and repair buttons
+
+11.16 - JT
+- added credits, fuel, and health icon
+- outlined pocketrussia item icon
+- Moved form errors to side to prevent button shift
+- Redesigned player info UI top bar 
+- reformated planning.txt
+- UI improvements in encounter textbox
+- replaced png icons with svg
+
+11.17 - JT
+- replaced missed png icons with svg
+- added some css animations
+- several cargo, inv, and market formatting improvements
+    - smaller columns taking less space (quantity, weight)
+    - left align text
+    - items in market take up entire container
+
 
 -[] add special condition for not having enough money to buy item
--[] fix form errors shifting button down
-
 
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel
-[] current capacity/cargo
-- current cargo weight variable in ship
 [] buying/selling multiple items
 [] ship art
-[] improve set up screens
 [] add animations
-[] display for different screen sizes
-
-[] buy/reload resets category
-
 
 BUGS:
 clicking div category highlights entire div
-
-Questions:
-leaflet js
--inverse coordinates, unproject/project
--clicking marker centers to diff position (bottom right)
--responsive map?
 
 
 

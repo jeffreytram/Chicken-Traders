@@ -82,6 +82,7 @@ def forfeit_police(player, police):
 def flee_police(player, police):
     if skill_check(player.pilot):
         # successful flee attempt
+        player.karma -= 2
         return True
     else:
         # fail flee attempt
@@ -89,17 +90,20 @@ def flee_police(player, police):
         forfeit_police(player, police)
         player.ship.health_level -= 15
         player.credit -= 70
+        player.karma -= 1
         return False
 
 
 def fight_police(player, police):
     if skill_check(player.fighter):
         # successful fight attempt
+        player.karma -= 2
         return True
     else:
         # fail fight attempt
         # forefeit item
         forfeit_police(player, police)
+        player.karma -= 1
         return False
 
 
@@ -127,6 +131,7 @@ def pay_bandit(player, bandit):
 def flee_bandit(player):
     if skill_check(player.pilot):
         # successful flee atempt
+        player.karma += 1
         return True
     else:
         # fail flee attempt
@@ -141,6 +146,7 @@ def fight_bandit(player, bandit):
         # successful fight attempt
         # take the bandits credits
         player.credit += int(bandit["demand"] * (5 / 4))
+        player.karma += 2
         return True
     else:
         # fail fight attempt
@@ -174,24 +180,34 @@ def rob_trader(player, trader):
                 trader["item"].amount -= num_stolen
                 return True
         player.ship.cargo.append(trader["item"])
+        player.karma -= 2
         return True
     else:
         # failed robbery attempt
         # player's ship loses 10 health
         player.ship.health_level -= 10
+        player.karma -= 1
         return False
 
 
 def negotiate_trader(player, trader):
     if skill_check(player.merchant):
         # successful negotiation attempt
-        # item's price 33% off
-        trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
+        if (player.karma > 0):
+            # half off
+            trader["item"].b_price = int(trader["item"].b_price * (1 / 2))
+        elif (player.karma < 0):
+            # 12.5% off
+            trader["item"].b_price = int(trader["item"].b_price * (7 / 8))
+        else:
+            # item's price 33% off
+            trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
         return True
     else:
         # failed negotation attempt
-        # increase item's price by 150%
-        trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
+        # increase item's price by 150% if bad or neutral karma
+        if (player.karma <= 0):
+            trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
         return False
 
     # Ignore does nothing
@@ -215,3 +231,4 @@ def damage(player, npc):
         player.ship.health_level -= h_damage
     else:
         player.ship.health_level = 0
+
