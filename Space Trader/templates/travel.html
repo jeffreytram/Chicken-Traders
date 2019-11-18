@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
+<!-- top bar UI -->
 <div class="player-info-grid">
     <div class="player-info">
         <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
@@ -13,6 +14,8 @@
             {{game.player.ship.max_health}}</strong>
     </div>
 </div>
+
+<!-- nav bar -->
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>

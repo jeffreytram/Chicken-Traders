@@ -138,8 +138,16 @@
 - UI improvements in encounter textbox
 - replaced png icons with svg
 
--[] add special condition for not having enough money to buy item
+11.17 - JT
+- replaced missed png icons with svg
+- added some css animations
+- several cargo, inv, and market formatting improvements
+    - smaller columns taking less space (quantity, weight)
+    - left align text
+    - items in market take up entire container
 
+
+-[] add special condition for not having enough money to buy item
 
 TODO:
 [] display fuel cost

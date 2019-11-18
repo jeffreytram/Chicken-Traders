@@ -56,6 +56,7 @@ input {
 
 button:hover, .button:hover, .arrow:hover {
     cursor: pointer;
+    animation: .6s infinite normal start-wiggle
 }
 
 .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
@@ -110,15 +111,56 @@ button:hover, .button:hover, .arrow:hover {
 
 #title {
     font-size: 55px;
+    animation: 3s normal title-fade-in;
+}
+
+@keyframes title-fade-in {
+    from {
+        opacity: 0;
+        letter-spacing: 10px;
+    }
+    to {
+        opacity: 1;
+        letter-spacing: normal;
+    }
 }
 
 #logo {
     height: 15vw;
 }
 
+svg {
+    height: 10vw;
+}
+
 .start {
     padding: 10px 20px;
     margin: 40px;
+    animation: .6s infinite normal start-wiggle
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(.9);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(.9);
+    }
+}
+
+@keyframes start-wiggle {
+    0% {
+        transform: rotate(-2deg)
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(-2deg)
+    }
 }
 
 /* settings style*/
@@ -233,9 +275,6 @@ button:hover, .button:hover, .arrow:hover {
     margin: 20px auto;
 }
 
-.player-info {
-}
-
 /* SHIP menu style */
 
 .ship-grid {
@@ -261,7 +300,8 @@ button:hover, .button:hover, .arrow:hover {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(5, minmax(auto, 1fr));
+    grid-template: repeat(4, auto) / repeat(3, minmax(50px, auto)) repeat(2, 50px);
+    text-align: left;
 }
 
 .cargo-item {
@@ -292,6 +332,9 @@ button:hover, .button:hover, .arrow:hover {
     white-space: nowrap;
     border-radius: 0;
 }
+.region:hover {
+    animation: none;
+}
 
 .buttonAndMapContainer {
     display: flex;
@@ -306,12 +349,9 @@ button:hover, .button:hover, .arrow:hover {
     color: white;
 }
 
-.market-container {
+.grid-container {
     width: 90%;
     margin: auto;
-}
-
-.grid-container {
     display: grid;
     grid-template: repeat(9, auto) / minmax(auto, calc(75px + 5vw)) repeat(5, auto);
     border: 8px solid rgba(30, 30, 30, .5);
@@ -325,10 +365,12 @@ button:hover, .button:hover, .arrow:hover {
 }
 
 .grid-container .shop>#itemUl {
-    grid-column: 2/-1;
-    grid-row: 1/-2;
     display: grid;
     grid-template: repeat(3, minmax(auto, 1fr)) / repeat(1, minmax(auto, 1fr));
+}
+.shop {
+    grid-column: 2/-1;
+    grid-row: 1/-2;
 }
 
 .grid-container .buy {
@@ -353,6 +395,7 @@ button:hover, .button:hover, .arrow:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
 }
 
 .item-icon {
@@ -376,6 +419,9 @@ button:hover, .button:hover, .arrow:hover {
 .sellButton {
     border-radius: 0;
 }
+.sellButton:hover {
+    animation: none;
+}
 
 /* market player inv css */
 
@@ -383,7 +429,8 @@ button:hover, .button:hover, .arrow:hover {
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(6, minmax(auto, 1fr));
+    grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 40px)) minmax(50px, 125px);
+    text-align: left;
 }
 
 .inv-item {
@@ -416,25 +463,16 @@ button:hover, .button:hover, .arrow:hover {
     border: 1px solid rgba(30, 30, 30, .5);
 }
 
-/* More test grid css */
-
-.test-container {
-    display: grid;
-    grid-template: repeat(3, minmax(auto, 1fr)) / repeat(3, minmax(auto, 1fr));
-}
-
-.test-item {
-    border: 1px solid rgba(30, 30, 30, .5);
-    grid-column: 2/3;
-    grid-row: 2/3;
-}
-
 #text {
     border: 2px solid rgba(30, 30, 30);
     border-radius: 15px;
     width: 90%;
     margin: 20px auto;
     padding: 10px;
+}
+
+#click-continue {
+    animation: 6s infinite normal bounce
 }
 
 @media (min-width:530px) {

@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
+<!-- top bar UI -->
 <div class="player-info-grid">
     <div class="player-info">
         <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
@@ -13,6 +14,8 @@
             {{game.player.ship.max_health}}</strong>
     </div>
 </div>
+
+<!-- nav bar -->
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
@@ -24,74 +27,76 @@
         Tech Level: {{currRegion.tech_level.name}}
     </h2>
 </div>
+
+<!-- Market -->
 <div class="menu marketMenu">
     <h2>Market</h2>
-    <div class="market-container">
-        <div class="grid-container">
-            <div class="grid-item category">
-                <ul id="itemCategoriesUl">
-                    <li class=" activeCategory">All</li>
-                    <li>Animal</li>
-                    <li>Country</li>
-                    <li>Food</li>
-                    <li>Medicine</li>
-                    <li>Misc.</li>
-                    <li>Weapons</li>
-                    <li>Resources</li>
-                    <li>Technology</li>
-                </ul>
-            </div>
-            <div class="grid-item shop">
-                <ul id="itemUl">
-                    {% for item in currRegion.market %}
-                    <li class="item {{loop.index}} {{item.category}} shop-item">
-                        <div class="item-left">
-                            <img class="item-icon" src="../static/item-images/item-icon_{{item.name}}.svg">{{item.name}}
-                        </div>
-                        <div class="item-right">
-                            <strong>{{item.b_price}}</strong>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="grid-item buy">
-                {% if selectedItem %}
-                <p id="purchaseStatement">Purchase <strong>{{selectedItem.name}}</strong> for
-                    <strong>{{selectedItem.b_price}}</strong>?</p>
-                {% else %}
-                <p id="purchaseStatement">Choose an item to purchase</p>
-                {% endif %}
-                <button type="button" onclick="purchase()">Purchase</button>
-            </div>
-            <div class="grid-item description">
-                {% if market_error %}
-                <h3 class="error">{{market_error}}</h3>
-                {% endif %}
-                {{selectedItem.description}}
-            </div>
+    <div class="grid-container">
+        <div class="grid-item category">
+            <ul id="itemCategoriesUl">
+                <li class=" activeCategory">All</li>
+                <li>Animal</li>
+                <li>Country</li>
+                <li>Food</li>
+                <li>Medicine</li>
+                <li>Misc.</li>
+                <li>Weapons</li>
+                <li>Resources</li>
+                <li>Technology</li>
+            </ul>
+        </div>
+        <div class="grid-item shop">
+            <ul id="itemUl">
+                {% for item in currRegion.market %}
+                <li class="item {{loop.index}} {{item.category}} shop-item">
+                    <div class="item-left">
+                        <img class="item-icon" src="../static/item-images/item-icon_{{item.name}}.svg">{{item.name}}
+                    </div>
+                    <div class="item-right">
+                        <strong>{{item.b_price}}</strong>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="grid-item buy">
+            {% if selectedItem %}
+            <p id="purchaseStatement">Purchase <strong>{{selectedItem.name}}</strong> for
+                <strong>{{selectedItem.b_price}}</strong>?</p>
+            {% else %}
+            <p id="purchaseStatement">Choose an item to purchase</p>
+            {% endif %}
+            <button type="button" onclick="purchase()">Purchase</button>
+        </div>
+        <div class="grid-item description">
+            {% if market_error %}
+            <h3 class="error">{{market_error}}</h3>
+            {% endif %}
+            {{selectedItem.description}}
         </div>
     </div>
 </div>
 <button onclick="addFuel()">buy 50 fuel</button>
 <button onclick="addHealth()">repair 50 health</button>
+
+<!-- Player Inv -->
 <h4>Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
 <div class="inv-grid">
     <div class="inv-item inv-image tableHeader">
         Item
     </div>
     <div class="inv-item inv-quantity tableHeader">
-        Quantity
+        #
     </div>
     <div class="inv-item inv-weight tableHeader">
-        Weight Per
+        lb
     </div>
     <div class="inv-item inv-sell tableHeader">
-        Sell Price Per
+        Sell
     </div>
     {% for item in game.player.ship.cargo %}
     <div class="inv-item inv-name">
-        <img src="../static/item-images/item_{{item.name}}.png">{{item.name}}
+        <img class="item-icon" src="../static/item-images/item-icon_{{item.name}}.svg">{{item.name}}
     </div>
     <div class="inv-item inv-quantity">
         {{item.amount}}x

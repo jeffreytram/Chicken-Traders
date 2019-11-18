@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
+<!-- top bar UI -->
 <div class="player-info-grid">
     <div class="player-info">
         <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
@@ -13,6 +14,8 @@
             {{game.player.ship.max_health}}</strong>
     </div>
 </div>
+
+<!-- nav bar -->
 <div id="menu">
     <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
@@ -43,20 +46,22 @@
             Health: <strong>{{game.player.ship.max_health}}</strong>
         </div>
     </div>
+
+    <!-- Cargo -->
     <h3>Cargo: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h3>
     <div class="cargo-grid">
         <div class="cargo-item inv-image tableHeader">
             Item
         </div>
         <div class="cargo-item inv-quantity tableHeader">
-            Quantity
+            #
         </div>
         <div class="cargo-item inv-weight tableHeader">
-            Weight Per
+            lb
         </div>
         {% for item in game.player.ship.cargo %}
         <div class="cargo-item inv-image">
-            <img src="../static/item-images/item_{{item.name}}.png"> {{item.name}}
+            <img class="item-icon" src="../static/item-images/item-icon_{{item.name}}.svg"> {{item.name}}
         </div>
         <div class="cargo-item inv-quantity">
             {{item.amount}}x

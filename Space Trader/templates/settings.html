@@ -5,7 +5,6 @@
         <div class="settings-grid">
             <div class="imgDiv">
                 <img class="chicken" src="../static/chicken.png">
-                <!--<img class="stroke" src="../static/stroke-green.png">-->
             </div>
             <h1 class="h1-headings setting-option">Settings</h1>
             <form class="setting-option form" method="post">
@@ -36,7 +35,7 @@
     let stroke = document.getElementsByClassName("bg-image");
     Array.from(radioButtons).forEach(function (button) {
         button.addEventListener("click", function (event) {
-            //transition to different image
+            //switch to different image based on selected diff
             if (event.target.value == "easy") {
                 stroke[0].style.backgroundImage = 'url("../static/stroke-green.svg")';
             }
