@@ -17,6 +17,7 @@ class Game:
         self.player = Player(
             name, skill_points, credit, self.universe.region_list[rand_int]
         )
+        self.universe.insert_win(self.player.name)
         utility.bprice_calc(self.player, self.player.curr_region)
         utility.sprice_calc(self.player, self.player.curr_region)
 

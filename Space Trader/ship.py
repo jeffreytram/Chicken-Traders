@@ -50,9 +50,6 @@ class Ship:
     def set_max_health(self, max_health):
         self.max_health = max_health
 
-    def add_item(self, item):
-        pass
-
 
 # 3 ship types, subclasses of ship
 class AShip(Ship):

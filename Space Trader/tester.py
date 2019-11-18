@@ -17,7 +17,6 @@ for reg in game.universe.region_list:
 
     for stuff in reg.market:
         print(stuff.name)
-        print(stuff.amount)
     print()
     print()
 print()
@@ -29,7 +28,10 @@ print(game.player.ship.fuel_level)
 
 game.player.ship.health_level = 0
 print(game.player.buy_repairs(20))
-print(game.player.ship.fuel_level)
+print(game.player.ship.health_level)
+
+print(game.player.win)
+print(game.player.lose)
 
 
 # game = universe_create()

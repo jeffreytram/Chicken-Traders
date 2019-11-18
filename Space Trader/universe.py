@@ -4,6 +4,7 @@ import random
 import enum
 import math
 from item import Item
+from item import Winning_Item
 
 
 class TechLevel(enum.Enum):
@@ -151,3 +152,6 @@ class Universe:
                 self.region_list.append(new_region)
             # END if
         # END while
+    def insert_win(self, item_name):
+        market = random.randint(0, len(self.region_list) - 1)
+        self.region_list[market].market.append(Winning_Item(item_name))

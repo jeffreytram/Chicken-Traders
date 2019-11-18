@@ -19,6 +19,21 @@ class Player:
     # END __init__
 
     @property
+    def win(self):
+        for item in self.ship.cargo:
+            if item.name == self.name + "'s Universe.":
+                return True
+        return False
+    
+    @property
+    def lose(self):
+        if self.ship.health_level == 0:
+            return True
+        else:
+            return False
+    
+
+    @property
     def credit(self):
         return self._credit
 
@@ -36,6 +51,7 @@ class Player:
         elif self.ship.health_level + repairs > self.ship.max_health:
             return "You're buying more than you can use??"
         else:
+            self.ship.health_level += repairs
             return "Success"
 
 
