@@ -51,7 +51,11 @@ class Player:
         if self.credit < cost:
             return "Not enough Money!"
         elif self.ship.health_level + repairs > self.ship.max_health:
-            return "You're buying more than you can use??"
+            damage = self.ship.max_health - self.ship.health_level
+            cost = utility.repair_cost(damage, self.engineer)
+            self.credit -= cost
+            self.ship.health_level = self.ship.max_health
+            return "Success"
         else:
             self.credit -= cost
             self.ship.health_level += repairs
