@@ -47,19 +47,23 @@ class Player:
 
 
     def buy_repairs(self, repairs):
-        if self.credit < (utility.repair_cost(repairs, self.engineer)):
+        cost = utility.repair_cost(repairs, self.engineer)
+        if self.credit < cost:
             return "Not enough Money!"
         elif self.ship.health_level + repairs > self.ship.max_health:
             return "You're buying more than you can use??"
         else:
+            self.credit -= cost
             self.ship.health_level += repairs
             return "Success"
 
 
     def purchase_fuel(self, fuel):
-        if self.credit < (fuel * self.fuel_cost):
+        cost = fuel * self.fuel_cost
+        if self.credit < cost:
             return "Not enough cash"
         else:
+            self.credit -= cost
             self.ship.refuel(fuel)
             return "Success"
 
