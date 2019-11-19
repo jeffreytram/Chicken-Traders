@@ -20,17 +20,18 @@ class Item:
 class Winning_Item:
 
     def __init__(self, name):
-        self.name = name + "'s Universe."
+        self.name = name + "'s Universe"
         self.amount = 1
         self.category = "Misc."
         self.base_price = 4000
         self.b_price = 0
         self.s_price = 0
         self.debut = 1
+        self.size = 1
 
     @property
     def description(self):
-        return self.name + "Buy this and you win!"
+        return self.name + ". Buy this and you win!"
 
 # Make more items
 class Computer(Item):

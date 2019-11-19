@@ -164,6 +164,12 @@ def travel():
 
 @app.route("/market", methods=["GET", "POST"])
 def market():
+    if dictionary["game"].player.win: 
+        dictionary["end_game"] = "WIN"
+        print("hi, u won")
+        return redirect(url_for("end"))
+    else:
+        print(dictionary["game"].player.win)
     if request.method == "POST":
         if "selectedIndex" in request.form:
             selected_index = int(request.form["selectedIndex"]) - 1
@@ -190,7 +196,7 @@ def market():
         if "addFuel" in request.form:
             dictionary["game"].player.purchase_fuel(50)
         if "addHealth" in request.form:
-            dictionary["game"].player.buy_repairs(50)
+            dictionary["game"].player.buy_repairs(10)
     return render_template(
         "market.html",
         market_error=dictionary["market_error"],
@@ -200,11 +206,10 @@ def market():
     )
 
 
-@app.route("/test", methods=["GET", "POST"])
-def test():
-    dictionary["end_game"] = "WIN"
+@app.route("/end", methods=["GET", "POST"])
+def end():
     return render_template(
-        "test.html",
+        "end.html",
         end_game = dictionary["end_game"],
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
@@ -215,6 +220,9 @@ def test():
 @app.route("/encounter", methods=["GET", "POST"])
 def encounter():
     if not dictionary["npc"]:
+        if dictionary["game"].player.lose:
+            dictionary["end_game"] = "LOSE"
+            return redirect(url_for("end"))
         return redirect(url_for("travel"))
     gen_npc = dictionary["npc"]
     if request.method == "POST":
@@ -251,20 +259,26 @@ def encounter():
                     ] = "You failed to flee the Bandit. The Bandit took all your credits and injured you."
             # trader choices
             if "buy_trader" in request.form:
-                dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1)
-                dictionary["second_test"] = True
-                dictionary["negotiated"] = False
-                dictionary["choice_result"] = (
-                    "You bought a " + dictionary["npc"]["item"].name + "."
-                )
+                if dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1) == "Success":
+                    dictionary["second_test"] = True
+                    dictionary["negotiated"] = False
+                    dictionary["choice_result"] = (
+                        "You bought a " + dictionary["npc"]["item"].name + "."
+                    )
+                else:
+                    dictionary["disabled"] = False
+                    dictionary["second_test"] = False
+                    dictionary["choice_result"] = (
+                        "You don't have enough credits!"
+                    )
             if "ignore_trader" in request.form:
                 dictionary["second_test"] = True
                 dictionary["negotiated"] = False
                 dictionary["choice_result"] = "You chose to ignore the Trader."
             if "rob_trader" in request.form:
+                dictionary["second_test"] = True
+                dictionary["negotiated"] = False
                 if utility.rob_trader(dictionary["game"].player, dictionary["npc"]):
-                    dictionary["second_test"] = True
-                    dictionary["negotiated"] = False
                     dictionary["choice_result"] = (
                         "You robbed the Trader's " + dictionary["npc"]["item"].name + "!"
                     )

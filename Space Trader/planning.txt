@@ -146,15 +146,17 @@
     - left align text
     - items in market take up entire container
 
+11.19 - JT
+- added text for not having enough money to buy trader's items
+- added background
+- added winning/losing condition and pages
 
--[] add special condition for not having enough money to buy item
 
 TODO:
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel
 [] buying/selling multiple items
-[] ship art
-[] add animations
+[] ship(tractor), chicken art
 
 BUGS:
 clicking div category highlights entire div

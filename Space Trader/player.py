@@ -5,7 +5,7 @@ from ship import CShip
 
 
 class Player:
-    fuel_cost = 3
+    fuel_cost = 1
     def __init__(self, name, skill_points, credit, curr_region):
         self.name = name
         self.pilot = skill_points[0]
@@ -22,7 +22,7 @@ class Player:
     @property
     def win(self):
         for item in self.ship.cargo:
-            if item.name == self.name + "'s Universe.":
+            if item.name == self.name + "'s Universe":
                 return True
         return False
     

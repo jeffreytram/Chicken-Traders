@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div>
+    <h1>YOU {{end_game}}!</h1>
+    <h3>😊Thanks for playing!😊</h3>
+    <img class="end" src="../static/{{end_game}}.gif">
+    <button class="start" onclick="location.href = 'settings'">Start New Game</button>
+</div>
+{% endblock %}
