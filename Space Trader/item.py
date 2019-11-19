@@ -18,7 +18,7 @@ class Item:
 
 
 class Winning_Item:
-
+    item_id = 13
     def __init__(self, name):
         self.name = name + "'s Universe"
         self.amount = 1
@@ -36,7 +36,7 @@ class Winning_Item:
 # Make more items
 class Computer(Item):
     """Framework for computer"""
-
+    item_id = 1
     name = "Computer"
     category = "Technology"
     debut = 6
@@ -50,7 +50,7 @@ class Computer(Item):
 
 class StrangeTalisman(Item):
     """Framework for Strange Talisman"""
-
+    item_id = 2
     name = "Strange Talisman"
     category = "Misc."
     debut = 1
@@ -64,7 +64,7 @@ class StrangeTalisman(Item):
 
 class Banana(Item):
     """Framework for Banana"""
-
+    item_id = 3
     name = "Banana"
     category = "Food"
     debut = 1
@@ -79,6 +79,7 @@ class Banana(Item):
 class Apple(Item):
     """Framework for Apple"""
 
+    item_id = 4
     name = "Apple"
     category = "Food"
     debut = 1
@@ -93,6 +94,7 @@ class Apple(Item):
 class Gun(Item):
     """Framework for Gun"""
 
+    item_id = 5
     name = "Gun"
     category = "Weapons"
     debut = 1
@@ -107,6 +109,7 @@ class Gun(Item):
 class BiggerGun(Item):
     """Framework for Bigger Gun"""
 
+    item_id = 6
     name = "Bigger Gun"
     category = "Weapons"
     debut = 1
@@ -121,6 +124,7 @@ class BiggerGun(Item):
 class FartInAJar(Item):
     """Framework for Fart in a jar"""
 
+    item_id = 7
     name = "Fart in a jar"
     category = "Weapons"
     debut = 1
@@ -135,6 +139,7 @@ class FartInAJar(Item):
 class Friendship(Item):
     """Framework for Friendship"""
 
+    item_id = 8
     name = "Friendship"
     category = "Misc."
     debut = 1
@@ -149,6 +154,7 @@ class Friendship(Item):
 class PocketRussia(Item):
     """Framework for Russia"""
 
+    item_id = 9
     name = "PocketRussia"
     category = "Country"
     debut = 1
@@ -161,6 +167,8 @@ class PocketRussia(Item):
 
 
 class InvincibilityStar(Item):
+
+    item_id = 10
     name = "Invincibility Star"
     category = "Weapons"
     debut = 1
@@ -176,6 +184,7 @@ class InvincibilityStar(Item):
 
 
 class AlienChicken(Item):
+    item_id = 11
     name = "Alien Chicken"
     category = "Animal"
     debut = 2
@@ -188,6 +197,7 @@ class AlienChicken(Item):
 
 
 class AssortedAlienAnimalFurs(Item):
+    item_id = 12
     name = "Assorted Alien Animal Furs"
     category = "Animal"
     debut = 1

@@ -22,13 +22,14 @@ for reg in game.universe.region_list:
 print()
 print()
 
-game.player.ship.fuel_level = 0
-print(game.player.purchase_fuel(20))
-print(game.player.ship.fuel_level)
-
-game.player.ship.health_level = 0
-print(game.player.buy_repairs(20))
+# game.player.ship.fuel_level = 0
+# print(game.player.purchase_fuel(20))
+# print(game.player.ship.fuel_level)
+print(game.player.credit)
+game.player.ship.health_level = 40
+print(game.player.buy_repairs(10))
 print(game.player.ship.health_level)
+print(game.player.credit)
 
 print(game.player.win)
 print(game.player.lose)
