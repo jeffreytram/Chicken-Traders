@@ -117,29 +117,15 @@ def pay_bandit(player, bandit):
     if player.credit >= bandit["demand"]:
         # successful payment
         player.credit -= bandit["demand"]
-        return True
+        return 1
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
         player.ship.cargo.clear()
-        return False
+        return 2
     else:
         # Get damaged
         player.ship.health_level -= 15
-        return False
-
-
-def flee_bandit(player):
-    if skill_check(player.pilot):
-        # successful flee atempt
-        player.karma += 1
-        return True
-    else:
-        # fail flee attempt
-        # lose all credits and get damaged
-        player.credit = 0
-        player.ship.health_level -= 20
-        return False
-
+        return 3
 
 def fight_bandit(player, bandit):
     if skill_check(player.fighter):
@@ -154,6 +140,21 @@ def fight_bandit(player, bandit):
         player.credit = 0
         player.ship.health_level -= 20
         return False
+
+def flee_bandit(player):
+    if skill_check(player.pilot):
+        # successful flee atempt
+        player.karma += 1
+        return True
+    else:
+        # fail flee attempt
+        # lose all credits and get damaged
+        player.credit = 0
+        player.ship.health_level -= 20
+        return False
+
+
+
 
 
 # create a trader dict
@@ -173,12 +174,12 @@ def trader_item():
 def rob_trader(player, trader):
     if skill_check(player.fighter):
         # successful robbery
-        num_stolen = random.randint(1, trader["item"].amount)
         for cargo in player.ship.cargo:
             if cargo.name == trader["item"].name:
-                cargo.amount += num_stolen
-                trader["item"].amount -= num_stolen
-                return True
+                cargo.amount += 1
+                trader["item"].amount -= 1
+                player.karma -= 2
+                return 1
         player.ship.cargo.append(trader["item"])
         player.karma -= 2
         return True

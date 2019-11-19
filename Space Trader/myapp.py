@@ -26,8 +26,8 @@ dictionary = {
     "negotiated": False,
     "choice_result": None,
     "second_test": True,
-    "disabled" : False,
-    "end_game": None
+    "disabled": False,
+    "end_game": None,
 }
 
 
@@ -65,7 +65,12 @@ def skillpoints():
         dictionary["sp3"] = sp_form.sp3.data
         dictionary["sp4"] = sp_form.sp4.data
         return redirect(url_for("confirm"))
-    return render_template("skillpoints.html", diff=dictionary["pDiff"], form=sp_form, sp=dictionary["pSPLimit"])
+    return render_template(
+        "skillpoints.html",
+        diff=dictionary["pDiff"],
+        form=sp_form,
+        sp=dictionary["pSPLimit"],
+    )
 
 
 @app.route("/confirm", methods=["GET", "POST"])
@@ -164,12 +169,9 @@ def travel():
 
 @app.route("/market", methods=["GET", "POST"])
 def market():
-    if dictionary["game"].player.win: 
+    if dictionary["game"].player.win:
         dictionary["end_game"] = "WIN"
-        print("hi, u won")
         return redirect(url_for("end"))
-    else:
-        print(dictionary["game"].player.win)
     if request.method == "POST":
         if "selectedIndex" in request.form:
             selected_index = int(request.form["selectedIndex"]) - 1
@@ -210,7 +212,7 @@ def market():
 def end():
     return render_template(
         "end.html",
-        end_game = dictionary["end_game"],
+        end_game=dictionary["end_game"],
         game=dictionary["game"],
         currRegion=dictionary["currRegion"],
         universe=dictionary["game"].universe,
@@ -234,32 +236,54 @@ def encounter():
             dictionary["disabled"] = True
             # bandit choices
             if "pay_bandit" in request.form:
-                if utility.pay_bandit(dictionary["game"].player, dictionary["npc"]):
-                    dictionary["choice_result"] = "You paid the bandit " + str(dictionary["npc"]["demand"]) + " credits."
+                state = utility.pay_bandit(dictionary["game"].player, dictionary["npc"])
+                if state == 1:
+                    dictionary["choice_result"] = (
+                        "You paid the bandit. (-"
+                        + str(dictionary["npc"]["demand"])
+                        + " credits)"
+                    )
+                elif state == 2:
+                    dictionary[
+                        "choice_result"
+                    ] = "You attempted to pay the bandit without enough money! The bandit steals all your cargo!"
                 else:
                     dictionary[
                         "choice_result"
-                    ] = "You attempted to pay the bandit without enough money! The bandit responds in agitation."
+                    ] = "You attempted to pay the bandit without anything to offer! The bandit attacks you out of anger! (-15 health)"
             if "fight_bandit" in request.form:
+                credits = dictionary["game"].player.credit
                 if utility.fight_bandit(dictionary["game"].player, dictionary["npc"]):
-                    dictionary[
-                        "choice_result"
-                    ] = "You successfully defeated the bandit. You took the Bandit's credits."
+                    dictionary["choice_result"] = (
+                        "You successfully defeated the bandit. You took the Bandit's credits. (+"
+                        + str(int((5 / 4) * dictionary["npc"]["demand"]))
+                        + " credits)"
+                    )
                 else:
-                    dictionary[
-                        "choice_result"
-                    ] = "You lost to the Bandit! The Bandit took all your credits and injured you."
+                    dictionary["choice_result"] = (
+                        "You lost to the Bandit! The Bandit took all your credits and injured you. (-"
+                        + str(credits)
+                        + " credits, -20 health)"
+                    )
             if "flee_bandit" in request.form:
+                credits = dictionary["game"].player.credit
                 if utility.flee_bandit(dictionary["game"].player):
                     dictionary["currRegion"] = dictionary["prev_region"]
-                    dictionary["choice_result"] = "You successfully fled the Bandit!"
-                else:
                     dictionary[
                         "choice_result"
-                    ] = "You failed to flee the Bandit. The Bandit took all your credits and injured you."
+                    ] = "You successfully fled to the previous region!"
+                else:
+                    dictionary["choice_result"] = (
+                        "You failed to flee the Bandit. The Bandit took all your credits and injured you. (-"
+                        + str(credits)
+                        + " credits, -20 health)"
+                    )
             # trader choices
             if "buy_trader" in request.form:
-                if dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1) == "Success":
+                if (
+                    dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1)
+                    == "Success"
+                ):
                     dictionary["second_test"] = True
                     dictionary["negotiated"] = False
                     dictionary["choice_result"] = (
@@ -268,9 +292,7 @@ def encounter():
                 else:
                     dictionary["disabled"] = False
                     dictionary["second_test"] = False
-                    dictionary["choice_result"] = (
-                        "You don't have enough credits!"
-                    )
+                    dictionary["choice_result"] = "You don't have enough credits!"
             if "ignore_trader" in request.form:
                 dictionary["second_test"] = True
                 dictionary["negotiated"] = False
@@ -280,12 +302,14 @@ def encounter():
                 dictionary["negotiated"] = False
                 if utility.rob_trader(dictionary["game"].player, dictionary["npc"]):
                     dictionary["choice_result"] = (
-                        "You robbed the Trader's " + dictionary["npc"]["item"].name + "!"
+                        "You robbed the Trader! (+ 1 )"
+                        + dictionary["npc"]["item"].name
+                        + "!"
                     )
                 else:
                     dictionary[
                         "choice_result"
-                    ] = "The Trader caught you in the act and slapped you."
+                    ] = "The Trader caught you in the act and slapped you. (-10 health)"
             if "negotiate_trader" in request.form:
                 dictionary["disabled"] = False
                 dictionary["second_test"] = False
@@ -306,22 +330,32 @@ def encounter():
             # police choices
             if "forfeit_police" in request.form:
                 utility.forfeit_police(dictionary["game"].player, dictionary["npc"])
-                dictionary["choice_result"] = "You forfeited the item."
+                dictionary["choice_result"] = (
+                    "You forfeited the item. (-all "
+                    + dictionary["npc"]["item"].name
+                    + ")"
+                )
             if "flee_police" in request.form:
                 if utility.flee_police(dictionary["game"].player, dictionary["npc"]):
                     dictionary["currRegion"] = dictionary["prev_region"]
-                    dictionary["choice_result"] = "You fled the Police."
-                else:
                     dictionary[
                         "choice_result"
-                    ] = "You failed to flee from the Police. The Police took the item, charged you a fee, and slapped you."
+                    ] = "You successfully fled to the previous region!"
+                else:
+                    dictionary["choice_result"] = (
+                        "You failed to flee from the Police. The Police took the item, charged you a fee, and slapped you. (-all "
+                        + dictionary["npc"]["item"].name
+                        + ", -70 credits, -15 health)"
+                    )
             if "fight_police" in request.form:
                 if utility.fight_police(dictionary["game"].player, dictionary["npc"]):
                     dictionary["choice_result"] = "You fought off the Police!"
                 else:
-                    dictionary[
-                        "choice_result"
-                    ] = "You failed to fight of the Police! The Police took the item from you!"
+                    dictionary["choice_result"] = (
+                        "You failed to fight of the Police! The Police took the item from you! (-all "
+                        + dictionary["npc"]["item"].name
+                        + ")"
+                    )
     return render_template(
         "encounter.html",
         second_test=dictionary["second_test"],
