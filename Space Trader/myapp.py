@@ -22,7 +22,7 @@ dictionary = {
     "selectedItem": None,
     "fuel_error": None,
     "market_error": None,
-    "npc": None,
+    "npc": {},
     "negotiated": False,
     "choice_result": None,
     "second_test": True,
@@ -246,11 +246,13 @@ def encounter():
                 elif state == 2:
                     dictionary[
                         "choice_result"
-                    ] = "You attempted to pay the bandit without enough money! The bandit steals all your cargo!"
+                    ] = ("You attempted to pay the bandit without enough money!" +
+                         "The bandit steals all your cargo!")
                 else:
                     dictionary[
                         "choice_result"
-                    ] = "You attempted to pay the bandit without anything to offer! The bandit attacks you out of anger! (-15 health)"
+                    ] = ("You attempted to pay the bandit without anything to offer!" +
+                         "The bandit attacks you out of anger! (-15 health)")
             if "fight_bandit" in request.form:
                 credits = dictionary["game"].player.credit
                 if utility.fight_bandit(dictionary["game"].player, dictionary["npc"]):
@@ -261,7 +263,8 @@ def encounter():
                     )
                 else:
                     dictionary["choice_result"] = (
-                        "You lost to the Bandit! The Bandit took all your credits and injured you. (-"
+                        "You lost to the Bandit! The Bandit "
+                        + "took all your credits and injured you. (-"
                         + str(credits)
                         + " credits, -20 health)"
                     )
@@ -274,15 +277,16 @@ def encounter():
                     ] = "You successfully fled to the previous region!"
                 else:
                     dictionary["choice_result"] = (
-                        "You failed to flee the Bandit. The Bandit took all your credits and injured you. (-"
+                        "You failed to flee the Bandit."
+                        + "The Bandit took all your credits and injured you. (-"
                         + str(credits)
                         + " credits, -20 health)"
                     )
             # trader choices
             if "buy_trader" in request.form:
                 if (
-                    dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1)
-                    == "Success"
+                        dictionary["game"].player.trade_buy(dictionary["npc"]["item"], 1)
+                        == "Success"
                 ):
                     dictionary["second_test"] = True
                     dictionary["negotiated"] = False
@@ -316,7 +320,7 @@ def encounter():
                 if not dictionary["negotiated"]:
                     dictionary["negotiated"] = True
                     if utility.negotiate_trader(
-                        dictionary["game"].player, dictionary["npc"]
+                            dictionary["game"].player, dictionary["npc"]
                     ):
                         dictionary[
                             "choice_result"
@@ -343,7 +347,8 @@ def encounter():
                     ] = "You successfully fled to the previous region!"
                 else:
                     dictionary["choice_result"] = (
-                        "You failed to flee from the Police. The Police took the item, charged you a fee, and slapped you. (-all "
+                        "You failed to flee from the Police. The Police took"
+                        + " the item, charged you a fee, and slapped you. (-all "
                         + dictionary["npc"]["item"].name
                         + ", -70 credits, -15 health)"
                     )
@@ -352,7 +357,8 @@ def encounter():
                     dictionary["choice_result"] = "You fought off the Police!"
                 else:
                     dictionary["choice_result"] = (
-                        "You failed to fight of the Police! The Police took the item from you! (-all "
+                        "You failed to fight of the Police! "
+                        + "The Police took the item from you! (-all "
                         + dictionary["npc"]["item"].name
                         + ")"
                     )

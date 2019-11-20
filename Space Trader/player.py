@@ -31,8 +31,7 @@ class Player:
     def lose(self):
         if self.ship.health_level == 0:
             return True
-        else:
-            return False
+        return False
 
     @property
     def credit(self):
@@ -64,6 +63,12 @@ class Player:
         cost = fuel * self.fuel_cost
         if self.credit < cost:
             return "Not enough cash"
+        elif self.ship.fuel_level + fuel > self.ship.max_fuel:
+            new_fuel = self.ship.max_fuel - self.ship.fuel_level
+            cost = new_fuel * self.fuel_cost
+            self.credit -= cost
+            self.ship.fuel_level = self.ship.max_fuel
+            return "Success"
         else:
             self.credit -= cost
             self.ship.refuel(fuel)

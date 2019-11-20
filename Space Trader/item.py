@@ -17,8 +17,12 @@ class Item:
         return self.__class__.__name__ + ": " + str(self.amount)
 
 
-class Winning_Item:
+class WinningItem:
+<<<<<<< Updated upstream
     id = 13
+=======
+    item_id = 13
+>>>>>>> Stashed changes
     def __init__(self, name):
         self.name = name + "'s Universe"
         self.amount = 1

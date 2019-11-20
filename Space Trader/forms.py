@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField, SubmitField, RadioField
+from wtforms import StringField, IntegerField, SubmitField, RadioField
 from wtforms.validators import DataRequired, NumberRange
 
 
 class SettingForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     diff = RadioField(
-        "Difficulty", 
-        choices=[("easy", "Easy"), ("med", "Medium"), ("hard", "Hard"), ] ,
+        "Difficulty",
+        choices=[("easy", "Easy"), ("med", "Medium"), ("hard", "Hard"), ],
         default="easy"
     )
     submit = SubmitField("Continue")

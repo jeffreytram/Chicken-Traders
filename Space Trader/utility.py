@@ -233,4 +233,3 @@ def damage(player, npc):
         player.ship.health_level -= h_damage
     else:
         player.ship.health_level = 0
-
