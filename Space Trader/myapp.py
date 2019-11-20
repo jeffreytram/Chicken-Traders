@@ -255,7 +255,7 @@ def encounter():
                 credits = dictionary["game"].player.credit
                 if utility.fight_bandit(dictionary["game"].player, dictionary["npc"]):
                     dictionary["choice_result"] = (
-                        "You successfully defeated the bandit. You took the Bandit's credits. (+"
+                        "You successfully defeated the bandit. You took the Bandit's credits. \n(+"
                         + str(int((5 / 4) * dictionary["npc"]["demand"]))
                         + " credits)"
                     )

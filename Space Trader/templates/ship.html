@@ -60,7 +60,7 @@
         </div>
         {% for item in game.player.ship.cargo %}
         <div class="cargo-item inv-image">
-            <img class="item-icon" src="../static/item-images/item-icon_{{item.name}}.svg"> {{item.name}}
+            <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg"> {{item.name}}
         </div>
         <div class="cargo-item inv-quantity">
             {{item.amount}}x

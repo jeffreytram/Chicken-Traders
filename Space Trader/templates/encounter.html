@@ -22,11 +22,11 @@
 </p>
 {% elif npc["name"] == "Trader" %}
 <p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
-        src="../static/item-images/item-icon_{{npc.item.name}}.svg"><strong>{{npc["item"].name}}</strong> for
+        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
     <strong>{{npc["item"].b_price}} credits</strong>!</p>
 {% elif npc["name"] == "Police" %}
 <p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
-        src="../static/item-images/item-icon_{{npc.item.name}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
+        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
 {% endif %}
 <img height="200" width="auto" src="../static/{{npc.name}}.png">
 <p>What will YOU do!?</p>

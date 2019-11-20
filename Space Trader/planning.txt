@@ -150,7 +150,9 @@
 - added text response for not having enough money to buy trader's items
 - added background
 - added winning/losing condition and pages
-
+- added info change to encounter message
+- changed file name of item icon to item's id
+- hid testing options
 
 TODO:
 [] display fuel cost

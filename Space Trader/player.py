@@ -6,6 +6,7 @@ from ship import CShip
 
 class Player:
     fuel_cost = 1
+
     def __init__(self, name, skill_points, credit, curr_region):
         self.name = name
         self.pilot = skill_points[0]
@@ -25,14 +26,13 @@ class Player:
             if item.name == self.name + "'s Universe":
                 return True
         return False
-    
+
     @property
     def lose(self):
         if self.ship.health_level == 0:
             return True
         else:
             return False
-    
 
     @property
     def credit(self):
@@ -44,7 +44,6 @@ class Player:
             self._credit = 0
         else:
             self._credit = credit
-
 
     def buy_repairs(self, repairs):
         cost = utility.repair_cost(repairs, self.engineer)
@@ -60,7 +59,6 @@ class Player:
             self.credit -= cost
             self.ship.health_level += repairs
             return "Success"
-
 
     def purchase_fuel(self, fuel):
         cost = fuel * self.fuel_cost

@@ -8,8 +8,10 @@ def fuel_calc(fuel_cost_constant, distance, pilot):
     """Returns the fuel cost for the distance"""
     return fuel_cost_constant * distance * (1 - (pilot / 75))
 
+
 def repair_cost(repair, engineer):
     return int((repair * 7) * (1 - (engineer / 30)))
+
 
 def bprice_calc(player, region):
     for item in region.market:
@@ -127,6 +129,7 @@ def pay_bandit(player, bandit):
         player.ship.health_level -= 15
         return 3
 
+
 def fight_bandit(player, bandit):
     if skill_check(player.fighter):
         # successful fight attempt
@@ -141,6 +144,7 @@ def fight_bandit(player, bandit):
         player.ship.health_level -= 20
         return False
 
+
 def flee_bandit(player):
     if skill_check(player.pilot):
         # successful flee atempt
@@ -152,9 +156,6 @@ def flee_bandit(player):
         player.credit = 0
         player.ship.health_level -= 20
         return False
-
-
-
 
 
 # create a trader dict
@@ -194,10 +195,10 @@ def rob_trader(player, trader):
 def negotiate_trader(player, trader):
     if skill_check(player.merchant):
         # successful negotiation attempt
-        if (player.karma > 0):
+        if player.karma > 0:
             # half off
             trader["item"].b_price = int(trader["item"].b_price * (1 / 2))
-        elif (player.karma < 0):
+        elif player.karma < 0:
             # 12.5% off
             trader["item"].b_price = int(trader["item"].b_price * (7 / 8))
         else:
@@ -207,7 +208,7 @@ def negotiate_trader(player, trader):
     else:
         # failed negotation attempt
         # increase item's price by 150% if bad or neutral karma
-        if (player.karma <= 0):
+        if player.karma <= 0:
             trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
         return False
 
