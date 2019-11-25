@@ -54,13 +54,13 @@ def travel(player, region):
 
 
 def encounter_check(diff_modifier, player):
-    check_int = random.randint(0, 200)
+    check_int = random.randint(0, 100)
     # total encounter chance =  15% * diff
-    if check_int <= 10 * diff_modifier:
+    if check_int <= 5 * diff_modifier:
         return gen_trader()
-    elif check_int <= 20 * diff_modifier:
+    elif check_int <= 10 * diff_modifier:
         return gen_bandit()
-    elif check_int <= 30 * diff_modifier and len(player.ship.cargo) > 0:
+    elif check_int <= 15 * diff_modifier and len(player.ship.cargo) > 0:
         return gen_police(player)
     else:
         return None
