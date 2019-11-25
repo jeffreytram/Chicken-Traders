@@ -23,7 +23,7 @@ class Player:
     @property
     def win(self):
         for item in self.ship.cargo:
-            if item.name == self.name + "'s Universe":
+            if item.id == 13:
                 return True
         return False
 
