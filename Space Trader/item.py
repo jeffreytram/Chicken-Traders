@@ -41,7 +41,7 @@ class Computer(Item):
     category = "Technology"
     debut = 6
     size = 10
-    base_price = 100
+    base_price = 140
     description = "It's a computer!"
 
     def __str__(self):
@@ -99,7 +99,7 @@ class Gun(Item):
     category = "Weapon"
     debut = 5
     size = 5
-    base_price = 30
+    base_price = 45
     description = "This is gun. BOOM! BOOM!"
 
     def __str__(self):
@@ -114,7 +114,7 @@ class BiggerGun(Item):
     category = "Weapon"
     debut = 6
     size = 10
-    base_price = 50
+    base_price = 70
     description = 'Now with bigger "BOOM! BOOM!"\'s.'
 
     def __str__(self):
@@ -129,7 +129,7 @@ class FartInAJar(Item):
     category = "Weapon"
     debut = 1
     size = 2
-    base_price = 5
+    base_price = 30
     description = "mmmm.... fresh air."
 
     def __str__(self):
@@ -144,7 +144,7 @@ class Friendship(Item):
     category = "Misc."
     debut = 1
     size = 3
-    base_price = 15
+    base_price = 40
     description = "eeeeeeeeeeeeee friendship: Solidified."
 
     def __str__(self):
@@ -173,7 +173,7 @@ class InvincibilityStar(Item):
     category = "Weapon"
     debut = 7
     size = 3
-    base_price = 200
+    base_price = 450
     description = (
         "Use it to eviscerate any bandits that "
         + "dare to challenge you and steal all the loot."
@@ -189,7 +189,7 @@ class AlienChicken(Item):
     category = "Animal"
     debut = 7
     size = 3
-    base_price = 40
+    base_price = 60
     description = "A chicken from another planet."
 
     def __str__(self):
@@ -202,7 +202,7 @@ class AssortedAlienAnimalFurs(Item):
     category = "Animal"
     debut = 7
     size = 3
-    base_price = 60
+    base_price = 85
     description = "Assorted furs."
 
     def __str__(self):
@@ -226,7 +226,7 @@ class Berries(Item):
     category = "Food"
     debut = 1
     size = 1
-    base_price = 3
+    base_price = 4
     description = "Sweety sweet berries."
 
     def __str__(self):
@@ -358,7 +358,7 @@ class Crown(Item):
     category = "Misc."
     debut = 3
     size = 8
-    base_price = 80
+    base_price = 100
     description = "Very pretty."
 
     def __str__(self):
@@ -379,7 +379,7 @@ class BlackDeath(Item):
 class Compass(Item):
     id = 28
     name = "Compass"
-    category = "Technology"
+    category = "Tool"
     debut = 4
     size = 4
     base_price = 45
@@ -394,7 +394,7 @@ class MonaLisa(Item):
     category = "Misc."
     debut = 4
     size = 4
-    base_price = 70
+    base_price = 350
     description = "Some painting."
 
     def __str__(self):
@@ -418,7 +418,7 @@ class Car(Item):
     category = "Technology"
     debut = 5
     size = 20
-    base_price = 150
+    base_price = 200
     description = "A faster horse."
 
     def __str__(self):
@@ -454,8 +454,272 @@ class Phone(Item):
     category = "Technology"
     debut = 6
     size = 10
-    base_price = 100
+    base_price = 130
     description = "A brick of technology."
 
     def __str__(self):
         return super(Phone, self).__str__() + "."
+
+class Herbs(Item):
+    id = 35
+    name = "Herbs"
+    category = "Medicine"
+    debut = 1
+    size = 2
+    base_price = 9
+    description = "It's natural!"
+
+    def __str__(self):
+        return super(Herbs, self).__str__() + "."
+
+class StrangeVial(Item):
+    id = 36
+    name = "Strange Vial"
+    category = "Medicine"
+    debut = 2
+    size = 3
+    base_price = 13
+    description = "I think it may make me feel better?"
+
+    def __str__(self):
+        return super(StrangeVial, self).__str__() + "."
+
+class Bandage(Item):
+    id = 37
+    name = "Bandage"
+    category = "Medicine"
+    debut = 3
+    size = 3
+    base_price = 15
+    description = "Now you can be a mummy!"
+
+    def __str__(self):
+        return super(Bandage, self).__str__() + "."
+
+class FirstAidKit(Item):
+    id = 38
+    name = "First Aid Kit"
+    category = "Medicine"
+    debut = 5
+    size = 5
+    base_price = 35
+    description = "All in one kit!"
+
+    def __str__(self):
+        return super(FirstAidKit, self).__str__() + "."
+
+class Sheep(Item):
+    id = 39
+    name = "Sheep"
+    category = "Animal"
+    debut = 2
+    size = 15
+    base_price = 130
+    description = "Lots and lots of wool!"
+
+    def __str__(self):
+        return super(Sheep, self).__str__() + "."
+
+class Cattle(Item):
+    id = 40
+    name = "Cattle"
+    category = "Animal"
+    debut = 2
+    size = 20
+    base_price = 160
+    description = "One beefy boi."
+
+    def __str__(self):
+        return super(Cattle, self).__str__() + "."
+
+class Scythe(Item):
+    id = 41
+    name = "Scythe"
+    category = "Tool"
+    debut = 3
+    size = 5
+    base_price = 15
+    description = "Cuts the grass."
+
+    def __str__(self):
+        return super(Scythe, self).__str__() + "."
+
+class BoneTool(Item):
+    id = 42
+    name = "Bone Tool"
+    category = "Tool"
+    debut = 1
+    size = 4
+    base_price = 8
+    description = "A tool of many uses!"
+
+    def __str__(self):
+        return super(BoneTool, self).__str__() + "."
+
+class Glasses(Item):
+    id = 43
+    name = "Glasses"
+    category = "Misc."
+    debut = 4
+    size = 3
+    base_price = 40
+    description = "I can finally see!"
+
+    def __str__(self):
+        return super(Glasses, self).__str__() + "."
+
+class PumpkinSpiceLatte(Item):
+    id = 44
+    name = "Pumpkin Spice Latte"
+    category = "Food"
+    debut = 6
+    size = 5
+    base_price = 50
+    description = "It's not fall without pumpkin spice!"
+
+    def __str__(self):
+        return super(PumpkinSpiceLatte, self).__str__() + "."
+
+class Telescope(Item):
+    id = 45
+    name = "Telescope"
+    category = "Technology"
+    debut = 4
+    size = 12
+    base_price = 95
+    description = "I can finally see further!"
+
+    def __str__(self):
+        return super(Telescope, self).__str__() + "."
+
+class Clock(Item):
+    id = 46
+    name = "Clock"
+    category = "Technology"
+    debut = 4
+    size = 7
+    base_price = 40
+    description = "Keeps track of time."
+
+    def __str__(self):
+        return super(Clock, self).__str__() + "."
+
+class Battery(Item):
+    id = 47
+    name = "Battery"
+    category = "Technology"
+    debut = 5
+    size = 5
+    base_price = 45
+    description = "Portable energy!"
+
+    def __str__(self):
+        return super(Battery, self).__str__() + "."
+
+class TV(Item):
+    id = 48
+    name = "TV"
+    category = "Technology"
+    debut = 5
+    size = 15
+    base_price = 120
+    description = "Moving pictures!"
+
+    def __str__(self):
+        return super(TV, self).__str__() + "."
+
+class Camera(Item):
+    id = 49
+    name = "Camera"
+    category = "Technology"
+    debut = 5
+    size = 5
+    base_price = 80 
+    description = "Still pictures!"
+
+    def __str__(self):
+        return super(Camera, self).__str__() + "."
+
+class MoonRock(Item):
+    id = 50
+    name = "Moon Rock"
+    category = "Resource"
+    debut = 6
+    size = 20
+    base_price = 325 
+    description = "Rocks from the moon!"
+
+    def __str__(self):
+        return super(MoonRock, self).__str__() + "."
+
+class StarFragment(Item):
+    id = 51
+    name = "Star Fragment"
+    category = "Resource"
+    debut = 7
+    size = 15
+    base_price = 600
+    description = "A piece from the stars..."
+
+    def __str__(self):
+        return super(StarFragment, self).__str__() + "."
+
+class Steel(Item):
+    id = 52
+    name = "Steel"
+    category = "Resource"
+    debut = 3
+    size = 7
+    base_price = 20
+    description = "Smelted iron!"
+
+    def __str__(self):
+        return super(Steel, self).__str__() + "."
+
+class Wood(Item):
+    id = 53
+    name = "Wood"
+    category = "Resource"
+    debut = 1
+    size = 5
+    base_price = 15 
+    description = "Trees."
+
+    def __str__(self):
+        return super(Wood, self).__str__() + "."
+
+class Copper(Item):
+    id = 54
+    name = "Copper"
+    category = "Resource"
+    debut = 2
+    size = 5
+    base_price = 15
+    description = "Into the bronze age!"
+
+    def __str__(self):
+        return super(Copper, self).__str__() + "."
+
+class Iron(Item):
+    id = 55
+    name = "Iron"
+    category = "Resource"
+    debut = 2
+    size = 5
+    base_price = 15 
+    description = "It's pretty gray."
+
+    def __str__(self):
+        return super(Iron, self).__str__() + "."
+
+class Uranium(Item):
+    id = 56
+    name = "Uranium"
+    category = "Resource"
+    debut = 5
+    size = 8
+    base_price = 70
+    description = "Lots of energy!"
+
+    def __str__(self):
+        return super(Uranium, self).__str__() + "."

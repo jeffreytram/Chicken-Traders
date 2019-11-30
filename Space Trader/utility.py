@@ -29,7 +29,7 @@ def sprice_calc(player, region):
         for item in player.ship.cargo:
             tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
             item.s_price = int(
-                0.7 * tech_factor * item.base_price * (1 + player.merchant / 75)
+                0.7 * tech_factor * item.base_price * (1 + player.merchant / 75) * region.news_multiplier
             )
 
 

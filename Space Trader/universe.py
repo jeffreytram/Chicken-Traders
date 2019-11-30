@@ -84,8 +84,8 @@ class Region:
 
     def init_market(self):
         poss_items = Item.__subclasses__()
-        # 10 item market limit
-        while len(self.market) < 10:
+        # 12 item market limit
+        while len(self.market) < 12:
             rand_index = random.randint(0, len(poss_items) - 1)
             # item too advanced for region
             if poss_items[rand_index].debut > self.tech_level.value:
@@ -93,8 +93,12 @@ class Region:
                 poss_items.pop(rand_index)
             else:
                 # region able to support item, add to market
-                self.market.append(poss_items[rand_index](random.randint(3, 15)))
-                poss_items.pop(rand_index)
+                discard_int = random.randint(1, 12)
+                # techlevel <= item debut, higher difference techlevel and debut, higher chance to discard
+                # higher tech diff, higher chance to reroll item
+                if discard_int > self.tech_level.value - poss_items[rand_index].debut:
+                    self.market.append(poss_items[rand_index](random.randint(2, 10)))
+                    poss_items.pop(rand_index)
 
     def compare_and_regen(self, other):
         """This method calls the coordinate compare

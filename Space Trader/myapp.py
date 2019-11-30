@@ -6,6 +6,7 @@ from game import Game
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ayy"
 
+# initialize setup and state dict
 setup = {
     "pName": None,
     "pDiff": None,
@@ -14,7 +15,7 @@ setup = {
     "sp1": 0,
     "sp2": 0,
     "sp3": 0,
-    "sp4": 0
+    "sp4": 0,
 }
 state = {
     "game": None,
@@ -29,17 +30,17 @@ state = {
     "second_test": True,
     "disabled": False,
     "end_game": None,
-    "news": ["", "", "", "", ""]
+    "news": ["", "", "", "", ""],
 }
-reset = state
 
-
+# home page
 @app.route("/", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home():
     return render_template("home.html")
 
 
+# settings page
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
     settingform = SettingForm()
@@ -59,6 +60,7 @@ def settings():
     return render_template("settings.html", form=settingform)
 
 
+# skillpoints page
 @app.route("/skillpoints", methods=["GET", "POST"])
 def skillpoints():
     sp_form = SPForm(setup["pSPLimit"])
@@ -69,33 +71,25 @@ def skillpoints():
         setup["sp4"] = sp_form.sp4.data
         return redirect(url_for("confirm"))
     return render_template(
-        "skillpoints.html",
-        diff=setup["pDiff"],
-        form=sp_form,
-        sp=setup["pSPLimit"],
+        "skillpoints.html", diff=setup["pDiff"], form=sp_form, sp=setup["pSPLimit"]
     )
 
 
+# confirm settings page
 @app.route("/confirm", methods=["GET", "POST"])
 def confirm():
     confirmform = ConfirmForm()
     if confirmform.validate_on_submit():
-        state = reset
-        chicken_trader = Game(setup["pDiff"])
+        chicken_traders = Game(setup["pDiff"])
 
-        state["game"] = chicken_trader
+        state["game"] = chicken_traders
 
-        chicken_trader.start_game(
+        chicken_traders.start_game(
             setup["pName"],
-            [
-                setup["sp1"],
-                setup["sp2"],
-                setup["sp3"],
-                setup["sp4"],
-            ],
+            [setup["sp1"], setup["sp2"], setup["sp3"], setup["sp4"]],
             setup["pCredits"],
         )
-        state["currRegion"] = chicken_trader.player.curr_region
+        state["currRegion"] = chicken_traders.player.curr_region
         state["prev_region"] = state["currRegion"]
         return redirect(url_for("travel"))
     return render_template(
@@ -112,6 +106,7 @@ def confirm():
     )
 
 
+# ship page
 @app.route("/ship", methods=["GET", "POST"])
 def ship():
     return render_template(
@@ -119,6 +114,7 @@ def ship():
     )
 
 
+# travel page
 @app.route("/travel", methods=["GET", "POST"])
 def travel():
     if state["npc"]:
@@ -140,7 +136,9 @@ def travel():
                 state["prev_region"] = state["currRegion"]
                 state["currRegion"] = travel_region
                 state["npc"] = utility.encounter_check(
-                    state["game"].encounter_factor, state["game"].player, state["game"].universe.region_list
+                    state["game"].encounter_factor,
+                    state["game"].player,
+                    state["game"].universe.region_list,
                 )
                 utility.travel(state["game"].player, travel_region)
             else:
@@ -161,7 +159,7 @@ def travel():
                 state["npc"] = utility.gen_police(state["game"].player)
     return render_template(
         "travel.html",
-        news = state["news"],
+        news=state["news"],
         fuel_error=state["fuel_error"],
         game=state["game"],
         currRegion=state["currRegion"],
@@ -169,6 +167,7 @@ def travel():
     )
 
 
+# market page
 @app.route("/market", methods=["GET", "POST"])
 def market():
     if state["game"].player.win:
@@ -210,6 +209,7 @@ def market():
     )
 
 
+# end page
 @app.route("/end", methods=["GET", "POST"])
 def end():
     return render_template(
@@ -221,6 +221,7 @@ def end():
     )
 
 
+# encounter page
 @app.route("/encounter", methods=["GET", "POST"])
 def encounter():
     if not state["npc"]:
@@ -246,15 +247,15 @@ def encounter():
                         + " credits)"
                     )
                 elif result == 2:
-                    state[
-                        "choice_result"
-                    ] = ("You attempted to pay the bandit without enough money!" +
-                         "The bandit steals all your cargo!")
+                    state["choice_result"] = (
+                        "You attempted to pay the bandit without enough money!"
+                        + "The bandit steals all your cargo!"
+                    )
                 else:
-                    state[
-                        "choice_result"
-                    ] = ("You attempted to pay the bandit without anything to offer!" +
-                         "The bandit attacks you out of anger! (-15 health)")
+                    state["choice_result"] = (
+                        "You attempted to pay the bandit without anything to offer!"
+                        + "The bandit attacks you out of anger! (-15 health)"
+                    )
             if "fight_bandit" in request.form:
                 curr_credits = state["game"].player.credit
                 if utility.fight_bandit(state["game"].player, state["npc"]):
@@ -287,10 +288,7 @@ def encounter():
                     )
             # trader choices
             if "buy_trader" in request.form:
-                if (
-                        state["game"].player.trade_buy(state["npc"]["item"], 1)
-                        == "Success"
-                ):
+                if state["game"].player.trade_buy(state["npc"]["item"], 1) == "Success":
                     state["second_test"] = True
                     state["negotiated"] = False
                     state["choice_result"] = (
@@ -309,9 +307,7 @@ def encounter():
                 state["negotiated"] = False
                 if utility.rob_trader(state["game"].player, state["npc"]):
                     state["choice_result"] = (
-                        "You robbed the Trader! (+1 "
-                        + state["npc"]["item"].name
-                        + ")"
+                        "You robbed the Trader! (+1 " + state["npc"]["item"].name + ")"
                     )
                 else:
                     state[
@@ -322,9 +318,7 @@ def encounter():
                 state["second_test"] = False
                 if not state["negotiated"]:
                     state["negotiated"] = True
-                    if utility.negotiate_trader(
-                            state["game"].player, state["npc"]
-                    ):
+                    if utility.negotiate_trader(state["game"].player, state["npc"]):
                         state[
                             "choice_result"
                         ] = "You negotiated a deal with the Trader."
@@ -338,9 +332,7 @@ def encounter():
             if "forfeit_police" in request.form:
                 utility.forfeit_police(state["game"].player, state["npc"])
                 state["choice_result"] = (
-                    "You forfeited the item. (-all "
-                    + state["npc"]["item"].name
-                    + ")"
+                    "You forfeited the item. (-all " + state["npc"]["item"].name + ")"
                 )
             if "flee_police" in request.form:
                 if utility.flee_police(state["game"].player, state["npc"]):
