@@ -75,6 +75,7 @@ class Region:
         self.tech_level = tech_level
         self.travel_cost = 0
         self.name = name
+        self.news_multiplier = 1
         self.market = []
         # possible
         self.init_market()
@@ -83,12 +84,16 @@ class Region:
 
     def init_market(self):
         poss_items = Item.__subclasses__()
+        # 10 item market limit
         while len(self.market) < 10:
             rand_index = random.randint(0, len(poss_items) - 1)
+            # item too advanced for region
             if poss_items[rand_index].debut > self.tech_level.value:
+                # remove from possible items in market
                 poss_items.pop(rand_index)
             else:
-                self.market.append(poss_items[rand_index](random.randint(10, 20)))
+                # region able to support item, add to market
+                self.market.append(poss_items[rand_index](random.randint(3, 15)))
                 poss_items.pop(rand_index)
 
     def compare_and_regen(self, other):

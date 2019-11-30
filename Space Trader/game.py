@@ -2,8 +2,6 @@ import random
 import utility
 from universe import Universe
 from player import Player
-#from npc import Bandit, Trader
-
 
 class Game:
     def __init__(self, diff):
@@ -44,11 +42,3 @@ class Game:
             return 2
         else:
             return -1
-
-    # so it still works in the meantime
-    def travel_sequence(self, new_region):
-        if utility.travel_check(self, new_region):
-            utility.travel(self.player, new_region)
-            return True
-        else:
-            return False

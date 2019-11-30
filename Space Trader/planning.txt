@@ -154,7 +154,21 @@
 - changed file name of item icon to item's id
 - hid testing options
 
+11.28 - JT
+- display item quantity in market
+- added 21 new items
+- fixed market error display issue
+- added news events
+
+how to trigger event before price calculated
+
 TODO:
+[] quest board
+[] energy system?
+[] fuel and repairs as items
+[] item functionality
+[] tutorial/instructions
+
 [] display fuel cost
 - add a fuel cost from curr region var to each region, updates on travel
 [] buying/selling multiple items

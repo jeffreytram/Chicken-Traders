@@ -35,13 +35,13 @@
             <ul id="itemCategoriesUl">
                 <li class=" activeCategory">All</li>
                 <li>Animal</li>
-                <li>Country</li>
                 <li>Food</li>
                 <li>Medicine</li>
                 <li>Misc.</li>
-                <li>Weapons</li>
-                <li>Resources</li>
+                <li>Weapon</li>
+                <li>Resource</li>
                 <li>Technology</li>
+                <li>Tool</li>
             </ul>
         </div>
         <div class="grid-item shop">
@@ -49,7 +49,8 @@
                 {% for item in currRegion.market %}
                 <li class="item {{loop.index}} {{item.category}} shop-item">
                     <div class="item-left">
-                        <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
+                        {{item.amount}}x <img class="item-icon"
+                            src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
                     </div>
                     <div class="item-right">
                         <strong>{{item.b_price}}</strong>

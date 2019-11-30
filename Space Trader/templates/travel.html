@@ -25,8 +25,8 @@
         {{currRegion.coordinates.y_position}})
         Tech Level: {{currRegion.tech_level.name}}
     </h2>
-    {% if fuel_error %}
-    <h3 class="error">Not enough fuel!</h3>
+    {% if fuel_error == 3 %}
+        <h3 class="error">Not enough fuel!</h3>
     {% endif %}
 </div>
 
@@ -37,11 +37,11 @@
             <div class="regionButtons">
                 {% for region in universe.region_list %}
                 {% if region == currRegion %}
-                <button type="button" onclick="travelAndUpdateFuel('{{loop.index}}');"
+                <button type="button" onclick="travel('{{loop.index}}');"
                     class="region {{ loop.index }} active">Region:
                     {{region.name}}</button>
                 {% else %}
-                <button type="button" onclick="travelAndUpdateFuel('{{loop.index}}');"
+                <button type="button" onclick="travel('{{loop.index}}');"
                     class="region {{ loop.index }}">Region:
                     {{region.name}}</button>
                 {% endif %}
@@ -51,6 +51,19 @@
         <div id="mapid"></div>
     </div>
 </div>
+<div class="news">
+    <h2>Recent News</h2>
+    {% if news %}
+    <ul>
+        {% for event in news%}
+            <li>{{event}}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        No recent news.
+    {% endif %}
+</div>
+<div class="fade"></div>
 {% if game.player.name == "admin" %}
     <h2>Testing Tools</h2>
     <button onclick="addFuel()">add fuel</button>
@@ -91,27 +104,14 @@
         req.send("addHealth=");
         window.location.reload();
     }
-    function travelAndUpdateFuel(index) {
-        travel(index);
-        window.location.reload();
-    }
     function travel(index) {
         var req = new XMLHttpRequest();
         var result = document.getElementById("currRegion");
-        //only need this section if we're displaying
-        req.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText !== "-1") {
-                    result.innerHTML = this.responseText;
-                    let clickedButton = document.getElementsByClassName(index);
-                    handlers.highlightButton(clickedButton[0]);
-                }
-            }
-        }
         //this part sends the data over
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("currIndex=" + index);
+        window.location.reload();
     }
     var w = 672,
         h = 378,
@@ -133,9 +133,9 @@
     // creating markers on map
     {% for region in universe.region_list %}
     {% if region == currRegion %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% else %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travelAndUpdateFuel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% endif %}
     {% endfor %}
 
