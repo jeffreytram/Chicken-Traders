@@ -163,10 +163,15 @@
 11.29 - JT
 - added 22 new items
 - game balancing
+- added day/time
+- added item replenishing every 24hr
 
-how to trigger event before price calculated
 
 TODO:
+[] region category multiplier
+[] buy/sell log
+[] visual with time
+
 [] quest board
 [] energy system?
 [] fuel and repairs as items

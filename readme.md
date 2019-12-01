@@ -1,7 +1,7 @@
 <h2>Chicken Traders - http://jeffreytram.pythonanywhere.com</h2>
+![Chicken Traders Logo](https://imgur.com/lZIqXTw)\
+Chicken Traders is a game based on Space Trader, a 2002 strategy game for PDAs. Buy low, sell high! <br/>
 Created by: Team 86 - Danky Dank Chickens <br/>
-Chicken Traders is a game based on Space Trader, a 2002 strategy game for PDAs. Buy low, sell high!
-
 <ul>
     <li>Jeffrey Tram</li>
     <li>Bradford Peterson</li>

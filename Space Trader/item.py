@@ -7,6 +7,7 @@ class Item:
 
     def __init__(self, amount):
         self.amount = amount
+        self.max = self.amount
         self.b_price = 0
         self.s_price = 0
 
@@ -22,6 +23,7 @@ class WinningItem:
     def __init__(self, name):
         self.name = name + "'s Universe"
         self.amount = 1
+        self.max = 1
         self.category = "Misc."
         self.debut = 1
         self.size = 1

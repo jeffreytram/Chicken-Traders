@@ -30,7 +30,9 @@ state = {
     "second_test": True,
     "disabled": False,
     "end_game": None,
-    "news": ["", "", "", "", ""],
+    "news": [],
+    "time": 0,
+    "day": 0
 }
 
 # home page
@@ -120,7 +122,13 @@ def travel():
     if state["npc"]:
         if isinstance(state["npc"], str):
             state["news"].insert(0, state["npc"])
-            state["news"].pop(-1)
+            if len(state["news"]) > 5:
+                state["news"].pop(-1)
+            state["time"] += 3
+            if state["time"] == 24:
+                state["day"] += 1
+                state["time"] = 0
+                utility.restock(state["game"].universe.region_list)
             state["npc"] = None
         else:
             return redirect(url_for("encounter"))
@@ -159,6 +167,8 @@ def travel():
                 state["npc"] = utility.gen_police(state["game"].player)
     return render_template(
         "travel.html",
+        day=state["day"],
+        time=state["time"],
         news=state["news"],
         fuel_error=state["fuel_error"],
         game=state["game"],

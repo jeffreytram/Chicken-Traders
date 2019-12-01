@@ -16,20 +16,33 @@ def repair_cost(repair, engineer):
 def bprice_calc(player, region):
     for item in region.market:
         tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
-        item.b_price = int(tech_factor * item.base_price * (1 - player.merchant / 75) * region.news_multiplier)
+        item.b_price = int(
+            tech_factor
+            * item.base_price
+            * (1 - player.merchant / 75)
+            * region.news_multiplier
+        )
 
 
 def sprice_calc(player, region):
     for item in region.market:
         tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
         item.s_price = int(
-            0.7 * tech_factor * item.base_price * (1 + player.merchant / 75) * region.news_multiplier
+            0.7
+            * tech_factor
+            * item.base_price
+            * (1 + player.merchant / 75)
+            * region.news_multiplier
         )
     if len(player.ship.cargo) != 0 or player.ship.cargo_size > 0:
         for item in player.ship.cargo:
             tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
             item.s_price = int(
-                0.7 * tech_factor * item.base_price * (1 + player.merchant / 75) * region.news_multiplier
+                0.7
+                * tech_factor
+                * item.base_price
+                * (1 + player.merchant / 75)
+                * region.news_multiplier
             )
 
 
@@ -69,35 +82,85 @@ def encounter_check(diff_modifier, player, region_list):
     else:
         return None
 
+
 def news_event(region_list):
-    category = ["Animal", "Food", "Medicine", "Misc.", "Weapon", "Resource", "Technology", "Tool"]
+    category = [
+        "Animal",
+        "Food",
+        "Medicine",
+        "Misc.",
+        "Weapon",
+        "Resource",
+        "Technology",
+        "Tool",
+    ]
     rng = random.randint(1, 10)
-    percent = random.randint(65, 90) if  random.randint(1,2) == 1 else random.randint(110, 135)
+    percent = (
+        random.randint(65, 90)
+        if random.randint(1, 2) == 1
+        else random.randint(110, 135)
+    )
     multiplier = percent / 100
     all_items = Item.__subclasses__()
     if rng <= 2:
         # adjust base_price of all items
         for item in all_items:
             item.base_price *= multiplier
-        return "The Universe's prices are " + ("increasing" if percent > 100 else "decreasing") + "! ("+ str(percent - 100) + "%)"
+        return (
+            "The Universe's prices are "
+            + ("increasing" if percent > 100 else "decreasing")
+            + "! ("
+            + str(percent - 100)
+            + "%)"
+        )
     elif rng <= 5:
         # adjust base_price of category
         rand_category = category[random.randint(0, len(category) - 1)]
         for item in all_items:
             if item.category == rand_category:
                 item.base_price *= multiplier
-        return "The price of " + rand_category + " items have " + ("increased" if percent > 100 else "decreased") + "! ("+ str(percent - 100) + "%)"
+        return (
+            "The price of "
+            + rand_category
+            + " items have "
+            + ("increased" if percent > 100 else "decreased")
+            + "! ("
+            + str(percent - 100)
+            + "%)"
+        )
     elif rng <= 8:
         # adjust b_price of specific item
         rand_item = all_items[random.randint(0, len(all_items) - 1)]
         rand_item.base_price *= multiplier
-        return rand_item.name + " is becoming " + ("trendy" if percent > 100 else "unpopular") + "! ("+ str(percent - 100) + "%)"
+        return (
+            rand_item.name
+            + " is becoming "
+            + ("trendy" if percent > 100 else "unpopular")
+            + "! ("
+            + str(percent - 100)
+            + "%)"
+        )
     else:
         # adjust base_price of all items in a specific region
         rand_region = region_list[random.randint(0, len(region_list) - 1)]
         rand_region.news_multiplier *= multiplier
-        return "Region " + rand_region.name + "'s prices are " + ("increasing" if percent > 100 else "decreasing") + "! ("+ str(percent - 100) + "%)"
+        return (
+            "Region "
+            + rand_region.name
+            + "'s prices are "
+            + ("increasing" if percent > 100 else "decreasing")
+            + "! ("
+            + str(percent - 100)
+            + "%)"
+        )
 
+
+# replenishes stock of every item by 1
+def restock(region_list):
+    for region in region_list:
+        for item in region.market:
+            if item.amount < item.max:
+                item.amount += 1
 
 
 # creates a police dict

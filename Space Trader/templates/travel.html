@@ -14,12 +14,12 @@
             {{game.player.ship.max_health}}</strong>
     </div>
 </div>
-
 <!-- nav bar -->
 <div id="menu">
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
     <button id="market" onclick="location.href = 'market'">Market</button>
+    <h3>Day: {{day}} Time: {{time}}:00</h3>
     <h2 id="currRegion">Region: {{currRegion.name}}
         ({{currRegion.coordinates.x_position}},
         {{currRegion.coordinates.y_position}})
@@ -75,7 +75,7 @@
 {% endif %}
 
 <script type="text/javascript">
-    //testing functions, remove after test
+    //testing tools
     function force(npc) {
         var req = new XMLHttpRequest();
         req.open('POST', '/travel', true);
