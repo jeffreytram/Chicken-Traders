@@ -165,12 +165,19 @@
 - game balancing
 - added day/time
 - added item replenishing every 24hr
+- changes to region init
 
+12.03
+- image/gif optimization
+- regions are now at least 50 units away from each other
+
+# TODO: WIP - looking at coordnate generation to minimize gap between each farm 
 
 TODO:
 [] region category multiplier
 [] buy/sell log
 [] visual with time
+[] collection - collection bonus?
 
 [] quest board
 [] energy system?

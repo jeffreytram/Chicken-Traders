@@ -3,6 +3,7 @@
 import random
 import enum
 import math
+import pdb
 from item import Item
 from item import WinningItem
 
@@ -27,37 +28,22 @@ class Coordinates:
     regenerate and recreate the coordinates when the regions are created"""
 
     def __init__(self):
-        self.x_position = random.randint(-200, 200)
-        self.y_position = random.randint(-200, 200)
+        self.x_position = random.randint(-65, 65)
+        self.y_position = random.randint(-125, 125)
 
     # END init
 
     def recreate_x(self):
         """Recreates the x coordinate."""
-        self.x_position = random.randint(-200, 200)
+        self.x_position = random.randint(-130, 130)
 
     # END reGenX
 
     def recreate_y(self):
         """Recreates the y coordinate."""
-        self.y_position = random.randint(-200, 200)
+        self.y_position = random.randint(-250, 250)
 
     # END reGenY
-
-    def compare_and_recreate(self, other):
-        """This method compares the coordinates to another
-        and reacreates them based on the requirements."""
-        regenerated = False
-        if abs(self.x_position - other.x_position) <= 10:
-            self.recreate_x()
-            regenerated = True
-        if abs(self.y_position - other.y_position) <= 10:
-            self.recreate_y()
-            regenerated = True
-        # END if and elif
-        return regenerated
-
-    # END compareAndReCreate
 
     def set_coordinates(self, new_x, new_y):
         """Resets the coordinates."""
@@ -101,9 +87,15 @@ class Region:
                     poss_items.pop(rand_index)
 
     def compare_and_regen(self, other):
-        """This method calls the coordinate compare
-        function so the region class can use it easily."""
-        return self.coordinates.compare_and_recreate(other.coordinates)
+        """This method compares the coordinates to another
+        and reacreates them based on the requirements."""
+        regenerated = False
+        if self.distance(other) <= 50:
+            self.coordinates.recreate_x()
+            self.coordinates.recreate_y()
+            regenerated = True
+        return regenerated
+    
 
     # END compareAndRegen
 
@@ -142,26 +134,27 @@ class Universe:
                 self.region_list.append(new_region)
             else:
                 self.reg_coord_check(new_region)
+                self.region_list.append(new_region)
 
     def create_region(self):
-        name_index = random.randint(0, len(self.names) - 1)
-        new_region = Region(TechLevel(random.randint(1, 7)), self.names[name_index])
-        self.names.pop(name_index)
+        # name_index = random.randint(0, len(self.names) - 1)
+        new_region = Region(TechLevel(random.randint(1, 7)), self.names[0])
+        self.names.pop(0)
         return new_region
-
+    
     def reg_coord_check(self, new_region):
         keep_comparing = True
         while keep_comparing:
             for reg in self.region_list:
+                # compares coords of new reg and current region in list
                 if new_region.compare_and_regen(reg):
+                    print(new_region.name + " coords regenerated.")
+                    print("region: " + new_region.name + " new coords: (" + str(new_region.coordinates.y_position) + ", " + str(new_region.coordinates.x_position) + ")")
+                    self.reg_coord_check(new_region)
+                    # check if regen coords are ok
                     break
-                # END if
-            # END for
             keep_comparing = False
-            if not keep_comparing:
-                self.region_list.append(new_region)
-            # END if
-        # END while
+
     def insert_win(self, item_name):
         market = random.randint(0, len(self.region_list) - 1)
         self.region_list[market].market.append(WinningItem(item_name))

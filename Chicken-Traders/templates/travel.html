@@ -21,8 +21,8 @@
     <button id="market" onclick="location.href = 'market'">Market</button>
     <h3>Day: {{day}} Time: {{time}}:00</h3>
     <h2 id="currRegion">Region: {{currRegion.name}}
-        ({{currRegion.coordinates.x_position}},
-        {{currRegion.coordinates.y_position}})
+        ({{currRegion.coordinates.y_position}},
+        {{currRegion.coordinates.x_position}})
         Tech Level: {{currRegion.tech_level.name}}
     </h2>
     {% if fuel_error == 3 %}
@@ -133,9 +133,9 @@
     // creating markers on map
     {% for region in universe.region_list %}
     {% if region == currRegion %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% else %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 3 }}, {{ region.coordinates.y_position / 3 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.x_position}}, {{region.coordinates.y_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2}}, {{ region.coordinates.y_position / 2}}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% endif %}
     {% endfor %}
 
