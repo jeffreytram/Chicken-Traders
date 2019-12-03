@@ -171,7 +171,8 @@
 - image/gif optimization
 - regions are now at least 50 units away from each other
 
-# TODO: WIP - looking at coordnate generation to minimize gap between each farm 
+- issue with python anywhere
+- removing print statements? - test on next push
 
 TODO:
 [] region category multiplier

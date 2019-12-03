@@ -148,8 +148,6 @@ class Universe:
             for reg in self.region_list:
                 # compares coords of new reg and current region in list
                 if new_region.compare_and_regen(reg):
-                    print(new_region.name + " coords regenerated.")
-                    print("region: " + new_region.name + " new coords: (" + str(new_region.coordinates.y_position) + ", " + str(new_region.coordinates.x_position) + ")")
                     self.reg_coord_check(new_region)
                     # check if regen coords are ok
                     break
