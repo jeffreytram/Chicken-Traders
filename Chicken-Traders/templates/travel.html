@@ -16,6 +16,7 @@
 </div>
 <!-- nav bar -->
 <div id="menu">
+    <button id="collection" onclick="location.href = 'collection'">Collection</button>
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
     <button id="market" onclick="location.href = 'market'">Market</button>
@@ -26,7 +27,7 @@
         Tech Level: {{currRegion.tech_level.name}}
     </h2>
     {% if fuel_error == 3 %}
-        <h3 class="error">Not enough fuel!</h3>
+    <h3 class="error">Not enough fuel!</h3>
     {% endif %}
 </div>
 
@@ -37,12 +38,10 @@
             <div class="regionButtons">
                 {% for region in universe.region_list %}
                 {% if region == currRegion %}
-                <button type="button" onclick="travel('{{loop.index}}');"
-                    class="region {{ loop.index }} active">Region:
+                <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }} active">Region:
                     {{region.name}}</button>
                 {% else %}
-                <button type="button" onclick="travel('{{loop.index}}');"
-                    class="region {{ loop.index }}">Region:
+                <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }}">Region:
                     {{region.name}}</button>
                 {% endif %}
                 {% endfor %}
@@ -56,22 +55,22 @@
     {% if news %}
     <ul>
         {% for event in news%}
-            <li>{{event}}</li>
+        <li>{{event}}</li>
         {% endfor %}
     </ul>
     {% else %}
-        No recent news.
+    No recent news.
     {% endif %}
 </div>
 <div class="fade"></div>
 {% if game.player.name == "admin" %}
-    <h2>Testing Tools</h2>
-    <button onclick="addFuel()">add fuel</button>
-    <button onclick="addCredits()">add credits</button>
-    <button onclick="addHealth()">add health</button>
-    <button onclick="force('bandit')">force bandit</button>
-    <button onclick="force('trader')">force trader</button>
-    <button onclick="force('police')">force police (must have at least 1 item)</button>
+<h2>Testing Tools</h2>
+<button onclick="addFuel()">add fuel</button>
+<button onclick="addCredits()">add credits</button>
+<button onclick="addHealth()">add health</button>
+<button onclick="force('bandit')">force bandit</button>
+<button onclick="force('trader')">force trader</button>
+<button onclick="force('police')">force police (must have at least 1 item)</button>
 {% endif %}
 
 <script type="text/javascript">
@@ -135,7 +134,7 @@
     {% if region == currRegion %}
     var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon1 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% else %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2}}, {{ region.coordinates.y_position / 2}}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: barnIcon2 }).addTo(map).bindPopup("<b>{{region.name}}</b><br>({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% endif %}
     {% endfor %}
 

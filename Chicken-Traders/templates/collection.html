@@ -1,0 +1,148 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- top bar UI -->
+<div class="player-info-grid">
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    </div>
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
+            {{game.player.ship.max_fuel}}</strong>
+    </div>
+    <div class="player-info">
+        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
+            {{game.player.ship.max_health}}</strong>
+    </div>
+</div>
+
+<!-- nav bar -->
+<div id="menu">
+    <button id="collection" class="active" onclick="location.href = 'collection'">Collection</button>
+    <button id="ship" onclick="location.href = 'ship'">Ship</button>
+    <button id="travel" onclick="location.href = 'travel'">Travel</button>
+    <button id="market" onclick="location.href = 'market'">Market</button>
+    <h2 id="header">Collection:</h2>
+</div>
+
+<div class="collection-grid">
+    <h4 class="collection-label">Animal:</h4>
+    <div id="Animal" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="animal-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Food:</h4>
+    <div id="Food" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="food-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Medicine:</h4>
+    <div id="Medicine" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="medicine-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Misc:</h4>
+    <div id="Misc." class="category-grid"></div>
+    <div class="collection-button">
+        <button id="misc-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Resource:</h4>
+    <div id="Resource" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="resource-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Technology:</h4>
+    <div id="Technology" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="technology-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Tool:</h4>
+    <div id="Tool" class="category-grid"> </div>
+    <div class="collection-button">
+        <button id="tool-progress">test</button>
+    </div>
+</div>
+<div class="collection-grid">
+    <h4 class="collection-label">Weapon:</h4>
+    <div id="Weapon" class="category-grid"></div>
+    <div class="collection-button">
+        <button id="weapon-progress">test</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let animal = document.getElementById("Animal")
+    let food = document.getElementById("Food")
+    let medicine = document.getElementById("Medicine")
+    let misc = document.getElementById("Misc.")
+    let resource = document.getElementById("Resource")
+    let technology = document.getElementById("Technology")
+    let tool = document.getElementById("Tool")
+    let weapon = document.getElementById("Weapon")
+
+    let animalProg = 0;
+    let foodProg = 0;
+    let medicineProg = 0;
+    let miscProg = 0;
+    let resourceProg = 0;
+    let technologyProg = 0;
+    let toolProg = 0;
+    let weaponProg = 0;
+
+    {% for item in all_items %}
+    {% if item.name in cargo_item_names %}
+    {% if item.category == "Animal" %}
+    animal.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    animalProg++;
+    {% elif item.category == "Food" %}
+    food.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    foodProg++;
+    {% elif item.category == "Medicine" %}
+    medicine.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    medicineProg++;
+    {% elif item.category == "Misc." %}
+    misc.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    miscProg++;
+    {% elif item.category == "Resource" %}
+    resource.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    resourceProg++;
+    {% elif item.category == "Technology" %}
+    technology.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    technologyProg++;
+    {% elif item.category == "Tool" %}
+    tool.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    toolProg++;
+    {% elif item.category == "Weapon" %}
+    weapon.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+    weaponProg++;
+    {% endif %}
+    {% else %}
+    document.getElementById("{{item.category}}").innerHTML += "<img class='item-icon' src='../static/item-images/icon-unknown.svg'>";
+    {% endif %}
+    {% endfor %}
+
+    document.getElementById("animal-progress").textContent = animalProg + " / 4";
+    document.getElementById("food-progress").textContent = foodProg + " / 10";
+    document.getElementById("medicine-progress").textContent = medicineProg + " / 4";
+    document.getElementById("misc-progress").textContent = miscProg + " / 8";
+    document.getElementById("resource-progress").textContent = resourceProg + " / 9";
+    document.getElementById("technology-progress").textContent = technologyProg + " / 9";
+    document.getElementById("tool-progress").textContent = toolProg + " / 4";
+    document.getElementById("weapon-progress").textContent = weaponProg + " / 7";
+
+    let total = animalProg + foodProg + medicineProg + miscProg + resourceProg + technologyProg + toolProg + weaponProg;
+    document.getElementById("header").textContent += " " + parseInt(total * 100 / 55) + "% Completed";
+</script>
+
+{% endblock %}

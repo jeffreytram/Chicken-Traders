@@ -170,15 +170,16 @@
 12.03
 - image/gif optimization
 - regions are now at least 50 units away from each other
+- debugging pythonanywhere issue
 
-- issue with python anywhere
-- removing print statements? - test on next push
+12.04
+- added collection page
 
 TODO:
 [] region category multiplier
 [] buy/sell log
 [] visual with time
-[] collection - collection bonus?
+[] collection bonus
 
 [] quest board
 [] energy system?

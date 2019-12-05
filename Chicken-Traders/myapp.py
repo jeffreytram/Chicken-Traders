@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request
 from forms import SettingForm, ConfirmForm, SPForm
 import utility
 from game import Game
+from item import Item
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ayy"
@@ -108,11 +109,19 @@ def confirm():
     )
 
 
+# collection page
+@app.route("/collection", methods=["GET", "POST"])
+def collection():
+    cargo_item_names = [item.name for item in state["game"].player.ship.cargo]
+    return render_template(
+        "collection.html", game=state["game"], all_items=Item.__subclasses__(), cargo_item_names=cargo_item_names
+    )
+
 # ship page
 @app.route("/ship", methods=["GET", "POST"])
 def ship():
     return render_template(
-        "ship.html", game=state["game"], currRegion=state["currRegion"]
+        "ship.html", game=state["game"]
     )
 
 
