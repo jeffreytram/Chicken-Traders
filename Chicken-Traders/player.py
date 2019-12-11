@@ -2,6 +2,7 @@
 import copy
 import utility
 from ship import CShip
+from collection import Collection
 
 
 class Player:
@@ -17,6 +18,7 @@ class Player:
         self.curr_region = curr_region
         self.ship = CShip()
         self.karma = 0
+        self.collection = Collection()
 
     # END __init__
 
@@ -92,6 +94,8 @@ class Player:
             bought.amount = amount
             item.amount -= amount
             self.ship.cargo.append(bought)
+            if not self.collection.check_item_in_set(bought):
+                self.collection.add_and_update(bought)
             return "Success"
 
         # Index in cargo

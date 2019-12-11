@@ -88,7 +88,7 @@ def news_event(region_list):
         "Animal",
         "Food",
         "Medicine",
-        "Misc.",
+        "Misc",
         "Weapon",
         "Resource",
         "Technology",

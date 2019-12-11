@@ -21,16 +21,16 @@
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" onclick="location.href = 'travel'">Travel</button>
     <button id="market" class="active" onclick="location.href = 'market'">Market</button>
-    <h2 id="currRegion">Region: {{currRegion.name}}
-        ({{currRegion.coordinates.x_position}},
-        {{currRegion.coordinates.y_position}})
-        Tech Level: {{currRegion.tech_level.name}}
-    </h2>
 </div>
 
+<h2 id="currRegion">Region: {{currRegion.name}}
+    ({{currRegion.coordinates.x_position}},
+    {{currRegion.coordinates.y_position}})
+    Tech Level: {{currRegion.tech_level.name}}
+</h2>
+<h2>Market</h2>
 <!-- Market -->
 <div class="menu marketMenu">
-    <h2>Market</h2>
     <div class="grid-container">
         <div class="grid-item category">
             <ul id="itemCategoriesUl">
@@ -38,7 +38,7 @@
                 <li>Animal</li>
                 <li>Food</li>
                 <li>Medicine</li>
-                <li>Misc.</li>
+                <li>Misc</li>
                 <li>Resource</li>
                 <li>Technology</li>
                 <li>Tool</li>

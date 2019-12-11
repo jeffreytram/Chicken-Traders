@@ -20,16 +20,17 @@
     <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
     <button id="market" onclick="location.href = 'market'">Market</button>
-    <h3>Day: {{day}} Time: {{time}}:00</h3>
-    <h2 id="currRegion">Region: {{currRegion.name}}
-        ({{currRegion.coordinates.y_position}},
-        {{currRegion.coordinates.x_position}})
-        Tech Level: {{currRegion.tech_level.name}}
-    </h2>
-    {% if fuel_error == 3 %}
-    <h3 class="error">Not enough fuel!</h3>
-    {% endif %}
 </div>
+
+<h3>Day: {{day}} Time: {{time}}:00</h3>
+<h2 id="currRegion">Region: {{currRegion.name}}
+    ({{currRegion.coordinates.y_position}},
+    {{currRegion.coordinates.x_position}})
+    Tech Level: {{currRegion.tech_level.name}}
+</h2>
+{% if fuel_error == 3 %}
+<h3 class="error">Not enough fuel!</h3>
+{% endif %}
 
 <!--Travel menu - Region buttons and map-->
 <div class="menu travelMenu">

@@ -24,7 +24,7 @@ class WinningItem:
         self.name = name + "'s Universe"
         self.amount = 1
         self.max = 1
-        self.category = "Misc."
+        self.category = "Misc"
         self.debut = 1
         self.size = 1
         self.base_price = 4000
@@ -54,7 +54,7 @@ class StrangeTalisman(Item):
     """Framework for Strange Talisman"""
     id = 2
     name = "Strange Talisman"
-    category = "Misc."
+    category = "Misc"
     debut = 1
     size = 4
     base_price = 5
@@ -143,7 +143,7 @@ class Friendship(Item):
 
     id = 8
     name = "Friendship"
-    category = "Misc."
+    category = "Misc"
     debut = 1
     size = 3
     base_price = 40
@@ -158,7 +158,7 @@ class PocketRussia(Item):
 
     id = 9
     name = "Pocket Russia"
-    category = "Misc."
+    category = "Misc"
     debut = 1
     size = 1
     base_price = 20
@@ -345,7 +345,7 @@ class Bread(Item):
 class Chess(Item):
     id = 25
     name = "Chess"
-    category = "Misc."
+    category = "Misc"
     debut = 3
     size = 5
     base_price = 20
@@ -357,7 +357,7 @@ class Chess(Item):
 class Crown(Item):
     id = 26
     name = "Crown"
-    category = "Misc."
+    category = "Misc"
     debut = 3
     size = 8
     base_price = 100
@@ -369,7 +369,7 @@ class Crown(Item):
 class BlackDeath(Item):
     id = 27
     name = "Black Death"
-    category = "Misc."
+    category = "Misc"
     debut = 3
     size = 1
     base_price = 30
@@ -393,7 +393,7 @@ class Compass(Item):
 class MonaLisa(Item):
     id = 29
     name = "Mona Lisa"
-    category = "Misc."
+    category = "Misc"
     debut = 4
     size = 4
     base_price = 350
@@ -561,7 +561,7 @@ class BoneTool(Item):
 class Glasses(Item):
     id = 43
     name = "Glasses"
-    category = "Misc."
+    category = "Misc"
     debut = 4
     size = 3
     base_price = 40

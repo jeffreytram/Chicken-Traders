@@ -113,6 +113,14 @@ def confirm():
 @app.route("/collection", methods=["GET", "POST"])
 def collection():
     cargo_item_names = [item.name for item in state["game"].player.ship.cargo]
+    if request.method == "POST":
+        if "addCredits" in request.form:
+            category = request.form["addCredits"]
+            print(category)
+            index = state["game"].player.collection.category.index(category)
+            print(index)
+            state["game"].player.collection.complete[index] = True
+            state["game"].player.credit += 100
     return render_template(
         "collection.html", game=state["game"], all_items=Item.__subclasses__(), cargo_item_names=cargo_item_names
     )
