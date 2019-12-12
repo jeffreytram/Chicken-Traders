@@ -6,6 +6,10 @@ class Item:
     description = "This is an Item"
 
     def __init__(self, amount):
+        self.name = self.name
+        self.description = self.description
+        self.size = self.size
+        self.id = self.id
         self.amount = amount
         self.max = self.amount
         self.b_price = 0

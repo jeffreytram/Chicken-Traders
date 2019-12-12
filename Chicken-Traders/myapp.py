@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
 from forms import SettingForm, ConfirmForm, SPForm
 import utility
+import json
 from game import Game
 from item import Item
 
@@ -204,7 +205,7 @@ def market():
         if "selectedIndex" in request.form:
             selected_index = int(request.form["selectedIndex"]) - 1
             state["selectedItem"] = state["currRegion"].market[selected_index]
-            return state["selectedItem"].description
+            return json.dumps(state["selectedItem"].__dict__)
 
         if "statementIndex" in request.form:
             return (

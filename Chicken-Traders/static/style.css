@@ -279,7 +279,7 @@ svg {
     align-self: center;
 }
 
-button:disabled {
+.progress:disabled {
     animation: none;
     color: #ffffff;
     background-color: rgb(150, 150, 150);
@@ -419,6 +419,23 @@ button:disabled {
     border-top: 5px solid rgba(30, 30, 30, .5);
 }
 
+.description-grid {
+    display: grid;
+    grid-template: repeat(3, auto) / 64px auto;
+}
+
+.description-item {
+    text-align: left;
+}
+
+.description-item:nth-child(1){
+    grid-row: 1/4;
+}
+
+.description-item > img {
+    height: 64px;
+}
+
 .shop-item {
     border: 2px solid rgba(30, 30, 30, .5);
     padding: 0 5px 0 5px;
@@ -433,6 +450,9 @@ button:disabled {
 
 .item-icon {
     height: 32px;
+}
+.arrow {
+    height: 16px;
 }
 
 .item-left {

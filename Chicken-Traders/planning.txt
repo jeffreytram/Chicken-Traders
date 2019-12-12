@@ -185,16 +185,24 @@
 - added collection reward
 - added percent completed
 - minor market item css change
+- added up/down arrow icons
+
+12.12
+- fixed disabled css hierarchy
+- improved market description display
+
+WIP
+-XML request update market with new format
+-user experience improvements
+-tutorial
 
 TODO:
 [] region category multiplier
 [] buy/sell log
 [] visual with time
-[] collection bonus
 
 [] quest board
 [] energy system?
-[] fuel and repairs as items
 [] item functionality
 [] tutorial/instructions
 

@@ -56,7 +56,11 @@
     {% if news %}
     <ul>
         {% for event in news%}
-        <li>{{event}}</li>
+            {% if "inc" in event or "trendy" in event%}
+                <li><img class='item-icon arrow' src='../static/item-images/icon-up.svg'>{{event}}</li>
+            {% else %}
+                <li><img class='item-icon arrow' src='../static/item-images/icon-down.svg'>{{event}}</li>
+            {% endif %}
         {% endfor %}
     </ul>
     {% else %}
