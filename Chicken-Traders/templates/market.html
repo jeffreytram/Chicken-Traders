@@ -2,16 +2,19 @@
 {% block content %}
 <!-- top bar UI -->
 <div class="player-info-grid">
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
+        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
-            {{game.player.ship.max_fuel}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
+        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
-            {{game.player.ship.max_health}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
+        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
     </div>
 </div>
 
@@ -75,13 +78,17 @@
             {% endif %}
             <div class="description-grid">
                 <div class="description-item" id="icon">
+                    {% if selectedItem %}
                     <img class="item-icon" src="../static/item-images/item-icon{{selectedItem.id}}.svg">
+                    {% endif %}
                 </div>
                 <div class="description-item" id="name">
                     <strong>{{selectedItem.name}}</strong>
                 </div>
                 <div class="description-item" id="weight">
+                    {% if selectedItem %}
                     {{selectedItem.size}} lb
+                    {% endif %}
                 </div>
                 <div class="description-item" id="description">
                     {{selectedItem.description}}
@@ -123,19 +130,40 @@
     {% endfor %}
 </div>
 <script type="text/javascript">
+    function updateCredits() {
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("credits").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
+        req.open('POST', '/market', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("updateCredits=");
+    }
     function addHealth() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("health").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addHealth=");
-        window.location.reload();
+        updateCredits();
     }
     function addFuel() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("fuel").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addFuel=");
-        window.location.reload();
+        updateCredits();
     }
     function selectItem(index) {
         showDescription(index);
@@ -147,7 +175,6 @@
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let item = JSON.parse(this.responseText);
-                console.log(item);
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
                 document.getElementById("name").innerHTML = "<strong>" + item.name + "</strong>";

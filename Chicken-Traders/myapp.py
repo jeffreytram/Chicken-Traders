@@ -117,11 +117,10 @@ def collection():
     if request.method == "POST":
         if "addCredits" in request.form:
             category = request.form["addCredits"]
-            print(category)
             index = state["game"].player.collection.category.index(category)
-            print(index)
             state["game"].player.collection.complete[index] = True
             state["game"].player.credit += 100
+            return str(state["game"].player.credit)
     return render_template(
         "collection.html", game=state["game"], all_items=Item.__subclasses__(), cargo_item_names=cargo_item_names
     )
@@ -171,10 +170,13 @@ def travel():
                 state["fuel_error"] = travel_status
         if "addFuel" in request.form:
             state["game"].player.ship.fuel_level += 100
+            return str(state["game"].player.ship.fuel_level)
         if "addCredits" in request.form:
             state["game"].player.credit += 100
+            return str(state["game"].player.credit)
         if "addHealth" in request.form:
             state["game"].player.ship.health_level += 100
+            return str(state["game"].player.ship.health_level)
         if "force" in request.form:
             force_npc = request.form["force"]
             if force_npc == "bandit":
@@ -224,10 +226,14 @@ def market():
         if "sellIndex" in request.form:
             inv_index = int(request.form["sellIndex"]) - 1
             state["game"].player.trade_sell(inv_index, 1)
+        if "updateCredits" in request.form:
+            return str(state["game"].player.credit)
         if "addFuel" in request.form:
             state["game"].player.purchase_fuel(50)
+            return str(state["game"].player.ship.fuel_level)
         if "addHealth" in request.form:
             state["game"].player.buy_repairs(10)
+            return str(state["game"].player.ship.health_level)
     return render_template(
         "market.html",
         market_error=state["market_error"],

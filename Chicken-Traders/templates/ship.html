@@ -2,16 +2,19 @@
 {% block content %}
 <!-- top bar UI -->
 <div class="player-info-grid">
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
+        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
-            {{game.player.ship.max_fuel}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
+        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
-            {{game.player.ship.max_health}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
+        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
     </div>
 </div>
 

@@ -241,6 +241,11 @@ svg {
     margin: 20px auto;
 }
 
+.player-info {
+    display: inline;
+    vertical-align: middle;
+}
+
 #menu {
     margin: 20px auto;
 }
@@ -449,6 +454,7 @@ svg {
 }
 
 .item-icon {
+    vertical-align: middle;
     height: 32px;
 }
 .arrow {

@@ -2,16 +2,19 @@
 {% block content %}
 <!-- top bar UI -->
 <div class="player-info-grid">
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
+        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
-            {{game.player.ship.max_fuel}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
+        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
-            {{game.player.ship.max_health}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
+        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
     </div>
 </div>
 
@@ -42,10 +45,14 @@
 <script type="text/javascript">
     function addCredits(category) {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("credits").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/collection', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addCredits=" + category);
-        window.location.reload();
     }
 
     let Animal = document.getElementById("Animal");
@@ -58,7 +65,7 @@
     let Weapon = document.getElementById("Weapon");
 
     {% for item in all_items %}
-        {% if item.name in cargo_item_names %}
+        {% if item.name in game.player.collection.item_set %}
             {{item.category}}.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
         {% else %}
             {{item.category}}.innerHTML += "<img class='item-icon' src='../static/item-images/icon-unknown.svg'>";
@@ -69,6 +76,8 @@
     Array.from(progressButtons).forEach(function(button) {
         button.addEventListener("click", function (event) {
             addCredits(button.id.split("-")[0]);
+            button.disabled = true;
+            button.textContent = "COLLECTED";
         });
     });
     let total = 0;

@@ -190,13 +190,18 @@
 12.12
 - fixed disabled css hierarchy
 - improved market description display
-
-WIP
--XML request update market with new format
--user experience improvements
--tutorial
+- fixed default market description display (no selected item)
+- items sold remains in collection
+- removed need for page reload when collecting collection reward, buying fuel/health, and testing tools
+- added news icon
 
 TODO:
+[] info viz - d3
+    - net worth over time
+[] add more icons
+    - collection, ship, travel, market
+[] user experience improvements
+[] tutorial
 [] region category multiplier
 [] buy/sell log
 [] visual with time

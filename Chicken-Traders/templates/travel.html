@@ -2,16 +2,19 @@
 {% block content %}
 <!-- top bar UI -->
 <div class="player-info-grid">
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-credits.svg"><strong>{{game.player.credit}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
+        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-fuel.svg"><strong>{{game.player.ship.fuel_level}} /
-            {{game.player.ship.max_fuel}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
+        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
     </div>
-    <div class="player-info">
-        <img class="item-icon" src="../static/item-images/icon-health.svg"><strong>{{game.player.ship.health_level}} /
-            {{game.player.ship.max_health}}</strong>
+    <div>
+        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
+        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
     </div>
 </div>
 <!-- nav bar -->
@@ -52,7 +55,7 @@
     </div>
 </div>
 <div class="news">
-    <h2>Recent News</h2>
+    <h2><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
     {% if news %}
     <ul>
         {% for event in news%}
@@ -89,24 +92,36 @@
     }
     function addFuel() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("fuel").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addFuel=");
-        window.location.reload();
     }
     function addCredits() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("credits").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addCredits=");
-        window.location.reload();
     }
     function addHealth() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("health").innerHTML = "<strong>" + this.responseText +"</strong>"
+            }
+        };
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("addHealth=");
-        window.location.reload();
     }
     function travel(index) {
         var req = new XMLHttpRequest();
