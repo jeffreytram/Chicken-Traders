@@ -68,14 +68,17 @@ def travel(player, region):
     player.curr_region = region
 
 
-def encounter_check(diff_modifier, player, region_list):
+def encounter_check(diff_modifier, player, region_list, time):
+    if time >= 9 and time <= 18:
+        time_modifier = 1
+    else:
+        time_modifier = 1.5
     check_int = random.randint(1, 100)
-    # each npc encounter chance: 5%, 7.5%, 10% for easy, med, hard
-    if check_int <= 5 * diff_modifier:
+    if check_int <= 10 / time_modifier: # 6% - 10% chance
         return gen_trader()
-    elif check_int <= 10 * diff_modifier:
+    elif check_int > 10 and check_int <= 10 + 4 * diff_modifier * time_modifier: # 4% - 12% chance
         return gen_bandit()
-    elif check_int <= 15 * diff_modifier and len(player.ship.cargo) > 0:
+    elif check_int > 30 and check_int <= 30 + 4 * diff_modifier * time_modifier and len(player.ship.cargo) > 0: # 4% - 12% chance
         return gen_police(player)
     elif check_int > 60:
         return news_event(region_list)

@@ -19,16 +19,15 @@
 </div>
 <!-- nav bar -->
 <div id="menu">
-    <button id="collection" onclick="location.href = 'collection'">Collection</button>
-    <button id="ship" onclick="location.href = 'ship'">Ship</button>
     <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
     <button id="market" onclick="location.href = 'market'">Market</button>
+    <button id="ship" onclick="location.href = 'ship'">Ship</button>
+    <button id="collection" onclick="location.href = 'collection'">Collection</button>
 </div>
 
-<h3>Day: {{day}} Time: {{time}}:00</h3>
-<h2 id="currRegion">Region: {{currRegion.name}}
-    ({{currRegion.coordinates.y_position}},
-    {{currRegion.coordinates.x_position}})
+<h3><img id="time" class="item-icon">Day: {{day}} Time: {{time}}:00</h3>
+<div id="timeEffect"></div>
+<h2 id="currRegion">Region: {{currRegion.name}} - 
     Tech Level: {{currRegion.tech_level.name}}
 </h2>
 {% if fuel_error == 3 %}
@@ -73,8 +72,8 @@
 <div class="fade"></div>
 {% if game.player.name == "admin" %}
 <h2>Testing Tools</h2>
-<button onclick="addFuel()">add fuel</button>
 <button onclick="addCredits()">add credits</button>
+<button onclick="addFuel()">add fuel</button>
 <button onclick="addHealth()">add health</button>
 <button onclick="force('bandit')">force bandit</button>
 <button onclick="force('trader')">force trader</button>
@@ -133,8 +132,7 @@
         window.location.reload();
     }
     var w = 672,
-        h = 378,
-        url = '../static/map3.png'
+        h = 378
     var map = L.map('mapid', {
         minZoom: 1,
         maxZoom: 4,
@@ -158,13 +156,15 @@
     {% endif %}
     {% endfor %}
 
-    /*test markers
-    var markerZero = L.marker([0, 0]).addTo(map).bindPopup("test-center");
-    var markertest1 = L.marker([5, 0]).addTo(map).bindPopup("test-pos-x");
-    var markertest2 = L.marker([-5, 0]).addTo(map).bindPopup("test-neg-x");
-    var markertest3 = L.marker([0, 5]).addTo(map).bindPopup("test-pos-y");
-    var markertest4 = L.marker([0, -5]).addTo(map).bindPopup("test-neg-y");
-    */
+    //check if day/night- day if 9-18, night if 21-6
+    if ({{time}} >= 9 && {{time}} <= 18) {
+        document.getElementById("time").src = "../static/item-images/icon-day.svg";
+        url = '../static/map-day.png';
+    } else {
+        document.getElementById("time").src = "../static/item-images/icon-night.svg";
+        url = '../static/map-night.png';
+        document.getElementById("timeEffect").innerHTML = "<strong>Night Time</strong>: Trader <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>";
+    }
 
     //bounds for image
     var southWest = map.unproject([-672 * 2, -378 * 2], map.getMaxZoom() - 1);
@@ -172,6 +172,7 @@
     var bounds = new L.LatLngBounds(southWest, northEast);
     L.imageOverlay(url, bounds).addTo(map);
     map.setMaxBounds(bounds);
+
 </script>
 
 {% endblock %}

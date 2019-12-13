@@ -194,6 +194,11 @@
 - items sold remains in collection
 - removed need for page reload when collecting collection reward, buying fuel/health, and testing tools
 - added news icon
+- added about page
+- fixed universe item not displaying correctly in market
+- added day and night icons
+- added night version of map
+- npc spawn chance now effected by time (day/night) 
 
 TODO:
 [] info viz - d3
@@ -201,10 +206,9 @@ TODO:
 [] add more icons
     - collection, ship, travel, market
 [] user experience improvements
-[] tutorial
 [] region category multiplier
 [] buy/sell log
-[] visual with time
+[] time influence on npc encounters?
 
 [] quest board
 [] energy system?

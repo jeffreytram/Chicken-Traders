@@ -10,6 +10,7 @@ class Item:
         self.description = self.description
         self.size = self.size
         self.id = self.id
+        self.debut = self.debut
         self.amount = amount
         self.max = self.amount
         self.b_price = 0
@@ -23,21 +24,18 @@ class Item:
 
 
 class WinningItem:
-    id = 13
     def __init__(self, name):
+        self.id = 13
         self.name = name + "'s Universe"
         self.amount = 1
         self.max = 1
         self.category = "Misc"
+        self.description = "Buy this and you win!"
         self.debut = 1
         self.size = 1
-        self.base_price = 4000
+        self.base_price = 4500
         self.b_price = 0
         self.s_price = 0
-
-    @property
-    def description(self):
-        return self.name + ". Buy this and you win!"
 
 # Make more items
 class Computer(Item):
@@ -178,7 +176,7 @@ class InvincibilityStar(Item):
     name = "Invincibility Star"
     category = "Weapon"
     debut = 7
-    size = 3
+    size = 10
     base_price = 450
     description = (
         "Use it to eviscerate any bandits that "
@@ -277,11 +275,11 @@ class Bow(Item):
 class Fish(Item):
     id = 19
     name = "Fish"
-    category = "Food"
+    category = "Animal"
     debut = 1
     size = 2
     base_price = 6
-    description = "A fish outta water."
+    description = "Don't flush it down the toilet, please."
 
     def __str__(self):
         return super(Fish, self).__str__() + "."
@@ -423,24 +421,24 @@ class Car(Item):
     name = "Car"
     category = "Technology"
     debut = 5
-    size = 20
+    size = 60
     base_price = 200
     description = "A faster horse."
 
     def __str__(self):
         return super(Car, self).__str__() + "."
 
-class Factory(Item):
+class MiniFactory(Item):
     id = 32
-    name = "Factory"
+    name = "Mini Factory"
     category = "Technology"
     debut = 5
-    size = 30
+    size = 100
     base_price = 400
     description = "Mass production!"
 
     def __str__(self):
-        return super(Factory, self).__str__() + "."
+        return super(MiniFactory, self).__str__() + "."
 
 class Coal(Item):
     id = 33
@@ -519,7 +517,7 @@ class Sheep(Item):
     name = "Sheep"
     category = "Animal"
     debut = 2
-    size = 15
+    size = 30
     base_price = 130
     description = "Lots and lots of wool!"
 
@@ -531,7 +529,7 @@ class Cattle(Item):
     name = "Cattle"
     category = "Animal"
     debut = 2
-    size = 20
+    size = 40
     base_price = 160
     description = "One beefy boi."
 
@@ -627,7 +625,7 @@ class TV(Item):
     name = "TV"
     category = "Technology"
     debut = 5
-    size = 15
+    size = 20
     base_price = 120
     description = "Moving pictures!"
 
@@ -651,7 +649,7 @@ class MoonRock(Item):
     name = "Moon Rock"
     category = "Resource"
     debut = 6
-    size = 20
+    size = 75
     base_price = 325 
     description = "Rocks from the moon!"
 
@@ -663,7 +661,7 @@ class StarFragment(Item):
     name = "Star Fragment"
     category = "Resource"
     debut = 7
-    size = 15
+    size = 30
     base_price = 600
     description = "A piece from the stars..."
 

@@ -33,7 +33,7 @@ state = {
     "disabled": False,
     "end_game": None,
     "news": [],
-    "time": 0,
+    "time": 9,
     "day": 0
 }
 
@@ -95,7 +95,7 @@ def confirm():
         )
         state["currRegion"] = chicken_traders.player.curr_region
         state["prev_region"] = state["currRegion"]
-        return redirect(url_for("travel"))
+        return redirect(url_for("about"))
     return render_template(
         "confirm.html",
         title="Confirm Settings",
@@ -109,11 +109,14 @@ def confirm():
         credits=setup["pCredits"],
     )
 
+# about page
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html", game=state["game"])
 
 # collection page
 @app.route("/collection", methods=["GET", "POST"])
 def collection():
-    cargo_item_names = [item.name for item in state["game"].player.ship.cargo]
     if request.method == "POST":
         if "addCredits" in request.form:
             category = request.form["addCredits"]
@@ -122,7 +125,7 @@ def collection():
             state["game"].player.credit += 100
             return str(state["game"].player.credit)
     return render_template(
-        "collection.html", game=state["game"], all_items=Item.__subclasses__(), cargo_item_names=cargo_item_names
+        "collection.html", game=state["game"], all_items=Item.__subclasses__()
     )
 
 # ship page
@@ -164,6 +167,7 @@ def travel():
                     state["game"].encounter_factor,
                     state["game"].player,
                     state["game"].universe.region_list,
+                    state["time"]
                 )
                 utility.travel(state["game"].player, travel_region)
             else:

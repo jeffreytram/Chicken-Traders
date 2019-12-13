@@ -250,6 +250,17 @@ svg {
     margin: 20px auto;
 }
 
+/* about page style */
+.about-container {
+    margin: auto;
+    width: 90%;
+    text-align: left;
+}
+
+#start {
+    width: 200px;
+}
+
 /* Collection page style */
 
 .collection-grid {
@@ -575,7 +586,7 @@ svg {
         width: 50%;
     }
     /* market player inv css */
-    .collection-grid, .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
+    .collection-grid, .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text, .about-container {
         width: 70%;
     }
     #logo {
@@ -591,7 +602,7 @@ svg {
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .collection-grid, .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text {
+    .collection-grid, .settings-grid, .sp-grid, .inv-grid, .cargo-grid, .ship-grid, .encounter-grid, .player-info-grid, #text, .about-container {
         width: 50%;
     }
     #logo {
