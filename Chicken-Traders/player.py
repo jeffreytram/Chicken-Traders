@@ -80,9 +80,9 @@ class Player:
         if item.amount < amount:
             return "Out of stock"
         elif self.ship.cargo_space < (item.size * amount):
-            return "Your ship does not have enough space"
+            return "Not enough space!"
         elif self.credit < (item.b_price * amount):
-            return "Not enough cash"
+            return "Not enough credits!"
         else:
             self.credit -= item.b_price * amount
             for cargo in self.ship.cargo:

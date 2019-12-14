@@ -1,32 +1,36 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="player-info-grid">
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
-        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+<div class="all-container">
+    <div class="player-info-grid">
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
+            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
+            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
+            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+        </div>
     </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
-        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+    <div class="about-container">
+        <h1>Welcome to chicken traders, {{game.player.name}}!</h1>
+        <p>One regular day on the farm, you were wandering around doing whatever chickens do. Suddenly, reality hit
+            hard!
+            Maybe this isn't the life you wanted to live after all. You've always wanted to be a <strong>CHICKEN
+                TRADER</strong>!!
+        </p><br />
+        <h2>Main Objective:</h2>
+        <p>Earn credits mainly by buying items and reselling them at a higher cost. Once you're rich enough, find and
+            <strong>BUY THE UNIVERSE</strong>!</p><br />
+        <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market! <strong>Be
+                safe
+                out there, young one!</strong></p><br /><br />
     </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
-        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
-    </div>
+    <button id="start" onclick="location.href = 'travel'">START</button>
 </div>
-<div class="about-container">
-    <h1>Welcome to chicken traders, {{game.player.name}}!</h1>
-    <p>On a regular day on the farm, you were wandering around doing whatever chickens do. Suddenly, reality hit hard!
-        Maybe this isn't the life I wanted to live after all. I've always wanted to be a <strong>CHICKEN
-            TRADER</strong>!!
-    </p><br />
-    <h2>Main Objective:</h2>
-    <p>Earn credits mainly by buying items and reselling them at a higher cost. Once you're rich enough, find and
-        <strong>BUY THE UNIVERSE</strong>!</p><br />
-    <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market! <strong>Be safe
-            out there, young one!</strong></p><br /><br />
-</div>
-<button id="start" onclick="location.href = 'travel'">START</button>
 {% endblock %}

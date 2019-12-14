@@ -200,7 +200,19 @@
 - added night version of map
 - npc spawn chance now effected by time (day/night) 
 
+12.13
+- fuel cost displayed next to region
+- display time effect
+- fixed bug where certain states not resetting upon starting new game
+- cargo weight now increases travel fuel cost
+- game balancing
+
 TODO:
+[] remove/reduce encounter reload
+[] fun stats
+    - total distance traveled
+    - total npc encountered
+[] sleep option for 6 hours to skip some of night
 [] info viz - d3
     - net worth over time
 [] add more icons
@@ -208,20 +220,13 @@ TODO:
 [] user experience improvements
 [] region category multiplier
 [] buy/sell log
-[] time influence on npc encounters?
 
 [] quest board
-[] energy system?
 [] item functionality
-[] tutorial/instructions
 
-[] display fuel cost
-- add a fuel cost from curr region var to each region, updates on travel
 [] buying/selling multiple items
 [] ship(tractor), chicken art
-
-BUGS:
-clicking div category highlights entire div
+[] remove need for window reload for buying/selling
 
 
 

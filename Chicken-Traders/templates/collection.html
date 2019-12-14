@@ -1,53 +1,57 @@
 {% extends 'layout.html' %}
 {% block content %}
-<!-- top bar UI -->
-<div class="player-info-grid">
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
-        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+<div class="all-container">
+    <!-- top bar UI -->
+    <div class="player-info-grid">
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
+            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
+            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
+            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+        </div>
     </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
-        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
-    </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
-        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
-    </div>
-</div>
 
-<!-- nav bar -->
-<div id="menu">
-    <button id="travel" onclick="location.href = 'travel'">Travel</button>
-    <button id="market" onclick="location.href = 'market'">Market</button>
-    <button id="ship" onclick="location.href = 'ship'">Ship</button>
-    <button id="collection" class="active" onclick="location.href = 'collection'">Collection</button>
-</div>
-<h2 id="header">Collection:</h2>
-{% for category in game.player.collection.category %}
-<div class="collection-grid">
-    <h4 class="collection-label">{{category}}:</h4>
-    <div id="{{category}}" class="category-grid"></div>
-    <div class="collection-button">
-    {% if game.player.collection.complete[loop.index - 1] %}
-        <button id="{{category}}-progress" class="progress" disabled>COLLECTED</button>
-    {% elif game.player.collection.progress[loop.index - 1] == game.player.collection.max[loop.index - 1] %}
-        <button id="{{category}}-progress" class="progress">COLLECT</button>
-    {% else %}
-        <button id="{{category}}-progress" class="progress" disabled>{{game.player.collection.progress[loop.index - 1]}} / {{game.player.collection.max[loop.index - 1]}}</button>
-    {% endif %}
+    <!-- nav bar -->
+    <div id="menu">
+        <button id="travel" onclick="location.href = 'travel'">Travel</button>
+        <button id="market" onclick="location.href = 'market'">Market</button>
+        <button id="ship" onclick="location.href = 'ship'">Ship</button>
+        <button id="collection" class="active" onclick="location.href = 'collection'">Collection</button>
     </div>
+    <h2 id="header">Collection:</h2>
+    {% for category in game.player.collection.category %}
+    <div class="collection-grid">
+        <h4 class="collection-label">{{category}}:</h4>
+        <div id="{{category}}" class="category-grid"></div>
+        <div class="collection-button">
+            {% if game.player.collection.complete[loop.index - 1] %}
+            <button id="{{category}}-progress" class="progress" disabled>COLLECTED</button>
+            {% elif game.player.collection.progress[loop.index - 1] == game.player.collection.max[loop.index - 1] %}
+            <button id="{{category}}-progress" class="progress">COLLECT +100</button>
+            {% else %}
+            <button id="{{category}}-progress" class="progress"
+                disabled>{{game.player.collection.progress[loop.index - 1]}} /
+                {{game.player.collection.max[loop.index - 1]}}</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 <script type="text/javascript">
     function addCredits(category) {
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("credits").innerHTML = "<strong>" + this.responseText +"</strong>"
+                document.getElementById("credits").innerHTML = "<strong>" + this.responseText + "</strong>"
             }
         };
         req.open('POST', '/collection', true);
@@ -66,14 +70,14 @@
 
     {% for item in all_items %}
         {% if item.name in game.player.collection.item_set %}
-            {{item.category}}.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+            {{ item.category }}.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
         {% else %}
-            {{item.category}}.innerHTML += "<img class='item-icon' src='../static/item-images/icon-unknown.svg'>";
+            {{ item.category }}.innerHTML += "<img class='item-icon' src='../static/item-images/icon-unknown.svg'>";
         {% endif %}
     {% endfor %}
 
     let progressButtons = document.getElementsByClassName("progress");
-    Array.from(progressButtons).forEach(function(button) {
+    Array.from(progressButtons).forEach(function (button) {
         button.addEventListener("click", function (event) {
             addCredits(button.id.split("-")[0]);
             button.disabled = true;
@@ -82,7 +86,7 @@
     });
     let total = 0;
     {% for progress in game.player.collection.progress %}
-        total += {{progress}};
+    total += {{ progress }};
     {% endfor %}
     document.getElementById("header").innerHTML += " " + parseInt((total * 100 / 55)) + "% Completed";
 </script>

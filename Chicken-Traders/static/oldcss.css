@@ -125,6 +125,10 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     height: 15vw;
 }
 
+svg {
+    height: calc(50px + 5vw);
+}
+
 .start {
     padding: 10px 20px;
     margin: 40px;
@@ -165,6 +169,14 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     height: calc(150px + 10vw);
     position: relative;
     z-index: 2;
+}
+
+.stroke {
+    width: calc(200px + 5vw);
+    position: absolute;
+    top: 60px;
+    left: calc(-100px + 30vw);
+    z-index: 1;
 }
 
 .setting-option {
@@ -587,6 +599,9 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     #logo {
         height: 10vw;
     }
+    .stroke {
+        left: calc(-70px + 30vw);
+    }
     .setting-option>p>input {
         width: 20vw;
     }
@@ -616,6 +631,9 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     }
     #logo {
         height: 7vw;
+    }
+    .stroke {
+        left: calc(30vw);
     }
     .setting-option>p>input {
         width: 15vw;

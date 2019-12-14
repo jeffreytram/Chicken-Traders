@@ -1,138 +1,142 @@
 {% extends 'layout.html' %}
 {% block content %}
 <!-- top bar UI -->
-<div class="player-info-grid">
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-credits.svg"
-        ><div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+<div class="all-container">
+    <div class="player-info-grid">
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
+            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
+            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
+            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+        </div>
     </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg"
-        ><div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
-    </div>
-    <div>
-        <img class="item-icon player-info" src="../static/item-images/icon-health.svg"
-        ><div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
-        <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+
+    <!-- nav bar -->
+    <div id="menu">
+        <button id="travel" onclick="location.href = 'travel'">Travel</button>
+        <button id="market" class="active" onclick="location.href = 'market'">Market</button>
+        <button id="ship" onclick="location.href = 'ship'">Ship</button>
+        <button id="collection" onclick="location.href = 'collection'">Collection</button>
     </div>
 </div>
 
-<!-- nav bar -->
-<div id="menu">
-    <button id="travel" onclick="location.href = 'travel'">Travel</button>
-    <button id="market" class="active" onclick="location.href = 'market'">Market</button>
-    <button id="ship" onclick="location.href = 'ship'">Ship</button>
-    <button id="collection" onclick="location.href = 'collection'">Collection</button>
-</div>
-
-<h2 id="currRegion">Region: {{currRegion.name}} - 
-    Tech Level: {{currRegion.tech_level.name}}
-</h2>
-<h2>Market</h2>
-<!-- Market -->
-<div class="menu marketMenu">
-    <div class="grid-container">
-        <div class="grid-item category">
-            <ul id="itemCategoriesUl">
-                <li class=" activeCategory">All</li>
-                <li>Animal</li>
-                <li>Food</li>
-                <li>Medicine</li>
-                <li>Misc</li>
-                <li>Resource</li>
-                <li>Technology</li>
-                <li>Tool</li>
-                <li>Weapon</li>
-            </ul>
-        </div>
-        <div class="grid-item shop">
-            <ul id="itemUl">
-                {% for item in currRegion.market %}
-                <li class="item {{loop.index}} {{item.category}} shop-item">
-                    <div class="item-left">
-                        {{item.amount}}x <img class="item-icon"
-                            src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
+<div class="market-container">
+    <h2 id="header">Market</h2>
+    <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <!-- Market -->
+    <div class="menu marketMenu">
+        <div class="grid-container">
+            <div class="grid-item category">
+                <ul id="itemCategoriesUl">
+                    <li class=" activeCategory">All</li>
+                    <li>Animal</li>
+                    <li>Food</li>
+                    <li>Medicine</li>
+                    <li>Misc</li>
+                    <li>Resource</li>
+                    <li>Technology</li>
+                    <li>Tool</li>
+                    <li>Weapon</li>
+                </ul>
+            </div>
+            <div class="grid-item shop">
+                <ul id="itemUl">
+                    {% for item in currRegion.market %}
+                    <li class="item {{loop.index}} {{item.category}} shop-item">
+                        <div class="item-left">
+                            {{item.amount}}x <img class="item-icon"
+                                src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
+                        </div>
+                        <div class="item-right">
+                            <strong>{{item.b_price}}</strong>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="grid-item buy">
+                {% if selectedItem %}
+                <p id="purchaseStatement">Purchase for
+                    <strong>{{selectedItem.b_price}}</strong>?</p>
+                {% else %}
+                <p id="purchaseStatement">Choose an item to purchase</p>
+                {% endif %}
+                <button type="button" onclick="purchase()">Purchase</button>
+            </div>
+            <div class="grid-item description">
+                {% if market_error %}
+                <h3 class="error">{{market_error}}</h3>
+                {% endif %}
+                <div class="description-grid">
+                    <div class="description-item" id="icon">
+                        {% if selectedItem %}
+                        <img class="item-icon" src="../static/item-images/item-icon{{selectedItem.id}}.svg">
+                        {% endif %}
                     </div>
-                    <div class="item-right">
-                        <strong>{{item.b_price}}</strong>
+                    <div class="description-item" id="name">
+                        <strong>{{selectedItem.name}}</strong>
                     </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="grid-item buy">
-            {% if selectedItem %}
-            <p id="purchaseStatement">Purchase for
-                <strong>{{selectedItem.b_price}}</strong>?</p>
-            {% else %}
-            <p id="purchaseStatement">Choose an item to purchase</p>
-            {% endif %}
-            <button type="button" onclick="purchase()">Purchase</button>
-        </div>
-        <div class="grid-item description">
-            {% if market_error %}
-            <h3 class="error">{{market_error}}</h3>
-            {% endif %}
-            <div class="description-grid">
-                <div class="description-item" id="icon">
-                    {% if selectedItem %}
-                    <img class="item-icon" src="../static/item-images/item-icon{{selectedItem.id}}.svg">
-                    {% endif %}
-                </div>
-                <div class="description-item" id="name">
-                    <strong>{{selectedItem.name}}</strong>
-                </div>
-                <div class="description-item" id="weight">
-                    {% if selectedItem %}
-                    Weight: {{selectedItem.size}} lb - Tech Level: {{selectedItem.debut}}
-                    {% endif %}
-                </div>
-                <div class="description-item" id="description">
-                    {{selectedItem.description}}
+                    <div class="description-item" id="weight">
+                        {% if selectedItem %}
+                        Weight: {{selectedItem.size}} lb - Tech Level: {{selectedItem.debut}}
+                        {% endif %}
+                    </div>
+                    <div class="description-item" id="description">
+                        {{selectedItem.description}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <button onclick="addFuel()">buy 50 fuel</button>
+    <button onclick="addHealth()">repair 10 health</button>
 </div>
-<button onclick="addFuel()">buy 50 fuel</button>
-<button onclick="addHealth()">repair 10 health</button>
 
-<!-- Player Inv -->
-<h4>Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
-<div class="inv-grid">
-    <div class="inv-item inv-image tableHeader">
-        Item
+<div class="all-container">
+    <!-- Player Inv -->
+    <h4>Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
+    <div class="inv-grid">
+        <div class="inv-item inv-image tableHeader">
+            Item
+        </div>
+        <div class="inv-item inv-quantity tableHeader">
+            #
+        </div>
+        <div class="inv-item inv-weight tableHeader">
+            lb
+        </div>
+        <div class="inv-item inv-sell tableHeader">
+            Sell
+        </div>
+        {% for item in game.player.ship.cargo %}
+        <div class="inv-item inv-name">
+            <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
+        </div>
+        <div class="inv-item inv-quantity">
+            {{item.amount}}x
+        </div>
+        <div class="inv-item inv-weight">
+            {{item.size}} lb
+        </div>
+        <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
+            {{item.s_price}}</button>
+        {% endfor %}
     </div>
-    <div class="inv-item inv-quantity tableHeader">
-        #
-    </div>
-    <div class="inv-item inv-weight tableHeader">
-        lb
-    </div>
-    <div class="inv-item inv-sell tableHeader">
-        Sell
-    </div>
-    {% for item in game.player.ship.cargo %}
-    <div class="inv-item inv-name">
-        <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
-    </div>
-    <div class="inv-item inv-quantity">
-        {{item.amount}}x
-    </div>
-    <div class="inv-item inv-weight">
-        {{item.size}} lb
-    </div>
-    <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
-        {{item.s_price}}</button>
-    {% endfor %}
 </div>
 <script type="text/javascript">
     function updateCredits() {
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("credits").innerHTML = "<strong>" + this.responseText +"</strong>"
+                document.getElementById("credits").innerHTML = "<strong>" + this.responseText + "</strong>"
             }
         };
         req.open('POST', '/market', true);
@@ -143,7 +147,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("health").innerHTML = "<strong>" + this.responseText +"</strong>"
+                document.getElementById("health").innerHTML = "<strong>" + this.responseText + "</strong>"
             }
         };
         req.open('POST', '/market', true);
@@ -155,7 +159,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("fuel").innerHTML = "<strong>" + this.responseText +"</strong>"
+                document.getElementById("fuel").innerHTML = "<strong>" + this.responseText + "</strong>"
             }
         };
         req.open('POST', '/market', true);
@@ -173,7 +177,6 @@
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let item = JSON.parse(this.responseText);
-                console.log(item);
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
                 document.getElementById("name").innerHTML = "<strong>" + item.name + "</strong>";

@@ -126,7 +126,7 @@ class Universe:
 
     def __init__(self):
         self.region_list = []
-        self.names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+        self.names = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
         while len(self.names) > 0:
             new_region = self.create_region()
             if len(self.region_list) == 0:

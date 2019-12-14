@@ -4,9 +4,9 @@ import math
 from item import Item
 
 
-def fuel_calc(fuel_cost_constant, distance, pilot):
+def fuel_calc(fuel_cost_constant, distance, pilot, cargo_size):
     """Returns the fuel cost for the distance"""
-    return fuel_cost_constant * distance * (1 - (pilot / 75))
+    return int(fuel_cost_constant * distance * (1 - (pilot / 75)) + (cargo_size / 50))
 
 
 def repair_cost(repair, engineer):
@@ -51,15 +51,21 @@ def sprice_calc(player, region):
 # Lowers ship fuel level as all options end up with the fuel being spent
 def travel_check(game, region):
     distance = game.player.curr_region.distance(region)
-    fuel_cost = game.fuel_cost_constant * distance * (1 - (game.player.pilot / 75))
+    fuel_cost = fuel_calc(game.fuel_cost_constant, distance, game.player.pilot, game.player.ship.cargo_size)
     fuel_amount = game.player.ship.fuel_level
     if region == game.player.curr_region:
         return 2
     if fuel_amount >= fuel_cost:
-        game.player.ship.fuel_level = int(fuel_amount - fuel_cost)
+        game.player.ship.fuel_level = fuel_amount - fuel_cost
         return 1
     else:
         return 3
+
+# updates fuel cost from every region to the given region
+def update_all_travel_cost(game, curr_region):
+    for region in game.universe.region_list:
+        distance = curr_region.distance(region)
+        region.travel_cost = fuel_calc(game.fuel_cost_constant, distance, game.player.pilot, game.player.ship.cargo_size)
 
 
 def travel(player, region):
@@ -188,10 +194,10 @@ def flee_police(player, police):
         return True
     else:
         # fail flee attempt
-        # forfeit item, lose 15 health, lose 70 credits
+        # forfeit item, lose 15 health, lose 100 credits
         forfeit_police(player, police)
         player.ship.health_level -= 15
-        player.credit -= 70
+        player.credit -= 100
         player.karma -= 1
         return False
 
@@ -240,7 +246,7 @@ def fight_bandit(player, bandit):
     else:
         # fail fight attempt
         # lose all credits and get damaged
-        player.credit = 0
+        player.credit = int(player.credit / 3)
         player.ship.health_level -= 20
         return False
 
@@ -252,8 +258,8 @@ def flee_bandit(player):
         return True
     else:
         # fail flee attempt
-        # lose all credits and get damaged
-        player.credit = 0
+        # lose half of your credits and get damaged
+        player.credit = int(player.credit / 2)
         player.ship.health_level -= 20
         return False
 
@@ -295,21 +301,13 @@ def rob_trader(player, trader):
 def negotiate_trader(player, trader):
     if skill_check(player.merchant):
         # successful negotiation attempt
-        if player.karma > 0:
-            # half off
-            trader["item"].b_price = int(trader["item"].b_price * (1 / 2))
-        elif player.karma < 0:
-            # 12.5% off
-            trader["item"].b_price = int(trader["item"].b_price * (7 / 8))
-        else:
-            # item's price 33% off
-            trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
+        # item's price 33% off
+        trader["item"].b_price = int(trader["item"].b_price * (2 / 3))
         return True
     else:
         # failed negotation attempt
-        # increase item's price by 150% if bad or neutral karma
-        if player.karma <= 0:
-            trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
+        # increase item's price by 33%
+        trader["item"].b_price = int(trader["item"].b_price * (3 / 2))
         return False
 
     # Ignore does nothing
@@ -325,11 +323,3 @@ def skill_check(skill):
     #     return True
     # else:
     #     return False
-
-
-def damage(player, npc):
-    h_damage = npc.fighterLevel * 100
-    if player.ship.health_level >= h_damage:
-        player.ship.health_level -= h_damage
-    else:
-        player.ship.health_level = 0

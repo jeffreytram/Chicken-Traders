@@ -26,9 +26,9 @@ class Game:
         if self.diff == "easy":
             return 0.2
         elif self.diff == "med":
-            return 0.35
+            return 0.3
         elif self.diff == "hard":
-            return 0.5
+            return 0.4
         else:
             return -1
 

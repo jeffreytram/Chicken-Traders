@@ -19,23 +19,7 @@ setup = {
     "sp3": 0,
     "sp4": 0,
 }
-state = {
-    "game": None,
-    "currRegion": None,
-    "prev_region": None,
-    "selectedItem": None,
-    "fuel_error": None,
-    "market_error": None,
-    "npc": {},
-    "negotiated": False,
-    "choice_result": None,
-    "second_test": True,
-    "disabled": False,
-    "end_game": None,
-    "news": [],
-    "time": 9,
-    "day": 0
-}
+state = {}
 
 # home page
 @app.route("/", methods=["GET"])
@@ -85,16 +69,30 @@ def confirm():
     confirmform = ConfirmForm()
     if confirmform.validate_on_submit():
         chicken_traders = Game(setup["pDiff"])
-
-        state["game"] = chicken_traders
-
         chicken_traders.start_game(
             setup["pName"],
             [setup["sp1"], setup["sp2"], setup["sp3"], setup["sp4"]],
             setup["pCredits"],
         )
+
+        # initialize game states
+        global state
+        state["game"] = chicken_traders
         state["currRegion"] = chicken_traders.player.curr_region
         state["prev_region"] = state["currRegion"]
+        state["selectedItem"] = None
+        state["fuel_error"] = None
+        state["market_error"] = None
+        state["npc"] = {}
+        state["negotiated"] = False
+        state["choice_result"] = None
+        state["second_test"] = True
+        state["disabled"] = False
+        state["end_game"] = None
+        state["news"] = []
+        state["time"] = 9
+        state["day"] = 0
+
         return redirect(url_for("about"))
     return render_template(
         "confirm.html",
@@ -139,6 +137,7 @@ def ship():
 # travel page
 @app.route("/travel", methods=["GET", "POST"])
 def travel():
+    utility.update_all_travel_cost(state["game"], state["currRegion"])
     if state["npc"]:
         if isinstance(state["npc"], str):
             state["news"].insert(0, state["npc"])
@@ -275,6 +274,7 @@ def encounter():
             state["disabled"] = False
         elif not state["disabled"]:
             state["disabled"] = True
+            curr_credits = state["game"].player.credit
             # bandit choices
             if "pay_bandit" in request.form:
                 result = utility.pay_bandit(state["game"].player, state["npc"])
@@ -286,7 +286,7 @@ def encounter():
                     )
                 elif result == 2:
                     state["choice_result"] = (
-                        "You attempted to pay the bandit without enough money!"
+                        "You attempted to pay the bandit without enough money! "
                         + "The bandit steals all your cargo!"
                     )
                 else:
@@ -295,7 +295,6 @@ def encounter():
                         + "The bandit attacks you out of anger! (-15 health)"
                     )
             if "fight_bandit" in request.form:
-                curr_credits = state["game"].player.credit
                 if utility.fight_bandit(state["game"].player, state["npc"]):
                     state["choice_result"] = (
                         "You successfully defeated the bandit. You took the Bandit's credits. \n(+"
@@ -305,12 +304,11 @@ def encounter():
                 else:
                     state["choice_result"] = (
                         "You lost to the Bandit! The Bandit "
-                        + "took all your credits and injured you. (-"
-                        + str(curr_credits)
+                        + "took most of your credits and injured you. (-"
+                        + str(curr_credits - int(curr_credits / 3))
                         + " credits, -20 health)"
                     )
             if "flee_bandit" in request.form:
-                curr_credits = state["game"].player.credit
                 if utility.flee_bandit(state["game"].player):
                     state["currRegion"] = state["prev_region"]
                     state["game"].player.curr_region = state["prev_region"]
@@ -320,8 +318,8 @@ def encounter():
                 else:
                     state["choice_result"] = (
                         "You failed to flee the Bandit. "
-                        + "The Bandit took all your credits and injured you. (-"
-                        + str(curr_credits)
+                        + "The Bandit took half of your credits and injured you. (-"
+                        + str(curr_credits - int(curr_credits / 2))
                         + " credits, -20 health)"
                     )
             # trader choices
@@ -335,7 +333,7 @@ def encounter():
                 else:
                     state["disabled"] = False
                     state["second_test"] = False
-                    state["choice_result"] = "You don't have enough credits!"
+                    state["choice_result"] = "You don't have enough credits/space!"
             if "ignore_trader" in request.form:
                 state["second_test"] = True
                 state["negotiated"] = False
@@ -359,11 +357,11 @@ def encounter():
                     if utility.negotiate_trader(state["game"].player, state["npc"]):
                         state[
                             "choice_result"
-                        ] = "You negotiated a deal with the Trader."
+                        ] = "You negotiated a deal with the Trader. (-33% price)"
                     else:
                         state[
                             "choice_result"
-                        ] = "The Trader was insulted by your negotiation attempt!"
+                        ] = "The Trader was insulted by your negotiation attempt! (+33% price)"
                 else:
                     state["choice_result"] = "You can only negotiate once! D:<"
             # police choices
@@ -383,7 +381,7 @@ def encounter():
                         "You failed to flee from the Police. The Police took"
                         + " the item, charged you a fee, and slapped you. (-all "
                         + state["npc"]["item"].name
-                        + ", -70 credits, -15 health)"
+                        + ", -100 credits, -15 health)"
                     )
             if "fight_police" in request.form:
                 if utility.fight_police(state["game"].player, state["npc"]):
