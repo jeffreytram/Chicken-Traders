@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="all-container">
+    <!-- top bar UI -->
+    <div class="player-info-grid">
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
+            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
+            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+        </div>
+        <div>
+            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
+            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
+            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+        </div>
+    </div>
+
+    <!-- nav bar -->
+    <div id="menu">
+        <button id="travel" onclick="location.href = 'travel'">Travel</button>
+        <button id="market" onclick="location.href = 'market'">Market</button>
+        <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
+        <button id="collection" onclick="location.href = 'collection'">Collection</button>
+    </div>
+    <h2 id="header">Stats</h2>
+</div>
+{% endblock %}

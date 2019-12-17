@@ -206,8 +206,12 @@
 - fixed bug where certain states not resetting upon starting new game
 - cargo weight now increases travel fuel cost
 - game balancing
+- display cost of buying health and fuel
+
+
 
 TODO:
+[] starting items - mom's lucky watch - desparate times call for desparate measures
 [] remove/reduce encounter reload
 [] fun stats
     - total distance traveled

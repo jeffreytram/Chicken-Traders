@@ -390,7 +390,7 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 }
 
 .grid-container {
-    width: 100%;
+    width: 97%;
     margin: auto;
     display: grid;
     grid-template: repeat(9, auto) / minmax(auto, calc(75px + 5vw)) repeat(5, auto);

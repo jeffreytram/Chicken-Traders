@@ -107,31 +107,11 @@ def confirm():
         credits=setup["pCredits"],
     )
 
+
 # about page
 @app.route("/about", methods=["GET"])
 def about():
     return render_template("about.html", game=state["game"])
-
-# collection page
-@app.route("/collection", methods=["GET", "POST"])
-def collection():
-    if request.method == "POST":
-        if "addCredits" in request.form:
-            category = request.form["addCredits"]
-            index = state["game"].player.collection.category.index(category)
-            state["game"].player.collection.complete[index] = True
-            state["game"].player.credit += 100
-            return str(state["game"].player.credit)
-    return render_template(
-        "collection.html", game=state["game"], all_items=Item.__subclasses__()
-    )
-
-# ship page
-@app.route("/ship", methods=["GET", "POST"])
-def ship():
-    return render_template(
-        "ship.html", game=state["game"]
-    )
 
 
 # travel page
@@ -166,7 +146,7 @@ def travel():
                     state["game"].encounter_factor,
                     state["game"].player,
                     state["game"].universe.region_list,
-                    state["time"]
+                    state["time"],
                 )
                 utility.travel(state["game"].player, travel_region)
             else:
@@ -239,12 +219,36 @@ def market():
             return str(state["game"].player.ship.health_level)
     return render_template(
         "market.html",
+        repair_cost=utility.repair_cost(10, state["game"].player.engineer),
         market_error=state["market_error"],
         game=state["game"],
         currRegion=state["currRegion"],
         selectedItem=state["selectedItem"],
     )
 
+# ship page
+@app.route("/ship", methods=["GET", "POST"])
+def ship():
+    return render_template("ship.html", game=state["game"])
+
+# collection page
+@app.route("/collection", methods=["GET", "POST"])
+def collection():
+    if request.method == "POST":
+        if "addCredits" in request.form:
+            category = request.form["addCredits"]
+            index = state["game"].player.collection.category.index(category)
+            state["game"].player.collection.complete[index] = True
+            state["game"].player.credit += 100
+            return str(state["game"].player.credit)
+    return render_template(
+        "collection.html", game=state["game"], all_items=Item.__subclasses__()
+    )
+
+# stats page
+@app.route("/stats", methods=["GET", "POST"])
+def stats():
+    return render_template("stats.html", game=state["game"])
 
 # end page
 @app.route("/end", methods=["GET", "POST"])
