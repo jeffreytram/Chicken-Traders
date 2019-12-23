@@ -208,6 +208,12 @@
 - game balancing
 - display cost of buying health and fuel
 
+12.22
+- selected item highlighted in market
+- added short description in collection
+
+12.23
+- added market banners
 
 
 TODO:

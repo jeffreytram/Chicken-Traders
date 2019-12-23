@@ -27,6 +27,7 @@
         <button id="collection" class="active" onclick="location.href = 'collection'">Collection</button>
     </div>
     <h2 id="header">Collection:</h2>
+    <p>Collect all items in a category for a reward!</p>
     {% for category in game.player.collection.category %}
     <div class="collection-grid">
         <h4 class="collection-label">{{category}}:</h4>

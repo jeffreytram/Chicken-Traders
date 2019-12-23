@@ -28,4 +28,29 @@
     </div>
     <h2 id="header">Stats</h2>
 </div>
+<svg width="540" height="540">
+
+</svg>
+<script>
+    console.log(d3);
+
+    //getting svg
+    const svg = d3.select("svg");
+    //setting height/width and converting string -> float
+    const height = +svg.attr("height");
+    const width = +svg.attr("width");
+
+    //creating head circle
+    const circle = svg.append("circle")
+        .attr("r", 200)
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
+        .attr("fill", "yellow")
+        .attr("stroke", "black")
+        .attr("","");
+
+    //creating eye
+    
+
+</script>
 {% endblock %}

@@ -29,8 +29,12 @@
 </div>
 
 <div class="market-container">
-    <h2 id="header">Market</h2>
-    <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <div id="header-with-bg">
+        <div class="white-bg">
+            <h2 id="header">Market</h2>
+            <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+        </div>
+    </div>
     <!-- Market -->
     <div class="menu marketMenu">
         <div class="grid-container">
@@ -206,11 +210,22 @@
         window.location.reload();
     }
 
+    // set tech level bg
+    let techLevelBg = document.getElementById("header-with-bg");
+    techLevelBg.style.backgroundImage = 'url("../static/{{currRegion.tech_level.name}}.png")';
+
     // event listener for item selection
     let itemUl = document.getElementById("itemUl");
     itemUl.addEventListener("click", function (event) {
         if (event.target.classList.contains("item")) {
             selectItem(event.target.classList[1]);
+
+            //highlight selected item
+            let activeItem = document.getElementsByClassName("active-item");
+            if (activeItem.length > 0) {
+                activeItem[0].className = activeItem[0].className.replace(" active-item", "");
+            }
+            event.target.className += " active-item";
         }
     });
 
