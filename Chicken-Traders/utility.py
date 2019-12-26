@@ -3,6 +3,16 @@ import random
 import math
 from item import Item
 
+category = [
+        "Animal",
+        "Food",
+        "Medicine",
+        "Misc",
+        "Weapon",
+        "Resource",
+        "Technology",
+        "Tool",
+    ]
 
 def fuel_calc(fuel_cost_constant, distance, pilot, cargo_size):
     """Returns the fuel cost for the distance"""
@@ -16,33 +26,39 @@ def repair_cost(repair, engineer):
 def bprice_calc(player, region):
     for item in region.market:
         tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
+        price_board_multiplier = region.price_board[category.index(item.category)]
         item.b_price = int(
             tech_factor
             * item.base_price
-            * (1 - player.merchant / 75)
+            * (1 - player.merchant / 70)
             * region.news_multiplier
+            * price_board_multiplier
         )
 
 
 def sprice_calc(player, region):
     for item in region.market:
-        tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
+        tech_factor = 1 - ((region.tech_level.value - item.debut) / 10)
+        price_board_multiplier = region.price_board[category.index(item.category)]
         item.s_price = int(
             0.7
             * tech_factor
             * item.base_price
-            * (1 + player.merchant / 75)
+            * (1 + player.merchant / 70)
             * region.news_multiplier
+            * price_board_multiplier
         )
     if len(player.ship.cargo) != 0 or player.ship.cargo_size > 0:
         for item in player.ship.cargo:
-            tech_factor = 1 - ((region.tech_level.value - item.debut) / 14)
+            tech_factor = 1 - ((region.tech_level.value - item.debut) / 10)
+            price_board_multiplier = region.price_board[category.index(item.category)]
             item.s_price = int(
                 0.7
                 * tech_factor
                 * item.base_price
-                * (1 + player.merchant / 75)
+                * (1 + player.merchant / 70)
                 * region.news_multiplier
+                * price_board_multiplier
             )
 
 
@@ -86,28 +102,18 @@ def encounter_check(diff_modifier, player, region_list, time):
         return gen_bandit()
     elif check_int > 30 and check_int <= 30 + 4 * diff_modifier * time_modifier and len(player.ship.cargo) > 0: # 4% - 12% chance
         return gen_police(player)
-    elif check_int > 60:
+    elif check_int > 55:
         return news_event(region_list)
     else:
         return None
 
 
 def news_event(region_list):
-    category = [
-        "Animal",
-        "Food",
-        "Medicine",
-        "Misc",
-        "Weapon",
-        "Resource",
-        "Technology",
-        "Tool",
-    ]
     rng = random.randint(1, 10)
     percent = (
-        random.randint(65, 90)
+        random.randint(70, 90)
         if random.randint(1, 2) == 1
-        else random.randint(110, 135)
+        else random.randint(110, 130)
     )
     multiplier = percent / 100
     all_items = Item.__subclasses__()
@@ -127,26 +133,26 @@ def news_event(region_list):
         rand_category = category[random.randint(0, len(category) - 1)]
         for item in all_items:
             if item.category == rand_category:
-                item.base_price *= multiplier
+                item.base_price *= multiplier * 2
         return (
             "The price of "
             + rand_category
             + " items have "
             + ("increased" if percent > 100 else "decreased")
             + "! ("
-            + str(percent - 100)
+            + str((percent - 100) * 2)
             + "%)"
         )
     elif rng <= 8:
         # adjust b_price of specific item
         rand_item = all_items[random.randint(0, len(all_items) - 1)]
-        rand_item.base_price *= multiplier
+        rand_item.base_price *= multiplier * 3
         return (
             rand_item.name
             + " is becoming "
             + ("trendy" if percent > 100 else "unpopular")
             + "! ("
-            + str(percent - 100)
+            + str((percent - 100) * 3)
             + "%)"
         )
     else:

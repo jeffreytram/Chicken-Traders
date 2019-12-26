@@ -178,10 +178,7 @@ class InvincibilityStar(Item):
     debut = 7
     size = 10
     base_price = 450
-    description = (
-        "Use it to eviscerate any bandits that "
-        + "dare to challenge you and steal all the loot."
-    )
+    description = "I wish, I wish with all my heart."
 
     def __str__(self):
         return super(InvincibilityStar, self).__str__() + "."

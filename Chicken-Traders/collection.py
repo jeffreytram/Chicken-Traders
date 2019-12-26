@@ -2,7 +2,7 @@ class Collection:
     def __init__(self):
         self.category = ["Animal", "Food", "Medicine", "Misc", "Resource", "Technology", "Tool", "Weapon"]
         self.progress = [0, 0, 0, 0, 0, 0, 0, 0]
-        self.max = [4, 10, 4, 8, 9, 9, 4, 7]
+        self.max = [5, 9, 4, 8, 9, 9, 4, 7]
         self.item_set = set([])
         self.complete = [False, False, False, False, False, False, False, False]
 

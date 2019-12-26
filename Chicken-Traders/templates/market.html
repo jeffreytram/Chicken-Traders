@@ -29,10 +29,19 @@
 </div>
 
 <div class="market-container">
-    <div id="header-with-bg">
-        <div class="white-bg">
-            <h2 id="header">Market</h2>
-            <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <h2 id="header">Market</h2>
+    <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <!-- price board -->
+    <div id="market-banner">
+        <div class="price-board">
+            <div class="price">Animal:</div>
+            <div class="price">Food:</div>
+            <div class="price">Medicine:</div>
+            <div class="price">Misc:</div>
+            <div class="price">Resource:</div>
+            <div class="price">Technology:</div>
+            <div class="price">Tool:</div>
+            <div class="price">Weapon:</div>
         </div>
     </div>
     <!-- Market -->
@@ -209,9 +218,20 @@
         req.send("sellIndex=" + index);
         window.location.reload();
     }
+    // set prices in price board
+    let priceBoard = document.getElementsByClassName("price");
+    {% for price in currRegion.price_board %}
+    {% if price == 1 %}
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-neutral.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " {{price}}x"
+    {% elif price > 1 %}
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-up.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
+    {% else %}
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-down.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
+    {% endif %}
+    {% endfor %}
 
     // set tech level bg
-    let techLevelBg = document.getElementById("header-with-bg");
+    let techLevelBg = document.getElementById("market-banner");
     techLevelBg.style.backgroundImage = 'url("../static/{{currRegion.tech_level.name}}.png")';
 
     // event listener for item selection

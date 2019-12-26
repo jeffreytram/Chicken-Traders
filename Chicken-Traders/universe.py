@@ -62,10 +62,19 @@ class Region:
         self.name = name
         self.news_multiplier = 1
         self.market = []
-        # possible
         self.init_market()
+        self.price_board = []
+        self.init_price_board()
 
-        # END for
+    def init_price_board(self):
+         while len(self.price_board) < 8:
+            rand_int = random.randint(1,10)
+            if rand_int <= 6:
+                self.price_board.append(1)
+            elif rand_int <=8:
+                self.price_board.append(round(1 + random.randint(10,40) / 100, 2))
+            else:
+                self.price_board.append(round(1 - random.randint(10,40) / 100, 2))
 
     def init_market(self):
         poss_items = Item.__subclasses__()
@@ -94,7 +103,6 @@ class Region:
             self.coordinates.recreate_y()
             regenerated = True
         return regenerated
-    
 
     # END compareAndRegen
 
@@ -140,7 +148,7 @@ class Universe:
         new_region = Region(TechLevel(random.randint(1, 7)), self.names[0])
         self.names.pop(0)
         return new_region
-    
+
     def reg_coord_check(self, new_region):
         keep_comparing = True
         while keep_comparing:
