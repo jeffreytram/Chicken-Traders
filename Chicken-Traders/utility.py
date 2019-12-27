@@ -34,6 +34,7 @@ def bprice_calc(player, region):
             * region.news_multiplier
             * price_board_multiplier
         )
+        #print(region.name +": " + item.name + " " + str(tech_factor) + " "+ str(item.base_price) + " " + str(region.news_multiplier) + " " + str(price_board_multiplier))
 
 
 def sprice_calc(player, region):
@@ -133,7 +134,7 @@ def news_event(region_list):
         rand_category = category[random.randint(0, len(category) - 1)]
         for item in all_items:
             if item.category == rand_category:
-                item.base_price *= multiplier * 2
+                item.base_price *= (1 + multiplier % 1 * 2) if multiplier > 1 else 1 - (1 - multiplier) * 2
         return (
             "The price of "
             + rand_category
@@ -146,7 +147,7 @@ def news_event(region_list):
     elif rng <= 8:
         # adjust b_price of specific item
         rand_item = all_items[random.randint(0, len(all_items) - 1)]
-        rand_item.base_price *= multiplier * 3
+        rand_item.base_price *= (1 + multiplier % 1 * 3) if multiplier > 1 else 1 - (1 - multiplier) * 3
         return (
             rand_item.name
             + " is becoming "

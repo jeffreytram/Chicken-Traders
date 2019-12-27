@@ -215,6 +215,12 @@
 12.23
 - added market banners
 
+12.26
+- added price board
+- game balancing
+
+12.27
+- news event multiplier now correctly applied
 
 TODO:
 [] starting items - mom's lucky watch - desparate times call for desparate measures
