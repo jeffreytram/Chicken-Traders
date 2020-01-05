@@ -104,10 +104,13 @@ class Player:
         if self.ship.cargo[cargo_item_index].amount < amount:
             return "You dont have that many"
         elif self.ship.cargo[cargo_item_index].amount == amount:
+            # player sells last one
+            self.ship.cargo[cargo_item_index].amount -= amount
             self.credit += self.ship.cargo[cargo_item_index].s_price * amount
             self.ship.cargo.pop(cargo_item_index)
             return "Trade sucessful"
         else:
+            # player has more of that item remaining
             self.credit += self.ship.cargo[cargo_item_index].s_price * amount
             self.ship.cargo[cargo_item_index].amount -= amount
             return "Trade sucessful"

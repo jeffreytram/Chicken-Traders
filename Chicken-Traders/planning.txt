@@ -226,6 +226,14 @@
 - net worth stored every 6 hours
 - added net worth over time line graph
 
+1.05
+- selling items no longer requires a page refresh
+
+WIP
+- remove buy refresh
+- remove npc refresh
+- remove travel refresh?
+
 TODO:
 [] barter
     - trade x item for y, trade x item for y dollars/fuels/repair

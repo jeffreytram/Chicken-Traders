@@ -189,11 +189,17 @@ def market():
                 state["market_error"] = status
             else:
                 state["market_error"] = None
-        if "sellIndex" in request.form:
-            inv_index = int(request.form["sellIndex"]) - 1
-            state["game"].player.trade_sell(inv_index, 1)
+        if "sellId" in request.form:
+            item_id = int(request.form["sellId"])
+            for index, item in enumerate(state["game"].player.ship.cargo):
+                print(str(item.id) + " " + str(item_id))
+                if item.id == item_id:
+                    state["game"].player.trade_sell(index, 1)
+                    return str(item.amount)
         if "updateCredits" in request.form:
             return str(state["game"].player.credit)
+        if "updateStorageCapacity" in request.form:
+            return str(state["game"].player.ship.cargo_size) + " / " + str(state["game"].player.ship.max_cargo)
         if "addFuel" in request.form:
             state["game"].player.purchase_fuel(50)
             return str(state["game"].player.ship.fuel_level)

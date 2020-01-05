@@ -116,7 +116,7 @@
 
 <div class="all-container">
     <!-- Player Inv -->
-    <h4>Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
+    <h4 id="inv-title">Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
     <div class="inv-grid">
         <div class="inv-item inv-image tableHeader">
             Item
@@ -131,16 +131,16 @@
             Sell
         </div>
         {% for item in game.player.ship.cargo %}
-        <div class="inv-item inv-name">
+        <div class="inv-item inv-name {{item.id}}">
             <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
         </div>
-        <div class="inv-item inv-quantity">
+        <div class="inv-item inv-quantity {{item.id}}">
             {{item.amount}}x
         </div>
-        <div class="inv-item inv-weight">
+        <div class="inv-item inv-weight {{item.id}}">
             {{item.size}} lb
         </div>
-        <button class="sellButton {{loop.index}} inv-item inv-sell">Sell for
+        <button class="sellButton inv-item inv-sell {{item.id}}">Sell for
             {{item.s_price}}</button>
         {% endfor %}
     </div>
@@ -156,6 +156,17 @@
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("updateCredits=");
+    }
+    function updateStorageCapacity() {
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("inv-title").innerHTML = "Player Inventory: " + this.responseText + " lb capacity";
+            }
+        };
+        req.open('POST', '/market', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("updateStorageCapacity=");
     }
     function addHealth() {
         var req = new XMLHttpRequest();
@@ -211,13 +222,36 @@
         req.send("buyIndex=");
         window.location.reload();
     }
-    function sellItem(index) {
+    function sellItem(id) {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                numRemaining = this.responseText;
+                
+                
+                if (numRemaining == 0) {
+                    //remove row if no more of that item
+                    //get row to remove
+                    let toBeSold = document.getElementsByClassName(id);
+                    //remove row
+                    Array.from(toBeSold).forEach(function (element) {
+                        element.remove();
+                    });
+                } else {
+                    //update item quantity
+                    let itemQuantity = document.getElementsByClassName("inv-quantity " + id);
+                    itemQuantity[0].innerHTML = numRemaining + "x"
+                }
+                //update credits
+                updateCredits();
+                //update storage capacity
+                updateStorageCapacity();
+            }
+        };
         //this part sends the data over
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("sellIndex=" + index);
-        window.location.reload();
+        req.send("sellId=" + id);
     }
     // set prices in price board
     let priceBoard = document.getElementsByClassName("price");
@@ -254,7 +288,7 @@
     let invGridUl = document.getElementsByClassName("inv-grid");
     invGridUl[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("sellButton")) {
-            sellItem(event.target.classList[1]);
+            sellItem(event.target.classList[3]);
         }
     })
 
