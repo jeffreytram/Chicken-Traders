@@ -25,6 +25,7 @@
         <button id="market" class="active" onclick="location.href = 'market'">Market</button>
         <button id="ship" onclick="location.href = 'ship'">Ship</button>
         <button id="collection" onclick="location.href = 'collection'">Collection</button>
+        <button id="stats" onclick="location.href = 'stats'">Stats</button>
     </div>
 </div>
 
@@ -99,7 +100,7 @@
                     </div>
                     <div class="description-item" id="weight">
                         {% if selectedItem %}
-                        Weight: {{selectedItem.size}} lb - Tech Level: {{selectedItem.debut}}
+                        Category: {{selectedItem.category}} - Weight: {{selectedItem.size}} lb - Tech Level: {{selectedItem.debut}}
                         {% endif %}
                     </div>
                     <div class="description-item" id="description">
@@ -193,7 +194,7 @@
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
                 document.getElementById("name").innerHTML = "<strong>" + item.name + "</strong>";
-                document.getElementById("weight").innerHTML = "Weight: " + item.size + " lb - Tech Level: " + item.debut;
+                document.getElementById("weight").innerHTML = "Category: " + item.category + " - Weight: " + item.size + " lb - Tech Level: " + item.debut;
                 document.getElementById("description").innerHTML = item.description;
             }
         };

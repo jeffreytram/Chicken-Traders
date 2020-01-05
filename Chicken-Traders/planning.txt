@@ -222,7 +222,15 @@
 12.27
 - news event multiplier now correctly applied
 
+1.04
+- net worth stored every 6 hours
+- added net worth over time line graph
+
 TODO:
+[] barter
+    - trade x item for y, trade x item for y dollars/fuels/repair
+[] night market????
+    - weapons more common
 [] starting items - mom's lucky watch - desparate times call for desparate measures
 [] remove/reduce encounter reload
 [] fun stats
@@ -232,7 +240,6 @@ TODO:
 [] info viz - d3
     - net worth over time
 [] user experience improvements
-[] region category multiplier
 [] buy/sell log
 
 [] quest board

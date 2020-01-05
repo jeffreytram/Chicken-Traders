@@ -13,6 +13,7 @@ class Item:
         self.debut = self.debut
         self.amount = amount
         self.max = self.amount
+        self.category = self.category
         self.b_price = 0
         self.s_price = 0
 
@@ -59,7 +60,7 @@ class StrangeTalisman(Item):
     category = "Misc"
     debut = 1
     size = 4
-    base_price = 5
+    base_price = 90
     description = "A strange talisman from a wandering civilization. It feels warm."
 
     def __str__(self):
@@ -251,7 +252,7 @@ class Honey(Item):
     category = "Food"
     debut = 1
     size = 2
-    base_price = 7
+    base_price = 17
     description = "\"I wasn't going to eat it. I was just going to taste it.\""
 
     def __str__(self):
@@ -467,7 +468,7 @@ class Herbs(Item):
     category = "Medicine"
     debut = 1
     size = 2
-    base_price = 9
+    base_price = 15
     description = "It's natural!"
 
     def __str__(self):
@@ -479,7 +480,7 @@ class StrangeVial(Item):
     category = "Medicine"
     debut = 2
     size = 3
-    base_price = 13
+    base_price = 20
     description = "I think it may make me feel better?"
 
     def __str__(self):
@@ -491,7 +492,7 @@ class Bandage(Item):
     category = "Medicine"
     debut = 3
     size = 3
-    base_price = 15
+    base_price = 30
     description = "Now you can be a mummy!"
 
     def __str__(self):
@@ -503,7 +504,7 @@ class FirstAidKit(Item):
     category = "Medicine"
     debut = 5
     size = 5
-    base_price = 35
+    base_price = 50
     description = "All in one kit!"
 
     def __str__(self):

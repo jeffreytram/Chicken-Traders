@@ -89,9 +89,6 @@ def confirm():
         state["second_test"] = True
         state["disabled"] = False
         state["end_game"] = None
-        state["news"] = []
-        state["time"] = 9
-        state["day"] = 0
 
         return redirect(url_for("about"))
     return render_template(
@@ -119,18 +116,7 @@ def about():
 def travel():
     utility.update_all_travel_cost(state["game"], state["currRegion"])
     if state["npc"]:
-        if isinstance(state["npc"], str):
-            state["news"].insert(0, state["npc"])
-            if len(state["news"]) > 5:
-                state["news"].pop(-1)
-            state["time"] += 3
-            if state["time"] == 24:
-                state["day"] += 1
-                state["time"] = 0
-                utility.restock(state["game"].universe.region_list)
-            state["npc"] = None
-        else:
-            return redirect(url_for("encounter"))
+        return redirect(url_for("encounter"))
     if request.method == "POST":
         if "currIndex" in request.form:
             index = request.form["currIndex"]
@@ -146,9 +132,9 @@ def travel():
                     state["game"].encounter_factor,
                     state["game"].player,
                     state["game"].universe.region_list,
-                    state["time"],
+                    state["game"].time,
                 )
-                utility.travel(state["game"].player, travel_region)
+                utility.travel(state["game"], travel_region)
             else:
                 state["fuel_error"] = travel_status
         if "addFuel" in request.form:
@@ -170,9 +156,6 @@ def travel():
                 state["npc"] = utility.gen_police(state["game"].player)
     return render_template(
         "travel.html",
-        day=state["day"],
-        time=state["time"],
-        news=state["news"],
         fuel_error=state["fuel_error"],
         game=state["game"],
         currRegion=state["currRegion"],
@@ -248,7 +231,7 @@ def collection():
 # stats page
 @app.route("/stats", methods=["GET", "POST"])
 def stats():
-    return render_template("stats.html", game=state["game"])
+    return render_template("stats.html", game=state["game"], data=json.dumps(state["game"].data))
 
 # end page
 @app.route("/end", methods=["GET", "POST"])

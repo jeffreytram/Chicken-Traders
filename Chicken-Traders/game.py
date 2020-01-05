@@ -8,6 +8,10 @@ class Game:
         self.diff = diff
         self.universe = None
         self.player = None
+        self.time = 0
+        self.day = 0
+        self.news = []
+        self.data = []
 
     def start_game(self, name, skill_points, credit):
         self.universe = Universe()
@@ -15,11 +19,36 @@ class Game:
         self.player = Player(
             name, skill_points, credit, self.universe.region_list[rand_int]
         )
+        self.data.append(self.player.credit)
         self.universe.insert_win(self.player.name)
         utility.bprice_calc(self.player, self.player.curr_region)
         utility.sprice_calc(self.player, self.player.curr_region)
 
-    # END startGame
+    # increases time
+    def increment_time(self):
+        self.time += 2
+        if self.time % 6 == 0:
+            # calculate net worth every 6 hr
+            net_worth = self.calcNetWorth()
+            self.data.append(net_worth)
+        if self.time >= 24:
+            self.time = self.time % 24
+            self.day += 1
+            self.restock(self.universe.region_list)
+    
+    # replenishes stock of every item by 1
+    def restock(self, region_list):
+        for region in region_list:
+            for item in region.market:
+                if item.amount < item.max:
+                    item.amount += 1
+
+    def calcNetWorth(self):
+        # net worth is number of credits plus base price of items
+        net_worth = self.player.credit
+        for item in self.player.ship.cargo:
+            net_worth += item.amount * item.base_price
+        return int(net_worth)
 
     @property
     def fuel_cost_constant(self):

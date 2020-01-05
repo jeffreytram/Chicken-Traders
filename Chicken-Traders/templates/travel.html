@@ -24,10 +24,11 @@
         <button id="market" onclick="location.href = 'market'">Market</button>
         <button id="ship" onclick="location.href = 'ship'">Ship</button>
         <button id="collection" onclick="location.href = 'collection'">Collection</button>
+        <button id="stats" onclick="location.href = 'stats'">Stats</button>
     </div>
     <h2 id="header">Travel</h2>
     <div class="travel-info-container">
-        <h3 id="time-info"><img id="time" class="item-icon">Day: {{day}} Time: {{time}}:00</h3>
+        <h3 id="time-info"><img id="time" class="item-icon">Day: {{game.day}} Time: {{game.time}}:00</h3>
         <div id="time-effect"></div>
         <h2 id="current-info">Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
     </div>
@@ -58,9 +59,9 @@
     </div>
     <div class="news">
         <h2><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
-        {% if news %}
+        {% if game.news %}
         <ul>
-            {% for event in news%}
+            {% for event in game.news%}
             {% if "inc" in event or "trendy" in event%}
             <li><img class='item-icon arrow' src='../static/item-images/icon-up.svg'>{{event}}</li>
             {% else %}
@@ -160,7 +161,7 @@
     {% endfor %}
 
     //check if day/night- day if 9-18, night if 21-6
-    if ({{ time }} >= 9 && {{ time }} <= 18) {
+    if ({{ game.time }} >= 9 && {{ game.time }} <= 18) {
         document.getElementById("time").src = "../static/item-images/icon-day.svg";
         url = '../static/map-day.png';
         document.getElementById("time-effect").innerHTML = "<strong>Day Time</strong>: Trader <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>";

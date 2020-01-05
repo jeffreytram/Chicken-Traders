@@ -244,18 +244,6 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     margin: 20px auto;
 }
 
-/* about page style */
-
-.about-container {
-    margin: auto;
-    width: 100%;
-    text-align: left;
-}
-
-#start {
-    width: 200px;
-}
-
 /* Collection page style */
 
 .collection-grid {
@@ -335,6 +323,23 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 
 .cargo-item:nth-child(3n+1) {
     grid-column: 1/4;
+}
+
+/* about page */
+#image {
+    width: 50%;
+}
+
+.about-container {
+    margin: auto;
+    width: 100%;
+}
+.about-container > p, .about-container > h1, .about-container > h2{
+    text-align: left;
+}
+
+#start {
+    width: 200px;
 }
 
 /* TRAVEL menu style */
@@ -584,6 +589,14 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     background-image: linear-gradient(to left, white, rgb(235, 235, 235));
     transform: skewY(-10deg);
 }
+/* stats graph */
+text {
+    font-size: 1.4em;
+}
+#chart {
+    width: 100%;
+    margin: auto;
+}
 
 @media (min-width:530px) {
     .category-grid {
@@ -594,6 +607,9 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     }
     .sp-grid, .sp-input>input {
         font-size: 15px;
+    }
+    #chart {
+        width: 75%;
     }
 }
 
@@ -630,6 +646,9 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
         grid-row: 1/3;
         display: flex;
         align-items: center;
+    }
+    #chart {
+        width: 75%;
     }
 }
 

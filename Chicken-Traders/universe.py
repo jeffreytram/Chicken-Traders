@@ -67,7 +67,7 @@ class Region:
         self.init_price_board()
 
     def init_price_board(self):
-         while len(self.price_board) < 8:
+        while len(self.price_board) < 8:
             rand_int = random.randint(1,10)
             if rand_int <= 6:
                 self.price_board.append(1)

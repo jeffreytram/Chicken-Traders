@@ -23,34 +23,113 @@
     <div id="menu">
         <button id="travel" onclick="location.href = 'travel'">Travel</button>
         <button id="market" onclick="location.href = 'market'">Market</button>
-        <button id="ship" class="active" onclick="location.href = 'ship'">Ship</button>
+        <button id="ship" onclick="location.href = 'ship'">Ship</button>
         <button id="collection" onclick="location.href = 'collection'">Collection</button>
+        <button id="stats" class="active" onclick="location.href = 'stats'">Stats</button>
     </div>
-    <h2 id="header">Stats</h2>
+    <h2 id="header">Estimated Net Worth Overtime</h2>
 </div>
-<svg width="540" height="540">
-
-</svg>
+<div class="all-container">
+    <div id="chart"></div>
+</div>
 <script>
-    console.log(d3);
+    const rawData = {{ data }};
+
+    let data = [];
+    rawData.forEach(function(entry, i) {
+        data.push({day: i/4, amount: rawData[i]})
+    });
+
+    const width = 540;
+    const height = 540;
 
     //getting svg
-    const svg = d3.select("svg");
-    //setting height/width and converting string -> float
-    const height = +svg.attr("height");
-    const width = +svg.attr("width");
+    const svg = d3.select('#chart')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width} ${height}`);
 
-    //creating head circle
-    const circle = svg.append("circle")
-        .attr("r", 200)
-        .attr("cx", width / 2)
-        .attr("cy", height / 2)
-        .attr("fill", "yellow")
-        .attr("stroke", "black")
-        .attr("","");
+    const render = data => {
+        const xValue = d => d.day;
+        const yValue = d => d.amount;
+        const margin = { top: 30, right: 20, bottom: 60, left: 100};
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
 
-    //creating eye
-    
+        const xScale = d3.scaleLinear()
+            .domain([0, (data.length - 1) / 4])
+            .range([0, innerWidth]);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, yValue)])
+            .range([innerHeight, 0]);
+
+        const g = svg.append('g')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+        //x axis
+        const xAxis = d3.axisBottom(xScale)
+            .ticks((data.length - 1) / 2);
+        const xAxisG = g.append('g').call(xAxis)
+            .attr('transform', `translate(0, ${innerHeight})`);
+        xAxisG.append('text')
+            .attr('x', innerWidth / 2)
+            .attr('y', 50)
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .text('Day');
+
+        //y axis
+        const yAxis = d3.axisLeft(yScale)
+        const yAxisG = g.append('g').call(yAxis)
+        yAxisG.append('text')
+            .attr('x',  -50)
+            .attr('y', innerHeight / 2)
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .text('Credits');
+
+        /* BAR GRAPH
+        g.selectAll('rect').data(data)
+            .enter().append('rect')
+                .attr('x', d => xScale(xValue(d)))
+                .attr('y', d => yScale(yValue(d))) 
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => innerHeight - yScale(yValue(d)));
+        */
+
+        //Line Graph
+        g.append('path').datum(data)
+            .attr('fill', 'none')
+            .attr('stroke', 'steelblue')
+            .attr('stroke-width', 1.5)
+            .attr('d', d3.line()
+                .x(d => xScale(xValue(d)))
+                .y(d => yScale(yValue(d)))
+            );
+    };
+    render(data);
+
+    /*
+    const render = data => {
+        const xScale = d3.scaleLinear()
+            .domain([0, d3.max(data)])
+            .range([0, width]);
+
+        const yScale = d3.scaleBand()
+            .domain(data)
+            .range([0, height]);
+
+        console.log(yScale.domain());
+
+        svg.selectAll('rect').data(data)
+            .enter().append('rect')
+                .attr('y', d => yScale(d))
+                .attr('width', d => xScale(d))
+                .attr('height', yScale.bandwidth());
+    };
+    */
+
+
 
 </script>
 {% endblock %}

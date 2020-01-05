@@ -11,7 +11,7 @@ category = [
         "Weapon",
         "Resource",
         "Technology",
-        "Tool",
+        "Tool"
     ]
 
 def fuel_calc(fuel_cost_constant, distance, pilot, cargo_size):
@@ -84,11 +84,20 @@ def update_all_travel_cost(game, curr_region):
         distance = curr_region.distance(region)
         region.travel_cost = fuel_calc(game.fuel_cost_constant, distance, game.player.pilot, game.player.ship.cargo_size)
 
+# controller for travel
+def travel(game, region):
+    bprice_calc(game.player, region)
+    sprice_calc(game.player, region)
+    game.player.curr_region = region
+    game.increment_time()
+    if random.randint(1, 5) > 2:
+        add_news(game)
 
-def travel(player, region):
-    bprice_calc(player, region)
-    sprice_calc(player, region)
-    player.curr_region = region
+# add news
+def add_news(game):
+    game.news.insert(0, news_event(game.universe.region_list))
+    if len(game.news) > 5:
+        game.news.pop(-1)
 
 
 def encounter_check(diff_modifier, player, region_list, time):
@@ -103,8 +112,6 @@ def encounter_check(diff_modifier, player, region_list, time):
         return gen_bandit()
     elif check_int > 30 and check_int <= 30 + 4 * diff_modifier * time_modifier and len(player.ship.cargo) > 0: # 4% - 12% chance
         return gen_police(player)
-    elif check_int > 55:
-        return news_event(region_list)
     else:
         return None
 
@@ -169,15 +176,6 @@ def news_event(region_list):
             + str(percent - 100)
             + "%)"
         )
-
-
-# replenishes stock of every item by 1
-def restock(region_list):
-    for region in region_list:
-        for item in region.market:
-            if item.amount < item.max:
-                item.amount += 1
-
 
 # creates a police dict
 def gen_police(player):
