@@ -5,17 +5,17 @@
     <div class="player-info-grid">
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+            <div id="credits" class="player-info">{{game.player.credit}}</div>
         </div>
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
-            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
+            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
         </div>
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
-            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
+            <div class="player-info">/ {{game.player.ship.max_health}}</div>
         </div>
     </div>
     <!-- nav bar -->
@@ -89,10 +89,14 @@
     //testing tools
     function force(npc) {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("force=" + npc);
-        window.location.reload();
     }
     function addFuel() {
         var req = new XMLHttpRequest();
@@ -130,10 +134,14 @@
     function travel(index) {
         var req = new XMLHttpRequest();
         //this part sends the data over
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/travel', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("currIndex=" + index);
-        window.location.reload();
     }
     var w = 672,
         h = 378

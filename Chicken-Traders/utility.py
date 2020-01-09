@@ -286,6 +286,8 @@ def trader_item():
 def rob_trader(player, trader):
     if skill_check(player.fighter):
         # successful robbery
+        if player.ship.cargo_space < trader["item"].size:
+            return 3
         for cargo in player.ship.cargo:
             if cargo.name == trader["item"].name:
                 cargo.amount += 1
@@ -294,13 +296,13 @@ def rob_trader(player, trader):
                 return 1
         player.ship.cargo.append(trader["item"])
         player.karma -= 2
-        return True
+        return 1
     else:
         # failed robbery attempt
         # player's ship loses 10 health
         player.ship.health_level -= 10
         player.karma -= 1
-        return False
+        return 2
 
 
 def negotiate_trader(player, trader):

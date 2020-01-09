@@ -5,17 +5,17 @@
     <div class="player-info-grid">
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info"><strong>{{game.player.credit}}</strong></div>
+            <div id="credits" class="player-info">{{game.player.credit}}</div>
         </div>
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info"><strong>{{game.player.ship.fuel_level}}</strong></div>
-            <div class="player-info"><strong>/ {{game.player.ship.max_fuel}}</strong></div>
+            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
+            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
         </div>
         <div>
             <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info"><strong>{{game.player.ship.health_level}}</strong></div>
-            <div class="player-info"><strong>/ {{game.player.ship.max_health}}</strong></div>
+            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
+            <div class="player-info">/ {{game.player.ship.max_health}}</div>
         </div>
     </div>
 
@@ -64,9 +64,9 @@
             <div class="grid-item shop">
                 <ul id="itemUl">
                     {% for item in currRegion.market %}
-                    <li class="item {{loop.index}} {{item.category}} shop-item">
+                    <li class="item {{item.id}} {{item.category}} shop-item">
                         <div class="item-left">
-                            {{item.amount}}x <img class="item-icon"
+                            <span class="rem-stock {{item.id}}">{{item.amount}}</span>x <img class="item-icon"
                                 src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
                         </div>
                         <div class="item-right">
@@ -86,9 +86,11 @@
                 <button type="button" onclick="purchase()">Purchase</button>
             </div>
             <div class="grid-item description">
-                {% if market_error %}
-                <h3 class="error">{{market_error}}</h3>
-                {% endif %}
+                <h3 class="error">
+                    {% if market_error %}
+                    {{market_error}}
+                    {% endif %}
+                </h3>
                 <div class="description-grid">
                     <div class="description-item" id="icon">
                         {% if selectedItem %}
@@ -100,7 +102,8 @@
                     </div>
                     <div class="description-item" id="weight">
                         {% if selectedItem %}
-                        Category: {{selectedItem.category}} - Weight: {{selectedItem.size}} lb - Tech Level: {{selectedItem.debut}}
+                        Category: {{selectedItem.category}} - Weight: {{selectedItem.size}} lb - Tech Level:
+                        {{selectedItem.debut}}
                         {% endif %}
                     </div>
                     <div class="description-item" id="description">
@@ -116,7 +119,8 @@
 
 <div class="all-container">
     <!-- Player Inv -->
-    <h4 id="inv-title">Player Inventory: {{game.player.ship.cargo_size}} / {{game.player.ship.max_cargo}} lb capacity</h4>
+    <h4 id="inv-title">Player Inventory: <span id="cargo-size">{{game.player.ship.cargo_size}}</span> /
+        {{game.player.ship.max_cargo}} lb capacity</h4>
     <div class="inv-grid">
         <div class="inv-item inv-image tableHeader">
             Item
@@ -150,7 +154,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("credits").innerHTML = "<strong>" + this.responseText + "</strong>"
+                document.getElementById("credits").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/market', true);
@@ -161,7 +165,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("inv-title").innerHTML = "Player Inventory: " + this.responseText + " lb capacity";
+                document.getElementById("cargo-size").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/market', true);
@@ -172,7 +176,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("health").innerHTML = "<strong>" + this.responseText + "</strong>"
+                document.getElementById("health").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/market', true);
@@ -184,7 +188,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("fuel").innerHTML = "<strong>" + this.responseText + "</strong>"
+                document.getElementById("fuel").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/market', true);
@@ -192,10 +196,7 @@
         req.send("addFuel=");
         updateCredits();
     }
-    function selectItem(index) {
-        showDescription(index);
-    }
-    function showDescription(index) {
+    function selectItem(id) {
         var req = new XMLHttpRequest();
         var purchaseStatement = document.getElementById("purchaseStatement");
         //only need this section if we're displaying
@@ -207,32 +208,73 @@
                 document.getElementById("name").innerHTML = "<strong>" + item.name + "</strong>";
                 document.getElementById("weight").innerHTML = "Category: " + item.category + " - Weight: " + item.size + " lb - Tech Level: " + item.debut;
                 document.getElementById("description").innerHTML = item.description;
+
+                //clear market error
+                document.getElementsByClassName("error")[0].innerHTML = "";
             }
         };
         //this part sends the data over
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("selectedIndex=" + index);
+        req.send("selectedItem=" + id);
     }
     function purchase() {
         var req = new XMLHttpRequest();
         //this part sends the data over
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText.length > 50) {
+                    //no error
+                    let item = JSON.parse(this.responseText);
+                    console.log(item);
+                    let id = document.getElementsByClassName("active-item")[0].classList[1];
+                    //if unique, add a new row to inventory with item
+                    if (item.amount === 1) {
+                        //add a new row
+                        //TODO: code to add new row
+                        let inv = document.getElementsByClassName("inv-grid");
+                        inv[0].innerHTML += '<div class="inv-item inv-name ' + item.id + '">' +
+                            '<img class="item-icon" src="../static/item-images/item-icon' + item.id + '.svg">' + item.name +
+                            '</div>' +
+                            '<div class="inv-item inv-quantity ' + item.id + '">' +
+                            item.amount + 'x' +
+                            '</div>' +
+                            '<div class="inv-item inv-weight ' + item.id + '">' +
+                            item.size + ' lb' +
+                            '</div>' +
+                            '<button class="sellButton inv-item inv-sell ' + item.id + '">Sell for' +
+                            item.s_price + '</button>';
+                    } else {
+                        //update item quantity
+                        let itemQuantity = document.getElementsByClassName("inv-quantity " + id);
+                        itemQuantity[0].innerHTML = item.amount + "x";
+                    }
+                    //decrement stock of the item
+                    let remStock = document.getElementsByClassName("rem-stock " + item.id)[0]
+                    remStock.innerHTML = parseInt(remStock.innerHTML) - 1;
+                    //subtract cost of the item
+                    updateCredits();
+                    //increase capacity
+                    updateStorageCapacity();
+                } else {
+                    //error
+                    document.getElementsByClassName("error")[0].innerHTML = this.responseText;
+                }
+            }
+        }
         req.open('POST', '/market', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("buyIndex=");
-        window.location.reload();
+        req.send("purchase=");
     }
     function sellItem(id) {
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 numRemaining = this.responseText;
-                
-                
-                if (numRemaining == 0) {
+                if (numRemaining === "0") {
                     //remove row if no more of that item
                     //get row to remove
-                    let toBeSold = document.getElementsByClassName(id);
+                    let toBeSold = document.getElementsByClassName("inv-item " + id);
                     //remove row
                     Array.from(toBeSold).forEach(function (element) {
                         element.remove();

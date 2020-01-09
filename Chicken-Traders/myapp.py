@@ -170,10 +170,13 @@ def market():
         state["end_game"] = "WIN"
         return redirect(url_for("end"))
     if request.method == "POST":
-        if "selectedIndex" in request.form:
-            selected_index = int(request.form["selectedIndex"]) - 1
-            state["selectedItem"] = state["currRegion"].market[selected_index]
-            return json.dumps(state["selectedItem"].__dict__)
+        if "selectedItem" in request.form:
+            selected_id = int(request.form["selectedItem"])
+            state["market_error"] = None
+            for item in state["currRegion"].market:
+                if item.id == selected_id:
+                    state["selectedItem"] = item
+                    return json.dumps(state["selectedItem"].__dict__)
 
         if "statementIndex" in request.form:
             return (
@@ -183,23 +186,27 @@ def market():
                 + str(state["selectedItem"].b_price)
                 + "</strong>?"
             )
-        if "buyIndex" in request.form:
-            status = state["game"].player.trade_buy(state["selectedItem"], 1)
+        if "purchase" in request.form:
+            status = state["game"].player.attempt_buy(state["selectedItem"], 1)
             if status != "Success":
                 state["market_error"] = status
+                return status
             else:
                 state["market_error"] = None
+            for item in state["game"].player.ship.cargo:
+                if item.id == state["selectedItem"].id:
+                    return json.dumps(item.__dict__)
+            
         if "sellId" in request.form:
             item_id = int(request.form["sellId"])
             for index, item in enumerate(state["game"].player.ship.cargo):
-                print(str(item.id) + " " + str(item_id))
                 if item.id == item_id:
                     state["game"].player.trade_sell(index, 1)
                     return str(item.amount)
         if "updateCredits" in request.form:
             return str(state["game"].player.credit)
         if "updateStorageCapacity" in request.form:
-            return str(state["game"].player.ship.cargo_size) + " / " + str(state["game"].player.ship.max_cargo)
+            return str(state["game"].player.ship.cargo_size)
         if "addFuel" in request.form:
             state["game"].player.purchase_fuel(50)
             return str(state["game"].player.ship.fuel_level)
@@ -265,6 +272,7 @@ def encounter():
             state["npc"] = None
             state["choice_result"] = None
             state["disabled"] = False
+            return "0"
         elif not state["disabled"]:
             state["disabled"] = True
             curr_credits = state["game"].player.credit
@@ -277,6 +285,7 @@ def encounter():
                         + str(state["npc"]["demand"])
                         + " credits)"
                     )
+                    return "0"
                 elif result == 2:
                     state["choice_result"] = (
                         "You attempted to pay the bandit without enough money! "
@@ -287,6 +296,7 @@ def encounter():
                         "You attempted to pay the bandit without anything to offer!"
                         + "The bandit attacks you out of anger! (-15 health)"
                     )
+
             if "fight_bandit" in request.form:
                 if utility.fight_bandit(state["game"].player, state["npc"]):
                     state["choice_result"] = (
@@ -301,6 +311,7 @@ def encounter():
                         + str(curr_credits - int(curr_credits / 3))
                         + " credits, -20 health)"
                     )
+
             if "flee_bandit" in request.form:
                 if utility.flee_bandit(state["game"].player):
                     state["currRegion"] = state["prev_region"]
@@ -315,9 +326,10 @@ def encounter():
                         + str(curr_credits - int(curr_credits / 2))
                         + " credits, -20 health)"
                     )
+
             # trader choices
             if "buy_trader" in request.form:
-                if state["game"].player.trade_buy(state["npc"]["item"], 1) == "Success":
+                if state["game"].player.attempt_buy(state["npc"]["item"], 1) == "Success":
                     state["second_test"] = True
                     state["negotiated"] = False
                     state["choice_result"] = (
@@ -326,22 +338,30 @@ def encounter():
                 else:
                     state["disabled"] = False
                     state["second_test"] = False
-                    state["choice_result"] = "You don't have enough credits/space!"
+                    state["choice_result"] = state["game"].player.attempt_buy(state["npc"]["item"], 1)
+
             if "ignore_trader" in request.form:
                 state["second_test"] = True
                 state["negotiated"] = False
                 state["choice_result"] = "You chose to ignore the Trader."
+
             if "rob_trader" in request.form:
                 state["second_test"] = True
                 state["negotiated"] = False
-                if utility.rob_trader(state["game"].player, state["npc"]):
+                result = utility.rob_trader(state["game"].player, state["npc"])
+                if result == 1:
                     state["choice_result"] = (
                         "You robbed the Trader! (+1 " + state["npc"]["item"].name + ")"
                     )
-                else:
+                elif result == 2:
                     state[
                         "choice_result"
                     ] = "The Trader caught you in the act and slapped you. (-10 health)"
+                else:
+                    state[
+                        "choice_result"
+                    ] = "You successfully robbed the trader, but have no room to hold the item!"
+
             if "negotiate_trader" in request.form:
                 state["disabled"] = False
                 state["second_test"] = False
@@ -357,12 +377,14 @@ def encounter():
                         ] = "The Trader was insulted by your negotiation attempt! (+33% price)"
                 else:
                     state["choice_result"] = "You can only negotiate once! D:<"
+
             # police choices
             if "forfeit_police" in request.form:
                 utility.forfeit_police(state["game"].player, state["npc"])
                 state["choice_result"] = (
                     "You forfeited the item. (-all " + state["npc"]["item"].name + ")"
                 )
+
             if "flee_police" in request.form:
                 if utility.flee_police(state["game"].player, state["npc"]):
                     state["currRegion"] = state["prev_region"]
@@ -376,6 +398,7 @@ def encounter():
                         + state["npc"]["item"].name
                         + ", -100 credits, -15 health)"
                     )
+
             if "fight_police" in request.form:
                 if utility.fight_police(state["game"].player, state["npc"]):
                     state["choice_result"] = "You fought off the Police!"
@@ -386,6 +409,7 @@ def encounter():
                         + state["npc"]["item"].name
                         + ")"
                     )
+
     return render_template(
         "encounter.html",
         second_test=state["second_test"],

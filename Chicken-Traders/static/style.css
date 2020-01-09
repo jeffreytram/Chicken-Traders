@@ -238,6 +238,7 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 .player-info {
     display: inline;
     vertical-align: middle;
+    font-weight: bold;
 }
 
 #menu {

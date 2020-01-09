@@ -76,29 +76,37 @@ class Player:
             self.ship.refuel(fuel)
             return "Success"
 
-    def trade_buy(self, item, amount):
-        if item.amount < amount:
-            return "Out of stock"
-        elif self.ship.cargo_space < (item.size * amount):
-            return "Not enough space!"
+    def attempt_buy(self, item, amount):
+        if item == None:
+            return "No item selected!"
         elif self.credit < (item.b_price * amount):
             return "Not enough credits!"
+        elif self.ship.cargo_space < (item.size * amount):
+            # not enough space
+            return "Not enough space!"
+        elif item.amount < amount:
+            item.amount < amount
+            return "Out of stock!"
         else:
-            self.credit -= item.b_price * amount
-            for cargo in self.ship.cargo:
-                if cargo.name == item.name:
-                    cargo.amount += amount
-                    item.amount -= amount
-                    return "Success"
-            bought = copy.deepcopy(item)
-            bought.amount = amount
-            item.amount -= amount
-            self.ship.cargo.append(bought)
-            if not self.collection.check_item_in_set(bought):
-                self.collection.add_and_update(bought)
-            return "Success"
+            # successful buy attempt
+            return self.trade_buy(item, amount)
 
-        # Index in cargo
+    def trade_buy(self, item, amount):
+        self.credit -= item.b_price * amount
+        for cargo in self.ship.cargo:
+            if cargo.name == item.name:
+                cargo.amount += amount
+                item.amount -= amount
+                return "Success"
+        bought = copy.deepcopy(item)
+        bought.amount = amount
+        item.amount -= amount
+        self.ship.cargo.append(bought)
+        if not self.collection.check_item_in_set(bought):
+            self.collection.add_and_update(bought)
+        return "Success"
+
+    # Index in cargo
 
     def trade_sell(self, cargo_item_index, amount):
         if self.ship.cargo[cargo_item_index].amount < amount:

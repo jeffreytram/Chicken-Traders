@@ -229,33 +229,36 @@
 1.05
 - selling items no longer requires a page refresh
 
-WIP
-- remove buy refresh
-- remove npc refresh
-- remove travel refresh?
+1.08
+- buying items no longer requires a page refresh
+- fix firefox reload issue
 
 TODO:
+[] improve error message display and efficiency/reload
 [] barter
     - trade x item for y, trade x item for y dollars/fuels/repair
-[] night market????
+[] night market/black market????
     - weapons more common
+    - illegal goods
+        - harsher punishment from police
+        - greater profit margin 
 [] starting items - mom's lucky watch - desparate times call for desparate measures
+[] losing condition
+    - not enough fuel to travel anywhere, not enough money to buy fuel
 [] remove/reduce encounter reload
 [] fun stats
     - total distance traveled
     - total npc encountered
+    - total damage taken
+    - number credits spent
+    - number of credits earned from reselling
+    - number of police, trader, and fighter encounters
 [] sleep option for 6 hours to skip some of night
-[] info viz - d3
-    - net worth over time
-[] user experience improvements
 [] buy/sell log
-
 [] quest board
 [] item functionality
-
 [] buying/selling multiple items
 [] ship(tractor), chicken art
-[] remove need for window reload for buying/selling
 
 
 

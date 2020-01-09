@@ -68,82 +68,126 @@
     {% if text and second_test %}
     document.addEventListener("click", function (event) {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("return_travel=");
-        window.location.reload();
     });
     {% endif %}
 
     function payBandit() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("pay_bandit=");
-        window.location.reload();
     }
     function fightBandit() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("fight_bandit=");
-        window.location.reload();
     }
     function fleeBandit() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("flee_bandit=");
-        window.location.reload();
     }
     function buyTrader() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("buy_trader=");
-        window.location.reload();
     }
     function ignoreTrader() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("ignore_trader=");
-        window.location.reload();
     }
     function robTrader() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("rob_trader=");
-        window.location.reload();
     }
     function negotiateTrader() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("negotiate_trader=");
-        window.location.reload();
     }
     function forfeitPolice() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("forfeit_police=");
-        window.location.reload();
     }
     function fleePolice() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("flee_police=");
-        window.location.reload();
     }
     function fightPolice() {
         var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.reload();
+            }
+        };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("fight_police=");
-        window.location.reload();
     }
 </script>
 {% endblock %}
