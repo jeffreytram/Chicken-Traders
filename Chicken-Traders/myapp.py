@@ -204,6 +204,7 @@ def market():
                     state["game"].player.trade_sell(index, 1)
                     return str(item.amount)
         if "updateCredits" in request.form:
+            print(state["game"].player.credit)
             return str(state["game"].player.credit)
         if "updateStorageCapacity" in request.form:
             return str(state["game"].player.ship.cargo_size)

@@ -233,6 +233,13 @@
 - buying items no longer requires a page refresh
 - fix firefox reload issue
 
+1.09
+- temporary fix to win display bug
+
+win display bug documentation
+- updatecredits form in python never called for the winning item?
+- 
+
 TODO:
 [] improve error message display and efficiency/reload
 [] barter

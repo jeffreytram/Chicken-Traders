@@ -226,8 +226,11 @@
                 if (this.responseText.length > 50) {
                     //no error
                     let item = JSON.parse(this.responseText);
-                    console.log(item);
                     let id = document.getElementsByClassName("active-item")[0].classList[1];
+                    //win condition
+                    if (item.id === 13) {
+                        window.location.reload();
+                    }
                     //if unique, add a new row to inventory with item
                     if (item.amount === 1) {
                         //add a new row
