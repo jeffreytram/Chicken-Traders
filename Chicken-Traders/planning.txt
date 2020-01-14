@@ -236,9 +236,9 @@
 1.09
 - temporary fix to win display bug
 
-win display bug documentation
-- updatecredits form in python never called for the winning item?
-- 
+1.13
+- win display bug fix
+
 
 TODO:
 [] improve error message display and efficiency/reload

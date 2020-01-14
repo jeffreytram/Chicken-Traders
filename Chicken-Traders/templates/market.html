@@ -223,6 +223,7 @@
         //this part sends the data over
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                debugger;
                 if (this.responseText.length > 50) {
                     //no error
                     let item = JSON.parse(this.responseText);
@@ -230,6 +231,11 @@
                     //win condition
                     if (item.id === 13) {
                         window.location.reload();
+                    } else {
+                        //subtract cost of the item
+                        updateCredits();
+                        //increase capacity
+                        updateStorageCapacity();
                     }
                     //if unique, add a new row to inventory with item
                     if (item.amount === 1) {
@@ -245,7 +251,7 @@
                             '<div class="inv-item inv-weight ' + item.id + '">' +
                             item.size + ' lb' +
                             '</div>' +
-                            '<button class="sellButton inv-item inv-sell ' + item.id + '">Sell for' +
+                            '<button class="sellButton inv-item inv-sell ' + item.id + '">Sell for ' +
                             item.s_price + '</button>';
                     } else {
                         //update item quantity
@@ -255,10 +261,7 @@
                     //decrement stock of the item
                     let remStock = document.getElementsByClassName("rem-stock " + item.id)[0]
                     remStock.innerHTML = parseInt(remStock.innerHTML) - 1;
-                    //subtract cost of the item
-                    updateCredits();
-                    //increase capacity
-                    updateStorageCapacity();
+
                 } else {
                     //error
                     document.getElementsByClassName("error")[0].innerHTML = this.responseText;
