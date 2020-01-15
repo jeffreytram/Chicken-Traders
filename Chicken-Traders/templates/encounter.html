@@ -27,7 +27,7 @@
     {% elif npc["name"] == "Trader" %}
     <p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
             src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
-        <strong>{{npc["item"].b_price}} credits</strong>!</p>
+        <strong><span id="price">{{npc["item"].b_price}}</span> credits</strong>!</p>
     {% elif npc["name"] == "Police" %}
     <p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
             src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
@@ -50,40 +50,70 @@
         <button class="choice police fight" onclick="fightPolice()">Fight</button>
         {% endif %}
     </div>
-    {% if text and second_test %}
     <div id="text">
+        {% if text and second_test %}
         {{text}}
         <p id="click-continue">
             <strong>Click anywhere to continue...</strong>
         </p>
-    </div>
-    {% elif text %}
-    <div id="text">
+        {% elif text %}
         {{text}}
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 
 <script type="text/javascript">
-    {% if text and second_test %}
-    document.addEventListener("click", function (event) {
+    function clickReturn() {
+        document.addEventListener("click", function (event) {
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location.reload();
+                }
+            };
+            req.open('POST', '/encounter', true);
+            req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+            req.send("return_travel=");
+        });
+    }
+    function updateCredits() {
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                document.getElementById("credits").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/encounter', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("return_travel=");
-    });
-    {% endif %}
+        req.send("updateCredits=");
+    }
+
+    function updateHealth() {
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("health").innerHTML = this.responseText;
+            }
+        };
+        req.open('POST', '/encounter', true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        req.send("updateHealth=");
+    }
 
     function payBandit() {
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update credits
+                updateCredits();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -94,7 +124,18 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update credits
+                updateCredits();
+                //update health
+                updateHealth();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -105,7 +146,16 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update credits
+                updateCredits();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -116,7 +166,16 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML = resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update credits
+                updateCredits();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -127,7 +186,14 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML = resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -138,7 +204,16 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML = resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update health
+                updateHealth();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -149,7 +224,19 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML = resultMessage +
+                    '<p id="click-continue">' +
+                    '</p>';
+                //update the price of the item
+                itemPrice = document.getElementById("price");
+                if(resultMessage.includes("+")) {
+                    itemPrice.innerHTML = Math.trunc(parseInt(itemPrice.innerHTML) * 3 / 2);
+                } else if (resultMessage.includes("-")) {
+                    itemPrice.innerHTML = Math.trunc(parseInt(itemPrice.innerHTML) * 2 / 3);
+                }
+
             }
         };
         req.open('POST', '/encounter', true);
@@ -160,7 +247,14 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -171,7 +265,18 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //update health
+                updateHealth();
+                //update credits
+                updateCredits();
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);
@@ -182,7 +287,14 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                window.location.reload();
+                //display result message
+                let resultMessage = this.responseText;
+                document.getElementById("text").innerHTML += resultMessage +
+                    '<p id="click-continue">' +
+                    '<strong>Click anywhere to continue...</strong>' +
+                    '</p>';
+                //add click event listener to return home
+                clickReturn();
             }
         };
         req.open('POST', '/encounter', true);

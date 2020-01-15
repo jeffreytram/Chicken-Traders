@@ -204,7 +204,6 @@ def market():
                     state["game"].player.trade_sell(index, 1)
                     return str(item.amount)
         if "updateCredits" in request.form:
-            print(state["game"].player.credit)
             return str(state["game"].player.credit)
         if "updateStorageCapacity" in request.form:
             return str(state["game"].player.ship.cargo_size)
@@ -269,11 +268,15 @@ def encounter():
         return redirect(url_for("travel"))
     gen_npc = state["npc"]
     if request.method == "POST":
+        # encounter interaction finished, go back to travel page
+        if "updateCredits" in request.form:
+            return str(state["game"].player.credit)
+        if "updateHealth" in request.form:
+            return str(state["game"].player.ship.health_level)
         if "return_travel" in request.form:
             state["npc"] = None
             state["choice_result"] = None
             state["disabled"] = False
-            return "0"
         elif not state["disabled"]:
             state["disabled"] = True
             curr_credits = state["game"].player.credit
@@ -286,7 +289,6 @@ def encounter():
                         + str(state["npc"]["demand"])
                         + " credits)"
                     )
-                    return "0"
                 elif result == 2:
                     state["choice_result"] = (
                         "You attempted to pay the bandit without enough money! "
@@ -297,6 +299,7 @@ def encounter():
                         "You attempted to pay the bandit without anything to offer!"
                         + "The bandit attacks you out of anger! (-15 health)"
                     )
+                return state["choice_result"]
 
             if "fight_bandit" in request.form:
                 if utility.fight_bandit(state["game"].player, state["npc"]):
@@ -312,6 +315,7 @@ def encounter():
                         + str(curr_credits - int(curr_credits / 3))
                         + " credits, -20 health)"
                     )
+                return state["choice_result"]
 
             if "flee_bandit" in request.form:
                 if utility.flee_bandit(state["game"].player):
@@ -327,6 +331,7 @@ def encounter():
                         + str(curr_credits - int(curr_credits / 2))
                         + " credits, -20 health)"
                     )
+                return state["choice_result"]
 
             # trader choices
             if "buy_trader" in request.form:
@@ -340,11 +345,13 @@ def encounter():
                     state["disabled"] = False
                     state["second_test"] = False
                     state["choice_result"] = state["game"].player.attempt_buy(state["npc"]["item"], 1)
+                return state["choice_result"]
 
             if "ignore_trader" in request.form:
                 state["second_test"] = True
                 state["negotiated"] = False
                 state["choice_result"] = "You chose to ignore the Trader."
+                return state["choice_result"]
 
             if "rob_trader" in request.form:
                 state["second_test"] = True
@@ -362,6 +369,7 @@ def encounter():
                     state[
                         "choice_result"
                     ] = "You successfully robbed the trader, but have no room to hold the item!"
+                return state["choice_result"]
 
             if "negotiate_trader" in request.form:
                 state["disabled"] = False
@@ -378,13 +386,14 @@ def encounter():
                         ] = "The Trader was insulted by your negotiation attempt! (+33% price)"
                 else:
                     state["choice_result"] = "You can only negotiate once! D:<"
-
+                return state["choice_result"]
             # police choices
             if "forfeit_police" in request.form:
                 utility.forfeit_police(state["game"].player, state["npc"])
                 state["choice_result"] = (
                     "You forfeited the item. (-all " + state["npc"]["item"].name + ")"
                 )
+                return state["choice_result"]
 
             if "flee_police" in request.form:
                 if utility.flee_police(state["game"].player, state["npc"]):
@@ -399,6 +408,7 @@ def encounter():
                         + state["npc"]["item"].name
                         + ", -100 credits, -15 health)"
                     )
+                return state["choice_result"]
 
             if "fight_police" in request.form:
                 if utility.fight_police(state["game"].player, state["npc"]):
@@ -410,6 +420,7 @@ def encounter():
                         + state["npc"]["item"].name
                         + ")"
                     )
+                return state["choice_result"]
 
     return render_template(
         "encounter.html",

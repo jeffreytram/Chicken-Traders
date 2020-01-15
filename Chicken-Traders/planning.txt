@@ -239,8 +239,16 @@
 1.13
 - win display bug fix
 
+1.15
+- Encounters now using AJAX
+
+win display bug
+- possibly something in the req open
+- if no return value, this.responseText is the page html code?
+
 
 TODO:
+[] display chances of success for npc interactions
 [] improve error message display and efficiency/reload
 [] barter
     - trade x item for y, trade x item for y dollars/fuels/repair
