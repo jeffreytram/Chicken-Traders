@@ -424,6 +424,10 @@ def encounter():
 
     return render_template(
         "encounter.html",
+        pilot=utility.get_skill_check(state["game"].player.pilot),
+        fighter=utility.get_skill_check(state["game"].player.fighter),
+        merchant=utility.get_skill_check(state["game"].player.merchant),
+        engineer=utility.get_skill_check(state["game"].player.engineer),
         second_test=state["second_test"],
         text=state["choice_result"],
         npc=gen_npc,

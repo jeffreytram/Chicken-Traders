@@ -276,7 +276,10 @@ def gen_trader():
 
 # returns a random item
 def trader_item():
+    # reroll item until we get item whose base price >= 30
     item = random.choice(Item.__subclasses__())(random.randint(3, 6))
+    while item.base_price < 30:
+        item = random.choice(Item.__subclasses__())(random.randint(3, 6))
     # item = rand_element(Item.__subclasses__())(random.randint(3, 6))
     item.b_price = int(0.7 * item.base_price)
     item.s_price = int(0.6 * item.base_price)
@@ -326,7 +329,6 @@ def skill_check(skill):
     # success chance - 15% to 60%
     threshold = math.sqrt(skill) * 15
     return check_int <= threshold
-    # if check_int <= threshold:
-    #     return True
-    # else:
-    #     return False
+
+def get_skill_check(skill):
+    return math.floor(math.sqrt(skill) * 15)
