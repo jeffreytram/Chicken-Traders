@@ -244,12 +244,10 @@
 - Success chances now displayed in encounters
 - Trader will no longer sell items not worth a lot
 
-win display bug
-- possibly something in the req open
-- if no return value, this.responseText is the page html code?
+2.12.20
+- fixed font on different browsers
 
 TODO:
-[] display chances of success for npc interactions
 [] improve error message display and efficiency/reload
 [] barter
     - trade x item for y, trade x item for y dollars/fuels/repair
@@ -261,7 +259,6 @@ TODO:
 [] starting items - mom's lucky watch - desparate times call for desparate measures
 [] losing condition
     - not enough fuel to travel anywhere, not enough money to buy fuel
-[] remove/reduce encounter reload
 [] fun stats
     - total distance traveled
     - total npc encountered
@@ -275,6 +272,10 @@ TODO:
 [] item functionality
 [] buying/selling multiple items
 [] ship(tractor), chicken art
+
+win display bug
+- possibly something in the req open
+- if no return value, this.responseText is the page html code?
 
 
 

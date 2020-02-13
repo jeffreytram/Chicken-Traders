@@ -35,6 +35,7 @@
 <script>
     const rawData = {{ data }};
 
+    //formatting the data
     let data = [];
     rawData.forEach(function(entry, i) {
         data.push({day: i/4, amount: rawData[i]})
