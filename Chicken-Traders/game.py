@@ -11,7 +11,7 @@ class Game:
         self.time = 0
         self.day = 0
         self.news = []
-        self.data = []
+        self.net_worth_data = []
 
     def start_game(self, name, skill_points, credit):
         self.universe = Universe()
@@ -19,7 +19,7 @@ class Game:
         self.player = Player(
             name, skill_points, credit, self.universe.region_list[rand_int]
         )
-        self.data.append(self.player.credit)
+        self.net_worth_data.append(self.player.credit)
         self.universe.insert_win(self.player.name)
         utility.bprice_calc(self.player, self.player.curr_region)
         utility.sprice_calc(self.player, self.player.curr_region)
@@ -30,7 +30,7 @@ class Game:
         if self.time % 6 == 0:
             # calculate net worth every 6 hr
             net_worth = self.calcNetWorth()
-            self.data.append(net_worth)
+            self.net_worth_data.append(net_worth)
         if self.time >= 24:
             self.time = self.time % 24
             self.day += 1

@@ -244,7 +244,13 @@ def collection():
 # stats page
 @app.route("/stats", methods=["GET", "POST"])
 def stats():
-    return render_template("stats.html", game=state["game"], data=json.dumps(state["game"].data))
+    processed_transaction_history = []
+    for entry in state["game"].player.transaction_history:
+        processed_transaction_history.append(json.dumps(entry.__dict__))
+    return render_template("stats.html", 
+        game=state["game"], 
+        net_worth_data=state["game"].net_worth_data, 
+        transaction_history=processed_transaction_history)
 
 # end page
 @app.route("/end", methods=["GET", "POST"])

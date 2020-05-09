@@ -18,6 +18,8 @@ Simply run the `myapp.py` file to start the application.
 
 Ex: `python myapp.py`
 
+## Development Sprints
+
 ### M1 - Team and Project Management
 Team Charter and Planning
 

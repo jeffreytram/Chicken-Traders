@@ -33,12 +33,18 @@
     <div id="chart"></div>
 </div>
 <script>
-    const rawData = {{ data }};
+    let transactionHistory = {{ transaction_history|tojson }};
+    transactionHistory.forEach(function(entry, i) {
+        transactionHistory[i] = JSON.parse(entry);
+    });
+    console.log(transactionHistory);
+
+    const rawNetWorthData = {{ net_worth_data }};
 
     //formatting the data
-    let data = [];
-    rawData.forEach(function(entry, i) {
-        data.push({day: i/4, amount: rawData[i]})
+    let netWorthData = [];
+    rawNetWorthData.forEach(function(entry, i) {
+        netWorthData.push({day: i/4, amount: rawNetWorthData[i]})
     });
 
     const width = 540;
@@ -57,11 +63,11 @@
         const innerHeight = height - margin.top - margin.bottom;
 
         const xScale = d3.scaleLinear()
-            .domain([0, (data.length - 1) / 4])
+            .domain([0, (netWorthData.length - 1) / 4])
             .range([0, innerWidth]);
 
         const yScale = d3.scaleLinear()
-            .domain([0, d3.max(data, yValue)])
+            .domain([0, d3.max(netWorthData, yValue)])
             .range([innerHeight, 0]);
 
         const g = svg.append('g')
@@ -69,7 +75,7 @@
 
         //x axis
         const xAxis = d3.axisBottom(xScale)
-            .ticks((data.length - 1) / 2);
+            .ticks((netWorthData.length - 1) / 2);
         const xAxisG = g.append('g').call(xAxis)
             .attr('transform', `translate(0, ${innerHeight})`);
         xAxisG.append('text')
@@ -89,17 +95,8 @@
             .attr('font-weight', 'bold')
             .text('Credits');
 
-        /* BAR GRAPH
-        g.selectAll('rect').data(data)
-            .enter().append('rect')
-                .attr('x', d => xScale(xValue(d)))
-                .attr('y', d => yScale(yValue(d))) 
-                .attr('width', xScale.bandwidth())
-                .attr('height', d => innerHeight - yScale(yValue(d)));
-        */
-
         //Line Graph
-        g.append('path').datum(data)
+        g.append('path').datum(netWorthData)
             .attr('fill', 'none')
             .attr('stroke', 'steelblue')
             .attr('stroke-width', 1.5)
@@ -108,29 +105,6 @@
                 .y(d => yScale(yValue(d)))
             );
     };
-    render(data);
-
-    /*
-    const render = data => {
-        const xScale = d3.scaleLinear()
-            .domain([0, d3.max(data)])
-            .range([0, width]);
-
-        const yScale = d3.scaleBand()
-            .domain(data)
-            .range([0, height]);
-
-        console.log(yScale.domain());
-
-        svg.selectAll('rect').data(data)
-            .enter().append('rect')
-                .attr('y', d => yScale(d))
-                .attr('width', d => xScale(d))
-                .attr('height', yScale.bandwidth());
-    };
-    */
-
-
-
+    render(netWorthData);
 </script>
 {% endblock %}

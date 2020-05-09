@@ -247,6 +247,11 @@
 2.12.20
 - fixed font on different browsers
 
+5.9.20
+- updated README.md
+- Added transaction history
+
+
 TODO:
 [] improve error message display and efficiency/reload
 [] barter
@@ -281,7 +286,7 @@ win display bug
 
 Running the Application
 1. make sure flask-wtf is installed
--type pip install flask-wtf in command line to install forms extension
+-type pip install Flask-WTF in command line to install forms extension
 2. type python app.py in command line in the CD of the app.py file
 
 Adding .gitignore

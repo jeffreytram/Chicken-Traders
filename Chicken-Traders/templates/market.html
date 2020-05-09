@@ -202,6 +202,7 @@
         //only need this section if we're displaying
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
                 let item = JSON.parse(this.responseText);
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
