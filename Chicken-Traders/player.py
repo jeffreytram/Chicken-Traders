@@ -59,12 +59,12 @@ class Player:
             cost = utility.repair_cost(damage, self.engineer)
             self.credit -= cost
             self.ship.health_level = self.ship.max_health
-            self.transaction_history.append(Transaction("repairs", cost, "repairs"))
+            self.transaction_history.append(Transaction("repairs", cost, "repairs", "expenses"))
             return "Success"
         else:
             self.credit -= cost
             self.ship.health_level += repairs
-            self.transaction_history.append(Transaction("repairs", cost, "repairs"))
+            self.transaction_history.append(Transaction("repairs", cost, "repairs", "expenses"))
             return "Success"
 
     def purchase_fuel(self, fuel):
@@ -78,12 +78,12 @@ class Player:
             cost = new_fuel * self.fuel_cost
             self.credit -= cost
             self.ship.fuel_level = self.ship.max_fuel
-            self.transaction_history.append(Transaction("fuel", cost, "fuel"))
+            self.transaction_history.append(Transaction("fuel", cost, "fuel", "expenses"))
             return "Success"
         else:
             self.credit -= cost
             self.ship.refuel(fuel)
-            self.transaction_history.append(Transaction("fuel", cost, "fuel"))
+            self.transaction_history.append(Transaction("fuel", cost, "fuel", "expenses"))
             return "Success"
 
     def attempt_buy(self, item, amount):
@@ -102,7 +102,7 @@ class Player:
             return self.trade_buy(item, amount)
 
     def trade_buy(self, item, amount):
-        new_transaction = Transaction(item.name, item.b_price, "item bought")
+        new_transaction = Transaction(item.name, item.b_price, "trade", "expenses")
         self.transaction_history.append(new_transaction)
         self.credit -= item.b_price * amount
         for cargo in self.ship.cargo:
@@ -123,7 +123,7 @@ class Player:
     def trade_sell(self, cargo_item_index, amount):
         item_to_sell = self.ship.cargo[cargo_item_index]
         sell_worth = item_to_sell.s_price * amount
-        new_transaction = Transaction(item_to_sell.name, sell_worth, "item sold")
+        new_transaction = Transaction(item_to_sell.name, sell_worth, "trade", "earnings")
         if item_to_sell.amount < amount:
             return "You dont have that many"
         elif item_to_sell.amount == amount:

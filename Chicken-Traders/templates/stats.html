@@ -30,81 +30,162 @@
     <h2 id="header">Estimated Net Worth Overtime</h2>
 </div>
 <div class="all-container">
+    <div id="earnings"></div>
     <div id="chart"></div>
 </div>
 <script>
-    let transactionHistory = {{ transaction_history|tojson }};
-    transactionHistory.forEach(function(entry, i) {
-        transactionHistory[i] = JSON.parse(entry);
-    });
-    console.log(transactionHistory);
+    function loadEarningsChart() {
+        let transactionHistory = {{ transaction_history | tojson }};
+        transactionHistory.forEach(function (entry, i) {
+            transactionHistory[i] = JSON.parse(entry);
+        });
+        console.log(transactionHistory);
 
-    const rawNetWorthData = {{ net_worth_data }};
+        let earnings = transactionHistory.filter(entry => entry.transaction_type == "earnings");
+        let categories = [
+            {name: "trade", total: 0},
+            {name: "loot", total: 0}
+        ];
+        let total = 0;
+        earnings.forEach(function(entry, i) {
+            total += entry.price;
+            if (entry.category === "trade") {
+                categories[0].total += entry.price;
+            } else if (entry.category === "loot") {
+                categories[1].total += entry.price;
+            }
+        });
+        console.log(categories[0].total);
+        console.log(categories[1].total);
+        
+        const width = 300;
+        const height = 200;
+        const anglesRange = .5 * Math.PI;
+        const radius = Math.min(width, 2 * height) / 2;
+        const thickness = 50;
+        const colors = ["green", "blue", "orange", "red"];
 
-    //formatting the data
-    let netWorthData = [];
-    rawNetWorthData.forEach(function(entry, i) {
-        netWorthData.push({day: i/4, amount: rawNetWorthData[i]})
-    });
+        let pie = d3.pie()
+            .value(function(entry) {
+                return entry.total;
+            })
+            .startAngle(anglesRange * -1)
+            .endAngle(anglesRange)
 
-    const width = 540;
-    const height = 540;
+        let arc = d3.arc()
+            .outerRadius(radius)
+            .innerRadius(radius - thickness)
 
-    //getting svg
-    const svg = d3.select('#chart')
-        .append('svg')
-        .attr('viewBox', `0 0 ${width} ${height}`);
+        let translation = (x, y) => `translate(${x}, ${y})`;
 
-    const render = data => {
-        const xValue = d => d.day;
-        const yValue = d => d.amount;
-        const margin = { top: 30, right: 20, bottom: 60, left: 100};
-        const innerWidth = width - margin.left - margin.right;
-        const innerHeight = height - margin.top - margin.bottom;
+        let svg = d3.select('#earnings')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .attr('class', 'half-donut')
+            .append('g')
+            .attr('transform', translation(width / 2, height));
 
-        const xScale = d3.scaleLinear()
-            .domain([0, (netWorthData.length - 1) / 4])
-            .range([0, innerWidth]);
+        svg.selectAll('path')
+            .data(pie(categories))
+            .enter()
+            .append('path')
+            .attr('d', arc)
+            .attr('fill', (entry, i) => colors[i]);
 
-        const yScale = d3.scaleLinear()
-            .domain([0, d3.max(netWorthData, yValue)])
-            .range([innerHeight, 0]);
+        svg.append('text')
+            .text('$' + total)
+            .attr('dy', '-3rem')
+            .attr('class', 'label')
+            .attr('text-anchor', 'middle')
 
-        const g = svg.append('g')
-            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+        svg.append('text')
+            .text('earnings')
+            .attr('dy', '-1rem')
+            .attr('class', 'label')
+            .attr('text-anchor', 'middle')
+    }
 
-        //x axis
-        const xAxis = d3.axisBottom(xScale)
-            .ticks((netWorthData.length - 1) / 2);
-        const xAxisG = g.append('g').call(xAxis)
-            .attr('transform', `translate(0, ${innerHeight})`);
-        xAxisG.append('text')
-            .attr('x', innerWidth / 2)
-            .attr('y', 50)
-            .attr('fill', 'black')
-            .attr('font-weight', 'bold')
-            .text('Day');
+    function loadExpensesChart() {
+        let transactionHistory = {{ transaction_history | tojson }};
+        transactionHistory.forEach(function (entry, i) {
+            transactionHistory[i] = JSON.parse(entry);
+        });
+        console.log(transactionHistory);
 
-        //y axis
-        const yAxis = d3.axisLeft(yScale)
-        const yAxisG = g.append('g').call(yAxis)
-        yAxisG.append('text')
-            .attr('x',  -50)
-            .attr('y', innerHeight / 2)
-            .attr('fill', 'black')
-            .attr('font-weight', 'bold')
-            .text('Credits');
+        let expenses = transactionHistory.filter(entry => entry.transaction_type == "expenses");
+    }
 
-        //Line Graph
-        g.append('path').datum(netWorthData)
-            .attr('fill', 'none')
-            .attr('stroke', 'steelblue')
-            .attr('stroke-width', 1.5)
-            .attr('d', d3.line()
-                .x(d => xScale(xValue(d)))
-                .y(d => yScale(yValue(d)))
-            );
-    };
-    render(netWorthData);
+    function loadNetWorthChart() {
+        const rawNetWorthData = {{ net_worth_data }};
+
+        //formatting the data
+        let netWorthData = [];
+        rawNetWorthData.forEach(function (entry, i) {
+            netWorthData.push({ day: i / 4, amount: rawNetWorthData[i] })
+        });
+
+        const width = 540;
+        const height = 540;
+
+        //getting svg
+        const svg = d3.select('#chart')
+            .append('svg')
+            .attr('viewBox', `0 0 ${width} ${height}`);
+
+        const render = data => {
+            const xValue = d => d.day;
+            const yValue = d => d.amount;
+            const margin = { top: 30, right: 20, bottom: 60, left: 100 };
+            const innerWidth = width - margin.left - margin.right;
+            const innerHeight = height - margin.top - margin.bottom;
+
+            const xScale = d3.scaleLinear()
+                .domain([0, (netWorthData.length - 1) / 4])
+                .range([0, innerWidth]);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(netWorthData, yValue)])
+                .range([innerHeight, 0]);
+
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+            //x axis
+            const xAxis = d3.axisBottom(xScale)
+                .ticks((netWorthData.length - 1) / 2);
+            const xAxisG = g.append('g').call(xAxis)
+                .attr('transform', `translate(0, ${innerHeight})`);
+            xAxisG.append('text')
+                .attr('x', innerWidth / 2)
+                .attr('y', 50)
+                .attr('fill', 'black')
+                .attr('font-weight', 'bold')
+                .text('Day');
+
+            //y axis
+            const yAxis = d3.axisLeft(yScale)
+            const yAxisG = g.append('g').call(yAxis)
+            yAxisG.append('text')
+                .attr('x', -50)
+                .attr('y', innerHeight / 2)
+                .attr('fill', 'black')
+                .attr('font-weight', 'bold')
+                .text('Credits');
+
+            //Line Graph
+            g.append('path').datum(netWorthData)
+                .attr('fill', 'none')
+                .attr('stroke', 'steelblue')
+                .attr('stroke-width', 1.5)
+                .attr('d', d3.line()
+                    .x(d => xScale(xValue(d)))
+                    .y(d => yScale(yValue(d)))
+                );
+        };
+        render(netWorthData);
+    }
+    loadEarningsChart();
+    loadNetWorthChart();
 </script>
 {% endblock %}

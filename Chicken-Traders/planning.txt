@@ -249,7 +249,10 @@
 
 5.9.20
 - updated README.md
-- Added transaction history
+- Added transaction 
+
+5.10.20
+- Added earnings half donut visualization
 
 
 TODO:

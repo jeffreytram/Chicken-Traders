@@ -2,6 +2,7 @@
 import random
 import math
 from item import Item
+from transaction import Transaction
 
 category = [
         "Animal",
@@ -230,6 +231,7 @@ def pay_bandit(player, bandit):
     if player.credit >= bandit["demand"]:
         # successful payment
         player.credit -= bandit["demand"]
+        player.transaction_history.append(Transaction("Bandit fee", bandit["demand"], "fee", "expenses"))
         return 1
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
@@ -245,14 +247,18 @@ def fight_bandit(player, bandit):
     if skill_check(player.fighter):
         # successful fight attempt
         # take the bandits credits
-        player.credit += int(bandit["demand"] * (5 / 4))
+        winnings = int(bandit["demand"] * (5 / 4))
+        player.credit += winnings
         player.karma += 2
+        player.transaction_history.append(Transaction("Bandit loot", winnings, "loot", "earnings"))
         return True
     else:
         # fail fight attempt
-        # lose all credits and get damaged
-        player.credit = int(player.credit / 3)
+        # lose 1/3 credits and get damaged
+        losings = int(player.credit / 3)
+        player.credit = losings
         player.ship.health_level -= 20
+        player.transaction_history.append(Transaction("Bandit fee", losings, "fee", "expenses"))
         return False
 
 
@@ -263,9 +269,11 @@ def flee_bandit(player):
         return True
     else:
         # fail flee attempt
-        # lose half of your credits and get damaged
-        player.credit = int(player.credit / 2)
+        # lose 1/2 credits and get damaged
+        losings = int(player.credit / 2)
+        player.credit = losings
         player.ship.health_level -= 20
+        player.transaction_history.append(Transaction("Bandit fee", losings, "fee", "expenses"))
         return False
 
 
