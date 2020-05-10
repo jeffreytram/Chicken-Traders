@@ -253,6 +253,7 @@
 
 5.10.20
 - Added earnings half donut visualization
+- Added expenses half donut visualization
 
 
 TODO:

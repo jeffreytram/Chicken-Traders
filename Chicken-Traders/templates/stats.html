@@ -31,6 +31,7 @@
 </div>
 <div class="all-container">
     <div id="earnings"></div>
+    <div id="expenses"></div>
     <div id="chart"></div>
 </div>
 <script>
@@ -43,8 +44,8 @@
 
         let earnings = transactionHistory.filter(entry => entry.transaction_type == "earnings");
         let categories = [
-            {name: "trade", total: 0},
-            {name: "loot", total: 0}
+            {name: "trade", total: 0, color: "green"},
+            {name: "loot", total: 0, color: "orange"}
         ];
         let total = 0;
         earnings.forEach(function(entry, i) {
@@ -91,19 +92,19 @@
             .enter()
             .append('path')
             .attr('d', arc)
-            .attr('fill', (entry, i) => colors[i]);
+            .attr('fill', (entry) => entry.data.color);
 
         svg.append('text')
             .text('$' + total)
             .attr('dy', '-3rem')
             .attr('class', 'label')
-            .attr('text-anchor', 'middle')
+            .attr('text-anchor', 'middle');
 
         svg.append('text')
             .text('earnings')
             .attr('dy', '-1rem')
             .attr('class', 'label')
-            .attr('text-anchor', 'middle')
+            .attr('text-anchor', 'middle');
     }
 
     function loadExpensesChart() {
@@ -111,9 +112,74 @@
         transactionHistory.forEach(function (entry, i) {
             transactionHistory[i] = JSON.parse(entry);
         });
-        console.log(transactionHistory);
 
         let expenses = transactionHistory.filter(entry => entry.transaction_type == "expenses");
+        let categories = [
+            {name: "trade", total: 0, color: "green"},
+            {name: "fees", total: 0, color: "yellow"},
+            {name: "fuel", total: 0, color: "red"},
+            {name: "repairs", total: 0, color: "blue"}
+        ];
+        let total = 0;
+        expenses.forEach(function(entry, i) {
+            total += entry.price;
+            if (entry.category === "trade") {
+                categories[0].total += entry.price;
+            } else if (entry.category === "fees") {
+                categories[1].total += entry.price;
+            } else if (entry.category === "fuel") {
+                categories[2].total += entry.price;
+            } else if (entry.category === "repairs") {
+                categories[3].total += entry.price;
+            }
+        });
+        
+        const width = 300;
+        const height = 200;
+        const anglesRange = .5 * Math.PI;
+        const radius = Math.min(width, 2 * height) / 2;
+        const thickness = 50;
+
+        let pie = d3.pie()
+            .value(function(entry) {
+                return entry.total;
+            })
+            .startAngle(anglesRange * -1)
+            .endAngle(anglesRange)
+
+        let arc = d3.arc()
+            .outerRadius(radius)
+            .innerRadius(radius - thickness)
+
+        let translation = (x, y) => `translate(${x}, ${y})`;
+
+        let svg = d3.select('#expenses')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .attr('class', 'half-donut')
+            .append('g')
+            .attr('transform', translation(width / 2, height));
+
+        svg.selectAll('path')
+            .data(pie(categories))
+            .enter()
+            .append('path')
+            .attr('d', arc)
+            .attr('fill', (entry) => entry.data.color);
+
+        svg.append('text')
+            .text('$' + total)
+            .attr('dy', '-3rem')
+            .attr('class', 'label')
+            .attr('text-anchor', 'middle');
+
+        svg.append('text')
+            .text('expenses')
+            .attr('dy', '-1rem')
+            .attr('class', 'label')
+            .attr('text-anchor', 'middle');
+        
     }
 
     function loadNetWorthChart() {
@@ -186,6 +252,7 @@
         render(netWorthData);
     }
     loadEarningsChart();
+    loadExpensesChart();
     loadNetWorthChart();
 </script>
 {% endblock %}
