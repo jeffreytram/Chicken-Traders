@@ -327,6 +327,7 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 }
 
 /* about page */
+
 #image {
     width: 50%;
 }
@@ -335,7 +336,8 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     margin: auto;
     width: 100%;
 }
-.about-container > p, .about-container > h1, .about-container > h2{
+
+.about-container>p, .about-container>h1, .about-container>h2 {
     text-align: left;
 }
 
@@ -388,12 +390,13 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 }
 
 /* Market menu style */
+
 .price-board {
     display: grid;
     grid-template: repeat(4, 20px) / repeat(2, 150px);
     justify-content: center;
     text-align: left;
-    background-color: rgba(255,255,255,.8);
+    background-color: rgba(255, 255, 255, .8);
     width: 300px;
     margin: 10px auto;
     padding: 10px 15px
@@ -590,13 +593,44 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     background-image: linear-gradient(to left, white, rgb(235, 235, 235));
     transform: skewY(-10deg);
 }
+
 /* stats graph */
+
 text {
     font-size: 1.4em;
 }
-#chart {
+
+.main-chart {
+    height: 100%;
+    width: 70%;
+    float: right;
+}
+
+.side-chart {
+    height: 100%;
+    width: 30%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+.svg-container {
+    height: 50%;
+}
+
+svg {
     width: 100%;
+}
+
+.stats-container {
+    height: 45%;
+    width: 90%;
     margin: auto;
+}
+#earnings, #expenses, #net-worth {
+    height: 100%;
+    width: 100%;
 }
 
 @media (min-width:530px) {
@@ -622,7 +656,7 @@ text {
     .title {
         width: 50%;
     }
-    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
+    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer, .stats-container {
         width: 70%;
     }
     #logo {
@@ -655,7 +689,7 @@ text {
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
+    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer, .stats-container {
         width: 50%;
     }
     #logo {

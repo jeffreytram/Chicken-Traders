@@ -27,13 +27,21 @@
         <button id="collection" onclick="location.href = 'collection'">Collection</button>
         <button id="stats" class="active" onclick="location.href = 'stats'">Stats</button>
     </div>
-    <h2 id="header">Estimated Net Worth Overtime</h2>
+    <h2 id="header">Estimated Net Worth Over Time</h2>
 </div>
-<div class="all-container">
-    <div id="earnings"></div>
-    <div id="expenses"></div>
-    <div id="chart"></div>
-</div>
+    <div class="stats-container">
+        <div class="side-chart">
+            <div class="svg-container">
+                <svg id="earnings"></svg>
+            </div>
+            <div class="svg-container">
+                <svg id="expenses"></svg>
+            </div>
+        </div>
+        <div class="main-chart">
+            <svg id="net-worth"></svg>
+        </div>
+    </div>
 <script>
     function loadEarningsChart() {
         let transactionHistory = {{ transaction_history | tojson }};
@@ -56,22 +64,19 @@
                 categories[1].total += entry.price;
             }
         });
-        console.log(categories[0].total);
-        console.log(categories[1].total);
         
         const width = 300;
-        const height = 200;
-        const anglesRange = .5 * Math.PI;
+        const height = 150;
         const radius = Math.min(width, 2 * height) / 2;
-        const thickness = 50;
-        const colors = ["green", "blue", "orange", "red"];
+        const thickness = 30;
 
         let pie = d3.pie()
             .value(function(entry) {
                 return entry.total;
             })
-            .startAngle(anglesRange * -1)
-            .endAngle(anglesRange)
+            .sort(null)
+            .startAngle(-90 * (Math.PI / 180))
+            .endAngle(90 * (Math.PI / 180));
 
         let arc = d3.arc()
             .outerRadius(radius)
@@ -80,9 +85,10 @@
         let translation = (x, y) => `translate(${x}, ${y})`;
 
         let svg = d3.select('#earnings')
-            .append('svg')
             .attr('width', width)
             .attr('height', height)
+            .attr('viewBox', [0, 0, width, height])
+            .attr('preserveAspectRatio', 'xMidYMid meet')
             .attr('class', 'half-donut')
             .append('g')
             .attr('transform', translation(width / 2, height));
@@ -135,17 +141,17 @@
         });
         
         const width = 300;
-        const height = 200;
-        const anglesRange = .5 * Math.PI;
+        const height = 150;
         const radius = Math.min(width, 2 * height) / 2;
-        const thickness = 50;
+        const thickness = 30;
 
         let pie = d3.pie()
             .value(function(entry) {
                 return entry.total;
             })
-            .startAngle(anglesRange * -1)
-            .endAngle(anglesRange)
+            .sort(null)
+            .startAngle(-90 * (Math.PI / 180))
+            .endAngle(90 * (Math.PI / 180));
 
         let arc = d3.arc()
             .outerRadius(radius)
@@ -154,9 +160,10 @@
         let translation = (x, y) => `translate(${x}, ${y})`;
 
         let svg = d3.select('#expenses')
-            .append('svg')
             .attr('width', width)
             .attr('height', height)
+            .attr('viewBox', [0, 0, width, height])
+            .attr('preserveAspectRatio', 'xMidYMid meet')
             .attr('class', 'half-donut')
             .append('g')
             .attr('transform', translation(width / 2, height));
@@ -166,7 +173,7 @@
             .enter()
             .append('path')
             .attr('d', arc)
-            .attr('fill', (entry) => entry.data.color);
+            .attr('fill', (entry) => entry.data.color)
 
         svg.append('text')
             .text('$' + total)
@@ -192,11 +199,10 @@
         });
 
         const width = 540;
-        const height = 540;
+        const height = 400;
 
         //getting svg
-        const svg = d3.select('#chart')
-            .append('svg')
+        const svg = d3.select('#net-worth')
             .attr('viewBox', `0 0 ${width} ${height}`);
 
         const render = data => {

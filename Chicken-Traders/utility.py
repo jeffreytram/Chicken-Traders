@@ -231,7 +231,7 @@ def pay_bandit(player, bandit):
     if player.credit >= bandit["demand"]:
         # successful payment
         player.credit -= bandit["demand"]
-        player.transaction_history.append(Transaction("Bandit fee", bandit["demand"], "fee", "expenses"))
+        player.transaction_history.append(Transaction("Bandit fee", bandit["demand"], "fees", "expenses"))
         return 1
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
@@ -258,7 +258,7 @@ def fight_bandit(player, bandit):
         losings = int(player.credit / 3)
         player.credit = losings
         player.ship.health_level -= 20
-        player.transaction_history.append(Transaction("Bandit fee", losings, "fee", "expenses"))
+        player.transaction_history.append(Transaction("Bandit fee", losings, "fees", "expenses"))
         return False
 
 
@@ -273,7 +273,7 @@ def flee_bandit(player):
         losings = int(player.credit / 2)
         player.credit = losings
         player.ship.health_level -= 20
-        player.transaction_history.append(Transaction("Bandit fee", losings, "fee", "expenses"))
+        player.transaction_history.append(Transaction("Bandit fee", losings, "fees", "expenses"))
         return False
 
 
