@@ -205,6 +205,7 @@ def flee_police(player, police):
         player.ship.health_level -= 15
         player.credit -= 100
         player.karma -= 1
+        player.transaction_history.append(Transaction("Police fee", 100, "fees", "expenses"))
         return False
 
 

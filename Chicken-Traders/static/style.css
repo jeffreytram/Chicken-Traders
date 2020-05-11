@@ -624,13 +624,26 @@ svg {
 }
 
 .stats-container {
-    height: 45%;
+    height: 50vh;
     width: 90%;
     margin: auto;
 }
 #earnings, #expenses, #net-worth {
     height: 100%;
     width: 100%;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 90px;
+    height: 34px;
+    padding: 2px;
+    background: rgb(30, 30, 30);
+    color: rgb(240, 240, 240);
+    font-size: 12px;
+    border-radius: 5px;
+    pointer-events: none;
 }
 
 @media (min-width:530px) {

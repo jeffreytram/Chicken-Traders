@@ -53,7 +53,8 @@
         let earnings = transactionHistory.filter(entry => entry.transaction_type == "earnings");
         let categories = [
             {name: "trade", total: 0, color: "green"},
-            {name: "loot", total: 0, color: "orange"}
+            {name: "loot", total: 0, color: "orange"},
+            {name: "collection", total: 0, color: "red"}
         ];
         let total = 0;
         earnings.forEach(function(entry, i) {
@@ -62,6 +63,8 @@
                 categories[0].total += entry.price;
             } else if (entry.category === "loot") {
                 categories[1].total += entry.price;
+            } else if (entry.category === "collection") {
+                categories[2].total += entry.price;
             }
         });
         
@@ -93,12 +96,27 @@
             .append('g')
             .attr('transform', translation(width / 2, height));
 
+        const div = d3.select('body').append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+        
         svg.selectAll('path')
             .data(pie(categories))
             .enter()
             .append('path')
             .attr('d', arc)
-            .attr('fill', (entry) => entry.data.color);
+            .attr('fill', (entry) => entry.data.color)
+            .on('mouseover', (entry) => {
+                let percentage = entry.data.total * 100 / total;
+                div.html(`${percentage.toFixed(1)}%: ${entry.data.name}<br>$${entry.data.total}`)
+                  .style('opacity', 0.85)
+                  .style('font-weight', 'bold')
+                  .style('left', `${d3.event.pageX - 45}px`)
+                  .style('top', `${d3.event.pageY - 40}px`);
+              })
+            .on('mouseout', () => {
+                div.style('opacity', 0);
+            });
 
         svg.append('text')
             .text('$' + total)
@@ -168,12 +186,27 @@
             .append('g')
             .attr('transform', translation(width / 2, height));
 
+        const div = d3.select('body').append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+
         svg.selectAll('path')
             .data(pie(categories))
             .enter()
             .append('path')
             .attr('d', arc)
             .attr('fill', (entry) => entry.data.color)
+            .on('mouseover', (entry) => {
+                let percentage = entry.data.total * 100 / total;
+                div.html(`${percentage.toFixed(1)}%: ${entry.data.name}<br>$${entry.data.total}`)
+                  .style('opacity', 0.85)
+                  .style('font-weight', 'bold')
+                  .style('left', `${d3.event.pageX - 45}px`)
+                  .style('top', `${d3.event.pageY - 40}px`);
+              })
+            .on('mouseout', () => {
+                div.style('opacity', 0);
+            });
 
         svg.append('text')
             .text('$' + total)
