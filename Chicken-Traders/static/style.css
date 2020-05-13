@@ -649,7 +649,7 @@ div.tooltip {
 .stats-grid {
     width: 100%;
     display: grid;
-    grid-template: repeat(3, minmax(auto, 30px)) / repeat(3, minmax(auto, 1fr));
+    grid-template: repeat(3, minmax(30px, auto)) / repeat(3, minmax(auto, 1fr));
     text-align: left;
 }
 

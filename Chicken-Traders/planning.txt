@@ -265,21 +265,12 @@
 
 5.13.20
 - Added # fuel purchased, repairs purchased, and most purchased item stats
+- Added # npc and distanced traveled stats
+
+
+
 
 Other stats planning
-- fuel purchased
-    - filter transaction history for fuel
-    - mult length of filter by 50 to get amount of fuel
-- repairs purchased
-    - filter transaction history for repairs
-    - mult length of filter by 10 to get amount of repairs
-- item most purchased
-    - filter transaction history for trade bought
-    - get name of item with most occurences
-- npc encounters
-    - increment encounter everytime an npc event occurs
-- distance traveled
-    - every time player travels, add distance traveled to a counter/tracker
 - number of visits (non unique)
 - most profitiable day
 

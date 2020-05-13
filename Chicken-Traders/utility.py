@@ -72,11 +72,15 @@ def travel_check(game, region):
     fuel_cost = fuel_calc(game.fuel_cost_constant, distance, game.player.pilot, game.player.ship.cargo_size)
     fuel_amount = game.player.ship.fuel_level
     if region == game.player.curr_region:
+        # travelling to same region
         return 2
     if fuel_amount >= fuel_cost:
+        # have enough fuel to travel
         game.player.ship.fuel_level = fuel_amount - fuel_cost
+        game.player.distance_traveled += distance
         return 1
     else:
+        # not enough fuel to travel
         return 3
 
 # updates fuel cost from every region to the given region
@@ -107,11 +111,17 @@ def encounter_check(diff_modifier, player, region_list, time):
     else:
         time_modifier = 1.5
     check_int = random.randint(1, 100)
-    if check_int <= 10 / time_modifier: # 6% - 10% chance
+    if check_int <= 10 / time_modifier: 
+        # 6% - 10% chance
+        player.npc_count += 1
         return gen_trader()
-    elif check_int > 10 and check_int <= 10 + 4 * diff_modifier * time_modifier: # 4% - 12% chance
+    elif check_int > 10 and check_int <= 10 + 4 * diff_modifier * time_modifier: 
+        # 4% - 12% chance
+        player.npc_count += 1
         return gen_bandit()
-    elif check_int > 30 and check_int <= 30 + 4 * diff_modifier * time_modifier and len(player.ship.cargo) > 0: # 4% - 12% chance
+    elif check_int > 30 and check_int <= 30 + 4 * diff_modifier * time_modifier and len(player.ship.cargo) > 0: 
+        # 4% - 12% chance
+        player.npc_count += 1
         return gen_police(player)
     else:
         return None

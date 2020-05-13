@@ -252,7 +252,9 @@ def stats():
     return render_template("stats.html", 
         game=state["game"], 
         net_worth_data=state["game"].net_worth_data, 
-        transaction_history=processed_transaction_history)
+        transaction_history=processed_transaction_history,
+        npc_count=state["game"].player.npc_count,
+        distance_traveled=state["game"].player.distance_traveled)
 
 # end page
 @app.route("/end", methods=["GET", "POST"])

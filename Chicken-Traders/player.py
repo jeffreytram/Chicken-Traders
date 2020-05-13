@@ -21,6 +21,8 @@ class Player:
         self.karma = 0
         self.collection = Collection()
         self.transaction_history = []
+        self.npc_count = 0
+        self.distance_traveled = 0
 
     # END __init__
 
