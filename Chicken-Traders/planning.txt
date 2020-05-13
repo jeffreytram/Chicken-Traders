@@ -266,7 +266,7 @@
 5.13.20
 - Added # fuel purchased, repairs purchased, and most purchased item stats
 - Added # npc and distanced traveled stats
-
+- Fixed bug with transactions not being recorded properly
 
 
 

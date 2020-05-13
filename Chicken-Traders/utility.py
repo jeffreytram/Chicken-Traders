@@ -239,10 +239,11 @@ def gen_bandit():
 
 def pay_bandit(player, bandit):
     # Try to pay bandit's demand
-    if player.credit >= bandit["demand"]:
+    demand = bandit["demand"]
+    if player.credit >= demand:
         # successful payment
-        player.credit -= bandit["demand"]
-        player.transaction_history.append(Transaction("Bandit fee", bandit["demand"], "fees", "expenses"))
+        player.credit -= demand
+        player.transaction_history.append(Transaction("Bandit fee", demand, "fees", "expenses"))
         return 1
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
