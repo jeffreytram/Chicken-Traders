@@ -27,10 +27,9 @@ class Game:
     # increases time
     def increment_time(self):
         self.time += 2
-        if self.time % 6 == 0:
-            # calculate net worth every 6 hr
-            net_worth = self.calcNetWorth()
-            self.net_worth_data.append(net_worth)
+        # calculate net worth every 6 hr
+        net_worth = self.calcNetWorth()
+        self.net_worth_data.append(net_worth)
         if self.time >= 24:
             self.time = self.time % 24
             self.day += 1

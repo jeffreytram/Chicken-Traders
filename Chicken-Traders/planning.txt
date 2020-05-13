@@ -259,6 +259,10 @@
 5.11.20
 - Added hover for more info in stats page
 
+5.12.20
+- Created layout for other stats
+- Added # items purchased, # items sold, and # transactions stats
+
 TODO:
 [] improve error message display and efficiency/reload
 [] barter

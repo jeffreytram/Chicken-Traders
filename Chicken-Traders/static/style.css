@@ -646,6 +646,13 @@ div.tooltip {
     pointer-events: none;
 }
 
+.stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template: repeat(3, minmax(auto, 30px)) / repeat(3, minmax(auto, 1fr));
+    text-align: left;
+}
+
 @media (min-width:530px) {
     .category-grid {
         grid-template: repeat(2, minmax(auto, 1fr)) / repeat(8, minmax(auto, 1fr));

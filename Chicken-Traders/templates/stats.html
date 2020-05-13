@@ -27,7 +27,7 @@
         <button id="collection" onclick="location.href = 'collection'">Collection</button>
         <button id="stats" class="active" onclick="location.href = 'stats'">Stats</button>
     </div>
-    <h2 id="header">Estimated Net Worth Over Time</h2>
+    <h2 id="header">Stats</h2>
 </div>
     <div class="stats-container">
         <div class="side-chart">
@@ -41,16 +41,42 @@
         <div class="main-chart">
             <svg id="net-worth"></svg>
         </div>
+        <div class="stats-grid">
+            <div>items purchased: <span id="num-purchased"></span></div>
+            <div>fuel purchased: <span></span></div>
+            <div>NPC encounters: <span></span></div>
+
+            <div>items sold: <span id="num-sold"></span></div>
+            <div>repairs purchased: <span></span></div>
+            <div>distance traveled: <span></span></div>
+
+            <div>transactions: <span id="num-transactions"></span></div>
+            <div>favorite item: <span></span></div>
+            <div># other stat stuff<span></span></div>
+        </div>
     </div>
 <script>
-    function loadEarningsChart() {
-        let transactionHistory = {{ transaction_history | tojson }};
-        transactionHistory.forEach(function (entry, i) {
-            transactionHistory[i] = JSON.parse(entry);
-        });
-        console.log(transactionHistory);
+    let transactionHistory = {{ transaction_history | tojson }};
+    transactionHistory.forEach(function (entry, i) {
+        transactionHistory[i] = JSON.parse(entry);
+    });
+    console.log(transactionHistory);
 
-        let earnings = transactionHistory.filter(entry => entry.transaction_type == "earnings");
+    function getTotalNumberItemsSold() {
+        let items = transactionHistory.filter(entry => entry.category === "trade" && entry.transaction_type === "earnings");
+        document.getElementById('num-sold').innerHTML = items.length;
+    }
+
+    function getNumberTransactions() {
+        document.getElementById('num-transactions').innerHTML = transactionHistory.length;
+    }
+
+    function getTotalNumberItemsPurchased() {
+        let items = transactionHistory.filter(entry => entry.category === "trade" && entry.transaction_type === "expenses");
+        document.getElementById('num-purchased').innerHTML = items.length;
+    }
+    function loadEarningsChart() {
+        let earnings = transactionHistory.filter(entry => entry.transaction_type === "earnings");
         let categories = [
             {name: "trade", total: 0, color: "green"},
             {name: "loot", total: 0, color: "orange"},
@@ -132,11 +158,6 @@
     }
 
     function loadExpensesChart() {
-        let transactionHistory = {{ transaction_history | tojson }};
-        transactionHistory.forEach(function (entry, i) {
-            transactionHistory[i] = JSON.parse(entry);
-        });
-
         let expenses = transactionHistory.filter(entry => entry.transaction_type == "expenses");
         let categories = [
             {name: "trade", total: 0, color: "green"},
@@ -228,7 +249,7 @@
         //formatting the data
         let netWorthData = [];
         rawNetWorthData.forEach(function (entry, i) {
-            netWorthData.push({ day: i / 4, amount: rawNetWorthData[i] })
+            netWorthData.push({ day: i / 12, amount: rawNetWorthData[i] })
         });
 
         const width = 540;
@@ -246,7 +267,7 @@
             const innerHeight = height - margin.top - margin.bottom;
 
             const xScale = d3.scaleLinear()
-                .domain([0, (netWorthData.length - 1) / 4])
+                .domain([0, (netWorthData.length - 1) / 12])
                 .range([0, innerWidth]);
 
             const yScale = d3.scaleLinear()
@@ -258,7 +279,7 @@
 
             //x axis
             const xAxis = d3.axisBottom(xScale)
-                .ticks((netWorthData.length - 1) / 2);
+                .ticks(4);
             const xAxisG = g.append('g').call(xAxis)
                 .attr('transform', `translate(0, ${innerHeight})`);
             xAxisG.append('text')
@@ -277,6 +298,13 @@
                 .attr('fill', 'black')
                 .attr('font-weight', 'bold')
                 .text('Credits');
+            
+            g.append('text')
+                .attr('x', innerWidth / 2)
+                .attr('y', 0)
+                .attr('fill', 'black')
+                .text('Estimated Net Worth Over Time')
+                .attr('text-anchor', 'middle');
 
             //Line Graph
             g.append('path').datum(netWorthData)
@@ -293,5 +321,8 @@
     loadEarningsChart();
     loadExpensesChart();
     loadNetWorthChart();
+    getTotalNumberItemsPurchased();
+    getTotalNumberItemsSold();
+    getNumberTransactions();
 </script>
 {% endblock %}
