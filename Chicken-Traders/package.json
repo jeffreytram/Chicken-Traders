@@ -1,0 +1,19 @@
+{
+  "name": "chicken-traders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myapp.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreytram/Chicken-Traders.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffreytram/Chicken-Traders/issues"
+  },
+  "homepage": "https://github.com/jeffreytram/Chicken-Traders#readme"
+}

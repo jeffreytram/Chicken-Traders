@@ -2,7 +2,7 @@
 import random
 import math
 from item import Item
-from transaction import Transaction
+from transactions import Transactions
 
 category = [
         "Animal",
@@ -215,7 +215,7 @@ def flee_police(player, police):
         player.ship.health_level -= 15
         player.credit -= 100
         player.karma -= 1
-        player.transaction_history.append(Transaction("Police fee", 100, "fees", "expenses"))
+        player.transaction_history.append(Transactions("Police fee", 100, "fees", "expenses"))
         return False
 
 
@@ -243,7 +243,7 @@ def pay_bandit(player, bandit):
     if player.credit >= demand:
         # successful payment
         player.credit -= demand
-        player.transaction_history.append(Transaction("Bandit fee", demand, "fees", "expenses"))
+        player.transaction_history.append(Transactions("Bandit fee", demand, "fees", "expenses"))
         return 1
     elif len(player.ship.cargo) > 0:
         # give up all inventory.
@@ -262,7 +262,7 @@ def fight_bandit(player, bandit):
         winnings = int(bandit["demand"] * (5 / 4))
         player.credit += winnings
         player.karma += 2
-        player.transaction_history.append(Transaction("Bandit loot", winnings, "loot", "earnings"))
+        player.transaction_history.append(Transactions("Bandit loot", winnings, "loot", "earnings"))
         return True
     else:
         # fail fight attempt
@@ -270,7 +270,7 @@ def fight_bandit(player, bandit):
         losings = int(player.credit / 3)
         player.credit = losings
         player.ship.health_level -= 20
-        player.transaction_history.append(Transaction("Bandit fee", losings, "fees", "expenses"))
+        player.transaction_history.append(Transactions("Bandit fee", losings, "fees", "expenses"))
         return False
 
 
@@ -285,7 +285,7 @@ def flee_bandit(player):
         losings = int(player.credit / 2)
         player.credit = losings
         player.ship.health_level -= 20
-        player.transaction_history.append(Transaction("Bandit fee", losings, "fees", "expenses"))
+        player.transaction_history.append(Transactions("Bandit fee", losings, "fees", "expenses"))
         return False
 
 

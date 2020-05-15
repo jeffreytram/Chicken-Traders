@@ -268,6 +268,10 @@
 - Added # npc and distanced traveled stats
 - Fixed bug with transactions not being recorded properly
 
+5.15.20
+- Fixed server transaction bug
+
+
 
 
 Other stats planning

@@ -4,7 +4,7 @@ import utility
 import json
 from game import Game
 from item import Item
-from transaction import Transaction
+from transactions import Transactions
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ayy"
@@ -237,7 +237,7 @@ def collection():
             index = state["game"].player.collection.category.index(category)
             state["game"].player.collection.complete[index] = True
             state["game"].player.credit += 100
-            state["game"].player.transaction_history.append(Transaction("Collection reward", 100, "collection", "earnings"))
+            state["game"].player.transaction_history.append(Transactions("Collection reward", 100, "collection", "earnings"))
             return str(state["game"].player.credit)
     return render_template(
         "collection.html", game=state["game"], all_items=Item.__subclasses__()
