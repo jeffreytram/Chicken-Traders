@@ -410,14 +410,19 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     padding-bottom: 20px;
 }
 
-.activeCategory {
+#itemCategoriesUl li:hover {
+    cursor: pointer;
+    background-color: rgba(146, 146, 146, 0.5);
+}
+
+.activeCategory, #itemCategoriesUl li.activeCategory:hover {
     font-weight: bold;
     background-color: rgb(30, 30, 30);
     color: white;
 }
 
-.active-item {
-    background-color: #d6d6d6;
+.active-item, .item.active-item:hover {
+    background-color: #adadad;
 }
 
 .grid-container {
@@ -491,6 +496,11 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     justify-content: space-between;
     align-items: center;
     text-align: left;
+}
+
+.item:hover {
+    cursor: pointer;
+    background-color: #dbdbdb;
 }
 
 .item-icon {

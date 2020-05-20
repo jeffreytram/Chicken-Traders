@@ -341,27 +341,30 @@
     let itemCatUl = document.getElementById("itemCategoriesUl");
     itemCatUl.addEventListener("click", function (event) {
         //bold selected category
-        let activeCategory = document.getElementsByClassName("activeCategory");
-        if (activeCategory.length > 0) {
-            activeCategory[0].className = activeCategory[0].className.replace(" activeCategory", "");
-        }
-        event.target.className += " activeCategory";
-        let category = event.target.innerHTML;
-        let itemUl = document.getElementById("itemUl");
-        let shownItem = document.getElementsByClassName("item");
-        for (let i = 0; i < shownItem.length; i++) {
-            item = shownItem[i];
-            if (category === "All") {
-                item.className = item.className.replace(" hidden", "");
-            } else if (item.classList.contains(category)) {
-                //item to show, remove hidden if it has
-                if (item.classList.contains("hidden")) {
+        //If clicked element is itemCatU1 do not enter
+        if (event.target !== event.currentTarget) {
+            let activeCategory = document.getElementsByClassName("activeCategory");
+            if (activeCategory.length > 0) {
+                activeCategory[0].className = activeCategory[0].className.replace(" activeCategory", "");
+            }
+            event.target.className += " activeCategory";
+            let category = event.target.innerHTML;
+            let itemUl = document.getElementById("itemUl");
+            let shownItem = document.getElementsByClassName("item");
+            for (let i = 0; i < shownItem.length; i++) {
+                item = shownItem[i];
+                if (category === "All") {
                     item.className = item.className.replace(" hidden", "");
-                }
-            } else {
-                //item to hide, add hidden if doesnt have
-                if (!item.classList.contains("hidden")) {
-                    item.className += " hidden";
+                } else if (item.classList.contains(category)) {
+                    //item to show, remove hidden if it has
+                    if (item.classList.contains("hidden")) {
+                        item.className = item.className.replace(" hidden", "");
+                    }
+                } else {
+                    //item to hide, add hidden if doesnt have
+                    if (!item.classList.contains("hidden")) {
+                        item.className += " hidden";
+                    }
                 }
             }
         }
