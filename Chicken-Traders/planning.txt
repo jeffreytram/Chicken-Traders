@@ -274,6 +274,9 @@
 5.20.20
 - stats javascript code reorganization
 
+5.21.20
+- stats javascript code reorganization
+
 
 
 Other stats planning

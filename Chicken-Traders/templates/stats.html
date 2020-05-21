@@ -68,17 +68,6 @@
         netWorthData.push({ day: i / 12, amount: rawNetWorthData[i] })
     });
 
-    loadEarningsChart(transactionHistory);
-    loadExpensesChart(transactionHistory);
-    loadNetWorthChart(netWorthData);
-    
-    getTotalNumberItemsPurchased(transactionHistory);
-    getTotalNumberItemsSold(transactionHistory);
-    getNumberTransactions(transactionHistory);
-    getFuelPurchased(transactionHistory);
-    getRepairsPurchased(transactionHistory);
-    getFavoriteItem(transactionHistory);
-    getNpcCount({{ npc_count }});
-    getDistanceTraveled({{ distance_traveled }});
+    loadStats(transactionHistory, netWorthData, {{ npc_count}}, {{ distance_traveled }})
 </script>
 {% endblock %}
