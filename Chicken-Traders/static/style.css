@@ -59,7 +59,7 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     animation: .6s infinite normal start-wiggle
 }
 
-.welcomeContainer, .settingsContainer, .spContainer, .confirmContainer {
+.welcomeContainer {
     position: relative;
     display: grid;
     height: 75%;
@@ -109,8 +109,8 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
     border-bottom-right-radius: 15px;
 }
 
-.all-container, .market-container {
-    width: 90%;
+.all-container {
+    width: 95%;
     margin: auto;
 }
 
@@ -133,14 +133,7 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 
 /* settings style*/
 
-.bg-image {
-    height: 100%;
-    background-image: url("stroke-green.svg");
-    background-repeat: no-repeat;
-    background-position-x: calc(-200px + 30vw);
-}
-
-.settings-grid {
+.settings-grid, .sp-grid {
     width: 100%;
     margin: auto;
     display: grid;
@@ -155,15 +148,21 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 }
 
 .imgDiv, .sp-img {
-    justify-self: center;
-    align-self: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     grid-row: 1/6;
     grid-column: 1/2;
+    background-image: url("stroke-green.svg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
 }
 
 .chicken {
-    height: calc(150px + 10vw);
-    position: relative;
+    height: 200px;
     z-index: 2;
 }
 
@@ -187,16 +186,6 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 
 .sp-grid, .sp-input>input {
     font-size: calc(9px + 1vw);
-}
-
-.sp-grid {
-    width: 100%;
-    margin: auto;
-    display: grid;
-    grid-template: repeat(5, minmax(auto, 75px)) / 40% minmax(75px, 1fr);
-    border: 1px solid rgba(30, 30, 30, .5);
-    border-radius: 15px;
-    text-align: left;
 }
 
 .sp-option {
@@ -330,11 +319,6 @@ button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
 
 #image {
     width: 50%;
-}
-
-.about-container {
-    margin: auto;
-    width: 100%;
 }
 
 .about-container>p, .about-container>h1, .about-container>h2 {
@@ -667,9 +651,6 @@ div.tooltip {
     .category-grid {
         grid-template: repeat(2, minmax(auto, 1fr)) / repeat(8, minmax(auto, 1fr));
     }
-    .sp-grid {
-        grid-template: repeat(5, minmax(auto, 75px)) / repeat(2, minmax(auto, 1fr));
-    }
     .sp-grid, .sp-input>input {
         font-size: 15px;
     }
@@ -686,7 +667,7 @@ div.tooltip {
     .title {
         width: 50%;
     }
-    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer, .stats-container {
+    .all-container, .welcomeContainer{
         width: 70%;
     }
     #logo {
@@ -719,8 +700,8 @@ div.tooltip {
 
 @media (min-width:1200px) {
     /* market player inv css */
-    .all-container, .welcomeContainer, .settingsContainer, .spContainer, .confirmContainer, .stats-container {
-        width: 50%;
+    .all-container, .welcomeContainer {
+        width: 55%;
     }
     #logo {
         height: 7vw;

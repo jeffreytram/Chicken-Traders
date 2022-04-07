@@ -1,52 +1,26 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="all-container">
-    <!-- top bar UI -->
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
+{% extends 'game-layout.html' %}
 
-    <!-- nav bar -->
-    <div id="menu">
-        <button id="travel" onclick="location.href = 'travel'">Travel</button>
-        <button id="market" onclick="location.href = 'market'">Market</button>
-        <button id="ship" onclick="location.href = 'ship'">Ship</button>
-        <button id="collection" class="active" onclick="location.href = 'collection'">Collection</button>
-        <button id="stats" onclick="location.href = 'stats'">Stats</button>
+{% set pageName = 'Collection' %}
+
+{% block gameContent %}
+<p>Collect all items in a category for a reward!</p>
+{% for category in game.player.collection.category %}
+<div class="collection-grid">
+    <h4 class="collection-label">{{category}}:</h4>
+    <div id="{{category}}" class="category-grid"></div>
+    <div class="collection-button">
+        {% if game.player.collection.complete[loop.index - 1] %}
+        <button id="{{category}}-progress" class="progress" disabled>COLLECTED</button>
+        {% elif game.player.collection.progress[loop.index - 1] == game.player.collection.max[loop.index - 1] %}
+        <button id="{{category}}-progress" class="progress">COLLECT +100</button>
+        {% else %}
+        <button id="{{category}}-progress" class="progress"
+            disabled>{{game.player.collection.progress[loop.index - 1]}} /
+            {{game.player.collection.max[loop.index - 1]}}</button>
+        {% endif %}
     </div>
-    <h2 id="header">Collection:</h2>
-    <p>Collect all items in a category for a reward!</p>
-    {% for category in game.player.collection.category %}
-    <div class="collection-grid">
-        <h4 class="collection-label">{{category}}:</h4>
-        <div id="{{category}}" class="category-grid"></div>
-        <div class="collection-button">
-            {% if game.player.collection.complete[loop.index - 1] %}
-            <button id="{{category}}-progress" class="progress" disabled>COLLECTED</button>
-            {% elif game.player.collection.progress[loop.index - 1] == game.player.collection.max[loop.index - 1] %}
-            <button id="{{category}}-progress" class="progress">COLLECT +100</button>
-            {% else %}
-            <button id="{{category}}-progress" class="progress"
-                disabled>{{game.player.collection.progress[loop.index - 1]}} /
-                {{game.player.collection.max[loop.index - 1]}}</button>
-            {% endif %}
-        </div>
-    </div>
-    {% endfor %}
 </div>
+{% endfor %}
 
 <script type="text/javascript">
     function addCredits(category) {

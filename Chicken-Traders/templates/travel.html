@@ -1,89 +1,65 @@
-{% extends 'layout.html' %}
-{% block content %}
-<!-- top bar UI -->
-<div class="all-container">
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
-    <!-- nav bar -->
-    <div id="menu">
-        <button id="travel" class="active" onclick="location.href = 'travel'">Travel</button>
-        <button id="market" onclick="location.href = 'market'">Market</button>
-        <button id="ship" onclick="location.href = 'ship'">Ship</button>
-        <button id="collection" onclick="location.href = 'collection'">Collection</button>
-        <button id="stats" onclick="location.href = 'stats'">Stats</button>
-    </div>
-    <h2 id="header">Travel</h2>
-    <div class="travel-info-container">
-        <h3 id="time-info"><img id="time" class="item-icon">Day: {{game.day}} Time: {{game.time}}:00</h3>
-        <div id="time-effect"></div>
-        <h2 id="current-info">Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
-    </div>
-    {% if fuel_error == 3 %}
-    <h3 class="error">Not enough fuel!</h3>
-    {% endif %}
+{% extends 'game-layout.html' %}
 
-    <!--Travel menu - Region buttons and map-->
-    <div class="menu travelMenu">
-        <div class="buttonAndMapContainer">
-            <form method="post">
-                <div class="regionButtons">
-                    {% for region in universe.region_list %}
-                    {% if region == currRegion %}
-                    <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }} active">
-                        {{region.name}} - 0<img class="item-icon arrow"
-                            src="../static/item-images/icon-fuel.svg"></button>
-                    {% else %}
-                    <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }}">
-                        {{region.name}} - {{region.travel_cost}}<img class="item-icon arrow"
-                            src="../static/item-images/icon-fuel.svg"></button>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </form>
-            <div id="mapid"></div>
-        </div>
+{% set pageName = 'Travel' %}
+
+{% block gameContent %}
+<!-- top bar UI -->
+<div class="travel-info-container">
+    <h3 id="time-info"><img id="time" class="item-icon">Day: {{game.day}} Time: {{game.time}}:00</h3>
+    <div id="time-effect"></div>
+    <h2 id="current-info">Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+</div>
+{% if fuel_error == 3 %}
+<h3 class="error">Not enough fuel!</h3>
+{% endif %}
+
+<!--Travel menu - Region buttons and map-->
+<div class="menu travelMenu">
+    <div class="buttonAndMapContainer">
+        <form method="post">
+            <div class="regionButtons">
+                {% for region in universe.region_list %}
+                {% if region == currRegion %}
+                <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }} active">
+                    {{region.name}} - 0<img class="item-icon arrow"
+                        src="../static/item-images/icon-fuel.svg"></button>
+                {% else %}
+                <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }}">
+                    {{region.name}} - {{region.travel_cost}}<img class="item-icon arrow"
+                        src="../static/item-images/icon-fuel.svg"></button>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </form>
+        <div id="mapid"></div>
     </div>
-    <div class="news">
-        <h2><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
-        {% if game.news %}
-        <ul>
-            {% for event in game.news%}
-            {% if "inc" in event or "trendy" in event%}
-            <li><img class='item-icon arrow' src='../static/item-images/icon-up.svg'>{{event}}</li>
-            {% else %}
-            <li><img class='item-icon arrow' src='../static/item-images/icon-down.svg'>{{event}}</li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+</div>
+<div class="news">
+    <h2><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
+    {% if game.news %}
+    <ul>
+        {% for event in game.news%}
+        {% if "inc" in event or "trendy" in event%}
+        <li><img class='item-icon arrow' src='../static/item-images/icon-up.svg'>{{event}}</li>
         {% else %}
-        No recent news.
+        <li><img class='item-icon arrow' src='../static/item-images/icon-down.svg'>{{event}}</li>
         {% endif %}
-    </div>
-    <div class="fade"></div>
-    {% if game.player.name == "admin" %}
-    <h2>Testing Tools</h2>
-    <button onclick="addCredits()">add credits</button>
-    <button onclick="addFuel()">add fuel</button>
-    <button onclick="addHealth()">add health</button>
-    <button onclick="force('bandit')">force bandit</button>
-    <button onclick="force('trader')">force trader</button>
-    <button onclick="force('police')">force police (must have at least 1 item)</button>
+        {% endfor %}
+    </ul>
+    {% else %}
+    No recent news.
     {% endif %}
 </div>
+<div class="fade"></div>
+{% if game.player.name == "admin" %}
+<h2>Testing Tools</h2>
+<button onclick="addCredits()">add credits</button>
+<button onclick="addFuel()">add fuel</button>
+<button onclick="addHealth()">add health</button>
+<button onclick="force('bandit')">force bandit</button>
+<button onclick="force('trader')">force trader</button>
+<button onclick="force('police')">force police (must have at least 1 item)</button>
+{% endif %}
 
 <script type="text/javascript">
     //testing tools
@@ -172,11 +148,11 @@
     if ({{ game.time }} >= 9 && {{ game.time }} <= 18) {
         document.getElementById("time").src = "../static/item-images/icon-day.svg";
         url = '../static/map-day.png';
-        document.getElementById("time-effect").innerHTML = "<strong>Day Time</strong>: Trader <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>";
+        document.getElementById("time-effect").innerHTML = "Day Time: Trader <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>";
     } else {
         document.getElementById("time").src = "../static/item-images/icon-night.svg";
         url = '../static/map-night.png';
-        document.getElementById("time-effect").innerHTML = "<strong>Night Time</strong>: Trader <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>";
+        document.getElementById("time-effect").innerHTML = "Night Time: Trader <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>";
     }
 
     //bounds for image

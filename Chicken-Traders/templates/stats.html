@@ -1,59 +1,33 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="all-container">
-    <!-- top bar UI -->
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
+{% extends 'game-layout.html' %}
 
-    <!-- nav bar -->
-    <div id="menu">
-        <button id="travel" onclick="location.href = 'travel'">Travel</button>
-        <button id="market" onclick="location.href = 'market'">Market</button>
-        <button id="ship" onclick="location.href = 'ship'">Ship</button>
-        <button id="collection" onclick="location.href = 'collection'">Collection</button>
-        <button id="stats" class="active" onclick="location.href = 'stats'">Stats</button>
+{% set pageName = 'Stats' %}
+
+{% block gameContent %}
+<div class="stats-container">
+    <div class="side-chart">
+        <div class="svg-container">
+            <svg id="earnings"></svg>
+        </div>
+        <div class="svg-container">
+            <svg id="expenses"></svg>
+        </div>
     </div>
-    <h2 id="header">Stats</h2>
+    <div class="main-chart">
+        <svg id="net-worth"></svg>
+    </div>
+    <div class="stats-grid">
+        <div>items purchased: <span id="num-purchased"></span></div>
+        <div>fuel purchased: <span id="num-fuel"></span></div>
+        <div>NPC encounters: <span id="num-npc"></span></div>
+
+        <div>items sold: <span id="num-sold"></span></div>
+        <div>repairs purchased: <span id="num-repairs"></span></div>
+        <div>distance traveled: <span id="dist-traveled"></span></div>
+
+        <div>transactions: <span id="num-transactions"></span></div>
+        <div>most purchased item: <span id="fav-item"></span></div>
+    </div>
 </div>
-    <div class="stats-container">
-        <div class="side-chart">
-            <div class="svg-container">
-                <svg id="earnings"></svg>
-            </div>
-            <div class="svg-container">
-                <svg id="expenses"></svg>
-            </div>
-        </div>
-        <div class="main-chart">
-            <svg id="net-worth"></svg>
-        </div>
-        <div class="stats-grid">
-            <div>items purchased: <span id="num-purchased"></span></div>
-            <div>fuel purchased: <span id="num-fuel"></span></div>
-            <div>NPC encounters: <span id="num-npc"></span></div>
-
-            <div>items sold: <span id="num-sold"></span></div>
-            <div>repairs purchased: <span id="num-repairs"></span></div>
-            <div>distance traveled: <span id="dist-traveled"></span></div>
-
-            <div>transactions: <span id="num-transactions"></span></div>
-            <div>most purchased item: <span id="fav-item"></span></div>
-        </div>
-    </div>
 <script type="text/javascript" src="../static/stats.js"></script>
 <script>
     let transactionHistory = {{ transaction_history | tojson }};

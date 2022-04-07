@@ -1,65 +1,48 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="all-container">
-    <!-- top bar UI -->
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
+{% extends 'game-layout.html' %}
 
-    <h2>{{npc["name"]}}</h2>
+{% set hideNav = true %}
+
+{% block gameContent %}
+<h2>{{npc["name"]}}</h2>
+{% if npc["name"] == "Bandit" %}
+<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
+        credits</strong>!
+</p>
+{% elif npc["name"] == "Trader" %}
+<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
+        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
+    <strong><span id="price">{{npc["item"].b_price}}</span> credits</strong>!</p>
+{% elif npc["name"] == "Police" %}
+<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
+        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
+{% endif %}
+<img height="200" width="auto" src="../static/{{npc.name}}.png">
+<p>What will YOU do!?</p>
+<div class="encounter-grid">
     {% if npc["name"] == "Bandit" %}
-    <p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
-            credits</strong>!
-    </p>
+    <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
+    <button class="choice bandit flee" onclick="fleeBandit()">Flee to previous region ({{pilot}}%)</button>
+    <button class="choice bandit fight" onclick="fightBandit()">Fight ({{fighter}}%)</button>
     {% elif npc["name"] == "Trader" %}
-    <p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
-            src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
-        <strong><span id="price">{{npc["item"].b_price}}</span> credits</strong>!</p>
+    <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
+    <button class="choice trader ignore" onclick="ignoreTrader()">Ignore</button>
+    <button class="choice trader rob" onclick="robTrader()">Rob ({{fighter}}%)</button>
+    <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate ({{merchant}}%)</button>
     {% elif npc["name"] == "Police" %}
-    <p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
-            src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
+    <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
+    <button class="choice police flee" onclick="fleePolice()">Flee to previous region ({{pilot}}%)</button>
+    <button class="choice police fight" onclick="fightPolice()">Fight ({{fighter}}%)</button>
     {% endif %}
-    <img height="200" width="auto" src="../static/{{npc.name}}.png">
-    <p>What will YOU do!?</p>
-    <div class="encounter-grid">
-        {% if npc["name"] == "Bandit" %}
-        <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
-        <button class="choice bandit flee" onclick="fleeBandit()">Flee to previous region ({{pilot}}%)</button>
-        <button class="choice bandit fight" onclick="fightBandit()">Fight ({{fighter}}%)</button>
-        {% elif npc["name"] == "Trader" %}
-        <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
-        <button class="choice trader ignore" onclick="ignoreTrader()">Ignore</button>
-        <button class="choice trader rob" onclick="robTrader()">Rob ({{fighter}}%)</button>
-        <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate ({{merchant}}%)</button>
-        {% elif npc["name"] == "Police" %}
-        <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
-        <button class="choice police flee" onclick="fleePolice()">Flee to previous region ({{pilot}}%)</button>
-        <button class="choice police fight" onclick="fightPolice()">Fight ({{fighter}}%)</button>
-        {% endif %}
-    </div>
-    <div id="text">
-        {% if text and second_test %}
-        {{text}}
-        <p id="click-continue">
-            <strong>Click anywhere to continue...</strong>
-        </p>
-        {% elif text %}
-        {{text}}
-        {% endif %}
-    </div>
+</div>
+<div id="text">
+    {% if text and second_test %}
+    {{text}}
+    <p id="click-continue">
+        <strong>Click anywhere to continue...</strong>
+    </p>
+    {% elif text %}
+    {{text}}
+    {% endif %}
 </div>
 
 <script type="text/javascript">

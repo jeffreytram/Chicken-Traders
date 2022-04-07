@@ -1,38 +1,23 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="all-container">
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
-    <div class="about-container">
-        <h1>Welcome to chicken traders, {{game.player.name}}!</h1>
-        <p>One regular day on the farm, you were wandering around doing whatever chickens do. Suddenly, reality hit
-            hard!
-            Maybe this isn't the life you wanted to live after all. You've always wanted to be a <strong>CHICKEN
-                TRADER</strong>!!
-        </p><br />
-        <h2>Main Objective:</h2>
-        <p>Earn credits mainly by buying items and reselling them at a higher cost. Regions may pay a premium for
-            certain types of items and higher tech goods. Once you're rich enough, find and <strong>BUY THE
-                UNIVERSE</strong>!
-        </p><br />
-        <img id='image' src='../static/buylowsellhigh.png'>
-        <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market! <strong>Be
-                safe out there, young one!</strong></p><br /><br />
-    </div>
-    <button id="start" onclick="location.href = 'travel'">START</button>
+{% extends 'game-layout.html' %}
+
+{% set hideNav = true %}
+
+{% block gameContent %}
+<div class="about-container">
+    <h1>Welcome to chicken traders, {{game.player.name}}!</h1>
+    <p>One regular day on the farm, you were wandering around doing whatever chickens do. Suddenly, reality hit
+        hard!
+        Maybe this isn't the life you wanted to live after all. You've always wanted to be a <strong>CHICKEN
+            TRADER</strong>!!
+    </p><br />
+    <h2>Main Objective:</h2>
+    <p>Earn credits mainly by buying items and reselling them at a higher cost. Regions may pay a premium for
+        certain types of items and higher tech goods. Once you're rich enough, find and <strong>BUY THE
+            UNIVERSE</strong>!
+    </p><br />
+    <img id='image' src='../static/buylowsellhigh.png'>
+    <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market! <strong>Be
+            safe out there, young one!</strong></p><br /><br />
 </div>
+<button id="start" onclick="location.href = 'travel'">START</button>
 {% endblock %}

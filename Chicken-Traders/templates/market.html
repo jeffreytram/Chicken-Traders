@@ -1,37 +1,10 @@
-{% extends 'layout.html' %}
-{% block content %}
-<!-- top bar UI -->
-<div class="all-container">
-    <div class="player-info-grid">
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-            <div id="credits" class="player-info">{{game.player.credit}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-            <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-        </div>
-        <div>
-            <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-            <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-            <div class="player-info">/ {{game.player.ship.max_health}}</div>
-        </div>
-    </div>
+{% extends 'game-layout.html' %}
 
-    <!-- nav bar -->
-    <div id="menu">
-        <button id="travel" onclick="location.href = 'travel'">Travel</button>
-        <button id="market" class="active" onclick="location.href = 'market'">Market</button>
-        <button id="ship" onclick="location.href = 'ship'">Ship</button>
-        <button id="collection" onclick="location.href = 'collection'">Collection</button>
-        <button id="stats" onclick="location.href = 'stats'">Stats</button>
-    </div>
-</div>
+{% set pageName = 'Market' %}
 
+{% block gameContent %}
 <div class="market-container">
-    <h2 id="header">Market</h2>
-    <h2>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <h3>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h3>
     <!-- price board -->
     <div id="market-banner">
         <div class="price-board">
@@ -117,37 +90,35 @@
     <button onclick="addHealth()">repair 10 health for {{repair_cost}} credits</button>
 </div>
 
-<div class="all-container">
-    <!-- Player Inv -->
-    <h4 id="inv-title">Player Inventory: <span id="cargo-size">{{game.player.ship.cargo_size}}</span> /
-        {{game.player.ship.max_cargo}} lb capacity</h4>
-    <div class="inv-grid">
-        <div class="inv-item inv-image tableHeader">
-            Item
-        </div>
-        <div class="inv-item inv-quantity tableHeader">
-            #
-        </div>
-        <div class="inv-item inv-weight tableHeader">
-            lb
-        </div>
-        <div class="inv-item inv-sell tableHeader">
-            Sell
-        </div>
-        {% for item in game.player.ship.cargo %}
-        <div class="inv-item inv-name {{item.id}}">
-            <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
-        </div>
-        <div class="inv-item inv-quantity {{item.id}}">
-            {{item.amount}}x
-        </div>
-        <div class="inv-item inv-weight {{item.id}}">
-            {{item.size}} lb
-        </div>
-        <button class="sellButton inv-item inv-sell {{item.id}}">Sell for
-            {{item.s_price}}</button>
-        {% endfor %}
+<!-- Player Inv -->
+<h4 id="inv-title">Player Inventory: <span id="cargo-size">{{game.player.ship.cargo_size}}</span> /
+    {{game.player.ship.max_cargo}} lb capacity</h4>
+<div class="inv-grid">
+    <div class="inv-item inv-image tableHeader">
+        Item
     </div>
+    <div class="inv-item inv-quantity tableHeader">
+        #
+    </div>
+    <div class="inv-item inv-weight tableHeader">
+        lb
+    </div>
+    <div class="inv-item inv-sell tableHeader">
+        Sell
+    </div>
+    {% for item in game.player.ship.cargo %}
+    <div class="inv-item inv-name {{item.id}}">
+        <img class="item-icon" src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
+    </div>
+    <div class="inv-item inv-quantity {{item.id}}">
+        {{item.amount}}x
+    </div>
+    <div class="inv-item inv-weight {{item.id}}">
+        {{item.size}} lb
+    </div>
+    <button class="sellButton inv-item inv-sell {{item.id}}">Sell for
+        {{item.s_price}}</button>
+    {% endfor %}
 </div>
 <script type="text/javascript">
     function updateCredits() {

@@ -1,38 +1,37 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="bg-image">
-    <div class="settingsContainer">
-        <div class="settings-grid">
-            <div class="imgDiv">
-                <img class="chicken" src="../static/chicken.png">
-            </div>
-            <h1 class="h1-headings setting-option">Settings</h1>
-            <form class="setting-option form" method="post">
-                {{ form.hidden_tag() }}
-                <p>
-                    {{form.name.label}}<br>
-                    {{form.name(size=32)}}<br>
-                    {% for error in form.name.errors %}
-                    <span class="error">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <br>
-                <p>
-                    {{form.diff.label}}<br>
-                    {{form.diff}}<br>
-                </p>
-                {{form.submit(class="button")}}
-            </form>
-            <div class="setting-option">
-                <button onclick="location.href = '/home'">Back</button>
-            </div>
-        </div>
+{% extends 'game-layout.html' %}
+
+{% set setup = true %}
+
+{% block gameContent %}
+<div class="settings-grid">
+    <div class="imgDiv">
+        <img class="chicken" src="../static/chicken.png">
+    </div>
+    <h1 class="h1-headings setting-option">Settings</h1>
+    <form class="setting-option form" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{form.name.label}}<br>
+            {{form.name(size=32)}}<br>
+            {% for error in form.name.errors %}
+            <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <br>
+        <p>
+            {{form.diff.label}}<br>
+            {{form.diff}}<br>
+        </p>
+        {{form.submit(class="button")}}
+    </form>
+    <div class="setting-option">
+        <button onclick="location.href = '/home'">Back</button>
     </div>
 </div>
 <script type="text/javascript">
     let diffUl = document.getElementById("diff");
     let radioButtons = diffUl.getElementsByTagName("input");
-    let stroke = document.getElementsByClassName("bg-image");
+    let stroke = document.getElementsByClassName("imgDiv");
     Array.from(radioButtons).forEach(function (button) {
         button.addEventListener("click", function (event) {
             //switch to different image based on selected diff

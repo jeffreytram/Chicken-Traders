@@ -300,30 +300,40 @@ TODO:
 [] starting items - mom's lucky watch - desparate times call for desparate measures
 [] losing condition
     - not enough fuel to travel anywhere, not enough money to buy fuel
-[] fun stats
-    - total distance traveled
-    - total npc encountered
-    - total damage taken
-    - number credits spent
-    - number of credits earned from reselling
-    - number of police, trader, and fighter encounters
 [] sleep option for 6 hours to skip some of night
 [] buy/sell log
 [] quest board
 [] item functionality
 [] buying/selling multiple items
-[] ship(tractor), chicken art
+[] upgrade ship, ship after
+- tractor
+[] barn art
+- different barn art depending on tech level
+[] UX improvements
+- inform players of tech level bonus
+- indicate how price calculated?
+- inform player of difficulty difference
+- inform player of what each skill does
+[] icons
+- skills: pilot, fighter, merchant, engineer
+- menu: travel, market, ship, collection, stats
+- market: buy fuel, repair ship
+[] new futuristic banner
 
 win display bug
 - possibly something in the req open
 - if no return value, this.responseText is the page html code?
 
+player can go navigate to different page by pressing back or
+typing in link to avoid lose 
+
 
 
 Running the Application
 1. make sure flask-wtf is installed
--type pip install Flask-WTF in command line to install forms extension
-2. type python app.py in command line in the CD of the app.py file
+-type `pip install Flask-WTF` in command line to install forms extension
+- or `python -m pip install Flask-WTF` for me
+2. type python myapp.py in command line in the CD of the myapp.py file
 
 Adding .gitignore
 -type "git rm -r --cached ./__pycache__" without quotes

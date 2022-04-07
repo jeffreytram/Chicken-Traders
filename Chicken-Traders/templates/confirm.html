@@ -1,47 +1,47 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="confirmContainer">
-    <div>
-        <h1>Confirm your settings</h1>
-        <p>Name: <strong>{{name}}</strong></p>
-        <p>Skill Points:</p>
-        <div class="confirmSPContainer">
-            <div class="setting">
-                <p>Pilot:</p>
-                <p><strong>{{sp1}}</strong></p>
-            </div>
-            <div class="setting">
-                <p>Fighter: </p>
-                <p><strong>{{sp2}}</strong></p>
-            </div>
-            <div class="setting">
-                <p>Merchant: </p>
-                <p><strong>{{sp3}}</strong></p>
-            </div>
-            <div class="setting">
-                <p>Engineer: </p>
-                <p><strong>{{sp4}}</strong></p>
-            </div>
-        </div>
-        <p>Difficulty: <strong>{{diff}}</strong></p>
-        <p>Starting Credits: <strong>{{credits}}</strong></p>
-        <form method="post">
-            {{ form.hidden_tag() }}
-            {{form.submit(class="button")}}
-            <!--DEBUGGING ISSUES WITH FORM
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class="error">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-            -->
-        </form>
-        <button onclick="location.href = '/skillpoints'">Back</button>
-    </div>
-</div>
+{% extends 'game-layout.html' %}
 
+{% set setup = true %}
+
+{% block gameContent %}
+<div>
+    <h1>Confirm your settings</h1>
+    <p>Name: <strong>{{name}}</strong></p>
+    <p>Skill Points:</p>
+    <div class="confirmSPContainer">
+        <div class="setting">
+            <p>Pilot:</p>
+            <p><strong>{{sp1}}</strong></p>
+        </div>
+        <div class="setting">
+            <p>Fighter: </p>
+            <p><strong>{{sp2}}</strong></p>
+        </div>
+        <div class="setting">
+            <p>Merchant: </p>
+            <p><strong>{{sp3}}</strong></p>
+        </div>
+        <div class="setting">
+            <p>Engineer: </p>
+            <p><strong>{{sp4}}</strong></p>
+        </div>
+    </div>
+    <p>Difficulty: <strong>{{diff}}</strong></p>
+    <p>Starting Credits: <strong>{{credits}}</strong></p>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{form.submit(class="button")}}
+        <!--DEBUGGING ISSUES WITH FORM
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="error">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        -->
+    </form>
+    <button onclick="location.href = '/skillpoints'">Back</button>
+</div>
 {% endblock %}
