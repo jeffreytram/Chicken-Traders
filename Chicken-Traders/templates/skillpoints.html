@@ -2,6 +2,15 @@
 
 {% set setup = true %}
 
+{% set skills = [form.sp1, form.sp2, form.sp3, form.sp4] %}
+
+{% set descriptions = [
+  'Improved navigation: higher fuel efficiency, higher chance to flee',
+  'Strong arm: higher chance to fight and rob',
+  'Art of the Trade: buy goods cheaper, sell goods higher, higher chance to negotatie',
+  'Handy Chicken: cheaper ship repair costs'
+  ] %}
+
 {% block gameContent %}
 <div class="sp-grid">
     <div class="imgDiv">
@@ -14,45 +23,22 @@
     <form class="sp-option spForm" method="post">
         {{ form.hidden_tag() }}
         <div class="sp-input-grid">
-            {{form.sp1.label}}
-            <div class="sp-input">
-                {{form.sp1(size=32)}}
-            </div>
-            <div>
-                {% for error in form.sp1.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </div>
-
-            {{form.sp2.label}}
-            <div class="sp-input">
-                {{form.sp2(size=32)}}
-            </div>
-            <div>
-                {% for error in form.sp2.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </div>
-
-            {{form.sp3.label}}
-            <div class="sp-input">
-                {{form.sp3(size=32)}}
-            </div>
-            <div>
-                {% for error in form.sp3.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </div>
-
-            {{form.sp4.label}}
-            <div class="sp-input">
-                {{form.sp4(size=32)}}
-            </div>
-            <div>
-                {% for error in form.sp4.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </div>
+            {% for skill in skills%}
+              <div class="sp-label">
+                <img src="../static/icons/{{skill.name}}.png">{{skill.label}}
+              </div>
+              <div class="sp-input">
+                  {{skill(size=32)}}
+              </div>
+              <div class="sp-description">
+                {{descriptions[loop.index - 1]}}
+              </div>
+              <div class="sp-error">
+                  {% for error in skill.errors %}
+                  <span style="color: red;">{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% endfor %}
         </div>
         <div>
             {{form.submit(class="button")}}
