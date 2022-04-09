@@ -150,7 +150,7 @@
     {% if region == currRegion %}
     var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: chicken }).addTo(map).bindPopup("<b>Region: {{region.name}}</b> ({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><b>Fuel Cost:</b> 0<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% else %}
-    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: allIcons[{{region.tech_level.value - 1}}] }).addTo(map).bindPopup("<b>Region: {{region.name}}</b> ({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><b>Fuel Cost:</b> 0<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
+    var marker{{ loop.index }} = L.marker([{{ region.coordinates.x_position / 2 }}, {{ region.coordinates.y_position / 2 }}], { icon: allIcons[{{region.tech_level.value - 1}}] }).addTo(map).bindPopup("<b>Region: {{region.name}}</b> ({{region.coordinates.y_position}}, {{region.coordinates.x_position}})<br><b>Tech Level: </b>{{region.tech_level.name}}<br><b>Fuel Cost:</b> {{region.travel_cost}}<br><button type='button' onclick=\"travel('{{loop.index}}');\" class='region {{ loop.index }}'>GO</button>");
     {% endif %}
     {% endfor %}
 
