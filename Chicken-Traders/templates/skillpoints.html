@@ -1,6 +1,7 @@
-{% extends 'game-layout.html' %}
+{% extends 'setup-layout.html' %}
 
-{% set setup = true %}
+{% set settingTitle = 'Skill Points' %}
+{% set back = '/settings' %}
 
 {% set skills = [form.sp1, form.sp2, form.sp3, form.sp4] %}
 
@@ -11,46 +12,39 @@
   'Handy Chicken: cheaper ship repair costs'
   ] %}
 
-{% block gameContent %}
-<div class="sp-grid setup-container">
-    <div class="imgDiv">
-        <img class="chicken" src="../static/chicken.png">
+{% block settingsContent %}
+<h3 class="h3">Total available skill points: {{sp}}</h3>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div class="sp-input-grid">
+        {% for skill in skills%}
+          <div class="sp-label">
+            <img src="../static/icons/{{skill.name}}.png">{{skill.label}}
+          </div>
+          <div class="sp-input">
+              {{skill(size=32)}}
+          </div>
+          <div class="sp-description description">
+            {{descriptions[loop.index - 1]}}
+          </div>
+          <div class="sp-error">
+              {% for error in skill.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+          </div>
+        {% endfor %}
     </div>
-    <div class="sp-option sp-heading">
-        <h1 class="h1">Skill Points</h1>
-        <h3 class="h3">Total available skill points: {{sp}}</h3>
+    <div>
+        {{form.submit(class="button")}}
     </div>
-    <form class="sp-option spForm" method="post">
-        {{ form.hidden_tag() }}
-        <div class="sp-input-grid">
-            {% for skill in skills%}
-              <div class="sp-label">
-                <img src="../static/icons/{{skill.name}}.png">{{skill.label}}
-              </div>
-              <div class="sp-input">
-                  {{skill(size=32)}}
-              </div>
-              <div class="sp-description description">
-                {{descriptions[loop.index - 1]}}
-              </div>
-              <div class="sp-error">
-                  {% for error in skill.errors %}
-                  <span style="color: red;">{{ error }}</span>
-                  {% endfor %}
-              </div>
-            {% endfor %}
-        </div>
-        <div>
-            {{form.submit(class="button")}}
-        </div>
 
-        <!--DEBUGGING ISSUES WITH FORM
+    <!--DEBUGGING ISSUES WITH FORM
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 <ul id="warning">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
+{% for message in messages %}
+<li>{{ message }}</li>
+{% endfor %}
 </ul>
 {% endif %}
 {% endwith %}
@@ -58,23 +52,5 @@
 {{ form.errors }}
 {% endif %}
 -->
-    </form>
-    <div class="back">
-        <button onclick="location.href = '/settings'">Back</button>
-    </div>
-
-</div>
-<script type="text/javascript">
-    //set stroke color based on diff selected
-    let stroke = document.getElementsByClassName("imgDiv");
-    {% if diff == "easy" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-green.svg")';
-    {% endif %}
-    {% if diff == "med" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-orange.svg")';
-    {% endif %}
-    {% if diff == "hard" %}
-    stroke[0].style.backgroundImage = 'url("../static/stroke-red.svg")';
-    {% endif %}
-</script>
+</form>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% set setup = true %}
+
+{% block content %}
+<div class="setup-container">
+  <div class="imgDiv">
+      <img class="chicken" src="../static/chicken.png">
+  </div>
+  <div>
+    <h1 class="h1">{{settingTitle}}</h1>
+    {% block settingsContent %}{% endblock %}
+    <div>
+      <button class="back" onclick="location.href='{{back}}'">Back</button>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  //set stroke color based on diff selected
+  let stroke = document.getElementsByClassName("imgDiv");
+  {% if diff == "easy" %}
+  stroke[0].style.backgroundImage = 'url("../static/stroke-green.svg")';
+  {% elif diff == "med" %}
+  stroke[0].style.backgroundImage = 'url("../static/stroke-orange.svg")';
+  {% elif diff == "hard" %}
+  stroke[0].style.backgroundImage = 'url("../static/stroke-red.svg")';
+  {% endif %}
+</script>
+{% endblock %}

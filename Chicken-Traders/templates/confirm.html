@@ -1,14 +1,15 @@
-{% extends 'game-layout.html' %}
+{% extends 'setup-layout.html' %}
 
-{% set setup = true %}
+{% set settingTitle = 'Confirm your settings' %}
+{% set back = '/skillpoints' %}
+
 {% set skills = [sp1, sp2, sp3, sp4] %}
 {% set labels = ['Pilot', 'Fighter', 'Merchant', 'Engineer'] %}
 {% set abbrev = ['sp1', 'sp2', 'sp3', 'sp4'] %}
 
-{% block gameContent %}
-<div class="setup-container">
-    <h1 class="h1">Confirm your settings</h1>
-    <div class="confirmSPContainer confirm-line">
+{% block settingsContent %}
+<div class="confirm-container">
+    <div class="confirm-setting">
         <div class="setting">
           <span>Name: </span>
           <span><strong>{{name}}</strong></span>
@@ -21,6 +22,8 @@
           <span>Starting Credits: </span>
           <span><strong>{{credits}}</strong></span>
         </div>
+    </div>
+    <div class="confirm-setting">
         {% for skill in skills%}
         <div class="setting">
           <p class="sp-label">
@@ -31,21 +34,20 @@
         </div>
         {% endfor %}
     </div>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        {{form.submit(class="button")}}
-        <!--DEBUGGING ISSUES WITH FORM
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class="error">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        -->
-    </form>
-    <button onclick="location.href = '/skillpoints'">Back</button>
 </div>
+<form method="post">
+    {{ form.hidden_tag() }}
+    {{form.submit(class="button")}}
+    <!--DEBUGGING ISSUES WITH FORM
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="error">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    -->
+</form>
 {% endblock %}

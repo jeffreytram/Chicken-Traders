@@ -1,38 +1,29 @@
-{% extends 'game-layout.html' %}
+{% extends 'setup-layout.html' %}
 
-{% set setup = true %}
+{% set settingTitle = "Settings" %}
+{% set back = '/home' %}
 
-{% block gameContent %}
-<div class="settings-grid setup-container">
-    <div class="imgDiv">
-        <img class="chicken" src="../static/chicken.png">
-    </div>
-    <div class="setting-option">
-        <h1 class="h1">Settings</h1>
-        <form class="form" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-          <span class="h3">{{form.name.label}}</span><br/>
-            {{form.name(size=32)}}<br>
-            {% for error in form.name.errors %}
+{% block settingsContent %}
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        <span class="h3">{{form.name.label}}</span><br/>
+        {{form.name(size=32)}}<br>
+        {% for error in form.name.errors %}
             <span class="error">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <br>
-        <p>
-          <span class="h3">{{form.diff.label}}:</span>
-          <span class="description">
+        {% endfor %}
+    </p>
+    <br>
+    <p>
+        <span class="h3">{{form.diff.label}}:</span>
+        <span class="description">
             effects the amount of skill points, starting credits, price of fuel, and chances of encounters
-          </span>
-          {{form.diff}}<br>
-        </p>
-        {{form.submit(class="button")}}
-    </form>
-      <div>
-        <button onclick="location.href = '/home'">Back</button>
-      </div>
-    </div>
-</div>
+        </span>
+        {{form.diff}}<br>
+    </p>
+    {{form.submit(class="button")}}
+</form>
+
 <script type="text/javascript">
     let diffUl = document.getElementById("diff");
     let radioButtons = diffUl.getElementsByTagName("input");

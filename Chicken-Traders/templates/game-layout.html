@@ -7,46 +7,44 @@
 {% endif %}
 
 {% block content %}
-<div class="all-container" {% if setup %}style="margin-top: 100px"{% endif %}>
-  {% if not hideInfo %}
-  <!-- player info -->
-  <div class="player-info-grid">
-    <div>
-      <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
-      <div id="credits" class="player-info">{{game.player.credit}}</div>
-    </div>
-    <div>
-      <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
-      <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
-      <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
-    </div>
-    <div>
-      <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
-      <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
-      <div class="player-info">/ {{game.player.ship.max_health}}</div>
-    </div>
+{% if not hideInfo %}
+<!-- player info -->
+<div class="player-info-grid">
+  <div>
+    <img class="item-icon player-info" src="../static/item-images/icon-credits.svg">
+    <div id="credits" class="player-info">{{game.player.credit}}</div>
   </div>
-  {% endif %}
-  
-  {% if not hideNav %}
-  <!-- nav bar -->
-  <div id="menu">
-    <button id="travel" onclick="location.href = 'travel'" {% if pageName=='Travel' %}class="active" {% endif
-      %}>Travel</button>
-    <button id="market" onclick="location.href = 'market'" {% if pageName=='Market' %}class="active" {% endif
-      %}>Market</button>
-    <button id="ship" onclick="location.href = 'ship'" {% if pageName=='Ship' %}class="active" {% endif %}>Ship</button>
-    <button id="collection" onclick="location.href = 'collection'" {% if pageName=='Collection' %}class="active" {% endif
-      %}>Collection</button>
-    <button id="stats" onclick="location.href = 'stats'" {% if pageName=='Stats' %}class="active" {% endif
-      %}>Stats</button>
+  <div>
+    <img class="item-icon player-info" src="../static/item-images/icon-fuel.svg">
+    <div id="fuel" class="player-info">{{game.player.ship.fuel_level}}</div>
+    <div class="player-info">/ {{game.player.ship.max_fuel}}</div>
   </div>
-  {% endif %}
-  
-  {% if pageName %}
-  <h1 id="header">{{ pageName }}</h1>
-  {% endif %}
-  
-  {% block gameContent %}{% endblock %}
+  <div>
+    <img class="item-icon player-info" src="../static/item-images/icon-health.svg">
+    <div id="health" class="player-info">{{game.player.ship.health_level}}</div>
+    <div class="player-info">/ {{game.player.ship.max_health}}</div>
+  </div>
 </div>
+{% endif %}
+
+{% if not hideNav %}
+<!-- nav bar -->
+<div id="menu">
+  <button id="travel" onclick="location.href = 'travel'" {% if pageName=='Travel' %}class="active" {% endif
+    %}>Travel</button>
+  <button id="market" onclick="location.href = 'market'" {% if pageName=='Market' %}class="active" {% endif
+    %}>Market</button>
+  <button id="ship" onclick="location.href = 'ship'" {% if pageName=='Ship' %}class="active" {% endif %}>Ship</button>
+  <button id="collection" onclick="location.href = 'collection'" {% if pageName=='Collection' %}class="active" {% endif
+    %}>Collection</button>
+  <button id="stats" onclick="location.href = 'stats'" {% if pageName=='Stats' %}class="active" {% endif
+    %}>Stats</button>
+</div>
+{% endif %}
+
+{% if pageName %}
+<h1 id="header">{{ pageName }}</h1>
+{% endif %}
+
+{% block gameContent %}{% endblock %}
 {% endblock %}

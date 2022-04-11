@@ -1,15 +1,9 @@
 {% extends 'layout.html' %}
 
-{% set hidePlayerInfo = true %}
-{% set hideNav = true %}
-{% set hideHeader = true %}
+{% set titlePage = true %}
 
 {% block content %}
-<div class="welcomeContainer">
-    <div>
-        <img id="logo" src="../static/logo.svg">
-        <h1 id="title">chicken traders</h1>
-        <button class="start" onclick="location.href = 'settings'">Start New Game</button>
-    </div>
-</div>
+<img id="logo" src="../static/logo.svg">
+<h1 id="title">chicken traders</h1>
+<button class="start" onclick="location.href = 'settings'">Start New Game</button>
 {% endblock %}
