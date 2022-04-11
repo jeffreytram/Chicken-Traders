@@ -12,13 +12,13 @@
   ] %}
 
 {% block gameContent %}
-<div class="sp-grid">
+<div class="sp-grid setup-container">
     <div class="imgDiv">
         <img class="chicken" src="../static/chicken.png">
     </div>
     <div class="sp-option sp-heading">
-        <h1 class="h1-headings">Skill Points</h1>
-        <h3 class="h3-headings">Available Skill Points: {{sp}}</h3>
+        <h1 class="h1">Skill Points</h1>
+        <h3 class="h3">Total available skill points: {{sp}}</h3>
     </div>
     <form class="sp-option spForm" method="post">
         {{ form.hidden_tag() }}
@@ -30,7 +30,7 @@
               <div class="sp-input">
                   {{skill(size=32)}}
               </div>
-              <div class="sp-description">
+              <div class="sp-description description">
                 {{descriptions[loop.index - 1]}}
               </div>
               <div class="sp-error">

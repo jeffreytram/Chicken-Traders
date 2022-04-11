@@ -3,15 +3,16 @@
 {% set setup = true %}
 
 {% block gameContent %}
-<div class="settings-grid">
+<div class="settings-grid setup-container">
     <div class="imgDiv">
         <img class="chicken" src="../static/chicken.png">
     </div>
-    <h1 class="h1-headings setting-option">Settings</h1>
-    <form class="setting-option form" method="post">
+    <div class="setting-option">
+        <h1 class="h1">Settings</h1>
+        <form class="form" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{form.name.label}}<br>
+          <span class="h3">{{form.name.label}}</span><br/>
             {{form.name(size=32)}}<br>
             {% for error in form.name.errors %}
             <span class="error">[{{ error }}]</span>
@@ -19,13 +20,17 @@
         </p>
         <br>
         <p>
-            {{form.diff.label}}<br>
-            {{form.diff}}<br>
+          <span class="h3">{{form.diff.label}}:</span>
+          <span class="description">
+            effects the amount of skill points, starting credits, price of fuel, and chances of encounters
+          </span>
+          {{form.diff}}<br>
         </p>
         {{form.submit(class="button")}}
     </form>
-    <div class="setting-option">
+      <div>
         <button onclick="location.href = '/home'">Back</button>
+      </div>
     </div>
 </div>
 <script type="text/javascript">
