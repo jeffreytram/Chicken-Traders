@@ -3,9 +3,8 @@
 {% set settingTitle = 'Confirm your settings' %}
 {% set back = '/skillpoints' %}
 
-{% set skills = [sp1, sp2, sp3, sp4] %}
+{% set skills = [pilot, fighter, merchant, engineer] %}
 {% set labels = ['Pilot', 'Fighter', 'Merchant', 'Engineer'] %}
-{% set abbrev = ['sp1', 'sp2', 'sp3', 'sp4'] %}
 
 {% block settingsContent %}
 <div class="confirm-container">
@@ -27,7 +26,7 @@
         {% for skill in skills%}
         <div class="setting">
           <p class="sp-label">
-            <img src="../static/icons/{{abbrev[loop.index - 1]}}.png">
+            <img src="../static/icons/{{labels[loop.index - 1]}}.png">
             {{labels[loop.index - 1]}}:
           </p>
           <p><strong>{{skills[loop.index - 1]}}</strong></p>

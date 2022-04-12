@@ -20,18 +20,18 @@ class SPForm(FlaskForm):
         super(SPForm, self).__init__(*args, **kwargs)
         self.sp_limit = sp_limit
 
-    sp1 = IntegerField("Pilot", validators=[DataRequired(), NumberRange(min=1)])
-    sp2 = IntegerField("Fighter", validators=[DataRequired(), NumberRange(min=1)])
-    sp3 = IntegerField("Merchant", validators=[DataRequired(), NumberRange(min=1)])
-    sp4 = IntegerField("Engineer", validators=[DataRequired(), NumberRange(min=1)])
+    pilot = IntegerField("Pilot", validators=[DataRequired(), NumberRange(min=1)])
+    fighter = IntegerField("Fighter", validators=[DataRequired(), NumberRange(min=1)])
+    merchant = IntegerField("Merchant", validators=[DataRequired(), NumberRange(min=1)])
+    engineer = IntegerField("Engineer", validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField("Continue")
 
     def validate(self):
         if not super(SPForm, self).validate():
             return False
-        if (self.sp1.data + self.sp2.data + self.sp3.data + self.sp4.data) <= self.sp_limit:
+        if (self.pilot.data + self.fighter.data + self.merchant.data + self.engineer.data) <= self.sp_limit:
             return True
-        self.sp4.errors.append("Total skillpoints cannot be over " +str(self.sp_limit)+".")
+        self.enginer.errors.append("Total skillpoints cannot be over " +str(self.sp_limit)+".")
         return False
 
 

@@ -15,10 +15,10 @@ setup = {
     "pDiff": None,
     "pCredits": 0,
     "pSPLimit": 0,
-    "sp1": 0,
-    "sp2": 0,
-    "sp3": 0,
-    "sp4": 0,
+    "pilot": 0,
+    "fighter": 0,
+    "merchant": 0,
+    "engineer": 0,
 }
 state = {}
 
@@ -54,10 +54,10 @@ def settings():
 def skillpoints():
     sp_form = SPForm(setup["pSPLimit"])
     if sp_form.validate_on_submit():
-        setup["sp1"] = sp_form.sp1.data
-        setup["sp2"] = sp_form.sp2.data
-        setup["sp3"] = sp_form.sp3.data
-        setup["sp4"] = sp_form.sp4.data
+        setup["pilot"] = sp_form.pilot.data
+        setup["fighter"] = sp_form.fighter.data
+        setup["merchant"] = sp_form.merchant.data
+        setup["engineer"] = sp_form.engineer.data
         return redirect(url_for("confirm"))
     return render_template(
         "skillpoints.html", diff=setup["pDiff"], form=sp_form, sp=setup["pSPLimit"]
@@ -72,7 +72,7 @@ def confirm():
         chicken_traders = Game(setup["pDiff"])
         chicken_traders.start_game(
             setup["pName"],
-            [setup["sp1"], setup["sp2"], setup["sp3"], setup["sp4"]],
+            [setup["pilot"], setup["fighter"], setup["merchant"], setup["engineer"]],
             setup["pCredits"],
         )
 
@@ -97,10 +97,10 @@ def confirm():
         title="Confirm Settings",
         form=confirmform,
         name=setup["pName"],
-        sp1=setup["sp1"],
-        sp2=setup["sp2"],
-        sp3=setup["sp3"],
-        sp4=setup["sp4"],
+        pilot=setup["pilot"],
+        fighter=setup["fighter"],
+        merchant=setup["merchant"],
+        engineer=setup["engineer"],
         diff=setup["pDiff"],
         credits=setup["pCredits"],
     )
