@@ -91,7 +91,7 @@ def confirm():
         state["disabled"] = False
         state["end_game"] = None
 
-        return redirect(url_for("about"))
+        return redirect(url_for("lore"))
     return render_template(
         "confirm.html",
         title="Confirm Settings",
@@ -106,10 +106,10 @@ def confirm():
     )
 
 
-# about page
-@app.route("/about", methods=["GET"])
-def about():
-    return render_template("about.html", game=state["game"])
+# lore page
+@app.route("/lore", methods=["GET"])
+def lore():
+    return render_template("lore.html", game=state["game"])
 
 
 # travel page

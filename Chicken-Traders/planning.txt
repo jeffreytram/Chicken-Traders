@@ -307,18 +307,21 @@ TODO:
 [] buying/selling multiple items
 [] upgrade ship, ship after
 - tractor
-[] barn art
-- different barn art depending on tech level
 [] UX improvements
 - inform players of tech level bonus
 - indicate how price calculated?
 - inform player of difficulty difference
 - inform player of what each skill does
 [] icons
-- skills: pilot, fighter, merchant, engineer
 - menu: travel, market, ship, collection, stats
 - market: buy fuel, repair ship
 [] new futuristic banner
+[] gas stations
+- sells gas cheaper, sells some other special goods
+- regions sell gas and repair at higher price
+[] mechanic shop
+- sells ships, maybe other goods
+- cheaper repairs
 
 win display bug
 - possibly something in the req open

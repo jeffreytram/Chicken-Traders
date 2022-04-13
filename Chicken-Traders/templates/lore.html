@@ -1,0 +1,43 @@
+{% extends 'game-layout.html' %}
+
+{% set hideNav = true %}
+
+{% block gameContent %}
+<div>
+    <h1 class="h1">Welcome to chicken traders, <strong>{{game.player.name}}</strong>!</h1>
+    <p>
+      One regular day on the farm, you were wandering around doing whatever chickens do.
+      <br/>
+      Suddenly, reality hit <i>hard</i>!
+      <br/><br/>
+      Maybe this isn't the life you wanted to live after all.
+      <br/>
+      You've always wanted to be a <strong>CHICKEN TRADER</strong>!!
+    </p>
+    <img style="width: 100%; max-width: 500px; margin: 1em 0" src="../static/lore/lore.png">
+</div>
+<div class="objective-container">
+  <div class="objective-grid">
+    <div class="card">
+      <h2 class="h2" style="margin-bottom: 0;">Main Objective</h2>
+      <img class="objective-image"src="../static/lore/buy-universe.svg">
+      <p>Get rich enough to <strong>BUY THE UNIVERSE</strong></p>
+      <br/>
+    </div>
+    <div class="card">
+      <h2 class="h2">Earn credits</h2>
+      <img class="objective-image" src='../static/lore/buy-low-sell-high.svg'>
+      <p>Buy items and resell them at a higher cost. </p>
+    </div>
+    <div class="card">
+      <h2 class="h2">Learn the market</h2>
+      <img class="objective-image" src='../static/lore/learn-market.svg'>
+      <p>Regions may pay a premium for certain types of items and higher tech goods.</p>
+    </div>
+  </div>
+  <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market!</p>
+  <p><strong>Be safe out there, young one!</strong></p>
+  <br/>
+  <button id="start" onclick="location.href = 'travel'">START</button>
+</div>
+{% endblock %}
