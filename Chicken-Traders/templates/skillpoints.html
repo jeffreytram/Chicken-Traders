@@ -4,6 +4,7 @@
 {% set back = '/settings' %}
 
 {% set skills = [form.pilot, form.fighter, form.merchant, form.engineer] %}
+{% set labels = ['Pilot', 'Fighter', 'Merchant', 'Engineer'] %}
 
 {% set descriptions = [
   'Improved navigation: higher fuel efficiency, higher chance to flee',
@@ -19,7 +20,7 @@
     <div class="sp-input-grid">
         {% for skill in skills%}
           <div class="sp-label">
-            <img src="../static/icons/{{skill.name}}.png">{{skill.label}}
+            <img src="../static/icons/{{labels[loop.index - 1]}}.png">{{skill.label}}
           </div>
           <div class="sp-input">
               {{skill(size=32)}}
