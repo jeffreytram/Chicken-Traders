@@ -75,7 +75,7 @@
                     </div>
                     <div class="description-item" id="weight">
                         {% if selectedItem %}
-                        Category: {{selectedItem.category}} - Weight: {{selectedItem.size}} lb - Tech Level:
+                        {{selectedItem.category}} - {{selectedItem.size}} lb - Tech Level:
                         {{selectedItem.debut}}
                         {% endif %}
                     </div>
@@ -86,8 +86,12 @@
             </div>
         </div>
     </div>
-    <button onclick="addFuel()">buy 50 fuel for 50 credits</button>
-    <button onclick="addHealth()">repair 10 health for {{repair_cost}} credits</button>
+    <button onclick="addFuel()">
+      <img class="item-icon arrow" src="../static/item-images/icon-fuel.svg">buy 50 fuel for 50 credits
+    </button>
+    <button onclick="addHealth()">
+      <img class="item-icon arrow" src="../static/item-images/icon-health.svg"> repair 10 health for {{repair_cost}} credits
+    </button>
 </div>
 
 <!-- Player Inv -->
@@ -178,7 +182,7 @@
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
                 document.getElementById("name").innerHTML = "<strong>" + item.name + "</strong>";
-                document.getElementById("weight").innerHTML = "Category: " + item.category + " - Weight: " + item.size + " lb - Tech Level: " + item.debut;
+                document.getElementById("weight").innerHTML = item.category + " - " + item.size + " lb - Tech Level: " + item.debut;
                 document.getElementById("description").innerHTML = item.description;
 
                 //clear market error

@@ -1,0 +1,89 @@
+:root {
+  --br-xsmall: 5px;
+  --br-small: 10px;
+  --br-med: 15px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+
+.h1 {
+  font-weight: 400;
+  font-size: 25px;
+  margin-bottom: 1em;
+}
+
+.h2 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.h3 {
+  font-weight: bold;
+  font-size: 15px;
+  margin: 1em 0;
+}
+
+button, .button {
+  border-color: rgb(30, 30, 30);
+  color: #ffffff;
+  background-color: rgb(30, 30, 30);
+  padding: .5em 1.5em;
+  border-radius: var(--br-small);
+  font-weight: bold;
+}
+
+.back {
+  margin-top: .5em;
+}
+
+input {
+  border-radius: var(--br-xsmall);
+  padding: 2px 10px;
+}
+
+.active, button:hover, .button:hover, button:focus, .button:focus {
+  color: rgb(30, 30, 30);
+  background-color: #ffffff;
+}
+
+.error {
+  color: red;
+}
+
+button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
+  cursor: pointer;
+  animation: .6s infinite normal start-wiggle
+}
+
+.hidden {
+  display: none;
+}
+
+.item-icon {
+  vertical-align: middle;
+  height: 32px;
+}
+
+.arrow {
+  height: 16px;
+}
