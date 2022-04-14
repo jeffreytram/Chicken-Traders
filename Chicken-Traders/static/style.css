@@ -255,10 +255,10 @@
 
 .price-board {
   display: grid;
-  grid-template-columns: repeat(2, 140px);
+  grid-template-columns: repeat(2, 150px);
   justify-content: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 310px;
   margin: 10px auto;
   padding: 5px 10px;
   text-align: left;
@@ -352,7 +352,7 @@
 
 .shop-item {
   border: 2px solid rgba(30, 30, 30, .5);
-  padding: 0 5px 0 5px;
+  padding: 2px 5px;
 }
 
 .item {
@@ -696,4 +696,8 @@ div.tooltip {
   100% {
     transform: rotate(-2deg)
   }
+}
+
+.hidden {
+  display: none;
 }

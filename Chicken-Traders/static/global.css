@@ -2,6 +2,8 @@
   --br-xsmall: 5px;
   --br-small: 10px;
   --br-med: 15px;
+  --icon-reg: 24px;
+  --icon-small: 16px;
 }
 
 * {
@@ -70,20 +72,16 @@ input {
   color: red;
 }
 
-button:hover, .button:hover, .arrow:hover, button:focus, .button:focus {
+button:hover, .button:hover, button:focus, .button:focus {
   cursor: pointer;
   animation: .6s infinite normal start-wiggle
 }
 
-.hidden {
-  display: none;
-}
-
 .item-icon {
   vertical-align: middle;
-  height: 32px;
+  height: var(--icon-reg);
 }
 
-.arrow {
-  height: 16px;
+.small-icon {
+  height: var(--icon-small);
 }

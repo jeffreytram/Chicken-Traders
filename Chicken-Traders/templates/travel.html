@@ -21,11 +21,11 @@
                 {% for region in universe.region_list %}
                 {% if region == currRegion %}
                 <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }} active">
-                    {{region.name}} - 0<img class="item-icon arrow"
+                    {{region.name}} - 0<img class="item-icon small-icon"
                         src="../static/item-images/icon-fuel.svg"></button>
                 {% else %}
                 <button type="button" onclick="travel('{{loop.index}}');" class="region {{ loop.index }}">
-                    {{region.name}} - {{region.travel_cost}}<img class="item-icon arrow"
+                    {{region.name}} - {{region.travel_cost}}<img class="item-icon small-icon"
                         src="../static/item-images/icon-fuel.svg"></button>
                 {% endif %}
                 {% endfor %}
@@ -40,9 +40,9 @@
     <ul>
         {% for event in game.news%}
         {% if "inc" in event or "trendy" in event%}
-        <li><img class='item-icon arrow' src='../static/item-images/icon-up.svg'>{{event}}</li>
+        <li><img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>{{event}}</li>
         {% else %}
-        <li><img class='item-icon arrow' src='../static/item-images/icon-down.svg'>{{event}}</li>
+        <li><img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>{{event}}</li>
         {% endif %}
         {% endfor %}
     </ul>
@@ -158,11 +158,11 @@
     if ({{ game.time }} >= 9 && {{ game.time }} <= 18) {
         document.getElementById("time").src = "../static/item-images/icon-day.svg";
         url = '../static/map-day.png';
-        document.getElementById("time-effect").innerHTML = "Day Time: Trader <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>";
+        document.getElementById("time-effect").innerHTML = "Day Time: Trader <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>";
     } else {
         document.getElementById("time").src = "../static/item-images/icon-night.svg";
         url = '../static/map-night.png';
-        document.getElementById("time-effect").innerHTML = "Night Time: Trader <img class='item-icon arrow' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon arrow' src='../static/item-images/icon-up.svg'>";
+        document.getElementById("time-effect").innerHTML = "Night Time: Trader <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>";
     }
 
     //bounds for image

@@ -302,7 +302,9 @@ TODO:
     - not enough fuel to travel anywhere, not enough money to buy fuel
 [] sleep option for 6 hours to skip some of night
 [] buy/sell log
-[] quest board
+[] quest board, jobs
+- energy system
+- tasks take up x time
 [] item functionality
 [] buying/selling multiple items
 [] upgrade ship, ship after
@@ -314,7 +316,6 @@ TODO:
 - inform player of what each skill does
 [] icons
 - menu: travel, market, ship, collection, stats
-- market: buy fuel, repair ship
 [] new futuristic banner
 [] gas stations
 - sells gas cheaper, sells some other special goods
@@ -322,6 +323,13 @@ TODO:
 [] mechanic shop
 - sells ships, maybe other goods
 - cheaper repairs
+- ship upgrades
+[] research
+- discover notes about base price
+[] forecasting future
+- pay to learn about potential future events
+- more you pay, higher probability of it happening
+
 
 win display bug
 - possibly something in the req open

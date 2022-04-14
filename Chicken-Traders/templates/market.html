@@ -87,10 +87,10 @@
         </div>
     </div>
     <button onclick="addFuel()">
-      <img class="item-icon arrow" src="../static/item-images/icon-fuel.svg">buy 50 fuel for 50 credits
+      <img class="item-icon small-icon" src="../static/item-images/icon-fuel.svg">buy 50 fuel for 50 credits
     </button>
     <button onclick="addHealth()">
-      <img class="item-icon arrow" src="../static/item-images/icon-health.svg"> repair 10 health for {{repair_cost}} credits
+      <img class="item-icon small-icon" src="../static/item-images/icon-health.svg"> repair 10 health for {{repair_cost}} credits
     </button>
 </div>
 
@@ -177,7 +177,6 @@
         //only need this section if we're displaying
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
                 let item = JSON.parse(this.responseText);
                 document.getElementById("purchaseStatement").innerHTML = "Purchase for <strong>" + item.b_price + "</strong>?";
                 document.getElementById("icon").innerHTML = "<img class='item-icon' src='../static/item-images/item-icon" + item.id + ".svg'>";
@@ -277,11 +276,11 @@
     let priceBoard = document.getElementsByClassName("price");
     {% for price in currRegion.price_board %}
     {% if price == 1 %}
-    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-neutral.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " {{price}}x"
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon small-icon' src='../static/item-images/icon-neutral.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " {{price}}x"
     {% elif price > 1 %}
-    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-up.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
     {% else %}
-    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon arrow' src='../static/item-images/icon-down.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
+    priceBoard[{{ loop.index - 1 }}].innerHTML = "<img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>" + priceBoard[{{ loop.index - 1 }}].innerHTML + " <strong>{{price}}x</strong>";
     {% endif %}
     {% endfor %}
 
