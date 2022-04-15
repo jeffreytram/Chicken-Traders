@@ -408,7 +408,6 @@
 
 .inv-grid {
   width: 100%;
-  margin: auto;
   display: grid;
   grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 50px)) minmax(50px, 125px);
   text-align: left;
@@ -523,12 +522,12 @@ text {
 }
 
 .side-chart {
-  height: 100%;
   width: 30%;
   float: left;
   display: flex;
   flex-direction: column;
   align-content: space-around;
+  margin-bottom: 1.25em;
 }
 
 .svg-container {
@@ -539,8 +538,11 @@ svg {
   width: 100%;
 }
 
+.chart-container {
+  display: flex;
+}
+
 .stats-container {
-  height: 50vh;
   width: 90%;
   margin: auto;
 }
@@ -565,8 +567,10 @@ div.tooltip {
 
 .stats-grid {
   width: 100%;
+  margin: 2em 0;
   display: grid;
-  grid-template: repeat(3, minmax(30px, auto)) / repeat(3, minmax(auto, 1fr));
+  grid-template: repeat(4, minmax(20px, auto)) / repeat(2, minmax(auto, 1fr));
+  gap: .25em .5em;
   text-align: left;
 }
 

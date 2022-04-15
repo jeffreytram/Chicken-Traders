@@ -4,7 +4,7 @@
 
 {% block gameContent %}
 <div class="market-container">
-    <h3>Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h3>
+    <h2 class="h2">Region {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
     <!-- price board -->
     <div id="market-banner">
         <div class="price-board">
@@ -120,7 +120,7 @@
     <div class="inv-item inv-weight {{item.id}}">
         {{item.size}} lb
     </div>
-    <button class="sellButton inv-item inv-sell {{item.id}}">Sell for
+    <button class="sellButton filled-button inv-item inv-sell {{item.id}}">Sell for
         {{item.s_price}}</button>
     {% endfor %}
 </div>
