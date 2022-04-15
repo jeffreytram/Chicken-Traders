@@ -390,6 +390,7 @@
 }
 
 .sellButton {
+  padding: 2px 4px;
   border-radius: 0;
 }
 
@@ -409,7 +410,7 @@
 .inv-grid {
   width: 100%;
   display: grid;
-  grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 50px)) minmax(50px, 125px);
+  grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 50px)) minmax(50px, 100px);
   text-align: left;
 }
 
@@ -589,7 +590,6 @@ div.tooltip {
 }
 
 #text {
-  display: none;
   margin: 20px auto;
   border: 2px solid rgba(30, 30, 30);
   border-radius: var(--br-xsmall);

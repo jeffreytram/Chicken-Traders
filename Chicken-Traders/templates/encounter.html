@@ -39,14 +39,15 @@
       <button class="choice police fight" onclick="fightPolice()">Fight ({{fighter}}%)</button>
     {% endif %}
 </div>
-<div id="text">
+<!-- Statically displays text box (on page reload) -->
+<div id="text" style="{% if text %}display: block{% else %}display: none{% endif %}">
     {% if text %}
       {{text}}
     {% endif %}
 </div>
 
 <script type="text/javascript">
-    const promptExitClick = {{second_test|int}};
+    const promptExitClick = {{end_encounter|int}};
     if (promptExitClick) clickReturn();
 
     function clickReturn() {
@@ -270,6 +271,7 @@
         req.send("fight_police=");
     }
 
+    // dynamically display text box (after choice selection)
     const buttons = document.getElementsByClassName('choice');
     Array.from(buttons).forEach(button => {
       button.addEventListener('click', () => {

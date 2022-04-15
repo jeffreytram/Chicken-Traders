@@ -87,8 +87,7 @@ def confirm():
         state["npc"] = {}
         state["negotiated"] = False
         state["choice_result"] = None
-        state["second_test"] = False
-        state["disabled"] = False
+        state["end_encounter"] = False
         state["end_game"] = None
 
         return redirect(url_for("lore"))
@@ -303,6 +302,7 @@ def encounter():
             state["end_game"] = "LOSE"
             return redirect(url_for("end"))
         return redirect(url_for("travel"))
+      
     gen_npc = state["npc"]
     if request.method == "POST":
         # encounter interaction finished, go back to travel page
@@ -313,10 +313,9 @@ def encounter():
         if "return_travel" in request.form:
             state["npc"] = None
             state["choice_result"] = None
-            state["disabled"] = False
-            state["second_test"] = False
-        elif not state["disabled"]:
-            state["disabled"] = True
+            state["end_encounter"] = False
+        elif not state["end_encounter"]:
+            state["end_encounter"] = True
             curr_credits = state["game"].player.credit
             # bandit choices
             if "pay_bandit" in request.form:
@@ -374,25 +373,21 @@ def encounter():
             # trader choices
             if "buy_trader" in request.form:
                 if state["game"].player.attempt_buy(state["npc"]["item"], 1) == "Success":
-                    state["second_test"] = True
                     state["negotiated"] = False
                     state["choice_result"] = (
                         "You bought a " + state["npc"]["item"].name + "."
                     )
                 else:
-                    state["disabled"] = False
-                    state["second_test"] = False
+                    state["end_encounter"] = False
                     state["choice_result"] = state["game"].player.attempt_buy(state["npc"]["item"], 1)
                 return state["choice_result"]
 
             if "ignore_trader" in request.form:
-                state["second_test"] = True
                 state["negotiated"] = False
                 state["choice_result"] = "You chose to ignore the Trader."
                 return state["choice_result"]
 
             if "rob_trader" in request.form:
-                state["second_test"] = True
                 state["negotiated"] = False
                 result = utility.rob_trader(state["game"].player, state["npc"])
                 if result == 1:
@@ -410,8 +405,7 @@ def encounter():
                 return state["choice_result"]
 
             if "negotiate_trader" in request.form:
-                state["disabled"] = False
-                state["second_test"] = False
+                state["end_encounter"] = False
                 if not state["negotiated"]:
                     state["negotiated"] = True
                     if utility.negotiate_trader(state["game"].player, state["npc"]):
@@ -466,7 +460,7 @@ def encounter():
         fighter=utility.get_skill_check(state["game"].player.fighter),
         merchant=utility.get_skill_check(state["game"].player.merchant),
         engineer=utility.get_skill_check(state["game"].player.engineer),
-        second_test=state["second_test"],
+        end_encounter=state["end_encounter"],
         text=state["choice_result"],
         npc=gen_npc,
         game=state["game"],
