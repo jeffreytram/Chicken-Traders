@@ -87,7 +87,7 @@ def confirm():
         state["npc"] = {}
         state["negotiated"] = False
         state["choice_result"] = None
-        state["second_test"] = True
+        state["second_test"] = False
         state["disabled"] = False
         state["end_game"] = None
 
@@ -287,6 +287,7 @@ def encounter():
             state["npc"] = None
             state["choice_result"] = None
             state["disabled"] = False
+            state["second_test"] = False
         elif not state["disabled"]:
             state["disabled"] = True
             curr_credits = state["game"].player.credit
@@ -306,7 +307,7 @@ def encounter():
                     )
                 else:
                     state["choice_result"] = (
-                        "You attempted to pay the bandit without anything to offer!"
+                        "You attempted to pay the bandit without anything to offer! "
                         + "The bandit attacks you out of anger! (-15 health)"
                     )
                 return state["choice_result"]

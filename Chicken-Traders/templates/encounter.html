@@ -5,48 +5,60 @@
 {% block gameContent %}
 <h2>{{npc["name"]}}</h2>
 {% if npc["name"] == "Bandit" %}
-<p>OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
-        credits</strong>!
-</p>
+  <p>
+    OHO <strong>{{game.player.name}}</strong>!!!! I'll let you go, if you give me <strong>{{npc["demand"]}}
+    credits</strong>!
+  </p>
 {% elif npc["name"] == "Trader" %}
-<p><strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
-        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
-    <strong><span id="price">{{npc["item"].b_price}}</span> credits</strong>!</p>
+  <p>
+    <strong>{{game.player.name}}</strong>! I'll sell ya a <img class="item-icon"
+          src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong> for
+    <strong><span id="price">{{npc["item"].b_price}}</span> credits</strong>!
+  </p>
 {% elif npc["name"] == "Police" %}
-<p>STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
-        src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!</p>
+  <p>
+    STOP <strong>{{game.player.name}}</strong>! Hand over the stolen <img class="item-icon"
+          src="../static/item-images/item-icon{{npc.item.id}}.svg"><strong>{{npc["item"].name}}</strong>!
+  </p>
 {% endif %}
 <img height="200" width="auto" src="../static/npc/{{npc.name}}.png">
-<p>What will YOU do!?</p>
+<h2 class="h2">What will you do!?</h2>
 <div class="encounter-grid">
     {% if npc["name"] == "Bandit" %}
-    <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
-    <button class="choice bandit flee" onclick="fleeBandit()">Flee to previous region ({{pilot}}%)</button>
-    <button class="choice bandit fight" onclick="fightBandit()">Fight ({{fighter}}%)</button>
+      <button class="choice bandit pay" onclick="payBandit()">Pay fee</button>
+      <button class="choice bandit flee" onclick="fleeBandit()">Flee to previous region ({{pilot}}%)</button>
+      <button class="choice bandit fight" onclick="fightBandit()">Fight ({{fighter}}%)</button>
     {% elif npc["name"] == "Trader" %}
-    <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
-    <button class="choice trader ignore" onclick="ignoreTrader()">Ignore</button>
-    <button class="choice trader rob" onclick="robTrader()">Rob ({{fighter}}%)</button>
-    <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate ({{merchant}}%)</button>
+      <button class="choice trader buy" onclick="buyTrader()">Buy item</button>
+      <button class="choice trader ignore" onclick="ignoreTrader()">Ignore</button>
+      <button class="choice trader rob" onclick="robTrader()">Rob ({{fighter}}%)</button>
+      <button class="choice trader negotiate" onclick="negotiateTrader()">Negotiate ({{merchant}}%)</button>
     {% elif npc["name"] == "Police" %}
-    <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
-    <button class="choice police flee" onclick="fleePolice()">Flee to previous region ({{pilot}}%)</button>
-    <button class="choice police fight" onclick="fightPolice()">Fight ({{fighter}}%)</button>
+      <button class="choice police forfeit" onclick="forfeitPolice()">Forfeit stolen items</button>
+      <button class="choice police flee" onclick="fleePolice()">Flee to previous region ({{pilot}}%)</button>
+      <button class="choice police fight" onclick="fightPolice()">Fight ({{fighter}}%)</button>
     {% endif %}
 </div>
 <div id="text">
-    {% if text and second_test %}
-    {{text}}
-    <p id="click-continue">
-        <strong>Click anywhere to continue...</strong>
-    </p>
-    {% elif text %}
-    {{text}}
+    {% if text %}
+      {{text}}
     {% endif %}
 </div>
 
 <script type="text/javascript">
+    const promptExitClick = {{second_test|int}};
+    if (promptExitClick) clickReturn();
+
     function clickReturn() {
+        // remove choices
+        const encounterGrid = document.getElementsByClassName('encounter-grid')[0];
+        encounterGrid.remove();
+
+        // add prompt to click
+        document.getElementById('text').innerHTML +=  '<p id="click-continue">' +
+          '<strong>Click anywhere to continue...</strong>' +
+          '</p>';
+
         document.addEventListener("click", function (event) {
             var req = new XMLHttpRequest();
             req.onreadystatechange = function () {
@@ -89,10 +101,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //update credits
                 updateCredits();
                 //add click event listener to return home
@@ -109,10 +118,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //update credits
                 updateCredits();
                 //update health
@@ -131,10 +137,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //update credits
                 updateCredits();
                 //add click event listener to return home
@@ -151,10 +154,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML = resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML = resultMessage;
                 //update credits
                 updateCredits();
                 //add click event listener to return home
@@ -171,10 +171,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML = resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML = resultMessage;
                 //add click event listener to return home
                 clickReturn();
             }
@@ -189,10 +186,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML = resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML = resultMessage;
                 //update health
                 updateHealth();
                 //add click event listener to return home
@@ -232,10 +226,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //add click event listener to return home
                 clickReturn();
             }
@@ -250,10 +241,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //update health
                 updateHealth();
                 //update credits
@@ -272,10 +260,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //display result message
                 let resultMessage = this.responseText;
-                document.getElementById("text").innerHTML += resultMessage +
-                    '<p id="click-continue">' +
-                    '<strong>Click anywhere to continue...</strong>' +
-                    '</p>';
+                document.getElementById("text").innerHTML += resultMessage;
                 //add click event listener to return home
                 clickReturn();
             }
@@ -284,5 +269,12 @@
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         req.send("fight_police=");
     }
-</script>
+
+    const buttons = document.getElementsByClassName('choice');
+    Array.from(buttons).forEach(button => {
+      button.addEventListener('click', () => {
+        document.getElementById('text').style.display = 'block';
+      });
+    });
+  </script>
 {% endblock %}

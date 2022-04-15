@@ -501,7 +501,7 @@
   align-self: center;
 }
 
-.progress:disabled {
+button:disabled {
   animation: none;
   color: #ffffff;
   background-color: rgb(150, 150, 150);
@@ -581,7 +581,7 @@ div.tooltip {
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template: repeat(2, minmax(auto, 1fr)) / repeat(2, minmax(auto, 1fr));
+  grid-template: repeat(2, minmax(50px, 1fr)) / repeat(2, minmax(auto, 1fr));
 }
 
 .choice {
@@ -589,9 +589,10 @@ div.tooltip {
 }
 
 #text {
+  display: none;
+  margin: 20px auto;
   border: 2px solid rgba(30, 30, 30);
   border-radius: var(--br-xsmall);
-  margin: 20px auto;
   padding: 10px;
 }
 

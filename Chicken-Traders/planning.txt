@@ -335,8 +335,11 @@ win display bug
 - possibly something in the req open
 - if no return value, this.responseText is the page html code?
 
-player can go navigate to different page by pressing back or
-typing in link to avoid lose 
+add check while in encounter
+- if visiting different page while in encounter, redirect to encounter
+
+add check while in end screen page
+- if visiting different page while in lose/win state, redirect to end page
 
 
 

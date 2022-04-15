@@ -31,7 +31,7 @@ class SPForm(FlaskForm):
             return False
         if (self.pilot.data + self.fighter.data + self.merchant.data + self.engineer.data) <= self.sp_limit:
             return True
-        self.enginer.errors.append("Total skillpoints cannot be over " +str(self.sp_limit)+".")
+        self.engineer.errors.append("Total skillpoints cannot be over " +str(self.sp_limit)+".")
         return False
 
 
