@@ -1,7 +1,6 @@
 {% extends 'game-layout.html' %}
 
-{% set hideInfo = true %}
-{% set hideNav = true %}
+{% set setup = true %}
 
 {% block gameContent %}
 <div>
@@ -39,6 +38,6 @@
   <p>Be wary of the dangers lurking beyond the comfort of the farms and the uncertainty of the market!</p>
   <p><strong>Be safe out there, young one!</strong></p>
   <br/>
-  <button id="start" onclick="location.href = 'travel'">START</button>
+  <button id="start" class="filled-button" onclick="location.href = 'travel'">START</button>
 </div>
 {% endblock %}

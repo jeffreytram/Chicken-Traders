@@ -30,27 +30,33 @@ a:link, a:visited {
 
 .h1 {
   font-weight: 400;
-  font-size: 25px;
+  font-size: 28px;
   margin-bottom: 1em;
 }
 
 .h2 {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .h3 {
-  font-weight: bold;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 18px;
   margin: 1em 0;
 }
 
 button, .button {
-  border-color: rgb(30, 30, 30);
-  color: #ffffff;
-  background-color: rgb(30, 30, 30);
-  padding: .5em 1.5em;
+  border: 2px solid lightgray;
   border-radius: var(--br-small);
+  color: black;
+  background-color: white;
+  padding: .5em 1.5em;
+}
+
+.filled-button {
+  color: white;
+  border: 2px solid steelblue;
+  background-color: steelblue;
   font-weight: bold;
 }
 
@@ -64,8 +70,16 @@ input {
 }
 
 .active, button:hover, .button:hover, button:focus, .button:focus {
-  color: rgb(30, 30, 30);
-  background-color: #ffffff;
+  color: white;
+  background-color: steelblue;
+  border: 2px solid steelblue;
+  font-weight: 500;
+}
+
+.filled-button:hover, .filled-button:focus {
+  color: steelblue;
+  background: white;
+  border: 2px solid steelblue;
 }
 
 .error {

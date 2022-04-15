@@ -3,6 +3,7 @@
 {% set pageName = 'Collection' %}
 
 {% block gameContent %}
+<h3 class="h3" id="header"></h3>
 <p>Collect all items in a category for a reward!</p>
 {% for category in game.player.collection.category %}
 <div class="collection-grid">
@@ -27,7 +28,7 @@
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("credits").innerHTML = "<strong>" + this.responseText + "</strong>"
+                document.getElementById("credits").innerHTML = this.responseText;
             }
         };
         req.open('POST', '/collection', true);

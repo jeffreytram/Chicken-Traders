@@ -5,9 +5,19 @@
 {% block gameContent %}
 <!-- top bar UI -->
 <div class="travel-info-container">
-    <h3 id="time-info"><img id="time" class="item-icon">Day: {{game.day}} Time: {{game.time}}:00</h3>
-    <div id="time-effect"></div>
-    <h2 id="current-info">Region: {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
+    <p id="time-info"><img id="time" class="item-icon small-icon">Day {{game.day}}, {{game.time}}:00</p>
+    <div id="time-effect">
+      {% if game.time >= 9 and game.time <= 18 %}
+        <img id="time" class="item-icon small-icon" src="../static/item-images/icon-day.svg">
+        Day: Trader <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>, 
+        Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>
+      {% else %}
+        <img id="time" class="item-icon small-icon" src="../static/item-images/icon-night.svg">
+        Night: Trader <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>,
+        Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>
+      {% endif %}
+    </div>
+    <h2 class="h2" id="current-info">Region {{currRegion.name}} - {{currRegion.tech_level.name}}</h2>
 </div>
 {% if fuel_error == 3 %}
 <h3 class="error">Not enough fuel!</h3>
@@ -35,7 +45,7 @@
     </div>
 </div>
 <div class="news">
-    <h2><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
+    <h2 class="h2"><img class='item-icon' src='../static/item-images/icon-news.svg'>Recent News</h2>
     {% if game.news %}
     <ul>
         {% for event in game.news%}
@@ -155,15 +165,7 @@
     {% endfor %}
 
     //check if day/night- day if 9-18, night if 21-6
-    if ({{ game.time }} >= 9 && {{ game.time }} <= 18) {
-        document.getElementById("time").src = "../static/item-images/icon-day.svg";
-        url = '../static/map-day.png';
-        document.getElementById("time-effect").innerHTML = "Day Time: Trader <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>, Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>";
-    } else {
-        document.getElementById("time").src = "../static/item-images/icon-night.svg";
-        url = '../static/map-night.png';
-        document.getElementById("time-effect").innerHTML = "Night Time: Trader <img class='item-icon small-icon' src='../static/item-images/icon-down.svg'>, Bandit and Police <img class='item-icon small-icon' src='../static/item-images/icon-up.svg'>";
-    }
+    let url = ({{ game.time }} >= 9 && {{ game.time }} <= 18) ? '../static/map-day.png': '../static/map-night.png';
 
     //bounds for image
     var southWest = map.unproject([-672 * 2, -378 * 2], map.getMaxZoom() - 1);
