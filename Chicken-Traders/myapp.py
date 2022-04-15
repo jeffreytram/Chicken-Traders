@@ -111,11 +111,13 @@ def confirm():
 def lore():
     return render_template("lore.html", game=state["game"])
 
-
 # travel page
 @app.route("/travel", methods=["GET", "POST"])
 def travel():
     utility.update_all_travel_cost(state["game"], state["currRegion"])
+    # redirect if user trying to avoid
+    if state["end_game"]:
+        return redirect(url_for("end"))
     if state["npc"]:
         return redirect(url_for("encounter"))
     if request.method == "POST":
@@ -167,6 +169,11 @@ def travel():
 # market page
 @app.route("/market", methods=["GET", "POST"])
 def market():
+    # redirect if user trying to avoid
+    if state["end_game"]:
+        return redirect(url_for("end"))
+    if state["npc"]:
+        return redirect(url_for("encounter"))
     if state["game"].player.win:
         state["end_game"] = "WIN"
         return redirect(url_for("end"))
@@ -226,11 +233,21 @@ def market():
 # ship page
 @app.route("/ship", methods=["GET", "POST"])
 def ship():
+    # redirect if user trying to avoid
+    if state["end_game"]:
+        return redirect(url_for("end"))
+    if state["npc"]:
+        return redirect(url_for("encounter"))
     return render_template("ship.html", game=state["game"])
 
 # collection page
 @app.route("/collection", methods=["GET", "POST"])
 def collection():
+    # redirect if user trying to avoid
+    if state["end_game"]:
+        return redirect(url_for("end"))
+    if state["npc"]:
+        return redirect(url_for("encounter"))
     if request.method == "POST":
         if "addCredits" in request.form:
             category = request.form["addCredits"]
@@ -246,6 +263,11 @@ def collection():
 # stats page
 @app.route("/stats", methods=["GET", "POST"])
 def stats():
+    # redirect if user trying to avoid
+    if state["end_game"]:
+        return redirect(url_for("end"))
+    if state["npc"]:
+        return redirect(url_for("encounter"))
     processed_transaction_history = []
     for entry in state["game"].player.transaction_history:
         processed_transaction_history.append(json.dumps(entry.__dict__))
@@ -259,6 +281,11 @@ def stats():
 # end page
 @app.route("/end", methods=["GET", "POST"])
 def end():
+    # redirect if user trying to cheat
+    if not state["end_game"]:
+        if state["npc"]:
+            return redirect(url_for("encounter"))
+        return redirect(url_for("travel"))
     return render_template(
         "end.html",
         end_game=state["end_game"],
