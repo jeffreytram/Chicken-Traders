@@ -120,7 +120,7 @@
     <div class="inv-item inv-weight {{item.id}}">
         {{item.size}} lb
     </div>
-    <button class="sellButton filled-button inv-item inv-sell {{item.id}}">Sell for
+    <button class="sellButton inv-item inv-sell {{item.id}} filled-button">Sell for
         {{item.s_price}}</button>
     {% endfor %}
 </div>
@@ -223,7 +223,7 @@
                             '<div class="inv-item inv-weight ' + item.id + '">' +
                             item.size + ' lb' +
                             '</div>' +
-                            '<button class="sellButton inv-item inv-sell ' + item.id + '">Sell for ' +
+                            '<button class="sellButton inv-item inv-sell ' + item.id + ' filled-button">Sell for ' +
                             item.s_price + '</button>';
                     } else {
                         //update item quantity
@@ -307,6 +307,7 @@
     let invGridUl = document.getElementsByClassName("inv-grid");
     invGridUl[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("sellButton")) {
+            console.log(event.target.classList);
             sellItem(event.target.classList[3]);
         }
     })
