@@ -507,6 +507,7 @@
   background-color: rgb(150, 150, 150);
   border: none;
   cursor: default;
+  pointer-events: none;
 }
 
 /* Stats graph */

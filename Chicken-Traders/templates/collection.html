@@ -13,7 +13,7 @@
         {% if game.player.collection.complete[loop.index - 1] %}
         <button id="{{category}}-progress" class="progress" disabled>COLLECTED</button>
         {% elif game.player.collection.progress[loop.index - 1] == game.player.collection.max[loop.index - 1] %}
-        <button id="{{category}}-progress" class="progress">COLLECT +100</button>
+        <button id="{{category}}-progress" class="progress filled-button">COLLECT +100</button>
         {% else %}
         <button id="{{category}}-progress" class="progress"
             disabled>{{game.player.collection.progress[loop.index - 1]}} /
