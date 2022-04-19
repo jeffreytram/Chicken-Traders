@@ -10,7 +10,9 @@
   --light-gray: lightgray;
   --white: rgb(250, 250, 250);
   --blue: steelblue;
-  --red: red;
+  --light-red: #fff5f5;
+  --red: #A71D31;
+  --green: #5B8C5A;
 }
 
 * {

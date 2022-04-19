@@ -43,21 +43,13 @@
                                 src="../static/item-images/item-icon{{item.id}}.svg">{{item.name}}
                         </div>
                         <div class="item-right">
-                            <strong>{{item.b_price}}</strong>
+                            <img class="item-icon small-icon" src="../static/item-images/icon-credits.svg"><strong>{{item.b_price}}</strong>
                         </div>
                     </li>
                     {% endfor %}
                 </ul>
             </div>
-            <div class="grid-item buy">
-                {% if selectedItem %}
-                <p id="purchaseStatement">Purchase for
-                    <strong>{{selectedItem.b_price}}</strong>?</p>
-                {% else %}
-                <p id="purchaseStatement">Choose an item to purchase</p>
-                {% endif %}
-                <button type="button" class="buy-button filled-button" onclick="purchase()">Purchase</button>
-            </div>
+           
             <div class="grid-item description">
                 <h3 class="error">
                     {% if market_error %}
@@ -84,6 +76,15 @@
                     </div>
                 </div>
             </div>
+            <div class="grid-item buy">
+                {% if selectedItem %}
+                <p id="purchaseStatement">Purchase for
+                    <strong>{{selectedItem.b_price}}</strong>?</p>
+                {% else %}
+                <p id="purchaseStatement">Choose an item to purchase</p>
+                {% endif %}
+                <button type="button" class="buy-button" onclick="purchase()">Purchase</button>
+            </div>
         </div>
     </div>
     <button onclick="addFuel()">
@@ -95,7 +96,7 @@
 </div>
 
 <!-- Player Inv -->
-<h4 id="inv-title">Player Inventory: <span id="cargo-size">{{game.player.ship.cargo_size}}</span> /
+<h4 id="inv-title">Your Cargo: <span id="cargo-size">{{game.player.ship.cargo_size}}</span> /
     {{game.player.ship.max_cargo}} lb capacity</h4>
 <div class="inv-grid">
     <div class="inv-item inv-image tableHeader">
@@ -120,8 +121,9 @@
     <div class="inv-item inv-weight {{item.id}}">
         {{item.size}} lb
     </div>
-    <button class="sellButton inv-item inv-sell {{item.id}} filled-button">Sell for
-        {{item.s_price}}</button>
+    <button class="sellButton inv-item inv-sell {{item.id}}">Sell
+        <img class="item-icon small-icon" src="../static/item-images/icon-credits.svg">{{item.s_price}}
+    </button>
     {% endfor %}
 </div>
 <script type="text/javascript">
@@ -212,7 +214,6 @@
                     //if unique, add a new row to inventory with item
                     if (item.amount === 1) {
                         //add a new row
-                        //TODO: code to add new row
                         let inv = document.getElementsByClassName("inv-grid");
                         inv[0].innerHTML += '<div class="inv-item inv-name ' + item.id + '">' +
                             '<img class="item-icon" src="../static/item-images/item-icon' + item.id + '.svg">' + item.name +
@@ -223,7 +224,8 @@
                             '<div class="inv-item inv-weight ' + item.id + '">' +
                             item.size + ' lb' +
                             '</div>' +
-                            '<button class="sellButton inv-item inv-sell ' + item.id + ' filled-button">Sell for ' +
+                            '<button class="sellButton inv-item inv-sell ' + item.id + '">Sell' +
+                            '<img class="item-icon small-icon" src="../static/item-images/icon-credits.svg">' +
                             item.s_price + '</button>';
                     } else {
                         //update item quantity

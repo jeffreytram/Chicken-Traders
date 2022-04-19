@@ -298,7 +298,7 @@
   margin: auto;
   margin-bottom: 25px;
   display: grid;
-  grid-template: repeat(9, auto) / minmax(auto, calc(80px + 2vw)) repeat(5, auto);
+  grid-template: repeat(9, auto) / minmax(auto, calc(80px + 2vw)) repeat(5, 1fr);
   border: 8px solid var(--gray);
   border-radius: var(--br-xsmall);
 }
@@ -311,7 +311,7 @@
 
 .grid-container .shop>#itemUl {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(calc(150px + 5vw), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(calc(130px + 7vw), 1fr));
 }
 
 #itemUl {
@@ -324,14 +324,13 @@
 }
 
 .grid-container .buy {
-  grid-column: 1/2;
+  grid-column: -2/-1;
   grid-row: -2/-1;
-  border-right: 4px solid var(--gray);
   border-top: 4px solid var(--gray);
 }
 
 .grid-container .description {
-  grid-column: 2/-1;
+  grid-column: 1/-2;
   grid-row: -2/-1;
   border-top: 4px solid var(--gray);
 }
@@ -384,23 +383,25 @@
 }
 
 .item-right {
+  display: flex;
+  align-items: center;
   pointer-events: none;
-}
-
-.sellButton {
-  padding: 2px 4px;
-  border-radius: 0;
-}
-
-.sellButton:hover {
-  animation: none;
 }
 
 .buy-button {
   width: 100%;
-  padding: 2px 10px;
-  border-radius: 5px;
+  max-width: 120px;
+  padding: 4px 8px;
   box-sizing: border-box;
+  background-color: var(--green);
+  color: var(--white);
+  border: 1px solid var(--green);
+}
+
+.buy-button:hover {
+  background-color: var(--white);
+  color: var(--green);
+  border: 1px solid var(--green);
 }
 
 /* market player inv css */
@@ -408,7 +409,7 @@
 .inv-grid {
   width: 100%;
   display: grid;
-  grid-template: repeat(4, minmax(auto, 1fr)) / repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 50px)) minmax(50px, 100px);
+  grid-template-columns: repeat(3, minmax(50px, auto)) repeat(2, minmax(auto, 50px)) minmax(50px, 80px);
   text-align: left;
 }
 
@@ -416,6 +417,7 @@
   border: 1px solid var(--light-gray);
   display: flex;
   align-items: center;
+  padding: 1px 0;
 }
 
 .inv-item:nth-child(4n+1) {
@@ -427,6 +429,24 @@
   color: var(--black);
   font-weight: bold;
   padding: 4px 10px;
+}
+
+.sellButton {
+  padding: 2px 4px;
+  border-radius: 0;
+  border: 1px solid var(--red);
+  background-color: var(--light-red);
+  color: var(--red);
+}
+
+.sellButton:hover {
+  background-color: var(--red);
+  color: var(--white);
+  border: 1px solid var(--red);
+}
+
+.sellButton > img {
+  pointer-events: none;
 }
 
 /* SHIP menu style */
@@ -513,7 +533,7 @@
 button:disabled {
   animation: none;
   color: var(--black);
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   border: none;
   cursor: default;
   pointer-events: none;
