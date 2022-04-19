@@ -297,6 +297,8 @@ TODO:
     - illegal goods
         - harsher punishment from police
         - greater profit margin 
+    - black market 'region' will spawn at a random location at night time
+      - when within certain range, you can see it on map
 [] starting items - mom's lucky watch - desparate times call for desparate measures
 [] losing condition
     - not enough fuel to travel anywhere, not enough money to buy fuel
@@ -329,17 +331,20 @@ TODO:
 [] forecasting future
 - pay to learn about potential future events
 - more you pay, higher probability of it happening
+[] keyboard shortcuts
+- buying items
+- navigating to the different tabs
+  - travel, market, ship, collection, stats
+- encounter
+  - choosing options
+  - pressing any key to continue
+[] audio feedback when buying/selling
+- tiny pop up indicating resource use/gain, item sell/gain, money
 
 
 win display bug
 - possibly something in the req open
 - if no return value, this.responseText is the page html code?
-
-add check while in encounter
-- if visiting different page while in encounter, redirect to encounter
-
-add check while in end screen page
-- if visiting different page while in lose/win state, redirect to end page
 
 
 

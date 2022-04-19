@@ -2,7 +2,8 @@
   --br-xsmall: 5px;
   --br-small: 10px;
   --br-med: 15px;
-  --icon-reg: 24px;
+  --icon-large: 32px;
+  --icon-med: 24px;
   --icon-small: 16px;
   --black: rgb(30, 30, 30);
   --gray: rgb(180, 180, 180);
@@ -53,7 +54,7 @@ a:link, a:visited {
 
 button, .button {
   border: 2px solid var(--light-gray);
-  border-radius: var(--br-small);
+  border-radius: var(--br-xsmall);
   color: var(--black);
   background-color: var(--white);
   padding: .5em 1.5em;
@@ -98,7 +99,11 @@ button:hover, .button:hover, button:focus, .button:focus {
 
 .item-icon {
   vertical-align: middle;
-  height: var(--icon-reg);
+  height: var(--icon-med);
+}
+
+.large-icon {
+  height: var(--icon-large);
 }
 
 .small-icon {

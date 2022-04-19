@@ -47,7 +47,7 @@
 
     {% for item in all_items %}
         {% if item.name in game.player.collection.item_set %}
-            {{ item.category }}.innerHTML += "<img class='item-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
+            {{ item.category }}.innerHTML += "<img class='item-icon large-icon' src='../static/item-images/item-icon{{item.id}}.svg'>";
         {% else %}
             {{ item.category }}.innerHTML += "<img class='item-icon' src='../static/item-images/icon-unknown.svg'>";
         {% endif %}
