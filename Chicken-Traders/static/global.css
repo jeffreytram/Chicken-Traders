@@ -4,6 +4,12 @@
   --br-med: 15px;
   --icon-reg: 24px;
   --icon-small: 16px;
+  --black: rgb(30, 30, 30);
+  --gray: rgb(180, 180, 180);
+  --light-gray: lightgray;
+  --white: rgb(250, 250, 250);
+  --blue: steelblue;
+  --red: red;
 }
 
 * {
@@ -46,17 +52,17 @@ a:link, a:visited {
 }
 
 button, .button {
-  border: 2px solid lightgray;
+  border: 2px solid var(--light-gray);
   border-radius: var(--br-small);
-  color: black;
-  background-color: white;
+  color: var(--black);
+  background-color: var(--white);
   padding: .5em 1.5em;
 }
 
 .filled-button {
-  color: white;
-  border: 2px solid steelblue;
-  background-color: steelblue;
+  color: var(--white);
+  border: 2px solid var(--blue);
+  background-color: var(--blue);
   font-weight: bold;
 }
 
@@ -70,25 +76,24 @@ input {
 }
 
 .active, button:hover, .button:hover, button:focus, .button:focus {
-  color: white;
-  background-color: steelblue;
-  border: 2px solid steelblue;
+  color: var(--white);
+  background-color: var(--blue);
+  border: 2px solid var(--blue);
   font-weight: 500;
 }
 
 .filled-button:hover, .filled-button:focus {
-  color: steelblue;
-  background: white;
-  border: 2px solid steelblue;
+  color: var(--blue);
+  background: var(--white);
+  border: 2px solid var(--blue);
 }
 
 .error {
-  color: red;
+  color: var(--red);
 }
 
 button:hover, .button:hover, button:focus, .button:focus {
   cursor: pointer;
-  animation: .6s infinite normal start-wiggle
 }
 
 .item-icon {
