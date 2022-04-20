@@ -92,6 +92,11 @@
   z-index: 2;
 }
 
+#name {
+  width: 100%;
+  max-width: 300px;
+}
+
 /* Skillpoints page style*/
 
 .description {
@@ -117,7 +122,7 @@
 }
 
 .sp-input>input {
-  width: 20px;
+  width: 35px;
   text-align: center;
 }
 
